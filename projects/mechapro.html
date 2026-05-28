@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>MechaPro — high-ticket B2B e-commerce for auto equipment — Jestaz Yao</title>
+<meta name="description" content="A high-ticket B2B e-commerce experience for automotive shop equipment — product architecture, buyer decision flows, configurator UX, and bundle strategy. $38K+ revenue in 30 days, $9.7K average order value." />
+<meta name="theme-color" content="#08080A" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/styles.css" />
+<style>
+  .principle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 18px; }
+  .principle { border: 1px solid var(--line); background: var(--bg-2); border-radius: 6px; padding: 24px; }
+  .principle .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--gold); }
+  .principle h4 { font-family: var(--display); font-size: 22px; font-weight: 500; margin: 6px 0 10px; letter-spacing: -.015em; }
+  .principle p { font-size: 14px; line-height: 1.55; color: var(--text-2); margin: 0; }
+
+  .cat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 18px; }
+  .cat {
+    border: 1px solid var(--line); background: var(--bg-2);
+    border-radius: 4px; padding: 14px 12px;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--text); letter-spacing: .02em;
+  }
+  .cat .n { font-size: 9px; color: var(--gold); letter-spacing: .12em; display: block; margin-bottom: 4px; }
+
+  .path-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 24px;
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+  .path-row .path-lbl { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--gold); }
+  .path-row h4 { font-family: var(--display); font-size: 22px; font-weight: 500; margin-bottom: 8px; letter-spacing: -.015em; }
+  .path-row p { font-size: 14.5px; line-height: 1.6; color: var(--text-2); margin-bottom: 8px; }
+  .path-row .flow { font-family: var(--mono); font-size: 11.5px; color: var(--text); padding: 10px 14px; background: rgba(212,184,106,.06); border-left: 2px solid var(--gold); margin-top: 10px; letter-spacing: .02em; }
+
+  .hierarchy { counter-reset: hierstep; margin-top: 18px; }
+  .hier-item {
+    display: grid; grid-template-columns: 44px 1fr;
+    padding: 14px 0; border-top: 1px solid var(--line);
+    align-items: baseline; gap: 16px;
+  }
+  .hier-item::before {
+    counter-increment: hierstep;
+    content: "Q" counter(hierstep, decimal-leading-zero);
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: .12em; color: var(--gold);
+  }
+  .hier-item .q { font-family: var(--display); font-size: 17px; font-weight: 500; color: var(--text); letter-spacing: -.015em; line-height: 1.3; }
+  .hier-item .a { font-family: var(--mono); font-size: 11.5px; color: var(--text-2); letter-spacing: .02em; }
+
+  .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 18px; }
+  .trust {
+    border: 1px solid var(--line); background: var(--bg-2);
+    border-radius: 4px; padding: 16px 14px;
+  }
+  .trust .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--gold); display: block; margin-bottom: 4px; }
+  .trust h4 { font-family: var(--display); font-size: 14px; font-weight: 500; margin-bottom: 4px; color: var(--text); letter-spacing: -.01em; }
+  .trust p { font-size: 12px; line-height: 1.5; color: var(--text-2); margin: 0; }
+
+  @media (max-width: 900px) {
+    .principle-grid { grid-template-columns: 1fr; }
+    .cat-grid { grid-template-columns: 1fr 1fr; }
+    .path-row { grid-template-columns: 1fr; gap: 10px; }
+    .trust-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body class="project-page">
+
+<script src="../js/main.js" defer></script>
+
+<nav class="proj-nav">
+  <a class="proj-nav__brand" href="../index.html">Jestaz<span class="dot"></span></a>
+  <div class="proj-nav__links">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#selected" data-jump="#selected">Works</a>
+    <a href="../index.html#about" data-jump="#about">About</a>
+    <a href="mailto:yxhzdm@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<div class="dotgrid"></div>
+<div class="vignette"></div>
+
+<header class="proj-hero">
+  <div class="proj-hero__eyebrow">
+    <span class="swatch"></span>
+    <span>[ SELECTED · B2B · E-COMMERCE · 2026 ]</span>
+  </div>
+  <h1 class="h-display proj-hero__title">MechaPro — <span class="sub">a high-ticket B2B e-commerce system for auto equipment.</span></h1>
+  <p class="proj-hero__sub">A B2B e-commerce platform for professional automotive shop equipment — vehicle lifts, wheel aligners, tire changers, spray booths, full-shop bundles. I designed the product architecture, buyer decision flows, product-page hierarchy, and configurator UX to turn a complex technical catalog into a structured buying experience. <strong>$38K+ revenue in 30 days · $9.7K average order value.</strong></p>
+
+  <div style="display:flex; gap:24px; flex-wrap:wrap; margin-top:8px;">
+    <a class="featured__link" href="https://www.mechaproautoequipment.com/" target="_blank" rel="noopener" data-magnet="0.12">Visit the live site →</a>
+  </div>
+</header>
+
+<section class="proj-meta">
+  <div class="proj-meta__cell"><span class="k">→ ROLE</span><span class="v">UX/UI designer · product architecture · e-commerce strategy.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ INDUSTRY</span><span class="v">Automotive equipment · B2B e-commerce. High-ticket purchases.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ PLATFORM</span><span class="v">Responsive e-commerce site with checkout + sales-assisted paths.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ IMPACT</span><span class="v"><span style="color:var(--gold);">$38K+</span> revenue · 30 days · <span style="color:var(--gold);">$9.7K</span> AOV.</span></div>
+</section>
+
+<div class="proj-section">
+  <div class="proj-stats" style="grid-template-columns: repeat(4, 1fr);">
+    <div class="proj-stat"><div class="v">$38K+</div><div class="k">revenue · first 30 days</div></div>
+    <div class="proj-stat"><div class="v">$9.7K</div><div class="k">average order value</div></div>
+    <div class="proj-stat"><div class="v">10+</div><div class="k">equipment categories</div></div>
+    <div class="proj-stat"><div class="v">3</div><div class="k">buyer decision paths</div></div>
+  </div>
+</div>
+
+<div class="proj-section">
+  <div class="media-full is-light" style="padding: 18px;">
+    <img src="../B2B/mechapro-hero.jpg" alt="MechaPro homepage hero — Professional Auto Service & Bodywork Equipment, with real workshop photo showing red vehicle lifts" style="width:100%; display:block; border-radius:4px;"/>
+  </div>
+  <div class="figcap" style="text-align:center; margin-top:10px; font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--mute); text-transform:uppercase;">FIG. 01 — Homepage hero · navbar, value prop, trust pills · live at mechaproautoequipment.com</div>
+</div>
+<!-- (legacy SVG hero retired in favor of real screenshot) -->
+<div style="display:none;">
+    <svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:900px; height:auto; margin:0 auto; display:block;">
+      <defs>
+        <style>
+          .mp-frame { fill: #FFFFFF; stroke: rgba(0,0,0,.15); stroke-width: 1; }
+          .mp-nav-dark { fill: #1A1A20; }
+          .mp-nav-navy { fill: #0E2842; }
+          .mp-red { fill: #DA2526; }
+          .mp-card { fill: #F2EDE3; stroke: rgba(0,0,0,.08); stroke-width: 1; }
+          .mp-h1 { font-family: 'Geist', sans-serif; font-weight: 700; fill: #0F0F0F; letter-spacing: -.02em; }
+          .mp-lbl { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: .08em; fill: #7A736A; text-transform: uppercase; }
+          .mp-price { font-family: 'Geist Mono', monospace; fill: #DA2526; font-weight: 500; }
+          .mp-strike { stroke: #7A736A; stroke-width: 1; }
+          .mp-tx-w { fill: #FFFFFF; font-family: 'Geist', sans-serif; }
+          .mp-tx-w-mono { fill: #FFFFFF; font-family: 'Geist Mono', monospace; }
+        </style>
+      </defs>
+
+      <!-- Browser chrome -->
+      <rect class="mp-frame" x="20" y="20" width="860" height="500" rx="6"/>
+      <line x1="20" y1="44" x2="880" y2="44" stroke="#0F0F0F" stroke-opacity=".15"/>
+      <circle cx="38" cy="32" r="3" fill="#E6C7BD"/>
+      <circle cx="50" cy="32" r="3" fill="#EFD89A"/>
+      <circle cx="62" cy="32" r="3" fill="#C9D4B6"/>
+      <rect x="120" y="26" width="320" height="12" rx="6" fill="#0F0F0F" opacity=".05"/>
+      <text x="132" y="35" font-family="Geist Mono, monospace" font-size="8" fill="#7A736A">mechaproautoequipment.com</text>
+
+      <!-- Top navy nav bar -->
+      <rect class="mp-nav-navy" x="20" y="44" width="860" height="32"/>
+      <rect x="32" y="50" width="20" height="20" fill="#DA2526" rx="2"/>
+      <text x="62" y="63" class="mp-tx-w" font-weight="600" font-size="13">MechaPro</text>
+      <text x="180" y="64" class="mp-tx-w" font-size="11" opacity=".85">Category ▾</text>
+      <text x="262" y="64" class="mp-tx-w" font-size="11" opacity=".85">About Us</text>
+      <text x="328" y="64" class="mp-tx-w" font-size="11" opacity=".85">Contact Us</text>
+      <text x="406" y="64" class="mp-tx-w" font-size="11" opacity=".85">Cart</text>
+      <rect x="600" y="51" width="220" height="18" rx="9" fill="#FFFFFF"/>
+      <rect x="780" y="51" width="40" height="18" rx="9" fill="#0F0F0F"/>
+      <text x="800" y="64" class="mp-tx-w" font-size="9" text-anchor="middle">Search</text>
+
+      <!-- Hero text -->
+      <text x="40" y="120" class="mp-h1" font-size="26">Professional Auto</text>
+      <text x="40" y="150" class="mp-h1" font-size="26">Service &amp; <tspan fill="#DA2526">Bodywork</tspan></text>
+      <text x="40" y="180" class="mp-h1" font-size="26"><tspan fill="#DA2526">Equipment!</tspan></text>
+      <text x="40" y="208" font-family="Geist, sans-serif" font-size="11" fill="#0F0F0F" opacity=".7">Built for shop owners. Trusted manufacturing. US warranty &amp; support.</text>
+
+      <!-- Red CTAs -->
+      <rect x="40" y="226" width="120" height="32" rx="16" class="mp-red"/>
+      <text x="100" y="246" class="mp-tx-w" font-weight="500" font-size="12" text-anchor="middle">Shop now</text>
+      <rect x="170" y="226" width="120" height="32" rx="16" fill="none" stroke="#DA2526" stroke-width="1.5"/>
+      <text x="230" y="246" font-family="Geist, sans-serif" font-weight="500" font-size="12" fill="#DA2526" text-anchor="middle">Contact Sales</text>
+
+      <!-- Trust pills -->
+      <g>
+        <rect x="40" y="278" width="120" height="48" rx="3" fill="#F2EDE3" stroke="rgba(0,0,0,.08)"/>
+        <text x="100" y="296" font-family="Geist, sans-serif" font-weight="600" font-size="10" fill="#0F0F0F" text-anchor="middle">Free Shipping</text>
+        <text x="100" y="310" font-family="Geist Mono, monospace" font-size="7" fill="#7A736A" text-anchor="middle">LOWER 48 STATES</text>
+        <text x="100" y="320" font-family="Geist Mono, monospace" font-size="7" fill="#DA2526" text-anchor="middle">SHIPPING POLICY</text>
+      </g>
+      <g>
+        <rect x="170" y="278" width="120" height="48" rx="3" fill="#F2EDE3" stroke="rgba(0,0,0,.08)"/>
+        <text x="230" y="296" font-family="Geist, sans-serif" font-weight="600" font-size="10" fill="#0F0F0F" text-anchor="middle">US Based</text>
+        <text x="230" y="310" font-family="Geist Mono, monospace" font-size="7" fill="#7A736A" text-anchor="middle">OWNED · SUPPORT</text>
+      </g>
+      <g>
+        <rect x="300" y="278" width="120" height="48" rx="3" fill="#F2EDE3" stroke="rgba(0,0,0,.08)"/>
+        <text x="360" y="296" font-family="Geist, sans-serif" font-weight="600" font-size="10" fill="#0F0F0F" text-anchor="middle">Warranty</text>
+        <text x="360" y="310" font-family="Geist Mono, monospace" font-size="7" fill="#7A736A" text-anchor="middle">2+ YEARS</text>
+        <text x="360" y="320" font-family="Geist Mono, monospace" font-size="7" fill="#7A736A" text-anchor="middle">EXTENDABLE</text>
+      </g>
+
+      <!-- Right side: hero image placeholder -->
+      <rect x="460" y="100" width="400" height="220" rx="4" fill="#1A1A20"/>
+      <rect x="475" y="115" width="370" height="190" fill="#26262C"/>
+      <text x="660" y="220" font-family="Geist Mono, monospace" font-size="10" letter-spacing="2" fill="#FFFFFF" opacity=".5" text-anchor="middle">SHOP HERO IMAGE</text>
+
+      <!-- Special offers strip -->
+      <text x="40" y="362" font-family="Geist, sans-serif" font-weight="600" font-size="14" fill="#0F0F0F">Special Offers</text>
+      <rect x="142" y="350" width="68" height="14" rx="7" class="mp-red"/>
+      <text x="176" y="361" class="mp-tx-w" font-size="9" text-anchor="middle">Limited Time</text>
+      <text x="40" y="378" font-family="Geist Mono, monospace" font-size="9" fill="#7A736A">Grab the deals before they go.</text>
+
+      <!-- Product cards -->
+      <g>
+        <rect x="40" y="392" width="195" height="118" rx="4" fill="#FFFFFF" stroke="rgba(0,0,0,.1)"/>
+        <rect x="50" y="402" width="40" height="14" rx="2" class="mp-red"/>
+        <text x="70" y="412" class="mp-tx-w-mono" font-size="7" text-anchor="middle">FEATURED</text>
+        <rect x="58" y="424" width="158" height="58" rx="2" fill="#F2EDE3"/>
+        <text x="137" y="458" class="mp-lbl" text-anchor="middle">3D WHEEL ALIGNER</text>
+        <text x="50" y="494" class="mp-price" font-weight="700" font-size="14">$10,030</text>
+        <text x="50" y="506" font-family="Geist Mono, monospace" font-size="7" fill="#7A736A">ADDITIONAL 10% OFF $49K+</text>
+      </g>
+      <g>
+        <rect x="245" y="392" width="195" height="118" rx="4" fill="#FFFFFF" stroke="rgba(0,0,0,.1)"/>
+        <rect x="255" y="402" width="40" height="14" rx="2" class="mp-red"/>
+        <text x="275" y="412" class="mp-tx-w-mono" font-size="7" text-anchor="middle">FEATURED</text>
+        <rect x="263" y="424" width="158" height="58" rx="2" fill="#FCE5E5"/>
+        <text x="342" y="458" class="mp-lbl" text-anchor="middle">TIRE BALANCER + CHANGER</text>
+        <text x="255" y="494" class="mp-price" font-weight="700" font-size="14">$8,388</text>
+      </g>
+      <g>
+        <rect x="450" y="392" width="195" height="118" rx="4" fill="#FFFFFF" stroke="rgba(0,0,0,.1)"/>
+        <rect x="460" y="402" width="56" height="14" rx="2" class="mp-red"/>
+        <text x="488" y="412" class="mp-tx-w-mono" font-size="7" text-anchor="middle">COMBO SAVING</text>
+        <rect x="468" y="424" width="158" height="58" rx="2" fill="#E6EFD8"/>
+        <text x="547" y="458" class="mp-lbl" text-anchor="middle">4-POST LIFT + ALIGNMENT</text>
+        <g>
+          <text x="460" y="494" class="mp-price" font-weight="700" font-size="11" fill="#7A736A">$19,666</text>
+          <line x1="460" y1="490" x2="510" y2="490" class="mp-strike"/>
+          <text x="516" y="494" class="mp-price" font-weight="700" font-size="14">From $15,999</text>
+        </g>
+      </g>
+      <g>
+        <rect x="655" y="392" width="195" height="118" rx="4" fill="#FFFFFF" stroke="rgba(0,0,0,.1)"/>
+        <rect x="665" y="402" width="56" height="14" rx="2" class="mp-red"/>
+        <text x="693" y="412" class="mp-tx-w-mono" font-size="7" text-anchor="middle">COMBO SAVING</text>
+        <rect x="673" y="424" width="158" height="58" rx="2" fill="#FFF5D6"/>
+        <text x="752" y="458" class="mp-lbl" text-anchor="middle">PREMIUM WORKSHOP SET</text>
+        <g>
+          <text x="665" y="494" class="mp-price" font-weight="700" font-size="14">$59,999</text>
+          <text x="730" y="494" font-family="Geist Mono, monospace" font-size="11" fill="#7A736A">$87,650</text>
+          <line x1="730" y1="490" x2="790" y2="490" class="mp-strike"/>
+        </g>
+      </g>
+    </svg>
+</div>
+
+<section class="proj-section">
+  <span class="eyebrow">01 / OVERVIEW</span>
+  <h2 class="h-display">A B2B catalog for <em>high-ticket business buyers</em>.</h2>
+  <p class="lede">MechaPro Auto Equipment sells professional automotive shop equipment — vehicle lifts, wheel aligners, tire changers, wheel balancers, spray booths, body repair systems, air compressors, and complete garage equipment packages.</p>
+  <p>Unlike consumer e-commerce, MechaPro's customers are business owners making <strong>high-ticket purchasing decisions</strong>. Many products cost thousands or tens of thousands of dollars. Buyers need to compare technical specifications, understand configurations, evaluate warranty and support, and decide whether to purchase directly or contact sales. I designed the product architecture, decision flows, product page hierarchy, and configurator experience to make complex industrial equipment easier to understand, compare, and purchase.</p>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">02 / THE CHALLENGE</span>
+  <h2 class="h-display">Shop equipment isn't an <em>impulse purchase</em>.</h2>
+  <p class="lede">Customers are evaluating business-critical equipment that has to fit their shop layout, vehicle type, service workflow, installation requirements, budget, and long-term operational needs.</p>
+  <p style="font-style:italic; color:var(--text); border-left:2px solid var(--gold); padding:14px 18px; background:rgba(212,184,106,.05); margin:24px 0;">How might we turn a complex technical product catalog into a <em style="font-style:normal; color:var(--gold);">clear, trustworthy, and conversion-focused</em> B2B buying experience?</p>
+  <p>The site needed to support different types of buyers at the same time: customers who already knew the exact equipment they needed and wanted to compare specifications quickly; buyers opening or upgrading a full shop who needed bundled equipment solutions; and buyers not ready to check out online who needed a clear path to request a quote or contact sales.</p>
+
+  <div class="media-full is-light" style="padding: 18px; margin-top: 28px;">
+    <img src="../B2B/mechapro-products.jpg" alt="MechaPro Special Offers section — four featured product cards with prices ranging from $8,388 to $59,999, combo savings called out" style="width:100%; display:block; border-radius:4px;"/>
+  </div>
+  <div class="figcap" style="text-align:center; margin-top:10px; font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--mute); text-transform:uppercase;">FIG. 02 — Special Offers strip · $8K – $60K SKUs · combo savings + 10%-off-over-$49K stacking</div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">03 / UX STRATEGY</span>
+  <h2 class="h-display">Three principles: <em>clarity, confidence, conversion</em>.</h2>
+
+  <div class="principle-grid">
+    <div class="principle">
+      <div class="lbl">01 · CLARITY</div>
+      <h4>Organize the catalog around real shop needs.</h4>
+      <p>Equipment types and business use cases — not a flat product list. Garage owners think in workflows; the IA matches that.</p>
+    </div>
+    <div class="principle">
+      <div class="lbl">02 · CONFIDENCE</div>
+      <h4>Surface warranty, support, and shipping throughout.</h4>
+      <p>Trust modules sit next to every conversion point. High-ticket buyers don't decide without proof of post-purchase support.</p>
+    </div>
+    <div class="principle">
+      <div class="lbl">03 · CONVERSION</div>
+      <h4>Direct checkout AND sales-assisted paths.</h4>
+      <p>Some buyers want to click "Add to Cart". Others want a custom quote. Both paths are first-class — neither is a fallback.</p>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">04 / PRODUCT ARCHITECTURE</span>
+  <h2 class="h-display">Ten categories. <em>Business-relevant</em>, not generic.</h2>
+  <p>MechaPro's catalog spans a wide range of technical equipment. I structured navigation around how garage owners actually think about their shop — by equipment role, not by SKU type.</p>
+
+  <div class="cat-grid">
+    <div class="cat"><span class="n">/01</span>Sets &amp; Combos</div>
+    <div class="cat"><span class="n">/02</span>Truck &amp; Bus</div>
+    <div class="cat"><span class="n">/03</span>Spray Booths</div>
+    <div class="cat"><span class="n">/04</span>Vehicle Lifts</div>
+    <div class="cat"><span class="n">/05</span>Tire Changers</div>
+    <div class="cat"><span class="n">/06</span>Wheel Balancers</div>
+    <div class="cat"><span class="n">/07</span>Wheel Alignment</div>
+    <div class="cat"><span class="n">/08</span>Body Repair</div>
+    <div class="cat"><span class="n">/09</span>Wheel Repair</div>
+    <div class="cat"><span class="n">/10</span>Air Compressors</div>
+  </div>
+
+  <p style="margin-top:24px;">Instead of presenting the catalog as a generic product grid, the experience guides buyers through equipment categories that match how garage owners and shop operators think about their workflow. <strong>"Sets &amp; Combos" sits first</strong> — because the highest-value buyer is the one building or upgrading an entire shop, not buying a single machine.</p>
+
+  <div class="media-full is-light" style="padding: 18px; margin-top: 28px;">
+    <img src="../B2B/mechapro-categories.jpg" alt="MechaPro Shop by Category section — 8 category cards: Sets & Combos, Truck and Bus, Spray Booth & Room, Vehicle Lift, Tire Changer, Wheel Balancer, Wheel Alignment, Body Repair" style="width:100%; display:block; border-radius:4px;"/>
+  </div>
+  <div class="figcap" style="text-align:center; margin-top:10px; font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--mute); text-transform:uppercase;">FIG. 03 — Shop by Category · sets &amp; combos first · then equipment role · not SKU class</div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">05 / BUYER DECISION FLOWS</span>
+  <h2 class="h-display">Three buyer types. <em>Three different paths</em>.</h2>
+  <p>Same site, three different intents. The shopping experience routes each one without forcing a single funnel.</p>
+
+  <div class="path-row">
+    <span class="path-lbl">PATH 01</span>
+    <div>
+      <h4>The buyer who knows what they need.</h4>
+      <p>Already identified the equipment type. Wants to browse by category, filter products, compare specifications, and move directly to the product page.</p>
+      <div class="flow">CATEGORY → PRODUCT LIST → FILTER BY SPECS → PRODUCT PAGE → ADD TO CART</div>
+    </div>
+  </div>
+
+  <div class="path-row">
+    <span class="path-lbl">PATH 02</span>
+    <div>
+      <h4>The buyer building or upgrading a full shop.</h4>
+      <p>Not looking for one machine. Looking for a complete business setup. For these users, bundled equipment sets and combo packages are the hero — solution-based purchasing, not item-by-item.</p>
+      <div class="flow">SETS &amp; COMBOS → REVIEW PACKAGE VALUE → COMPARE INCLUDED EQUIPMENT → CONTACT SALES <em style="font-style:normal; color:var(--gold);">OR</em> CHECKOUT</div>
+    </div>
+  </div>
+
+  <div class="path-row">
+    <span class="path-lbl">PATH 03</span>
+    <div>
+      <h4>The buyer who needs customization.</h4>
+      <p>Many products require configuration decisions: lift capacity, heating system, wall material, support pattern, equipment quantity. The configurator makes customization visible inside the shopping flow — not buried in a contact form.</p>
+      <div class="flow">PRODUCT PAGE → CONFIGURATION OPTIONS → CONTACT SALES → CUSTOM QUOTE</div>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">06 / PRODUCT PAGE HIERARCHY</span>
+  <h2 class="h-display">Six questions. <em>One layout</em>.</h2>
+  <p>For high-ticket B2B products, the product page has to do more than display images and price. It has to answer the buyer's questions in the right order — same order, every page.</p>
+
+  <div class="hierarchy">
+    <div class="hier-item"><div><div class="q">What is this product?</div><div class="a">Name · SKU · hero image · positioning sentence.</div></div></div>
+    <div class="hier-item"><div><div class="q">How much does it cost?</div><div class="a">Price · discount · combo savings · payment options.</div></div></div>
+    <div class="hier-item"><div><div class="q">What configuration or capacity do I need?</div><div class="a">Configurator with visible options. No hidden modal flows.</div></div></div>
+    <div class="hier-item"><div><div class="q">What are the technical advantages?</div><div class="a">Specs table · key benefits · comparison to similar products.</div></div></div>
+    <div class="hier-item"><div><div class="q">Is it reliable and supported?</div><div class="a">Warranty · US-based support · return policy · installation help.</div></div></div>
+    <div class="hier-item"><div><div class="q">Should I buy now or contact sales?</div><div class="a"><strong style="color:var(--gold);">Both CTAs equal weight.</strong> Add to Cart and Contact Sales side by side — never one as fallback.</div></div></div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">07 / CONFIGURATOR + BUNDLE STRATEGY</span>
+  <h2 class="h-display">Make customization <em>visible</em>. Frame products as <em>shop setups</em>.</h2>
+
+  <div class="proj-points" style="grid-template-columns: 1fr 1fr;">
+    <div class="proj-point">
+      <span class="n">→ CONFIGURATOR UX</span>
+      <h4>Options live inside the shopping flow.</h4>
+      <p>Many products aren't fixed-SKU: lift capacity, heating system, spray booth quantity, wall material, equipment setup. I designed the configurator so these choices show up directly on the product page — buyers learn the product is customizable while they're already evaluating it, not after.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ BUNDLE STRATEGY</span>
+      <h4>"Sets &amp; Combos" as the primary purchase path.</h4>
+      <p>Buying equipment one item at a time creates decision fatigue. Bundles let new shops evaluate complete packages: lift + aligner + tire changer + spray booth + compressor as one purchase. Frames products as <strong>business solutions</strong>, not isolated machines — and lifts AOV substantially.</p>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">08 / TRUST &amp; CONVERSION</span>
+  <h2 class="h-display">Eight reassurance modules. <em>Every page</em>.</h2>
+  <p>MechaPro sells expensive industrial equipment. Trust had to be designed in, not bolted on. These modules show up throughout the buying journey — not just at checkout.</p>
+
+  <div class="trust-grid">
+    <div class="trust"><span class="lbl">01</span><h4>Free Shipping</h4><p>Sitewide to business addresses in lower 48 states.</p></div>
+    <div class="trust"><span class="lbl">02</span><h4>US-Based Support</h4><p>Owned + manufactured + supported in the US.</p></div>
+    <div class="trust"><span class="lbl">03</span><h4>Warranty</h4><p>Industry-leading 2+ years, extendable.</p></div>
+    <div class="trust"><span class="lbl">04</span><h4>Secure Payment</h4><p>Trusted gateways · audited transactions.</p></div>
+    <div class="trust"><span class="lbl">05</span><h4>Flexible Payment</h4><p>ACH · Check · Cards · PayPal · Afterpay · Affirm · Klarna.</p></div>
+    <div class="trust"><span class="lbl">06</span><h4>Quick Processing</h4><p>Most orders ship within 3 business days.</p></div>
+    <div class="trust"><span class="lbl">07</span><h4>Risk-Free Purchase</h4><p>Money-back guarantee · no tricks, no traps.</p></div>
+    <div class="trust"><span class="lbl">08</span><h4>Contact Sales</h4><p>Direct human path for complex configurations and quotes.</p></div>
+  </div>
+
+  <div class="media-full is-light" style="padding: 18px; margin-top: 28px;">
+    <img src="../B2B/mechapro-trust.jpg" alt="Why Choosing MechaPro section — 6 reassurance icons: Free Shipping, Quality Guarantee, Risk-Free Purchase, 24/7 Customer Service, Flexible Payment, Quick Order Processing" style="width:100%; display:block; border-radius:4px;"/>
+  </div>
+  <div class="figcap" style="text-align:center; margin-top:10px; font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--mute); text-transform:uppercase;">FIG. 04 — Trust modules · 6 reasons live near every buy point · not buried in footer</div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">09 / BUSINESS IMPACT</span>
+  <h2 class="h-display">The numbers, <em>30 days in</em>.</h2>
+
+  <div class="proj-stats">
+    <div class="proj-stat"><div class="v">$38K+</div><div class="k">revenue · first 30 days</div></div>
+    <div class="proj-stat"><div class="v">$9.7K</div><div class="k">average order value</div></div>
+    <div class="proj-stat"><div class="v">10+</div><div class="k">structured equipment categories</div></div>
+    <div class="proj-stat"><div class="v">2 paths</div><div class="k">direct checkout + sales-assisted</div></div>
+  </div>
+
+  <p style="margin-top:32px;">Beyond visual improvement, the project showed how UX can support complex B2B commerce by making technical products easier to understand, compare, configure, and purchase. The site became a system — not just a storefront — for selling business-critical equipment online.</p>
+
+  <div class="media-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px;">
+    <div>
+      <div class="media-full is-light" style="padding: 14px;">
+        <img src="../B2B/mechapro-about-hero.jpg" alt="MechaPro About Us page — workshop photo, brand story about 10+ years building equipment for trusted manufacturers" style="width:100%; display:block; border-radius:4px;"/>
+      </div>
+      <div class="figcap" style="text-align:center; margin-top:8px; font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--mute); text-transform:uppercase;">FIG. 05 — About page · brand story · &quot;factory price, US-based support&quot;</div>
+    </div>
+    <div>
+      <div class="media-full is-light" style="padding: 14px;">
+        <img src="../B2B/mechapro-contact-form.jpg" alt="MechaPro Contact Us page — hours, phone (844) 746-3242, sales contact form, live chat widget" style="width:100%; display:block; border-radius:4px;"/>
+      </div>
+      <div class="figcap" style="text-align:center; margin-top:8px; font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--mute); text-transform:uppercase;">FIG. 06 — Contact page · sales form + live chat + phone · the &quot;not-yet-ready-to-checkout&quot; path</div>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">10 / REFLECTION</span>
+  <h2 class="h-display">B2B commerce is <em>commerce + sales</em>, not one or the other.</h2>
+
+  <div class="proj-points">
+    <div class="proj-point">
+      <span class="n">→ 01 · TAXONOMY MATTERS</span>
+      <h4>Structure around how buyers think, not how products are.</h4>
+      <p>A "Vehicle Lift" category is generic. "Sets &amp; Combos" — putting the bundle at the top of the catalog — reframes the decision around shop setup, not single machines. Same products, different mental model.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 02 · TRUST IS LAYOUT</span>
+      <h4>Trust isn't a footer item.</h4>
+      <p>Warranty, support, payment options have to live next to the buy button. Not at the bottom of the page. Not on a separate "About" page. High-ticket buyers don't scroll to find reassurance — they bounce.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 03 · TWO PATHS, BOTH FIRST-CLASS</span>
+      <h4>Don't force B2B into a B2C funnel.</h4>
+      <p>Half my customers want to click "Buy Now". Half want a phone call. The site treats both as primary — Add to Cart and Contact Sales sit side by side at the same visual weight. Neither is a fallback.</p>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top:40px; font-style:italic;">MechaPro wasn't a website redesign. It was a high-ticket B2B commerce system designed for complex purchasing decisions. The result: a structured buying experience that helps shop owners understand product categories, compare equipment, evaluate configurations, and purchase with confidence — generating <em style="font-style:normal; color:var(--gold);">$38K+ revenue in 30 days at a $9.7K AOV</em>.</p>
+</section>
+
+<nav class="proj-next">
+  <div>
+    <span class="label">[ PREVIOUS ]</span>
+    <a href="gather.html" data-magnet="0.1">← <span class="sub">Gather</span></a>
+  </div>
+  <div style="text-align:right;">
+    <span class="label">[ NEXT ]</span>
+    <a href="sage.html" data-magnet="0.1">SAGE · <span class="sub">AI receptionist</span> →</a>
+  </div>
+</nav>
+
+<footer class="site-foot">
+  <div class="site-foot__grid">
+    <div class="site-foot__brand">
+      <div class="h-display">Jestaz Yao</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--mute);">[ PRODUCT DESIGNER · NYC ]</div>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ WORK</span>
+      <a href="director.html">Director · Supply Chain MAS</a>
+      <a href="sage.html">SAGE · AI receptionist</a>
+      <a href="../index.html#selected">All projects</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ ELSEWHERE</span>
+      <a href="https://www.linkedin.com/in/jestaz/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.jestazyao.com/_files/ugd/e0f941_57fada2f786c4b899f033ae341ed743e.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ CONTACT</span>
+      <a href="mailto:yxhzdm@gmail.com">yxhzdm@gmail.com</a>
+    </div>
+  </div>
+  <div class="site-foot__legal">
+    <span>[ © 2026 JESTAZ YAO ]</span>
+    <span>NEW YORK CITY · WORKING GLOBALLY</span>
+  </div>
+</footer>
+
+</body>
+</html>

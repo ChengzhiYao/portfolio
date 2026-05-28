@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SAGE — AI receptionist for an NYC learning center — Jestaz Yao</title>
+<meta name="description" content="A multi-program education brand serving K-12 through college admissions across 3 NYC branches — with Shirely, an AI assistant that classifies parent intent, holds boundaries on pricing and promises, and routes confidently to branch staff. ~12% interest-form conversion in 5 months." />
+<meta name="theme-color" content="#08080A" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/styles.css" />
+<style>
+  .impact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 18px; }
+  .impact { border: 1px solid var(--line); background: var(--bg-2); border-radius: 6px; padding: 22px; }
+  .impact .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--mute); text-transform: uppercase; }
+  .impact .v { font-family: var(--display); font-size: clamp(32px, 3.6vw, 52px); font-weight: 500; line-height: 1; margin: 6px 0; letter-spacing: -.025em; color: var(--text); }
+  .impact .v .gold { color: var(--gold); }
+  .impact .note { font-size: 13px; line-height: 1.55; color: var(--text-2); margin: 0; }
+
+  .gate-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  .gate-table th, .gate-table td { text-align: left; padding: 14px 14px 14px 0; border-bottom: 1px solid var(--line); font-size: 14px; vertical-align: top; }
+  .gate-table th { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); font-weight: 400; padding-bottom: 14px; }
+  .gate-table td:first-child { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); width: 90px; }
+  .gate-table td:nth-child(2) { font-family: var(--display); font-size: 17px; font-weight: 500; color: var(--text); width: 28%; line-height: 1.3; letter-spacing: -.01em; }
+  .gate-table td:nth-child(3) { color: var(--text-2); }
+  .gate-table td:last-child { font-family: var(--mono); font-size: 10px; color: var(--mute); letter-spacing: .08em; text-transform: uppercase; width: 130px; text-align: right; }
+
+  .conv-row {
+    display: grid; grid-template-columns: 70px 1fr; gap: 18px;
+    padding: 16px 0; border-top: 1px solid var(--line);
+  }
+  .conv-row .who { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--mute); }
+  .conv-row .who.user { color: var(--text); }
+  .conv-row .who.bot { color: var(--gold); }
+  .conv-row .msg { font-family: var(--mono); font-size: 13.5px; color: var(--text); line-height: 1.6; }
+  .conv-row .msg .meta { display: block; font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 6px; letter-spacing: .04em; }
+
+  .comm-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 18px; }
+  .comm { border: 1px solid var(--line); background: var(--bg-2); border-radius: 6px; padding: 22px; }
+  .comm .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--gold); }
+  .comm h4 { font-family: var(--display); font-size: 18px; font-weight: 500; margin: 6px 0 10px; letter-spacing: -.015em; line-height: 1.3; }
+  .comm p { font-size: 13.5px; line-height: 1.6; color: var(--text-2); margin: 0; }
+
+  @media (max-width: 900px) {
+    .impact-grid { grid-template-columns: 1fr 1fr; }
+    .gate-table td:last-child { display: none; }
+    .gate-table td:nth-child(2) { font-size: 14px; }
+    .comm-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body class="project-page">
+
+<script src="../js/main.js" defer></script>
+
+<nav class="proj-nav">
+  <a class="proj-nav__brand" href="../index.html">Jestaz<span class="dot"></span></a>
+  <div class="proj-nav__links">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#selected" data-jump="#selected">Works</a>
+    <a href="../index.html#about" data-jump="#about">About</a>
+    <a href="mailto:yxhzdm@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<div class="dotgrid"></div>
+<div class="vignette"></div>
+
+<header class="proj-hero">
+  <div class="proj-hero__eyebrow">
+    <span class="swatch"></span>
+    <span>[ FEATURED · CLIENT · LIVE · AI RECEPTIONIST · 2026 ]</span>
+  </div>
+  <h1 class="h-display proj-hero__title">SAGE — <span class="sub">an AI receptionist for an NYC learning center.</span></h1>
+  <p class="proj-hero__sub">A multi-program education brand serving K-12 through college admissions across 3 NYC branches. The site I designed introduces <strong>Shirely</strong>, an AI assistant that classifies parent intent, holds firm boundaries on pricing and promises, and routes confidently to branch staff when she's uncertain. <strong>~12% interest-form conversion</strong> in the first 5 months — roughly 4× the industry average for tutoring centers.</p>
+
+  <div style="display:flex; gap:24px; flex-wrap:wrap; margin-top:8px;">
+    <a class="featured__link" href="https://www.sagenewyork.com/" target="_blank" rel="noopener" data-magnet="0.12">Visit the live site →</a>
+    <a class="featured__link is-secondary" href="https://www.sagenewyork.com/" target="_blank" rel="noopener" data-magnet="0.12">Talk to Shirely ↗</a>
+  </div>
+</header>
+
+<section class="proj-meta">
+  <div class="proj-meta__cell"><span class="k">→ ROLE</span><span class="v">Solo product designer + AI conversation architect — IA, brand, responsive site, chatbot system, analytics.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ CLIENT</span><span class="v">SAGE New York — 3 NYC branches (Flushing, Little Neck, Jericho) + Research program.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ TIMELINE</span><span class="v">Nov 2025 → Jan 2026. <span style="color:var(--gold);">Shipped on time.</span> ~2 months.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ SCOPE</span><span class="v">Full site rebuild · 7 program tracks · AI chat receptionist · multi-language · analytics dashboard.</span></div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">00 / IMPACT</span>
+  <h2 class="h-display">Tracked, end-to-end. <em>Built to convert</em>.</h2>
+  <p class="lede">I instrumented the site with full traffic and conversion tracking from day one — so every claim below comes with a number behind it.</p>
+
+  <div class="impact-grid">
+    <div class="impact">
+      <div class="lbl">YEAR-TO-DATE SESSIONS</div>
+      <div class="v">4,263<span class="gold">+</span></div>
+      <p class="note">5 months since launch · still climbing. Trending toward 10K+ first year.</p>
+    </div>
+    <div class="impact">
+      <div class="lbl">UNIQUE VISITORS</div>
+      <div class="v">2,618<span class="gold">+</span></div>
+      <p class="note">Parents and students actively researching programs.</p>
+    </div>
+    <div class="impact">
+      <div class="lbl">INTEREST-FORM CONVERSION</div>
+      <div class="v"><span class="gold">~12%</span></div>
+      <p class="note">Industry average for tutoring centers: 2–3%. SAGE: <strong>~4× higher</strong>.</p>
+    </div>
+    <div class="impact">
+      <div class="lbl">SHIRELY HANDLES FIRST-TOUCH</div>
+      <div class="v"><span class="gold">~30%</span></div>
+      <p class="note">Of parent inquiries resolved without paging branch staff.</p>
+    </div>
+  </div>
+
+  <div class="impact-grid" style="margin-top:16px;">
+    <div class="impact">
+      <div class="lbl">ORGANIC SEARCH SHARE</div>
+      <div class="v"><span class="gold">58%</span></div>
+      <p class="note">Google ranks the site for K-12 tutoring + SAT/ACT in Queens / Long Island. SEO is now a moat.</p>
+    </div>
+    <div class="impact">
+      <div class="lbl">DIRECT TRAFFIC SHARE</div>
+      <div class="v">31%</div>
+      <p class="note">Parents save the URL after the first visit. Returning intent is high.</p>
+    </div>
+    <div class="impact">
+      <div class="lbl">BRANCHES ON BOARD</div>
+      <div class="v">3 / 3</div>
+      <p class="note">All NYC branches now route intake through the site (vs. phone-first before launch).</p>
+    </div>
+    <div class="impact">
+      <div class="lbl">LANGUAGES SUPPORTED</div>
+      <div class="v">4</div>
+      <p class="note">English · Mandarin · Korean · Hindi — reflecting NYC's parent demographics.</p>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">01 / CONTEXT</span>
+  <h2 class="h-display">What is <em>SAGE</em>?</h2>
+  <p class="lede">SAGE New York is a multi-location academic enrichment and admissions-prep center for ambitious students across Queens and Long Island. Not a single-subject tutoring shop — it's a full pathway: K-12 tutoring, standardized test prep (SAT · ACT · AP · MCAT · LSAT), national academic competitions, research mentorship (SCI/SSCI publication), summer camps, and college consulting.</p>
+  <p>The brand serves families who plan ahead — parents who want structured support through multiple academic stages, from middle-school preparation to college admissions. The multi-location presence (Flushing, Little Neck, Jericho) anchors it in the NYC tutoring landscape where reputation and access matter as much as curriculum.</p>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">02 / WHY THE PREVIOUS REDESIGNS FAILED</span>
+  <h2 class="h-display">Two missing pieces: <em>design discipline</em>, and <em>communication discipline</em>.</h2>
+  <p>The client had hired and lost three designers before me. Inbound traffic to the old site was decent — SEO was working — but conversion was bleeding out. Interested parents would land on the homepage and bounce. Each previous redesign attempt failed for one of two reasons.</p>
+
+  <div class="proj-points" style="grid-template-columns: 1fr 1fr;">
+    <div class="proj-point">
+      <span class="n">→ DESIGN PROBLEM</span>
+      <h4>They treated SAGE as a tutoring brand.</h4>
+      <p>SAGE is a learning ecosystem. The IA had to reflect that. Previous designers built single-program landing pages that didn't communicate the breadth — parents who wanted "SAT prep + AP + research mentorship + admissions advising" couldn't see that SAGE offered all of it.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ COMMUNICATION PROBLEM</span>
+      <h4>They couldn't survive the feedback channel.</h4>
+      <p>The client (founder) delegated day-to-day decisions to his most senior subordinate — an MIT-grad operations lead who knew the business cold and gave feedback the way an engineer reviews a PR: sharp, fast, and occasionally hostile. The previous designers couldn't tell the criticism from the delivery, took the tone personally, and left.</p>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">03 / HOW I WORKED WITH THE CLIENT</span>
+  <h2 class="h-display">Every piece of feedback is <em>data</em>. The tone is not the message.</h2>
+  <p>I built a communication discipline before I drew a single screen. The MIT-grad liaison knew the business at a depth I never would — every sharp comment was a piece of information about what the business actually needed. My job was to separate the criticism from the delivery and work the criticism. When the tone got personal, I returned with a prototype. When the message was unclear, I asked rather than defended.</p>
+
+  <div class="comm-grid">
+    <div class="comm">
+      <div class="lbl">01 · DAILY SYNC</div>
+      <h4>15 minutes every morning.</h4>
+      <p>What shipped yesterday, what's blocked, what's next. Same time every weekday. No surprises in either direction.</p>
+    </div>
+    <div class="comm">
+      <div class="lbl">02 · LOOM WALKTHROUGHS</div>
+      <h4>Anything &gt; 2 hours of work got a Loom.</h4>
+      <p>The client never had to imagine the result. Async walkthrough + Figma frame side by side. Decisions made with full context.</p>
+    </div>
+    <div class="comm">
+      <div class="lbl">03 · ALWAYS-ON ASYNC</div>
+      <h4>WhatsApp / WeChat / iMessage.</h4>
+      <p>Questions answered within 1 hour during business hours. The previous designers had been "I'll get to it next week." I was not.</p>
+    </div>
+    <div class="comm">
+      <div class="lbl">04 · WEEKLY DEMO</div>
+      <h4>Friday end-of-week working build.</h4>
+      <p>Even if rough. Every week the client could click through the latest version. Trust compounds from cadence — not from polish.</p>
+    </div>
+    <div class="comm">
+      <div class="lbl">05 · FIGMA THREADS</div>
+      <h4>Comments threaded by section, not chat scroll.</h4>
+      <p>Nothing got lost in messaging history. Decisions were inline with the frame they applied to. Searchable, auditable, permanent.</p>
+    </div>
+    <div class="comm">
+      <div class="lbl">06 · DON'T DEFEND — PROTOTYPE</div>
+      <h4>When a demand seemed impossible, I built a tiny version first.</h4>
+      <p>"Let me try" beat "that won't work" every time. Half the demands I would have pushed back on turned out to be the right call once I'd tried them.</p>
+    </div>
+  </div>
+
+  <p style="margin-top:32px;">The tone softened the moment the system started compounding. By week 3 the liaison was forwarding my Looms internally — saying "this is how it should look." By week 8 we shipped on time, with the client referencing the project for their marketing.</p>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">04 / INFORMATION ARCHITECTURE</span>
+  <h2 class="h-display">Seven program tracks. Each <em>one click</em> from the homepage.</h2>
+  <p>SAGE isn't a tutoring center. It's an ecosystem with seven distinct program tracks. The IA had to make that breadth scannable without burying any single track.</p>
+
+  <div class="proj-points">
+    <div class="proj-point"><span class="n">→ 01 · K-12 TUTORING</span><h4>Subject + grade level</h4><p>Math, science, English, writing, foreign languages. Grades K through 12, with grade-appropriate instructors.</p></div>
+    <div class="proj-point"><span class="n">→ 02 · TEST PREP</span><h4>SAT · ACT · AP · MCAT · LSAT</h4><p>Diagnostic test → customized study plan → expert instruction → practice → flexible options (small group or 1-on-1).</p></div>
+    <div class="proj-point"><span class="n">→ 03 · RESEARCH</span><h4>SCI / SSCI publication mentorship</h4><p>PhD-led research with publishable outcomes. Students have presented at ISPOR (Health Economics &amp; Outcomes Research).</p></div>
+    <div class="proj-point"><span class="n">→ 04 · COMPETITIONS</span><h4>National academic competitions</h4><p>Math Olympiad, Science Bowl, AMC, USABO, and others — coaching from instructors who placed in them.</p></div>
+    <div class="proj-point"><span class="n">→ 05 · CONSULTING</span><h4>College admissions strategy</h4><p>Multi-year planning from middle school onward. School lists, essay guidance, application timeline.</p></div>
+    <div class="proj-point"><span class="n">→ 06 · SUMMER CAMPS</span><h4>K-12 enrichment programs</h4><p>Subject-specific intensives during summer break — keeps momentum, fills gaps before the next academic year.</p></div>
+  </div>
+
+  <p style="margin-top:24px;">A seventh surface — <strong>Results</strong> — collects student outcomes (acceptances, score gains, competition placements) across all six tracks. Credibility lives there.</p>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">05 / THE AI · MEET SHIRELY</span>
+  <h2 class="h-display">An AI receptionist that behaves like a <em>teacher</em>.</h2>
+  <p class="lede">Most education sites have a contact form. SAGE needed something more — a receptionist that could answer parent questions 24/7 in their preferred language, classify their intent into one of seven program tracks, and route them to the right branch staff when the conversation needed a human. I named her <strong>Shirely</strong>.</p>
+
+  <p>The same pattern I used elsewhere applied here: <em style="color:var(--gold);">LLM translates intent, deterministic code decides what's allowed.</em> Shirely understands what a parent is asking. She doesn't decide whether their child gets a scholarship, which program to enroll in, or what it costs. Those decisions live in code and in human staff — never in the model.</p>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">06 / INTENT CLASSIFICATION</span>
+  <h2 class="h-display">Six tracks, plus an <em>always-escalate</em>.</h2>
+  <p>Every parent inquiry is classified into one of seven closed categories. The taxonomy is fixed — not free-form — because parents asking the same thing in different words should land in the same place.</p>
+
+  <table class="gate-table">
+    <thead><tr><th></th><th>Intent</th><th>What Shirely does</th><th>Where it routes</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>01</td>
+        <td>K-12 Tutoring</td>
+        <td>Clarifies subject + grade. Surfaces relevant tutor profiles and the closest branch.</td>
+        <td>Branch director</td>
+      </tr>
+      <tr>
+        <td>02</td>
+        <td>Test Prep</td>
+        <td>Identifies the test (SAT/ACT/AP/MCAT/LSAT) and timeline. Surfaces diagnostic + plan flow.</td>
+        <td>Branch director</td>
+      </tr>
+      <tr>
+        <td>03</td>
+        <td>Research Mentorship</td>
+        <td>Surfaces SCI/SSCI publication pathway. Past ISPOR placements as proof.</td>
+        <td>Research lead</td>
+      </tr>
+      <tr>
+        <td>04</td>
+        <td>Competitions</td>
+        <td>Identifies the competition + grade. Surfaces coaching schedule.</td>
+        <td>Branch director</td>
+      </tr>
+      <tr>
+        <td>05</td>
+        <td>College Consulting</td>
+        <td>Asks about grade, target school list, timeline. Books a consultation slot.</td>
+        <td>Consulting lead</td>
+      </tr>
+      <tr>
+        <td>06</td>
+        <td>Summer Camps</td>
+        <td>Filters by age + subject. Surfaces current camp roster.</td>
+        <td>Branch director</td>
+      </tr>
+      <tr>
+        <td>07</td>
+        <td>Pricing / Scholarship</td>
+        <td><strong style="color:var(--gold);">Never answers.</strong> Routes to staff with full conversation context.</td>
+        <td>Always escalate</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">07 / BOUNDARIES</span>
+  <h2 class="h-display">What Shirely <em>won't</em> do — and why that's the product.</h2>
+  <p>Most AI chatbots fail by being too helpful. Shirely is designed with four boundaries that she'll never cross. The boundaries are constants — encoded in code, not prompts. The model cannot vote them away.</p>
+
+  <div class="proj-points">
+    <div class="proj-point">
+      <span class="n">→ 01 · NO PRICING</span>
+      <h4>Never quotes a number.</h4>
+      <p>Pricing varies by program, instructor, frequency, and branch. Quoting wrong is worse than not quoting at all — it sets expectations that the staff then has to walk back. Always escalates.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 02 · NO PROMISES</span>
+      <h4>Never guarantees enrollment, scores, or scholarships.</h4>
+      <p>"I'll get my kid a 1550." "I want a guaranteed scholarship." Shirely shares past student outcomes as ranges only — never as commitments. Marketing teams hate this. Legal teams love it.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 03 · NO IDENTITY DECEPTION</span>
+      <h4>Identifies as AI on first contact.</h4>
+      <p>"Hi! I'm Shirely, the AI assistant for SAGE." Parents know they're talking to a system. Trust scales when the system isn't hiding.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 04 · NO CONDESCENSION</span>
+      <h4>Patient by default. Encouraging without empty positivity.</h4>
+      <p>Parents are often anxious about their child's academic future. Shirely's tone is warm but specific — never "you're a great parent for asking!" filler. Just clear answers and the next step.</p>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">08 / FALLBACKS</span>
+  <h2 class="h-display">When in doubt, <em>route to a human</em>.</h2>
+  <p>The model has confidence scores. Below 0.70, Shirely doesn't try to guess — she connects the parent with the appropriate branch director by name.</p>
+
+  <div class="proj-points">
+    <div class="proj-point">
+      <span class="n">→ CONF &lt; 0.70</span>
+      <h4>Direct human escalation.</h4>
+      <p>"Let me connect you with our [branch] team — they'll be the best person to answer this." Routes by branch geography (Flushing, Little Neck, Jericho) or by topic (Research → Kevin).</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 2 CLARIFYING TURNS</span>
+      <h4>Hard stop on clarification loops.</h4>
+      <p>If Shirely has asked two clarifying questions without progress, she stops. "I want to make sure you get the right answer — let me connect you with our team."</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ PRICING / SCHOLARSHIP</span>
+      <h4>Always escalates, regardless of confidence.</h4>
+      <p>These are deterministic routes, not model decisions. The model isn't allowed to answer them, even when it thinks it knows.</p>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">09 / SHIRELY AS A TEACHER</span>
+  <h2 class="h-display">Three conversations. <em>Three different exits</em>.</h2>
+  <p>How Shirely behaves in practice — same architecture, three different parents.</p>
+
+  <div class="conv-row">
+    <div>
+      <div class="who user">PARENT · CLEAR ASK</div>
+    </div>
+    <div>
+      <div class="msg">"My daughter is preparing for the SAT next year. She's in 11th grade now. Can you tell me about your SAT program?"</div>
+    </div>
+  </div>
+  <div class="conv-row">
+    <div>
+      <div class="who bot">SHIRELY</div>
+    </div>
+    <div>
+      <div class="msg">Yes! For 11th grade SAT prep, we start with a diagnostic test to identify her strengths and target areas. From there we build a customized study plan — small group classes or 1-on-1, in-person or online. Our Flushing branch has the most SAT prep cohorts running right now. Want me to connect you with Shirley there to schedule the diagnostic?
+        <span class="meta">→ INTENT · TEST_PREP / SAT · CONF 0.92 · ROUTE · FLUSHING</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="conv-row">
+    <div>
+      <div class="who user">PARENT · UNCLEAR</div>
+    </div>
+    <div>
+      <div class="msg">"How much does it cost?"</div>
+    </div>
+  </div>
+  <div class="conv-row">
+    <div>
+      <div class="who bot">SHIRELY</div>
+    </div>
+    <div>
+      <div class="msg">Great question — pricing varies a lot by program, format (group vs. 1-on-1), and frequency, so I want to make sure you get the right number. Let me connect you with our team. Could you share which program you're interested in? Or I can send your message to the nearest branch with your contact info.
+        <span class="meta">→ INTENT · PRICING · ALWAYS_ESCALATE · NO ANSWER FROM MODEL</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="conv-row">
+    <div>
+      <div class="who user">PARENT · ANXIOUS</div>
+    </div>
+    <div>
+      <div class="msg">"Can you guarantee my son will get into Harvard if we sign up for your consulting?"</div>
+    </div>
+  </div>
+  <div class="conv-row">
+    <div>
+      <div class="who bot">SHIRELY</div>
+    </div>
+    <div>
+      <div class="msg">I can't guarantee admissions to any specific school — no honest consultant can. What our consulting program does do is build a multi-year strategy: school list aligned with his profile, essay guidance, application timeline, and interview prep. Some of our students have been accepted at Harvard, MIT, Stanford and others over the past five years. Want to schedule a free consultation with our consulting lead to talk through his specific situation?
+        <span class="meta">→ INTENT · CONSULTING · NO PROMISES · ROUTE · CONSULTING LEAD</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">10 / DESIGN SYSTEM</span>
+  <h2 class="h-display">Brown, cream, and one accent. <em>Education credibility</em>, not startup gloss.</h2>
+  <p>The design system leans on the values parents look for in an education brand: warmth, trust, longevity. Deep brown for primary surfaces (a SAGE brand color, evoking established institutions). Cream for content backgrounds. One red accent (SAGE's existing brand) reserved for proof points — accepted schools, score percentiles, key stats.</p>
+
+  <p>Typography is bold and decisive — parents scanning a page should know what each program does in 3 seconds. Body copy is plain English, not edutech jargon. Every page has a results section before its features section: <strong>proof first, claims second</strong>.</p>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">11 / RESULTS · WHAT THE NUMBERS LOOK LIKE NOW</span>
+  <h2 class="h-display">The site became the <em>primary intake channel</em>.</h2>
+
+  <div class="proj-stats">
+    <div class="proj-stat"><div class="v">4,263+</div><div class="k">YTD sessions · 5 months</div></div>
+    <div class="proj-stat"><div class="v">2,618+</div><div class="k">unique visitors</div></div>
+    <div class="proj-stat"><div class="v">~12%</div><div class="k">interest-form conversion (4× industry avg)</div></div>
+    <div class="proj-stat"><div class="v">~30%</div><div class="k">first-touch inquiries handled by Shirely</div></div>
+  </div>
+
+  <p style="margin-top:32px;">Before launch, the three NYC branches relied on phone-first intake — receptionists fielding calls during business hours, missed inquiries piling up after-hours. After launch, the site became the primary intake channel for all three branches, with Shirely covering the after-hours and multi-language gap. Branch staff spent more time on enrolled students; less time on first-touch screening.</p>
+
+  <p>The site also became the marketing anchor: every Google Ad campaign now points to a SAGE landing page, every print piece prints the URL, every flyer the branches hand out includes a QR code. Two months of design work; an ongoing return on attention.</p>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">12 / REFLECTION</span>
+  <h2 class="h-display">Three things this project <em>taught me</em>.</h2>
+
+  <div class="proj-points">
+    <div class="proj-point">
+      <span class="n">→ 01 · COMMUNICATION</span>
+      <h4>Sharp feedback isn't a blocker — it's a lighthouse.</h4>
+      <p>The MIT-grad liaison gave me feedback I didn't always want, in tones I didn't always enjoy. But she was almost always right about what the business needed. Filtering tone from content is a craft. I came out of this project better at it.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 02 · AI DESIGN</span>
+      <h4>The Translator Pattern applies anywhere money or commitments are involved.</h4>
+      <p>Shirely is the third project where LLM-translates / code-decides was the right split. Refund bots, multi-agent supply chain analysis, parent-facing tutoring receptionist — all the same architecture. The boundaries you draw are the product.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 03 · EDUCATION CLIENTS</span>
+      <h4>Credibility every screen, or no screen.</h4>
+      <p>Parents don't buy curriculum on aesthetic. They buy on proof — past acceptances, score gains, competition placements. Every page on SAGE shows results before features. That priority order is the product, not a decoration choice.</p>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top:40px; font-style:italic;">I designed Shirely to behave like a teacher: patient, well-informed, never overselling, always pointing to the next step. The reason she works isn't that the model is good — it's that the boundaries around her are clear.</p>
+</section>
+
+<nav class="proj-next">
+  <div>
+    <span class="label">[ PREVIOUS ]</span>
+    <a href="director.html" data-magnet="0.1">← Director · <span class="sub">Supply Chain MAS</span></a>
+  </div>
+  <div style="text-align:right;">
+    <span class="label">[ NEXT ]</span>
+    <a href="rag.html" data-magnet="0.1">Visual RAG <span class="sub">Memory Map</span> →</a>
+  </div>
+</nav>
+
+<footer class="site-foot">
+  <div class="site-foot__grid">
+    <div class="site-foot__brand">
+      <div class="h-display">Jestaz Yao</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--mute);">[ PRODUCT DESIGNER · NYC ]</div>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ WORK</span>
+      <a href="sage.html">SAGE · AI receptionist</a>
+      <a href="director.html">Director · Supply Chain MAS</a>
+      <a href="rag.html">Visual RAG Memory Map</a>
+      <a href="../index.html#selected">All projects</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ ELSEWHERE</span>
+      <a href="https://www.linkedin.com/in/jestaz/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.jestazyao.com/_files/ugd/e0f941_57fada2f786c4b899f033ae341ed743e.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ CONTACT</span>
+      <a href="mailto:yxhzdm@gmail.com">yxhzdm@gmail.com</a>
+    </div>
+  </div>
+  <div class="site-foot__legal">
+    <span>[ © 2026 JESTAZ YAO ]</span>
+    <span>NEW YORK CITY · WORKING GLOBALLY</span>
+  </div>
+</footer>
+
+</body>
+</html>

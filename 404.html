@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>404 — Jestaz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+<style>
+  body { overflow: auto; }
+  .nf {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 8vw;
+    background: var(--cream);
+  }
+  .nf h1 { font-family: var(--display); font-size: clamp(80px, 18vw, 280px); line-height: .9; margin: 0; }
+  .nf p { font-size: 18px; color: var(--ink-2); max-width: 56ch; margin: 24px 0; }
+  .nf a {
+    display: inline-flex; gap: 12px; align-items: center;
+    padding: 14px 22px; border: 1px solid currentColor; border-radius: 999px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  }
+  .nf a:hover { background: var(--ink); color: var(--cream); }
+</style>
+</head>
+<body>
+<section class="nf">
+  <span class="eyebrow">Error · 404</span>
+  <h1>4<em style="font-style:italic;">0</em>4</h1>
+  <p>This page isn't here — but the rest of the site is. Try the home page, or jump straight to a project from the works grid.</p>
+  <a href="/"><span>Back to home</span><span>→</span></a>
+</section>
+</body>
+</html>

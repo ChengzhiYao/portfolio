@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>A11y Copilot — AI accessibility dashboard — Jestaz Yao</title>
+<meta name="description" content="An AI-assisted dashboard that finds, explains, and fixes critical WCAG issues fast — with guardrails and concise code suggestions. Solo build, React + axe-core + LLM." />
+<meta name="theme-color" content="#08080A" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/styles.css" />
+<style>
+  .stage-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 22px;
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+  .stage-row .stage-lbl { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--gold); }
+  .stage-row h4 { font-family: var(--display); font-size: 19px; font-weight: 500; margin-bottom: 8px; letter-spacing: -.015em; line-height: 1.25; }
+  .stage-row p { font-size: 14.5px; line-height: 1.6; color: var(--text-2); margin-bottom: 6px; }
+  @media (max-width: 900px) { .stage-row { grid-template-columns: 1fr; gap: 10px; } }
+</style>
+</head>
+<body class="project-page">
+
+<script src="../js/main.js" defer></script>
+
+<nav class="proj-nav">
+  <a class="proj-nav__brand" href="../index.html">Jestaz<span class="dot"></span></a>
+  <div class="proj-nav__links">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#selected" data-jump="#selected">Works</a>
+    <a href="../index.html#about" data-jump="#about">About</a>
+    <a href="mailto:yxhzdm@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<div class="dotgrid"></div>
+<div class="vignette"></div>
+
+<header class="proj-hero">
+  <div class="proj-hero__eyebrow">
+    <span class="swatch"></span>
+    <span>[ SELECTED · B2B · AI · A11Y · 2025 ]</span>
+  </div>
+  <h1 class="h-display proj-hero__title">A11y Copilot — <span class="sub">AI accessibility dashboard for real-world WCAG fixes</span>.</h1>
+  <p class="proj-hero__sub">An AI-assisted workflow to find, explain, and fix critical a11y issues fast — with <strong>guardrails</strong> and <strong>concise code suggestions</strong>. Detects violations, maps them to WCAG, and emits the smallest possible HTML/CSS diff without breaking IDs, ARIA, or semantics.</p>
+</header>
+
+<section class="proj-meta">
+  <div class="proj-meta__cell"><span class="k">→ ROLE</span><span class="v">Product/UX Designer (solo builder) · prototyping &amp; front-end in React · LLM prompt &amp; guardrail design.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ STACK</span><span class="v">React · axe-core · LLM-driven fix proposals · WCAG mapping · design tokens.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ DURATION</span><span class="v">3–4 weeks · Team of 1 (self).</span></div>
+  <div class="proj-meta__cell"><span class="k">→ PRINCIPLES</span><span class="v">Privacy-first. Adapter-based. Deterministic, safe outputs. CI-ready.</span></div>
+</section>
+
+<div class="proj-section">
+  <div class="proj-stats" style="grid-template-columns: repeat(4, 1fr);">
+    <div class="proj-stat"><div class="v">~8×</div><div class="k">faster than manual audit→fix</div></div>
+    <div class="proj-stat"><div class="v">AA+</div><div class="k">contrast suggestions, token-aware</div></div>
+    <div class="proj-stat"><div class="v">~60→8 min</div><div class="k">per-issue cycle (typical)</div></div>
+    <div class="proj-stat"><div class="v">0</div><div class="k">IDs / ARIA stripped by guardrails</div></div>
+  </div>
+</div>
+
+<div class="proj-section">
+  <div class="media-row is-light">
+    <figure><img src="../site-media/works/01-A11y Copilot/004-image-e0f941_1d14b4b621804847979bbfefa903da1e~mv2.png" alt="A11y Copilot — main dashboard" loading="lazy" /></figure>
+    <figure><img src="../site-media/works/01-A11y Copilot/005-image-e0f941_f8c195d2ad484d4d8175cdd9f7d2fed4~mv2.png" alt="A11y Copilot — issue triage" loading="lazy" /></figure>
+  </div>
+</div>
+
+<section class="proj-section">
+  <span class="eyebrow">01 / WHY IT'S USEFUL</span>
+  <h2 class="h-display">Teams struggle to turn audits into <em>fixes</em>.</h2>
+  <p class="lede">An accessibility audit usually ends with a 200-page PDF and a Jira backlog of color-contrast tickets. Nothing actually gets fixed. This dashboard closes the loop: <strong>detect issues, explain why they matter, and provide copy-ready HTML/CSS with guardrails</strong> so engineers can ship faster without breaking semantics or brand.</p>
+
+  <div class="proj-points">
+    <div class="proj-point">
+      <span class="n">→ FOR DESIGN</span>
+      <h4>See impact, prioritize, request safe changes.</h4>
+      <p>Score and trend lines surface the issues that affect real users now — not the long tail of WCAG nice-to-haves.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ FOR ENGINEERING</span>
+      <h4>Copy/paste minimal diffs.</h4>
+      <p>Each issue ships with a tiny HTML/CSS diff. IDs and ARIA preserved. No mass rewrites, no architecture changes.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ FOR PM</span>
+      <h4>Score &amp; trends for tracking accessibility debt.</h4>
+      <p>One number that moves over time. PM can show progress to leadership without translating WCAG into business language.</p>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">02 / AI WORKFLOWS</span>
+  <h2 class="h-display">Four stages: <em>Detect → Reason → Propose → Safeguard</em>.</h2>
+
+  <div class="proj-points" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="proj-point">
+      <span class="n">→ 01 · DETECT</span>
+      <h4>axe-core + heuristics.</h4>
+      <p>Run axe-core for the deterministic baseline. Layer heuristic rules for issues axe doesn't catch (focus order quirks, ARIA misuse patterns, dynamic-content gotchas).</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 02 · REASON</span>
+      <h4>Map to WCAG.</h4>
+      <p>Each violation is mapped to a specific WCAG criterion and a plain-English explanation of why it matters. The LLM picks the safest minimal change for the violation type.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 03 · PROPOSE</span>
+      <h4>Tiny HTML/CSS diff.</h4>
+      <p>The proposal is copy-ready — usually 2–5 lines. No surrounding refactor. No rewrites of the component shell. Just the change the rule requires.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 04 · SAFEGUARD</span>
+      <h4>Guardrails on every output.</h4>
+      <p>The LLM is prompt-bound to: never remove IDs, never strip ARIA, never propose a contrast value that isn't AA-compliant, snap to the nearest AA color in the user's token palette.</p>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">03 / DESIGN PRINCIPLES</span>
+  <h2 class="h-display">Three constraints that <em>shaped</em> the build.</h2>
+
+  <div class="stage-row">
+    <span class="stage-lbl">01</span>
+    <div>
+      <h4>Privacy-first · API/LLM &amp; CI-ready.</h4>
+      <p>The dashboard never assumes a centralized service. Bring your own LLM key. Outputs are deterministic enough to run in CI on every PR — no flaky model-of-the-day. Adapter-based stack lets teams swap providers without rewriting flows.</p>
+    </div>
+  </div>
+
+  <div class="stage-row">
+    <span class="stage-lbl">02</span>
+    <div>
+      <h4>Adapter-based · deterministic · safe outputs.</h4>
+      <p>Inputs (the HTML to audit) and outputs (the diff) are both schema-bound. The LLM is the translator, not the judge — its job is to map a violation to a known repair pattern. The repair pattern is plain code. The guardrails are constants, not prompts.</p>
+    </div>
+  </div>
+
+  <div class="stage-row">
+    <span class="stage-lbl">03</span>
+    <div>
+      <h4>Recruiter-ready · concise, live, impactful.</h4>
+      <p>This case study itself is the proof. Every issue comes with a one-line WCAG rationale, a minimal diff, and a contrast preview. Nothing in the UI is decorative — it's all evidence.</p>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">04 / RESPONSIBILITIES</span>
+  <h2 class="h-display">What I built, end-to-end.</h2>
+
+  <div class="proj-points">
+    <div class="proj-point">
+      <span class="n">→ RESEARCH</span>
+      <h4>WCAG heuristic audit.</h4>
+      <p>Catalogued the most common violation patterns across the projects I'd worked on. Triaged by frequency × fix-cost — the top 12 patterns cover ~80% of issues.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ IA &amp; FLOWS</span>
+      <h4>Triage → fix flow.</h4>
+      <p>Issues land in a triage queue ranked by severity. One-click to surface the smallest diff. Engineers copy the patch; designers see the contrast preview against design tokens.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ UI SYSTEM</span>
+      <h4>Tokens &amp; design system.</h4>
+      <p>Built a small token-aware design system so contrast suggestions snap to existing brand colors — engineers never paste a value that breaks the palette.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ INTEGRATION</span>
+      <h4>axe-core + LLM tests.</h4>
+      <p>axe-core for deterministic detection. LLM call constrained by JSON schema. Every prompt unit-tested with adversarial inputs (broken HTML, missing tags, mixed casing).</p>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">05 / VIDEO SHOWCASE</span>
+  <h2 class="h-display">Paste a URL. <em>Get an audit in seconds.</em></h2>
+  <p>Drop in a URL, the dashboard runs axe-core + heuristics on the live DOM, and a triaged issue list streams in. Click any issue → see the WCAG rationale, the proposed diff, the before/after contrast ratio, and a copy button.</p>
+  <div class="media-mid is-light" style="margin-top:24px;">
+    <video src="../site-media/works/01-A11y Copilot/014-video-e0f941_b0a5234df71340639de5e077f76e39d7.mp4" autoplay muted loop playsinline poster="../site-media/works/01-A11y Copilot/009-image-e0f941_b0a5234df71340639de5e077f76e39d7f000.jpg" style="width:100%; display:block;"></video>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">06 / KEY SCREENS</span>
+  <h2 class="h-display">Real visuals from the actual build.</h2>
+  <div class="media-row is-light">
+    <figure><img src="../site-media/works/01-A11y Copilot/006-image-e0f941_c32fc11510244d7cb0aaba33229c7744~mv2.png" alt="A11y Copilot — issue detail panel" loading="lazy" /></figure>
+    <figure><img src="../site-media/works/01-A11y Copilot/007-image-e0f941_f95e3064f28e424d9136f7a3299e8fa3~mv2.png" alt="A11y Copilot — diff proposal view" loading="lazy" /></figure>
+  </div>
+  <div class="media-mid is-light" style="margin-top:18px;">
+    <img src="../site-media/works/01-A11y Copilot/008-image-e0f941_bb60cf7e3afa41fd93d06db679a35704~mv2.png" alt="A11y Copilot — contrast preview against design tokens" loading="lazy" />
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">07 / REFLECTION</span>
+  <h2 class="h-display">What this project <em>taught me</em>.</h2>
+  <p>Accessibility tooling has a credibility problem: it surfaces too much, fixes too little. A11y Copilot is my answer — surface less, propose more, and never break what the engineer already wrote. The guardrails are the product.</p>
+  <p>The bigger lesson, which carried into my later AI work: <strong>LLMs are excellent translators of intent into structured outputs, and they're dangerous judges of business rules.</strong> Here, the LLM translates "low contrast" into "snap to nearest AA token". The judgment of which colors are allowed lives in code — not in a prompt.</p>
+</section>
+
+<nav class="proj-next">
+  <div>
+    <span class="label">[ PREVIOUS ]</span>
+    <a href="../index.html#selected" data-magnet="0.1">← <span class="sub">All Selected Work</span></a>
+  </div>
+  <div style="text-align:right;">
+    <span class="label">[ NEXT ]</span>
+    <a href="gather.html" data-magnet="0.1"><span class="sub">Gather</span> →</a>
+  </div>
+</nav>
+
+<footer class="site-foot">
+  <div class="site-foot__grid">
+    <div class="site-foot__brand">
+      <div class="h-display">Jestaz Yao</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--mute);">[ PRODUCT DESIGNER · NYC ]</div>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ WORK</span>
+      <a href="director.html">Director · Supply Chain MAS</a>
+      <a href="rag.html">Visual RAG Memory Map</a>
+      <a href="../index.html#selected">All projects</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ ELSEWHERE</span>
+      <a href="https://www.linkedin.com/in/jestaz/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.jestazyao.com/_files/ugd/e0f941_57fada2f786c4b899f033ae341ed743e.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ CONTACT</span>
+      <a href="mailto:yxhzdm@gmail.com">yxhzdm@gmail.com</a>
+    </div>
+  </div>
+  <div class="site-foot__legal">
+    <span>[ © 2026 JESTAZ YAO ]</span>
+    <span>NEW YORK CITY · WORKING GLOBALLY</span>
+  </div>
+</footer>
+
+</body>
+</html>

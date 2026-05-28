@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Visual RAG Memory Map · LocalRAGVisualMapSystem — Jestaz Yao</title>
+<meta name="description" content="An AI chat app you can see through. Memory you can toggle. Influence you can witness. A knowledge base you can walk through. Local-first, zero cloud, zero telemetry." />
+<meta name="theme-color" content="#08080A" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/styles.css" />
+<style>
+  .iter-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 28px;
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+  .iter-row .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--gold); }
+  .iter-row .lbl .stage { color: var(--mute); display: block; margin-top: 4px; font-size: 9px; }
+  .iter-row .head { font-family: var(--display); font-size: 22px; font-weight: 500; color: var(--text); margin-bottom: 10px; letter-spacing: -.015em; line-height: 1.25; }
+  .iter-row p { font-size: 14.5px; line-height: 1.6; color: var(--text-2); margin-bottom: 8px; }
+  .iter-row p strong { color: var(--text); }
+  .iter-row .col-lbl { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); margin: 12px 0 4px; display: block; }
+
+  .tradeoff-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  .tradeoff-table th, .tradeoff-table td {
+    text-align: left;
+    padding: 14px 14px 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+    vertical-align: top;
+  }
+  .tradeoff-table th {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--mute); font-weight: 400; padding-bottom: 14px;
+  }
+  .tradeoff-table td:first-child { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); width: 18%; }
+  .tradeoff-table td:nth-child(2) { color: var(--text); font-weight: 500; width: 38%; }
+  .tradeoff-table td:nth-child(3) { color: var(--text-2); width: 44%; }
+  @media (max-width: 900px) {
+    .iter-row { grid-template-columns: 1fr; gap: 8px; }
+  }
+</style>
+</head>
+<body class="project-page">
+
+<nav class="proj-nav">
+  <a class="proj-nav__brand" href="../index.html">Jestaz<span class="dot"></span></a>
+  <div class="proj-nav__links">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#selected" data-jump="#selected">Works</a>
+    <a href="../index.html#about" data-jump="#about">About</a>
+    <a href="mailto:yxhzdm@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<script src="../js/main.js" defer></script>
+
+<div class="dotgrid"></div>
+<div class="vignette"></div>
+
+<header class="proj-hero">
+  <div class="proj-hero__eyebrow">
+    <span class="swatch"></span>
+    <span>[ AI DESIGNER · SOLO · 2026 ]</span>
+  </div>
+  <h1 class="h-display proj-hero__title">An AI chat app you can <em>see through.</em></h1>
+  <p class="proj-hero__sub">Memory you can <strong>toggle</strong>. Influence you can <strong>witness</strong>. A knowledge base you can <strong>walk through</strong>. Local-first, zero cloud, zero telemetry.</p>
+
+  <div style="display:flex; gap:24px; flex-wrap:wrap; margin-top:8px;">
+    <a class="featured__link" href="https://memory-map.jestazyao.com/" target="_blank" rel="noopener" data-magnet="0.12">Try the live demo →</a>
+    <a class="featured__link is-secondary" href="https://github.com/ChengzhiYao/LocalRAGVisualMapSystem" target="_blank" rel="noopener" data-magnet="0.12">View source ↗</a>
+  </div>
+</header>
+
+<section class="proj-meta">
+  <div class="proj-meta__cell"><span class="k">→ ROLE</span><span class="v">Solo designer, researcher, engineer — product strategy through frontend, backend, and ML integration.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ TYPE</span><span class="v">Self-initiated product build. Shipped as a cross-platform desktop app.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ STACK</span><span class="v">Electron · UMAP-JS · k-means · Ollama (qwen2.5:7b + nomic-embed-text) · Anthropic / OpenAI as optional fallbacks.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ PLATFORMS</span><span class="v">macOS · Windows · Linux — single-file Electron with zero build step for dev.</span></div>
+</section>
+
+<div class="proj-section">
+  <span class="eyebrow">00 / DEMO</span>
+  <h2 class="h-display" style="margin-top:12px;">30 seconds of the thing <em>actually working</em>.</h2>
+  <p class="lede">Upload PDFs → chunk & embed → build vector map → query "Dallas economy" → watch top-8 relevant chunks light up while the rest fade out.</p>
+  <div class="media-full">
+    <video src="../site-media/works/08-RegAI/008-video-e0f941_9ad72d4f0e9f41ddb8dd2f219530ebd1.mp4" autoplay muted loop playsinline poster="../site-media/works/08-RegAI/007-image-e0f941_9ad72d4f0e9f41ddb8dd2f219530ebd1f000.jpg" style="width:100%; display:block;"></video>
+  </div>
+</div>
+
+<div class="proj-section">
+  <div class="proj-stats" style="grid-template-columns: repeat(5, 1fr); margin-top: 0;">
+    <div class="proj-stat"><div class="v">~6 wks</div><div class="k">solo build</div></div>
+    <div class="proj-stat"><div class="v">4</div><div class="k">design surfaces</div></div>
+    <div class="proj-stat"><div class="v">~300+</div><div class="k">chunks tested</div></div>
+    <div class="proj-stat"><div class="v">~900<span class="k" style="display:inline; font-size:12px;">ms</span></div><div class="k">firing pulse</div></div>
+    <div class="proj-stat"><div class="v">0</div><div class="k">servers · zero telemetry</div></div>
+  </div>
+</div>
+
+<div class="proj-section">
+  <div class="media-full"><img src="../site-media/works/08-RegAI/002-image-e0f941_d6f274a448a346e9b5fcae2d012e0eb2~mv2.jpg" alt="LocalRAGVisualMapSystem — main app view with chat, sidebar, and 2D knowledge map" loading="lazy" /></div>
+</div>
+
+<section class="proj-section">
+  <span class="eyebrow">01 / PROBLEM</span>
+  <h2 class="h-display">Today's AI chat is <em>opaque by default</em>.</h2>
+  <p class="lede">Single-turn Q&amp;A works great. But using AI as a <strong>long-term thinking partner</strong> breaks on three opacities — none of which are about model capability.</p>
+
+  <div class="proj-points">
+    <div class="proj-point">
+      <span class="n">→ 01 / MEMORY</span>
+      <h4>Can't see what it knows.</h4>
+      <p>Memory lists surface after the fact, flat, uncategorized. No situational toggles. "Use this tone for work, not personal" has no affordance.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 02 / INFLUENCE</span>
+      <h4>Can't see what mattered.</h4>
+      <p>Users don't know which memories or documents shaped a reply. Output feels like luck. Users over-trust or under-trust — neither is good UX.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 03 / SHAPE</span>
+      <h4>Can't see what's in there.</h4>
+      <p>Uploaded files become a name in a sidebar. A 300-page PDF and a one-line note look the same. The knowledge base is a black bag.</p>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">02 / ITERATION</span>
+  <h2 class="h-display">The four moves weren't a plan. They were <em>what survived</em>.</h2>
+  <p>I didn't map this app out and then build it. I built the simplest version I could, used it myself, noticed what sucked, fixed that one thing, used it again. Five rounds later, the four design moves on the next page are <strong>what was left standing</strong>.</p>
+
+  <div class="iter-row">
+    <span class="lbl">ITER 01<span class="stage">WHERE I STARTED</span></span>
+    <div>
+      <div class="head">Just a chat window. Nothing else.</div>
+      <span class="col-lbl">WHAT IT WAS</span>
+      <p>A plain chat box. Type a question, get a reply. No files, no memory, nothing saved between sessions.</p>
+      <span class="col-lbl">WHY THAT WASN'T ENOUGH</span>
+      <p>Every time I opened it, it had forgotten everything. If I told it Monday "I'm a designer working on a music app," on Tuesday it had no idea who I was. Great for one-off questions. <strong>Useless as a thinking partner.</strong></p>
+    </div>
+  </div>
+
+  <div class="iter-row">
+    <span class="lbl">ITER 02<span class="stage">+ FILE READING</span></span>
+    <div>
+      <div class="head">Now it can read my documents.</div>
+      <span class="col-lbl">WHAT I ADDED</span>
+      <p>Drag in a PDF, a résumé, meeting notes — the AI would actually read them and use them when answering. I also added a little "Sources" list under each reply so you could see where an answer came from.</p>
+      <span class="col-lbl">WHY THAT WASN'T ENOUGH</span>
+      <p>The sources were broken. I'd ask "what's my identity?" and it would cite a random SEO doc. The same file got listed three or four times for the same answer — like filler. The "Sources" label looked like evidence but was really just noise. <strong>I couldn't trust my own app.</strong></p>
+    </div>
+  </div>
+
+  <div class="iter-row">
+    <span class="lbl">ITER 03<span class="stage">+ MEMORY CARDS</span></span>
+    <div>
+      <div class="head">Now it remembers things about me.</div>
+      <span class="col-lbl">WHAT I ADDED</span>
+      <p>Little notes the AI always sees — organized by type. <em>Who I am. Projects I'm working on. Preferences. Things I don't want it to do.</em> Flip a card off when it doesn't apply to the current conversation.</p>
+      <span class="col-lbl">WHY THAT WASN'T ENOUGH</span>
+      <p>The cards lived inside a separate pop-up window. Out of sight, out of mind. I'd write "keep replies under 3 sentences" and then have no way of knowing whether the AI was actually using that card on any given reply, or just ignoring it. <strong>The memory existed — but I couldn't see it working.</strong></p>
+    </div>
+  </div>
+
+  <div class="iter-row">
+    <span class="lbl">ITER 04<span class="stage">+ VISUAL FEEDBACK</span></span>
+    <div>
+      <div class="head">Now I can see which memory got used — kind of.</div>
+      <span class="col-lbl">WHAT I ADDED</span>
+      <p>When the AI replied, the cards it had actually used would flash amber for about a second, like a little heartbeat. I also built a visual map of everything in the knowledge base — dots grouped into topic-clusters you could zoom and pan around.</p>
+      <span class="col-lbl">WHY THAT WASN'T ENOUGH</span>
+      <p>Both of these lived inside pop-up windows. To see which card flashed, I had to click the Memory button, leave the chat, watch the flash, then come back to read the reply. The information was there — <strong>the cost of looking at it was too high. So I just stopped looking.</strong></p>
+    </div>
+  </div>
+
+  <div class="iter-row">
+    <span class="lbl">ITER 05<span class="stage">WHERE I AM NOW</span></span>
+    <div>
+      <div class="head">Now everything sits right in the conversation.</div>
+      <span class="col-lbl">WHAT I ADDED</span>
+      <p>Small coloured tags directly under every AI reply, showing which memory cards it just used. Hover one to preview the content. Click it to edit the memory on the spot. For sources: only show a file if it's actually relevant to the question, and never the same file twice.</p>
+      <span class="col-lbl">WHAT CHANGED</span>
+      <p>I can now glance at a reply and know <em>why</em> the AI said what it said — without ever leaving the chat. Sources became real evidence again instead of noise. The four design moves on the next page (Structure, Surface, Navigate, Retain) are the ones that earned their place after surviving all of this.</p>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top:32px;">The same pattern kept showing up: the feature would work fine in the code, but I'd stop noticing it existed. The fix was almost never "build something new" → <strong>it was "move the thing I already built closer to where I'm actually looking."</strong></p>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">03 / DESIGN FRAMEWORK</span>
+  <h2 class="h-display"><em>Structure</em> → <em>Surface</em> → <em>Navigate</em> → <em>Retain</em>.</h2>
+
+  <div class="proj-points" style="grid-template-columns: repeat(2, 1fr); gap: 24px;">
+    <div class="proj-point"><span class="n">→ MOVE 01 · STRUCTURE</span><h4>Memory Cards — a deck, not a textarea.</h4><p>Turn hidden memory into a deck of typed, toggleable cards. User curates, model respects.</p></div>
+    <div class="proj-point"><span class="n">→ MOVE 02 · SURFACE</span><h4>The firing pulse.</h4><p>Animate the invisible. A 900ms amber pulse shows which memories fired — without stealing attention from the answer.</p></div>
+    <div class="proj-point"><span class="n">→ MOVE 03 · NAVIGATE</span><h4>The 2D semantic map.</h4><p>Project embeddings to 2D. Make latent space a place users can pan, zoom, and query — not a lookup table.</p></div>
+    <div class="proj-point"><span class="n">→ MOVE 04 · RETAIN</span><h4>Local-first architecture.</h4><p>Store everything locally in one deletable folder. Trust through architecture, not policy copy.</p></div>
+    <div class="proj-point"><span class="n">→ MOVE 05 · LOCALIZE</span><h4>Inference moved on-device.</h4><p>Move inference on-device via Ollama. The cloud becomes optional, not required.</p></div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <h3>MOVE 01 · STRUCTURE — Memory Cards. <em>A deck, not a textarea.</em></h3>
+  <p><strong>Six typed categories.</strong> identity · project · preference · taboo · style · general. Chosen after testing free-form tags (sprawled to 40+ in a week) and three broad buckets (too coarse — preferences and taboos behave differently at prompt-injection time). Six was the smallest set the model actually respected.</p>
+  <p><strong>A parse-paste flow.</strong> User pastes a messy brain-dump. One LLM call turns it into cards. User reviews, edits, toggles. 30-minute setup → 30 seconds.</p>
+  <div class="media-mid"><img src="../site-media/works/08-RegAI/003-gif-e0f941_592d95d8c5474e72a6833c77c0650fad~mv2.gif" alt="Memory Cards — typed, toggleable deck" loading="lazy" /></div>
+</section>
+
+<section class="proj-section">
+  <h3>MOVE 02 · SURFACE — The <em>firing pulse</em>, explaining AI influence.</h3>
+  <p>After every reply, the app embeds the response and cosine-scores it against every enabled card. Top cards pulse amber for ~900ms. No numbers, no citation popup — just a quiet witnessable cue: <strong>these memories shaped this answer.</strong></p>
+  <p><strong>Killed the citation list.</strong> An earlier version listed "memories used" under each reply. Accurate but ugly — and it trained users to read the footnote instead of the answer. Ambient pulse &gt; explicit citation when the user's primary task is reading.</p>
+  <div class="media-mid"><img src="../site-media/works/08-RegAI/004-gif-e0f941_fb150be49b8c48b0888cc72225c37955~mv2.gif" alt="Firing pulse — 900ms amber flash on memory cards that shaped a reply" loading="lazy" /></div>
+</section>
+
+<section class="proj-section">
+  <h3>MOVE 03 · NAVIGATE — The 2D semantic map. <em>Latent space, walkable.</em></h3>
+  <p>Every chunk: embedded (1,536-D), projected via UMAP to 2D, k-means clustered, LLM-labeled. Every dot is a chunk. Every color is a topic. <strong>RAG becomes navigation, not retrieval.</strong></p>
+  <p>Interactions: cursor-anchored wheel zoom, click-drag pan with 5px click/drag threshold, rich hover tooltip with match-% bar, query mode that highlights top-K with connecting lines, fullscreen, keyboard shortcuts (+/−/0/F). <strong>Map first. Text second.</strong></p>
+  <div class="media-mid"><img src="../site-media/works/08-RegAI/005-image-e0f941_c093c1518d7c4c01af2b39efd44d30ce~mv2.jpg" alt="2D semantic map — UMAP projection of 294 chunks across 6 clusters" loading="lazy" /></div>
+</section>
+
+<section class="proj-section">
+  <h3>MOVE 04 · RETAIN — Local-first architecture. <em>Trust via locality.</em></h3>
+  <p>All state — every conversation, memory card, KB vector, Gmail credential, API key — lives in <strong>one 2.4 MB JSON file</strong> on the user's machine. No backend. No account. No sync. No telemetry. The only network traffic is the explicit API call the user configured.</p>
+  <p><strong>Delete the file = complete reset. That clarity is the feature.</strong> The best trust signal is a file the user can delete.</p>
+  <div class="media-mid" style="padding:32px; background:var(--bg-2); border:1px solid var(--line); border-radius:6px; font-family:var(--mono); font-size:13px; color:var(--text-2); line-height:1.7;">
+C:\Users\…\AppData\Roaming\<br/>
+local-rag-visual-map-system<br/>
+└── config.json &nbsp;&nbsp; <span style="color:var(--mute);">// 2.4 MB — everything you own</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conversations: [...],<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memoryCards:   [...],<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kb:            { docs, embeddings },<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kbMap:         { points, clusters },<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;anthropicKey:  "***",<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gmailAppPwd:   "***"<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+<br/>
+<span style="color:var(--gold);">→ Delete the file to fully reset.</span>
+  </div>
+  <div class="media-mid" style="margin-top:24px;"><img src="../site-media/works/08-RegAI/006-image-e0f941_1c75f257b82948128da3fe508986f39d~mv2.jpg" alt="Local config.json shown in Windows Explorer — one deletable file holds all state" loading="lazy" /></div>
+</section>
+
+<section class="proj-section">
+  <h3>MOVE 05 · LOCALIZE — Inference moved <em>on-device</em>.</h3>
+  <p>v1 was local-first <em>data</em> but cloud-first <em>inference</em>. v1.2 closed the loop. Chat, embeddings, memory parsing, and cluster labeling all run via <strong>Ollama</strong> on the user's machine. The cloud became optional, not required.</p>
+  <p>Anthropic and OpenAI remain selectable in Settings — for users who want top-tier reasoning. But the <strong>default install path is now zero keys, zero accounts, zero outbound traffic.</strong> Privacy users no longer have a "but."</p>
+
+  <div class="proj-points">
+    <div class="proj-point"><span class="n">→ CHAT</span><h4>qwen2.5:7b</h4><p>via Ollama, on-device. ~10–15 tok/s on CPU · streaming.</p></div>
+    <div class="proj-point"><span class="n">→ EMBEDDINGS</span><h4>nomic-embed-text</h4><p>via Ollama, on-device. 768-dim · ~270MB · powers RAG + Map + firing pulse.</p></div>
+    <div class="proj-point"><span class="n">→ MEMORY PARSING</span><h4>Ollama JSON mode</h4><p>on-device. format:'json' · strict schema, no drift.</p></div>
+  </div>
+
+  <p style="margin-top:24px; font-style:italic;">I didn't make this local-first because it's <em>faster</em> — it isn't. I made it local-first because the people I want to use this care more about <em style="color:var(--gold); font-style:normal;">privacy</em> than latency.</p>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">04 / TRADEOFFS</span>
+  <h2 class="h-display">What I ruled out, <em>and why</em>.</h2>
+  <p>Every design choice is a killed alternative. The ones worth naming:</p>
+
+  <table class="tradeoff-table">
+    <thead><tr><th>Decision</th><th>Chose</th><th>Ruled out</th></tr></thead>
+    <tbody>
+      <tr><td>Projection</td><td>UMAP — stable under re-embedding, preserves global structure.</td><td>t-SNE rebuilds layout each run (breaks mental map). PCA smears semantics.</td></tr>
+      <tr><td>Memory schema</td><td>Six fixed categories — forces a productive decision: preference or taboo?</td><td>Free-form tags sprawl to 40+ labels. Three buckets are too coarse.</td></tr>
+      <tr><td>Explainability UX</td><td>Ambient firing pulse — available, not intrusive.</td><td>Citation list trained users to read the footnote instead of the answer.</td></tr>
+      <tr><td>Data architecture</td><td>Local-first — delete = reset. Zero breach surface.</td><td>Cloud sync brings accounts, TOS, vendor lock-in.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">05 / WHAT I LEARNED</span>
+  <h2 class="h-display">Three things, after five iterations.</h2>
+
+  <div class="proj-points">
+    <div class="proj-point">
+      <span class="n">→ 01</span>
+      <h4>Animation is an <em style="color:var(--gold); font-style:normal;">explainability</em> primitive.</h4>
+      <p>The firing pulse explains memory influence in a way no citation list ever did. Motion can describe state-change without stealing attention.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 02</span>
+      <h4>Latent space rewards <em style="color:var(--gold); font-style:normal;">spatial</em> UI.</h4>
+      <p>Once you can pan and zoom through your own knowledge, you stop treating it as "files" and start treating it as territory. RAG becomes navigation.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ 03</span>
+      <h4>Trust is a folder the user can <em style="color:var(--gold); font-style:normal;">delete</em>.</h4>
+      <p>No policy copy outperforms a single 2.4 MB file the user can put in the trash. Architecture as trust signal.</p>
+    </div>
+  </div>
+</section>
+
+<nav class="proj-next">
+  <div>
+    <span class="label">[ PREVIOUS ]</span>
+    <a href="director.html" data-magnet="0.1">← Director · <span class="sub">Supply Chain MAS</span></a>
+  </div>
+  <div style="text-align:right;">
+    <span class="label">[ NEXT ]</span>
+    <a href="aipattern.html" data-magnet="0.1">The <span class="sub">Translator Pattern</span> →</a>
+  </div>
+</nav>
+
+<footer class="site-foot">
+  <div class="site-foot__grid">
+    <div class="site-foot__brand">
+      <div class="h-display">Jestaz Yao</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--mute);">[ PRODUCT DESIGNER · NYC ]</div>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ WORK</span>
+      <a href="director.html">Director · Supply Chain MAS</a>
+      <a href="rag.html">Visual RAG Memory Map</a>
+      <a href="../index.html#selected">All projects</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ ELSEWHERE</span>
+      <a href="https://www.linkedin.com/in/jestaz/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.jestazyao.com/_files/ugd/e0f941_57fada2f786c4b899f033ae341ed743e.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ CONTACT</span>
+      <a href="mailto:yxhzdm@gmail.com">yxhzdm@gmail.com</a>
+    </div>
+  </div>
+  <div class="site-foot__legal">
+    <span>[ © 2026 JESTAZ YAO ]</span>
+    <span>NEW YORK CITY · WORKING GLOBALLY</span>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
+
+<script src="../js/main.js"></script></body></html>

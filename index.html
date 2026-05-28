@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Jestaz Yao — Senior product designer · AI systems · NYC</title>
+<meta name="description" content="Senior product designer based in New York. I design the parts of AI products that have consequences — not just the screens." />
+<meta name="theme-color" content="#08080A" />
+
+<meta property="og:title" content="Jestaz Yao — Senior product designer" />
+<meta property="og:description" content="I design the parts of AI products that have consequences — not just the screens." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.jestazyao.com/" />
+<meta property="og:image" content="site-media/works/08-RegAI/002-image-e0f941_d6f274a448a346e9b5fcae2d012e0eb2~mv2.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2308080A'/%3E%3Ctext x='50%25' y='62%25' text-anchor='middle' font-family='-apple-system,sans-serif' font-weight='500' font-size='18' fill='%23EAEAEC'%3EJ%3C/text%3E%3Ccircle cx='25' cy='23' r='2.5' fill='%23D4B86A'/%3E%3C/svg%3E" />
+</head>
+<body>
+
+<!-- Background layers -->
+<div class="dotgrid"></div>
+<div class="vignette"></div>
+
+<!-- Loader -->
+<div class="loader" aria-hidden="true">
+  <div class="loader__brand">Jestaz<span class="dot">.</span></div>
+  <div class="loader__progress">[ INITIALIZING · NYC · 2026 ]</div>
+</div>
+
+<!-- HUD: top-left brand + status -->
+<div class="hud hud-tl">
+  <a class="hud__brand" href="index.html">Jestaz<span class="dot"></span></a>
+  <span class="hud__sep">/</span>
+  <span class="hud__live"><span class="led"></span>OPEN · Q3 2026</span>
+</div>
+
+<!-- HUD: top-right nav pills -->
+<div class="hud hud-tr">
+  <nav class="hud__nav">
+    <a class="hud__chip is-active" href="#hero" data-jump="#hero" data-magnet="0.18">Home</a>
+    <a class="hud__chip" href="https://demonrising.jestazyao.com/" target="_blank" rel="noopener" data-magnet="0.18">Game</a>
+    <a class="hud__chip" href="projects/director.html" data-magnet="0.18">AI System</a>
+    <a class="hud__chip" href="#selected" data-jump="#selected" data-magnet="0.18">Works</a>
+    <a class="hud__chip" href="#about" data-jump="#about" data-magnet="0.18">About</a>
+    <a class="hud__chip" href="#contact" data-jump="#contact" data-magnet="0.18">Contact</a>
+  </nav>
+  <button class="hud__menu-btn" aria-label="Toggle menu">Menu</button>
+</div>
+
+<!-- HUD: bottom-left coordinates -->
+<div class="hud hud-bl">
+  <span>40.7128°N · 74.0060°W</span>
+  <span class="hud__sep">/</span>
+  <span data-clock>--:--:--</span>
+  <span class="hud__sep">/</span>
+  <span>NYC</span>
+</div>
+
+<!-- HUD: bottom-right scroll readout -->
+<div class="hud hud-br">
+  <div class="scroll-readout">
+    <span class="count"><strong>001</strong> <span class="max">/ 009</span></span>
+    <div class="rail"></div>
+    <span class="hint">drag · wheel · arrows</span>
+  </div>
+</div>
+
+<main class="h-scroll" id="h-scroll">
+  <div class="h-scroll__track">
+
+    <!-- ============ PANEL 01 — HERO ============ -->
+    <section class="panel panel--hero" id="hero">
+      <div class="panel__index"><strong>[ 01 ]</strong> · INDEX</div>
+      <div class="panel__edge">PORTFOLIO · 2026</div>
+      <div class="panel__ruler"><span>NYC</span><span>EST 2019</span><span>SENIOR · PRODUCT</span><span>AI SYSTEMS</span></div>
+
+      <div class="hero__wrap">
+        <div class="hero__status">
+          <span class="dot"></span>
+          <span>[ AVAILABLE · Q3 2026 ] / NYC / PRODUCT DESIGN · AI SYSTEMS</span>
+        </div>
+
+        <h1 class="h-display hero__title">
+          <span class="reveal-line"><span class="reveal-inner">I design the <em>decisions</em></span></span>
+          <span class="reveal-line"><span class="reveal-inner">AI <em>products</em> make —</span></span>
+          <span class="reveal-line"><span class="reveal-inner">not just the screens.</span></span>
+        </h1>
+
+        <p class="hero__sub">
+          Product designer focused on the line where AI meets real consequences. <strong>What the model is allowed to decide. What has to be a rule. How the system shows its work.</strong> Currently shipping case studies on multi-agent systems, retrieval memory, and LLM policy architecture.
+        </p>
+
+        <div class="hero__meta">
+          <div class="hero__meta-cell">
+            <span class="k">→ BASED IN</span>
+            <span class="v">New York City <span class="sep">·</span> working globally</span>
+          </div>
+          <div class="hero__meta-cell">
+            <span class="k">→ FOCUS</span>
+            <span class="v">AI systems <span class="sep">·</span> product <span class="sep">·</span> UX architecture</span>
+          </div>
+          <div class="hero__meta-cell">
+            <span class="k">→ LATEST</span>
+            <span class="v"><a href="projects/director.html">Director · Supply Chain MAS</a> <span class="sep">·</span> Apr 2026</span>
+          </div>
+          <div class="hero__meta-cell">
+            <span class="k">→ BACKGROUND</span>
+            <span class="v">5 yrs <span class="sep">·</span> B2B <span class="sep">·</span> social <span class="sep">·</span> finance <span class="sep">·</span> a11y</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PANEL 02 — FEATURED INTRO ============ -->
+    <section class="panel">
+      <div class="panel__index"><strong>[ 02 ]</strong> · FEATURED WORK</div>
+      <div class="panel__edge">2026 · IN DEPTH</div>
+      <div class="panel__ruler"><span>FOUR CASE STUDIES</span><span>10·6·8·9 MIN</span><span>ALL SHIPPED</span></div>
+
+      <div class="featured-intro">
+        <div class="featured-intro__copy">
+          <span class="eyebrow">01 · FEATURED WORK</span>
+          <h2 class="h-display featured-intro__title">
+            Four case studies about the <em>hardest part</em> of AI design — deciding what the model doesn't decide.
+          </h2>
+          <p class="featured-intro__sub">
+            All four started from the same observation: LLM products fail in predictable ways. These are the design responses when you take that seriously — shipped, working code, not mockups.
+          </p>
+        </div>
+
+        <div class="featured-intro__list">
+          <a href="projects/director.html" class="featured-intro__row" data-magnet="0.05">
+            <span class="n">/01</span>
+            <span class="t">Director · <span class="gold">Supply Chain MAS</span></span>
+            <span class="d">Multi-agent · eval-driven</span>
+            <span class="y">10 MIN</span>
+          </a>
+          <a href="projects/rag.html" class="featured-intro__row" data-magnet="0.05">
+            <span class="n">/02</span>
+            <span class="t">Visual RAG <span class="gold">Memory Map</span></span>
+            <span class="d">AI memory · retrieval UX</span>
+            <span class="y">6 MIN</span>
+          </a>
+          <a href="projects/aipattern.html" class="featured-intro__row" data-magnet="0.05">
+            <span class="n">/03</span>
+            <span class="t">The <span class="gold">Translator Pattern</span></span>
+            <span class="d">Design pattern · AI + policy</span>
+            <span class="y">8 MIN</span>
+          </a>
+          <a href="https://demonrising.jestazyao.com/" target="_blank" rel="noopener" class="featured-intro__row" data-magnet="0.05">
+            <span class="n">/04</span>
+            <span class="t">Demon Rising · <span class="gold">The Council</span></span>
+            <span class="d">LLM in the loop · fallback design</span>
+            <span class="y">9 MIN</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PANEL 03 — Featured 01: Director ============ -->
+    <section class="panel" id="director">
+      <div class="panel__index"><strong>[ 03 ]</strong> · FEATURED / 01</div>
+      <div class="panel__edge">2026 · 10 MIN READ</div>
+      <div class="panel__ruler"><span>F1=0.94</span><span>180,519 ROWS</span><span>4 SUB-AGENTS</span><span>3 ROUTER STRATEGIES</span></div>
+
+      <div class="featured">
+        <a href="projects/director.html" class="featured__media-main" aria-label="Open Director Supply Chain MAS">
+          <svg viewBox="0 0 540 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%; height:100%;">
+            <defs>
+              <style>
+                .b { fill: #131318; stroke: rgba(255,255,255,.14); stroke-width: 1; }
+                .b-act { fill: #131318; stroke: #D4B86A; stroke-width: 1.4; }
+                .b-done { fill: #131318; stroke: #EAEAEC; stroke-width: 1.4; }
+                .l { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: .12em; fill: #6E6E78; text-transform: uppercase; }
+                .t { font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 500; fill: #EAEAEC; }
+                .m { font-family: 'Geist Mono', monospace; font-size: 8px; fill: #6E6E78; letter-spacing: .08em; text-transform: uppercase; }
+                .pf { fill: #EAEAEC; }
+                .po { fill: none; stroke: #EAEAEC; stroke-width: 1; }
+                .pftx { font-family: 'Geist Mono', monospace; font-size: 9px; fill: #08080A; letter-spacing: .1em; }
+                .potx { font-family: 'Geist Mono', monospace; font-size: 9px; fill: #EAEAEC; letter-spacing: .1em; }
+                .ln-a { stroke: #D4B86A; stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+                .ln-d { stroke: #EAEAEC; stroke-width: 1.2; fill: none; }
+                .ln-i { stroke: rgba(255,255,255,.18); stroke-width: 1; fill: none; }
+              </style>
+            </defs>
+
+            <text x="20" y="28" class="l">director · routing graph · multi-step</text>
+            <circle cx="520" cy="22" r="3" fill="#D4B86A"/>
+            <line x1="20" y1="42" x2="520" y2="42" stroke="rgba(255,255,255,.08)"/>
+
+            <rect class="b" x="210" y="70" width="120" height="48" rx="4"/>
+            <circle cx="222" cy="86" r="3" fill="#D4B86A"/>
+            <text x="270" y="96" class="t" text-anchor="middle">Director</text>
+            <text x="270" y="110" class="m" text-anchor="middle">GPT · 4o-mini</text>
+
+            <path class="ln-a" d="M 240 118 Q 200 150 140 180"/>
+            <path class="ln-i" d="M 260 118 Q 250 150 230 180"/>
+            <path class="ln-i" d="M 280 118 Q 290 150 320 180"/>
+            <path class="ln-d" d="M 300 118 Q 360 150 420 180"/>
+
+            <rect class="b-act" x="60" y="180" width="140" height="60" rx="4"/>
+            <circle cx="74" cy="198" r="3" fill="#D4B86A"/>
+            <text x="130" y="208" class="t" text-anchor="middle">Network</text>
+            <rect x="98" y="218" width="64" height="14" rx="2" fill="#D4B86A" fill-opacity=".18" stroke="#D4B86A" stroke-width=".8"/>
+            <text x="130" y="228" class="potx" text-anchor="middle" fill="#D4B86A">RUNNING</text>
+
+            <rect class="b" x="206" y="180" width="92" height="60" rx="4"/>
+            <circle cx="218" cy="198" r="3" fill="#6E6E78"/>
+            <text x="252" y="208" class="t" text-anchor="middle">Forecast</text>
+            <text x="252" y="228" class="m" text-anchor="middle">IDLE</text>
+
+            <rect class="b" x="304" y="180" width="92" height="60" rx="4"/>
+            <circle cx="316" cy="198" r="3" fill="#6E6E78"/>
+            <text x="350" y="208" class="t" text-anchor="middle">Demand</text>
+            <text x="350" y="228" class="m" text-anchor="middle">IDLE</text>
+
+            <rect class="b-done" x="402" y="180" width="118" height="60" rx="4"/>
+            <circle cx="416" cy="198" r="3" fill="#EAEAEC"/>
+            <text x="461" y="208" class="t" text-anchor="middle">Risk</text>
+            <text x="461" y="228" class="m" text-anchor="middle">5 FOUND</text>
+
+            <line x1="20" y1="282" x2="520" y2="282" stroke="rgba(255,255,255,.08)"/>
+            <text x="20" y="306" class="l">router strategy</text>
+
+            <rect x="100" y="324" width="92" height="26" rx="3" class="pf"/>
+            <text x="146" y="341" class="pftx" text-anchor="middle">PLAN 01</text>
+            <text x="206" y="341" font-family="Geist, sans-serif" font-size="14" fill="#EAEAEC">→</text>
+
+            <rect x="222" y="324" width="92" height="26" rx="3" class="po"/>
+            <text x="268" y="341" class="potx" text-anchor="middle">REFLECT</text>
+            <text x="328" y="341" font-family="Geist, sans-serif" font-size="14" fill="#EAEAEC">→</text>
+
+            <rect x="344" y="324" width="92" height="26" rx="3" class="pf"/>
+            <text x="390" y="341" class="pftx" text-anchor="middle">PLAN 02</text>
+
+            <text x="520" y="341" class="m" text-anchor="end">F1=0.94 · 30Q BENCH</text>
+          </svg>
+        </a>
+
+        <div class="featured__copy">
+          <div class="featured__tags">
+            <span class="featured__tag is-filled">FEATURED</span>
+            <span class="featured__tag">Multi-agent</span>
+            <span class="featured__tag">Eval-driven</span>
+          </div>
+
+          <h2 class="h-display featured__title">
+            Director · <span class="sub">Supply Chain MAS.</span>
+          </h2>
+
+          <p class="featured__desc">
+            A multi-agent system that turns 180,519 raw orders into a one-paragraph answer — by routing through four specialised sub-agents, surfacing the raw rows behind every claim, and benchmarking three router strategies against each other. <strong>Built for legibility, not for autonomy.</strong>
+          </p>
+
+          <div class="featured__meta">
+            <span>ROLE <span class="sep">·</span> <strong>Solo design + engineering</strong></span>
+            <span>YEAR <span class="sep">·</span> <strong>2026</strong></span>
+            <span>READ <span class="sep">·</span> <strong>10 min</strong></span>
+          </div>
+
+          <div class="featured__ctas">
+            <a href="projects/director.html" class="featured__link" data-magnet="0.12">Read the case study →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PANEL 04 — Featured 02: Visual RAG Memory Map ============ -->
+    <section class="panel" id="rag">
+      <div class="panel__index"><strong>[ 04 ]</strong> · FEATURED / 02</div>
+      <div class="panel__edge">2026 · 6 MIN READ</div>
+      <div class="panel__ruler"><span>42 CARDS</span><span>6 CLUSTERS</span><span>UMAP 2D</span><span>LOCAL-FIRST</span></div>
+
+      <div class="featured">
+        <a href="projects/rag.html" class="featured__media-main" aria-label="Open Visual RAG Memory Map">
+          <svg viewBox="0 0 540 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%; height:100%;">
+            <defs>
+              <!-- Subtle dot-grid background for coordinate space -->
+              <pattern id="rag-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <circle cx="10" cy="10" r="0.5" fill="rgba(255,255,255,.06)"/>
+              </pattern>
+
+              <!-- Soft cluster blobs (radial gradients) -->
+              <radialGradient id="rag-blob-id" cx="50%" cy="50%" r="55%">
+                <stop offset="0%" stop-color="#D4B86A" stop-opacity=".28"/>
+                <stop offset="55%" stop-color="#D4B86A" stop-opacity=".09"/>
+                <stop offset="100%" stop-color="#D4B86A" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="rag-blob-pj" cx="50%" cy="50%" r="55%">
+                <stop offset="0%" stop-color="#9BB373" stop-opacity=".26"/>
+                <stop offset="55%" stop-color="#9BB373" stop-opacity=".08"/>
+                <stop offset="100%" stop-color="#9BB373" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="rag-blob-pf" cx="50%" cy="50%" r="55%">
+                <stop offset="0%" stop-color="#E8D67A" stop-opacity=".24"/>
+                <stop offset="55%" stop-color="#E8D67A" stop-opacity=".07"/>
+                <stop offset="100%" stop-color="#E8D67A" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="rag-blob-tb" cx="50%" cy="50%" r="55%">
+                <stop offset="0%" stop-color="#7AC09E" stop-opacity=".24"/>
+                <stop offset="55%" stop-color="#7AC09E" stop-opacity=".08"/>
+                <stop offset="100%" stop-color="#7AC09E" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="rag-blob-st" cx="50%" cy="50%" r="55%">
+                <stop offset="0%" stop-color="#D89A8E" stop-opacity=".32"/>
+                <stop offset="55%" stop-color="#D89A8E" stop-opacity=".12"/>
+                <stop offset="100%" stop-color="#D89A8E" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="rag-blob-gn" cx="50%" cy="50%" r="55%">
+                <stop offset="0%" stop-color="#AEAEB6" stop-opacity=".22"/>
+                <stop offset="55%" stop-color="#AEAEB6" stop-opacity=".07"/>
+                <stop offset="100%" stop-color="#AEAEB6" stop-opacity="0"/>
+              </radialGradient>
+
+              <!-- Query point glow -->
+              <radialGradient id="rag-query-glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#D4B86A" stop-opacity=".55"/>
+                <stop offset="55%" stop-color="#D4B86A" stop-opacity=".15"/>
+                <stop offset="100%" stop-color="#D4B86A" stop-opacity="0"/>
+              </radialGradient>
+
+              <style>
+                .ttl  { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .12em; fill: #8A8A92; text-transform: uppercase; }
+                .lbl  { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: .04em; fill: #B8B8C0; text-transform: uppercase; }
+                .micro{ font-family: 'Geist Mono', monospace; font-size: 7.5px; letter-spacing: .04em; fill: #6E6E78; }
+                .pct  { font-family: 'Geist Mono', monospace; font-size: 7.5px; letter-spacing: .04em; fill: #D4B86A; }
+                .pct-fade { fill: #B8B8C0; }
+                .dot-id { fill: #D4B86A; } .dot-pj { fill: #9BB373; } .dot-pf { fill: #E8D67A; }
+                .dot-tb { fill: #7AC09E; } .dot-st { fill: #D89A8E; } .dot-gn { fill: #AEAEB6; }
+                .clbl-id { fill: #D4B86A; } .clbl-pj { fill: #9BB373; } .clbl-pf { fill: #E8D67A; }
+                .clbl-tb { fill: #7AC09E; } .clbl-st { fill: #D89A8E; } .clbl-gn { fill: #AEAEB6; }
+                .ray  { stroke: #D4B86A; stroke-width: 1; fill: none; stroke-dasharray: 3 2; opacity: .65; }
+                .ray-faint { stroke: #D4B86A; stroke-width: .8; fill: none; stroke-dasharray: 2 3; opacity: .35; }
+                .axis { stroke: rgba(255,255,255,.08); stroke-width: .5; }
+                .corner { stroke: rgba(212,184,106,.5); stroke-width: 1; fill: none; }
+                @keyframes ragPulse {
+                  0%, 100% { r: 18; opacity: .35; }
+                  50%      { r: 28; opacity: .05; }
+                }
+                .pulse-ring { animation: ragPulse 2.4s ease-in-out infinite; transform-origin: center; }
+              </style>
+            </defs>
+
+            <!-- Background grid -->
+            <rect x="0" y="0" width="540" height="400" fill="url(#rag-grid)"/>
+
+            <!-- Header bar -->
+            <text x="24" y="26" class="ttl">memory map · 42 cards · 6 clusters · umap 2d</text>
+            <circle cx="510" cy="22" r="2.5" fill="#57E08F"/>
+            <text x="500" y="26" class="micro" text-anchor="end">live</text>
+            <line x1="24" y1="38" x2="516" y2="38" class="axis"/>
+
+            <!-- Corner ticks (suggesting coordinate space) -->
+            <path d="M 24 50 L 24 56 M 24 50 L 30 50" class="corner"/>
+            <path d="M 516 50 L 516 56 M 516 50 L 510 50" class="corner"/>
+            <path d="M 24 354 L 24 348 M 24 354 L 30 354" class="corner"/>
+            <path d="M 516 354 L 516 348 M 516 354 L 510 354" class="corner"/>
+
+            <!-- 6 cluster blobs (soft gradients) -->
+            <ellipse cx="120" cy="125" rx="72" ry="56" fill="url(#rag-blob-id)"/>
+            <ellipse cx="265" cy="110" rx="62" ry="50" fill="url(#rag-blob-pj)"/>
+            <ellipse cx="412" cy="135" rx="54" ry="48" fill="url(#rag-blob-pf)"/>
+            <ellipse cx="125" cy="275" rx="68" ry="54" fill="url(#rag-blob-tb)"/>
+            <ellipse cx="265" cy="290" rx="78" ry="58" fill="url(#rag-blob-st)"/>
+            <ellipse cx="412" cy="285" rx="54" ry="48" fill="url(#rag-blob-gn)"/>
+
+            <!-- Active cluster focus ring (style — primary retrieval target) -->
+            <ellipse cx="265" cy="290" rx="84" ry="62" fill="none" stroke="#D4B86A" stroke-width="1" stroke-dasharray="3 2" opacity=".5"/>
+
+            <!-- Cluster labels with leading dot -->
+            <g><circle cx="64" cy="74" r="2.5" class="dot-id"/><text x="72" y="77" class="lbl clbl-id">identity</text><text x="125" y="77" class="micro" fill="#8A8A92">· 8</text></g>
+            <g><circle cx="222" cy="68" r="2.5" class="dot-pj"/><text x="230" y="71" class="lbl clbl-pj">project</text><text x="277" y="71" class="micro" fill="#8A8A92">· 7</text></g>
+            <g><circle cx="370" cy="78" r="2.5" class="dot-pf"/><text x="378" y="81" class="lbl clbl-pf">preference</text><text x="447" y="81" class="micro" fill="#8A8A92">· 6</text></g>
+            <g><circle cx="64" cy="338" r="2.5" class="dot-tb"/><text x="72" y="341" class="lbl clbl-tb">taboo</text><text x="113" y="341" class="micro" fill="#8A8A92">· 7</text></g>
+            <g><circle cx="218" cy="346" r="2.5" class="dot-st"/><text x="226" y="349" class="lbl clbl-st">style</text><text x="259" y="349" class="micro" fill="#D4B86A">· 8 · active</text></g>
+            <g><circle cx="370" cy="338" r="2.5" class="dot-gn"/><text x="378" y="341" class="lbl clbl-gn">general</text><text x="424" y="341" class="micro" fill="#8A8A92">· 6</text></g>
+
+            <!-- 42 chunk dots scattered across 6 clusters -->
+            <!-- identity (8 dots) -->
+            <circle cx="105" cy="108" r="2.5" class="dot-id"/>
+            <circle cx="130" cy="100" r="2.5" class="dot-id"/>
+            <circle cx="148" cy="115" r="2.5" class="dot-id"/>
+            <circle cx="92" cy="125" r="2.5" class="dot-id"/>
+            <circle cx="118" cy="130" r="2.5" class="dot-id"/>
+            <circle cx="140" cy="138" r="2.5" class="dot-id"/>
+            <circle cx="108" cy="150" r="2.5" class="dot-id"/>
+            <circle cx="132" cy="155" r="2.5" class="dot-id"/>
+
+            <!-- project (7 dots) -->
+            <circle cx="248" cy="92" r="2.5" class="dot-pj"/>
+            <circle cx="268" cy="86" r="2.5" class="dot-pj"/>
+            <circle cx="288" cy="98" r="2.5" class="dot-pj"/>
+            <circle cx="252" cy="110" r="2.5" class="dot-pj"/>
+            <circle cx="275" cy="115" r="2.5" class="dot-pj"/>
+            <circle cx="260" cy="128" r="2.5" class="dot-pj"/>
+            <circle cx="243" cy="125" r="2.5" class="dot-pj"/>
+
+            <!-- preference (6 dots) -->
+            <circle cx="395" cy="115" r="2.5" class="dot-pf"/>
+            <circle cx="418" cy="112" r="2.5" class="dot-pf"/>
+            <circle cx="432" cy="125" r="2.5" class="dot-pf"/>
+            <circle cx="400" cy="138" r="2.5" class="dot-pf"/>
+            <circle cx="422" cy="142" r="2.5" class="dot-pf"/>
+            <circle cx="408" cy="152" r="2.5" class="dot-pf"/>
+
+            <!-- taboo (7 dots) -->
+            <circle cx="108" cy="258" r="2.5" class="dot-tb"/>
+            <circle cx="135" cy="252" r="2.5" class="dot-tb"/>
+            <circle cx="152" cy="268" r="2.5" class="dot-tb"/>
+            <circle cx="105" cy="278" r="2.5" class="dot-tb"/>
+            <circle cx="128" cy="282" r="2.5" class="dot-tb"/>
+            <circle cx="148" cy="290" r="2.5" class="dot-tb"/>
+            <circle cx="118" cy="298" r="2.5" class="dot-tb"/>
+
+            <!-- style (8 dots — active cluster) -->
+            <circle cx="248" cy="265" r="2.5" class="dot-st"/>
+            <circle cx="272" cy="262" r="2.5" class="dot-st"/>
+            <circle cx="293" cy="275" r="2.5" class="dot-st"/>
+            <circle cx="240" cy="282" r="2.5" class="dot-st"/>
+            <circle cx="265" cy="285" r="2.5" class="dot-st"/>
+            <circle cx="288" cy="288" r="2.5" class="dot-st"/>
+            <circle cx="252" cy="302" r="2.5" class="dot-st"/>
+            <circle cx="275" cy="305" r="2.5" class="dot-st"/>
+
+            <!-- general (6 dots) -->
+            <circle cx="395" cy="268" r="2.5" class="dot-gn"/>
+            <circle cx="418" cy="262" r="2.5" class="dot-gn"/>
+            <circle cx="432" cy="278" r="2.5" class="dot-gn"/>
+            <circle cx="400" cy="292" r="2.5" class="dot-gn"/>
+            <circle cx="422" cy="298" r="2.5" class="dot-gn"/>
+            <circle cx="408" cy="308" r="2.5" class="dot-gn"/>
+
+            <!-- Query point with pulse halo + crosshair -->
+            <circle cx="268" cy="284" r="22" fill="url(#rag-query-glow)" class="pulse-ring"/>
+            <circle cx="268" cy="284" r="4.5" fill="#FFFFFF"/>
+            <circle cx="268" cy="284" r="4.5" fill="none" stroke="#D4B86A" stroke-width="1.4"/>
+            <line x1="252" y1="284" x2="284" y2="284" stroke="#D4B86A" stroke-width=".8" opacity=".6"/>
+            <line x1="268" y1="268" x2="268" y2="300" stroke="#D4B86A" stroke-width=".8" opacity=".6"/>
+
+            <!-- 5 top-K rays + match % -->
+            <line x1="268" y1="284" x2="248" y2="265" class="ray"/>
+            <text x="240" y="262" class="pct" text-anchor="end">0.94</text>
+            <line x1="268" y1="284" x2="288" y2="288" class="ray"/>
+            <text x="296" y="291" class="pct">0.91</text>
+            <line x1="268" y1="284" x2="252" y2="302" class="ray"/>
+            <text x="244" y="305" class="pct" text-anchor="end">0.88</text>
+            <line x1="268" y1="284" x2="395" y2="268" class="ray-faint"/>
+            <text x="402" y="272" class="pct pct-fade">0.72</text>
+            <line x1="268" y1="284" x2="148" y2="290" class="ray-faint"/>
+            <text x="140" y="293" class="pct pct-fade" text-anchor="end">0.68</text>
+
+            <!-- Footer signal: live query strip -->
+            <line x1="24" y1="370" x2="516" y2="370" class="axis"/>
+            <text x="24" y="386" class="micro">QUERY · &quot;rewrite this passage in my voice&quot; → cluster: style · top-K=5 · ~38ms</text>
+          </svg>
+        </a>
+
+        <div class="featured__copy">
+          <div class="featured__tags">
+            <span class="featured__tag is-filled">FEATURED</span>
+            <span class="featured__tag">AI Memory</span>
+            <span class="featured__tag">Retrieval UX</span>
+          </div>
+
+          <h2 class="h-display featured__title">
+            Visual RAG · <span class="sub">Memory Map.</span>
+          </h2>
+
+          <p class="featured__desc">
+            A 2D coordinate-space view of an LLM's long-term memory — 42 chunked cards across 6 semantic clusters, projected with UMAP. The query lights up the cluster it lands in, draws rays to top-K retrieved chunks, and shows the match percentages live. <strong>Makes retrieval legible — not magic.</strong>
+          </p>
+
+          <div class="featured__meta">
+            <span>ROLE <span class="sep">·</span> <strong>Solo design + prototype</strong></span>
+            <span>YEAR <span class="sep">·</span> <strong>2026</strong></span>
+            <span>READ <span class="sep">·</span> <strong>6 min</strong></span>
+          </div>
+
+          <div class="featured__ctas">
+            <a href="projects/rag.html" class="featured__link" data-magnet="0.12">Read the case study →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PANEL 05 — Featured 03: Translator Pattern ============ -->
+    <section class="panel" id="aipattern">
+      <div class="panel__index"><strong>[ 05 ]</strong> · FEATURED / 03</div>
+      <div class="panel__edge">2026 · 8 MIN READ</div>
+      <div class="panel__ruler"><span>4 GATES</span><span>6/6 ATTACKS BLOCKED</span><span>0 HALLUCINATED APPROVALS</span></div>
+
+      <div class="featured">
+        <a href="projects/aipattern.html" class="featured__media-main" aria-label="Open The Translator Pattern">
+          <svg viewBox="0 0 540 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%; height:100%;">
+            <defs>
+              <style>
+                .tp-box   { fill: #131318; stroke: rgba(255,255,255,.14); stroke-width: 1; }
+                .tp-box-a { fill: #131318; stroke: #D4B86A; stroke-width: 1.4; }
+                .tp-tx    { font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 500; fill: #EAEAEC; }
+                .tp-lbl   { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: .1em; fill: #6E6E78; text-transform: uppercase; }
+                .tp-gold  { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: .1em; fill: #D4B86A; text-transform: uppercase; }
+                .tp-arr   { stroke: #D4B86A; stroke-width: 1.2; fill: none; }
+                .tp-arr-i { stroke: rgba(255,255,255,.2); stroke-width: 1; fill: none; }
+              </style>
+              <marker id="tp-arrow" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,0 L8,4 L0,8 z" fill="#D4B86A"/>
+              </marker>
+            </defs>
+
+            <text x="20" y="26" class="tp-lbl">translator pattern · llm translates · code decides</text>
+            <line x1="20" y1="38" x2="520" y2="38" stroke="rgba(255,255,255,.08)"/>
+
+            <!-- Input -->
+            <rect class="tp-box" x="20" y="70" width="120" height="46" rx="4"/>
+            <text x="80" y="92" class="tp-tx" text-anchor="middle">User intent</text>
+            <text x="80" y="106" class="tp-lbl" text-anchor="middle">natural language</text>
+
+            <!-- LLM (translator) -->
+            <rect class="tp-box-a" x="170" y="70" width="200" height="46" rx="4"/>
+            <text x="270" y="92" class="tp-tx" text-anchor="middle">LLM · Translator</text>
+            <text x="270" y="106" class="tp-gold" text-anchor="middle">structured output (typed)</text>
+
+            <!-- Validator -->
+            <rect class="tp-box" x="400" y="70" width="120" height="46" rx="4"/>
+            <text x="460" y="92" class="tp-tx" text-anchor="middle">Validator</text>
+            <text x="460" y="106" class="tp-lbl" text-anchor="middle">schema · range · policy</text>
+
+            <line x1="140" y1="93" x2="170" y2="93" class="tp-arr" marker-end="url(#tp-arrow)"/>
+            <line x1="370" y1="93" x2="400" y2="93" class="tp-arr" marker-end="url(#tp-arrow)"/>
+
+            <!-- Gates -->
+            <text x="20" y="160" class="tp-lbl">4 gates · deterministic</text>
+            <rect class="tp-box" x="20"  y="172" width="115" height="52" rx="4"/>
+            <text x="77" y="194" class="tp-tx" text-anchor="middle">Schema</text>
+            <text x="77" y="210" class="tp-lbl" text-anchor="middle">/01 · typed</text>
+            <rect class="tp-box" x="148" y="172" width="115" height="52" rx="4"/>
+            <text x="205" y="194" class="tp-tx" text-anchor="middle">Range</text>
+            <text x="205" y="210" class="tp-lbl" text-anchor="middle">/02 · bounded</text>
+            <rect class="tp-box" x="276" y="172" width="115" height="52" rx="4"/>
+            <text x="333" y="194" class="tp-tx" text-anchor="middle">Policy</text>
+            <text x="333" y="210" class="tp-lbl" text-anchor="middle">/03 · gated</text>
+            <rect class="tp-box-a" x="404" y="172" width="115" height="52" rx="4"/>
+            <text x="461" y="194" class="tp-tx" text-anchor="middle">Sandbox</text>
+            <text x="461" y="210" class="tp-gold" text-anchor="middle">/04 · simulated</text>
+
+            <!-- Output rails -->
+            <line x1="20" y1="262" x2="520" y2="262" stroke="rgba(255,255,255,.08)"/>
+            <text x="20" y="284" class="tp-lbl">output rail</text>
+
+            <rect class="tp-box-a" x="20" y="300" width="220" height="44" rx="4"/>
+            <text x="130" y="320" class="tp-tx" text-anchor="middle">ACCEPT</text>
+            <text x="130" y="336" class="tp-gold" text-anchor="middle">deterministic · executed</text>
+
+            <rect class="tp-box" x="260" y="300" width="120" height="44" rx="4"/>
+            <text x="320" y="320" class="tp-tx" text-anchor="middle">REVISE</text>
+            <text x="320" y="336" class="tp-lbl" text-anchor="middle">retry · &lt;3</text>
+
+            <rect class="tp-box" x="400" y="300" width="120" height="44" rx="4"/>
+            <text x="460" y="320" class="tp-tx" text-anchor="middle">REJECT</text>
+            <text x="460" y="336" class="tp-lbl" text-anchor="middle">log · escalate</text>
+
+            <text x="20" y="376" class="tp-lbl">6/6 attacks blocked · 0 hallucinated approvals across 3 runs</text>
+          </svg>
+        </a>
+
+        <div class="featured__copy">
+          <div class="featured__tags">
+            <span class="featured__tag is-filled">FEATURED</span>
+            <span class="featured__tag">Pattern</span>
+            <span class="featured__tag">AI + Policy</span>
+          </div>
+
+          <h2 class="h-display featured__title">
+            The <span class="sub">Translator Pattern.</span>
+          </h2>
+
+          <p class="featured__desc">
+            A design pattern for AI-policy systems: <strong>LLM translates, code decides.</strong> The model converts natural language into a typed, structured plan. Code runs a deterministic validator with 4 gates — schema, range, policy, sandbox. Tested with 6 adversarial prompts: <strong>6/6 blocked, 0 hallucinated approvals</strong>.
+          </p>
+
+          <div class="featured__meta">
+            <span>ROLE <span class="sep">·</span> <strong>Design + spec</strong></span>
+            <span>YEAR <span class="sep">·</span> <strong>2026</strong></span>
+            <span>READ <span class="sep">·</span> <strong>8 min</strong></span>
+          </div>
+
+          <div class="featured__ctas">
+            <a href="projects/aipattern.html" class="featured__link" data-magnet="0.12">Read the case study →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PANEL 06 — Featured 04: Demon Rising ============ -->
+    <section class="panel" id="demon">
+      <div class="panel__index"><strong>[ 06 ]</strong> · FEATURED / 04</div>
+      <div class="panel__edge">2026 · 9 MIN READ</div>
+      <div class="panel__ruler"><span>≤ 8s LATENCY</span><span>0 DEAD-ENDS</span><span>5-WAY INTENT</span></div>
+
+      <div class="featured">
+        <a href="https://demonrising.jestazyao.com/" target="_blank" rel="noopener" class="featured__media-main" aria-label="Open Demon Rising · The Council">
+          <svg viewBox="0 0 540 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%; height:100%;">
+            <defs>
+              <radialGradient id="dr-glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#D4B86A" stop-opacity=".45"/>
+                <stop offset="60%" stop-color="#D4B86A" stop-opacity=".12"/>
+                <stop offset="100%" stop-color="#D4B86A" stop-opacity="0"/>
+              </radialGradient>
+              <style>
+                .dr-circle { fill: #131318; stroke: rgba(255,255,255,.18); stroke-width: 1; }
+                .dr-circle-a { fill: #131318; stroke: #D4B86A; stroke-width: 1.4; }
+                .dr-t { font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 500; fill: #EAEAEC; }
+                .dr-l { font-family: 'Geist Mono', monospace; font-size: 8px; letter-spacing: .08em; fill: #8A8A92; text-transform: uppercase; }
+                .dr-link { stroke: rgba(212,184,106,.35); stroke-width: .8; fill: none; }
+              </style>
+            </defs>
+
+            <text x="20" y="26" font-family="Geist Mono, monospace" font-size="10" letter-spacing="2" fill="#8A8A92">DEMON RISING · THE COUNCIL · 5 advisors · llm-in-loop</text>
+            <line x1="20" y1="38" x2="520" y2="38" stroke="rgba(255,255,255,.08)"/>
+
+            <!-- Center: player -->
+            <circle cx="270" cy="210" r="38" fill="url(#dr-glow)"/>
+            <circle cx="270" cy="210" r="22" class="dr-circle-a"/>
+            <text x="270" y="208" class="dr-t" text-anchor="middle">YOU</text>
+            <text x="270" y="220" class="dr-l" text-anchor="middle">player</text>
+
+            <!-- 5 council members positioned around -->
+            <g><circle cx="270" cy="90" r="32" class="dr-circle"/><text x="270" y="88" class="dr-t" text-anchor="middle">War</text><text x="270" y="100" class="dr-l" text-anchor="middle">attack</text></g>
+            <g><circle cx="160" cy="160" r="32" class="dr-circle"/><text x="160" y="158" class="dr-t" text-anchor="middle">Faith</text><text x="160" y="170" class="dr-l" text-anchor="middle">ritual</text></g>
+            <g><circle cx="380" cy="160" r="32" class="dr-circle"/><text x="380" y="158" class="dr-t" text-anchor="middle">Trade</text><text x="380" y="170" class="dr-l" text-anchor="middle">resource</text></g>
+            <g><circle cx="190" cy="290" r="32" class="dr-circle"/><text x="190" y="288" class="dr-t" text-anchor="middle">Court</text><text x="190" y="300" class="dr-l" text-anchor="middle">decree</text></g>
+            <g><circle cx="350" cy="290" r="32" class="dr-circle"/><text x="350" y="288" class="dr-t" text-anchor="middle">People</text><text x="350" y="300" class="dr-l" text-anchor="middle">mood</text></g>
+
+            <!-- Lines from player to council -->
+            <line x1="270" y1="188" x2="270" y2="122" class="dr-link"/>
+            <line x1="252" y1="200" x2="186" y2="174" class="dr-link"/>
+            <line x1="288" y1="200" x2="354" y2="174" class="dr-link"/>
+            <line x1="256" y1="226" x2="210" y2="270" class="dr-link"/>
+            <line x1="284" y1="226" x2="330" y2="270" class="dr-link"/>
+
+            <text x="20" y="376" class="dr-l">5-way intent classifier · ≤ 8s LLM latency · 0 dead-ends across 80 sessions</text>
+          </svg>
+        </a>
+
+        <div class="featured__copy">
+          <div class="featured__tags">
+            <span class="featured__tag is-filled">FEATURED</span>
+            <span class="featured__tag">LLM in the loop</span>
+            <span class="featured__tag">Game</span>
+          </div>
+
+          <h2 class="h-display featured__title">
+            Demon Rising · <span class="sub">The Council.</span>
+          </h2>
+
+          <p class="featured__desc">
+            A browser-based narrative game where 5 council advisors react to the player's choices in natural language. The LLM classifies player intent into 5 channels, generates contextual responses, and the game state stays consistent. <strong>Latency budget ≤ 8s, 0 dead-ends, designed fallbacks for every failure mode.</strong>
+          </p>
+
+          <div class="featured__meta">
+            <span>ROLE <span class="sep">·</span> <strong>Design + LLM eng</strong></span>
+            <span>YEAR <span class="sep">·</span> <strong>2026</strong></span>
+            <span>READ <span class="sep">·</span> <strong>9 min · external</strong></span>
+          </div>
+
+          <div class="featured__ctas">
+            <a href="https://demonrising.jestazyao.com/" target="_blank" rel="noopener" class="featured__link" data-magnet="0.12">Play the game ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- (SAGE moved to Selected — see panel 07 below) -->
+    <section class="panel" aria-hidden="true" style="display:none;">
+      <div class="panel__index"><strong>[ -- ]</strong> · RETIRED</div>
+      <div class="panel__edge">(hidden)</div>
+    </section>
+
+    <!-- ============ PANEL 07 — Selected ============ -->
+    <section class="panel" id="selected">
+      <div class="panel__index"><strong>[ 07 ]</strong> · SELECTED</div>
+      <div class="panel__edge">2019 — 2025</div>
+      <div class="panel__ruler"><span>4 PROJECTS</span><span>E-COMM · AI · A11Y · SOCIAL</span></div>
+
+      <div class="selected">
+        <div class="selected__head">
+          <span class="eyebrow">02 · SELECTED WORK</span>
+          <h2 class="h-display">Earlier &amp; client work — <em>five years</em>.</h2>
+          <p style="font-size:13.5px; line-height:1.55; color:var(--text-2); max-width:32ch;">The boring, important parts of products — IA, data-heavy dashboards, permission-gated flows, AI-augmented client work.</p>
+        </div>
+
+        <div class="selected__grid">
+
+          <a class="selected-card" href="projects/mechapro.html">
+            <div class="selected-card__media">
+              <img src="B2B/mechapro-cover.jpg" alt="MechaPro homepage — Professional Auto Service & Bodywork Equipment" loading="lazy"/>
+            </div>
+            <div class="selected-card__body">
+              <div class="selected-card__meta"><span>2025</span><span class="gold">CLIENT · E-COMM · LIVE</span></div>
+              <span class="selected-card__name">MechaPro · B2B equipment</span>
+              <p class="selected-card__desc">A heavy-equipment e-commerce site where a single decision can be $20K. Designed the IA, configurator, trust modules and buyer flows — first 30 days: $38K+ revenue, $9.7K AOV.</p>
+              <div class="selected-card__cta"><span>CASE STUDY</span><span class="arrow">→</span></div>
+            </div>
+          </a>
+
+          <a class="selected-card" href="projects/sage.html">
+            <div class="selected-card__media">
+              <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
+                <rect x="20" y="30" width="360" height="240" rx="6" fill="#FFFFFF" stroke="#0F0F0F" stroke-width="1"/>
+                <line x1="20" y1="58" x2="380" y2="58" stroke="#0F0F0F" stroke-opacity=".15"/>
+                <circle cx="38" cy="44" r="3" fill="#E6C7BD"/>
+                <circle cx="50" cy="44" r="3" fill="#EFD89A"/>
+                <circle cx="62" cy="44" r="3" fill="#C9D4B6"/>
+                <rect x="20" y="58" width="360" height="22" fill="#3D2A1A"/>
+                <text x="32" y="73" font-family="Geist, sans-serif" font-weight="600" font-size="10" fill="#FAF7EF">SAGE</text>
+                <text x="62" y="73" font-family="Geist Mono, monospace" font-size="8" fill="#C9A668">TEST PREP</text>
+                <text x="40" y="108" font-family="Geist, sans-serif" font-weight="600" font-size="15" fill="#0F0F0F">New York's Best</text>
+                <text x="40" y="126" font-family="Geist, sans-serif" font-weight="600" font-size="15" fill="#0F0F0F">Learning Center</text>
+                <rect x="40" y="152" width="106" height="24" rx="12" fill="#3D2A1A"/>
+                <text x="93" y="168" font-family="Geist, sans-serif" font-weight="500" font-size="9" fill="#FAF7EF" text-anchor="middle">Click here</text>
+                <rect x="252" y="100" width="116" height="142" rx="6" fill="#1A1A20" stroke="#3D2A1A" stroke-width="1"/>
+                <rect x="252" y="100" width="116" height="20" rx="6" fill="#0F0F0F"/>
+                <circle cx="266" cy="110" r="4" fill="#C9A668"/>
+                <text x="276" y="113" font-family="Geist, sans-serif" font-weight="500" font-size="8" fill="#FAF7EF">Shirely</text>
+                <text x="276" y="121" font-family="Geist Mono, monospace" font-size="6" fill="#C9A668" opacity=".8">AI · ONLINE</text>
+                <rect x="260" y="130" width="100" height="42" rx="4" fill="#26262C" stroke="rgba(201,166,104,.3)"/>
+                <text x="266" y="142" font-family="Geist, sans-serif" font-size="7" fill="#EAEAEC">Hi! I'm Shirely. Which</text>
+                <text x="266" y="151" font-family="Geist, sans-serif" font-size="7" fill="#EAEAEC">program brings you</text>
+                <text x="266" y="160" font-family="Geist, sans-serif" font-size="7" fill="#EAEAEC">here today?</text>
+                <rect x="260" y="180" width="44" height="14" rx="7" fill="none" stroke="#C9A668" stroke-opacity=".5"/>
+                <text x="282" y="190" font-family="Geist Mono, monospace" font-size="6" fill="#C9A668" text-anchor="middle">SAT/ACT</text>
+                <rect x="308" y="180" width="44" height="14" rx="7" fill="none" stroke="#C9A668" stroke-opacity=".5"/>
+                <text x="330" y="190" font-family="Geist Mono, monospace" font-size="6" fill="#C9A668" text-anchor="middle">RESEARCH</text>
+                <text x="40" y="254" font-family="Geist Mono, monospace" font-size="8" letter-spacing="1" fill="#7A736A">~12% CONVERSION · 4× INDUSTRY AVG</text>
+              </svg>
+            </div>
+            <div class="selected-card__body">
+              <div class="selected-card__meta"><span>2026</span><span class="gold">CLIENT · AI · LIVE</span></div>
+              <span class="selected-card__name">SAGE · AI receptionist</span>
+              <p class="selected-card__desc">A multi-program NYC learning center site with Shirely — an AI assistant that classifies parent intent, holds boundaries on pricing &amp; promises, and routes to branch staff. ~12% conversion (4× industry avg).</p>
+              <div class="selected-card__cta"><span>CASE STUDY</span><span class="arrow">→</span></div>
+            </div>
+          </a>
+
+          <a class="selected-card" href="projects/a11copilot.html">
+            <div class="selected-card__media">
+              <img src="site-media/works/01-A11y Copilot/004-image-e0f941_1d14b4b621804847979bbfefa903da1e~mv2.png" alt="A11y Copilot — accessibility scanner UI" loading="lazy"/>
+            </div>
+            <div class="selected-card__body">
+              <div class="selected-card__meta"><span>2025</span><span class="gold">B2B · AI · A11Y</span></div>
+              <span class="selected-card__name">A11y Copilot</span>
+              <p class="selected-card__desc">An AI accessibility scanner that explains WCAG violations in plain English and proposes design-level fixes — not just color-contrast tickets.</p>
+              <div class="selected-card__cta"><span>CASE STUDY</span><span>SOON <span class="arrow">→</span></span></div>
+            </div>
+          </a>
+
+          <a class="selected-card" href="projects/gather.html">
+            <div class="selected-card__media">
+              <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;">
+                <defs>
+                  <linearGradient id="g-bg" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#0EAB56" stop-opacity=".22"/>
+                    <stop offset="100%" stop-color="#0EAB56" stop-opacity=".02"/>
+                  </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="400" height="300" fill="#FAF7EF"/>
+                <rect x="0" y="0" width="400" height="300" fill="url(#g-bg)"/>
+                <!-- Phone frame -->
+                <rect x="135" y="22" width="130" height="256" rx="18" fill="#0F0F0F"/>
+                <rect x="141" y="28" width="118" height="244" rx="14" fill="#FFFFFF"/>
+                <!-- App header -->
+                <rect x="141" y="28" width="118" height="42" fill="#0EAB56"/>
+                <circle cx="158" cy="49" r="9" fill="#FFFFFF" opacity=".25"/>
+                <text x="173" y="48" font-family="Geist, sans-serif" font-weight="600" font-size="8" fill="#FFFFFF">Tomason</text>
+                <text x="173" y="58" font-family="Geist Mono, monospace" font-size="5" fill="#FFFFFF" opacity=".8">Movie lover</text>
+                <!-- Pills -->
+                <rect x="148" y="80" width="44" height="14" rx="7" fill="#0EAB56"/>
+                <text x="170" y="90" font-family="Geist, sans-serif" font-weight="600" font-size="6" fill="#FFFFFF" text-anchor="middle">Requests</text>
+                <rect x="196" y="80" width="36" height="14" rx="7" fill="none" stroke="#0F0F0F" stroke-opacity=".2"/>
+                <text x="214" y="90" font-family="Geist, sans-serif" font-size="6" fill="#0F0F0F" text-anchor="middle">Booked</text>
+                <!-- Card -->
+                <rect x="148" y="106" width="104" height="56" rx="4" fill="#F7F4EE" stroke="#0F0F0F" stroke-opacity=".08"/>
+                <circle cx="160" cy="120" r="8" fill="#0EAB56" opacity=".4"/>
+                <text x="174" y="120" font-family="Geist, sans-serif" font-weight="600" font-size="7" fill="#0F0F0F">Tony</text>
+                <text x="174" y="129" font-family="Geist, sans-serif" font-size="5" fill="#0F0F0F" opacity=".6">Lets go eat</text>
+                <rect x="156" y="140" width="50" height="14" rx="7" fill="#EAFBEF"/>
+                <text x="181" y="150" font-family="Geist, sans-serif" font-weight="600" font-size="6" fill="#0EAB56" text-anchor="middle">REQUEST</text>
+                <text x="244" y="150" font-family="Geist, sans-serif" font-weight="600" font-size="6" fill="#0F0F0F" text-anchor="end">$17.52</text>
+                <!-- Bottom signal -->
+                <text x="200" y="294" font-family="Geist Mono, monospace" font-size="8" letter-spacing="1" fill="#7A736A" text-anchor="middle">NYC · 57% LONELY · GATHER</text>
+              </svg>
+            </div>
+            <div class="selected-card__body">
+              <div class="selected-card__meta"><span>2021</span><span class="gold">SOCIAL · MOBILE</span></div>
+              <span class="selected-card__name">Gather</span>
+              <p class="selected-card__desc">A mobile app for strangers meeting IRL. Designed around the question: how does a social product create trust between people who haven't met yet?</p>
+              <div class="selected-card__cta"><span>OVERVIEW</span><span class="arrow">→</span></div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PANEL 08 — About ============ -->
+    <section class="panel" id="about">
+      <div class="panel__index"><strong>[ 08 ]</strong> · ABOUT</div>
+      <div class="panel__edge">JESTAZ YAO · NYC</div>
+      <div class="panel__ruler"><span>NYC</span><span>EST 2019</span><span>SENIOR</span><span>OPEN · Q3 2026</span></div>
+
+      <div class="about">
+        <div class="about__head">
+          <span class="eyebrow">03 · ABOUT</span>
+          <h2 class="h-display about__title">I design the parts of AI products where the <em>decisions are actually hard</em>.</h2>
+        </div>
+        <div class="about__body">
+          <p>Five years in product design — moving from B2B SaaS and accessibility tooling to AI-augmented client work (SAGE, MechaPro, A11y Copilot) to multi-agent systems and retrieval architecture (Director, RAG, Translator Pattern). The thread: I'm most useful where the design problem isn't "make this screen prettier" but "decide what the model gets to decide, and what stays a rule."</p>
+          <p>Born in Beijing, based in NYC. Senior product designer, comfortable in code (TS, Python, swift to wire prototypes), and the person on the team who'll argue for the fallback flow before the happy path.</p>
+
+          <div class="about__meta">
+            <div class="about__meta-cell"><span class="k">→ NOW</span><span class="v">Open to senior product / AI design roles · NYC or remote.</span></div>
+            <div class="about__meta-cell"><span class="k">→ TOOLS</span><span class="v">Figma · Linear · Cursor · Python · TS · Claude · GPT.</span></div>
+            <div class="about__meta-cell"><span class="k">→ FOCUS</span><span class="v">LLM products · multi-agent systems · retrieval UX · AI policy patterns.</span></div>
+            <div class="about__meta-cell"><span class="k">→ INDUSTRIES</span><span class="v">AI tooling · B2B SaaS · e-commerce · creator finance · social.</span></div>
+          </div>
+        </div>
+
+        <div class="howiwork">
+          <div class="howiwork__item">
+            <span class="n">/01</span>
+            <h4>Design the failure mode first.</h4>
+            <p>What happens when the model is wrong? What does the user see? Where does the system route to next? I draw the unhappy path before the happy one.</p>
+          </div>
+          <div class="howiwork__item">
+            <span class="n">/02</span>
+            <h4>LLM translates. Code decides.</h4>
+            <p>I treat the model as a translator from messy human inputs to typed structured data. The structured data goes through deterministic gates. The model isn't allowed to be the final authority on anything irreversible.</p>
+          </div>
+          <div class="howiwork__item">
+            <span class="n">/03</span>
+            <h4>Show the work, not just the answer.</h4>
+            <p>Confidence scores, citations to source rows, retrieval rays, traces. Users trust systems that let them check the work — and design has to make the checking cheap.</p>
+          </div>
+          <div class="howiwork__item">
+            <span class="n">/04</span>
+            <h4>Care more about the boring half.</h4>
+            <p>Empty states, error states, permissions, ops dashboards, trust modules. The half that doesn't ship to the demo reel is the half that actually keeps users.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PANEL 09 — Contact ============ -->
+    <section class="panel" id="contact">
+      <div class="panel__index"><strong>[ 09 ]</strong> · CONTACT</div>
+      <div class="panel__edge">OPEN · Q3 2026 · TRANSMITTING</div>
+      <div class="panel__ruler"><span>EMAIL · LINKEDIN · RESUME</span><span>RESPONSE WITHIN 48H</span></div>
+
+      <div class="contact">
+        <span class="eyebrow">05 · GET IN TOUCH</span>
+        <h2 class="h-display contact__title" style="margin-top:14px;">
+          Building something where the <em>design decisions are actually hard?</em>
+        </h2>
+        <p style="font-size:16px; line-height:1.55; color:var(--text-2); max-width:60ch; margin-top:18px;">
+          AI products, multi-agent systems, retrieval, complex B2B flows — that's the work I want. Drop a note and tell me what you're building.
+        </p>
+
+        <div class="contact__row">
+          <a class="contact__cta" href="mailto:yxhzdm@gmail.com" data-magnet="0.15">
+            <span class="k">→ EMAIL</span>
+            <span class="v">yxhzdm@gmail.com</span>
+          </a>
+          <a class="contact__cta" href="https://www.linkedin.com/in/jestaz/" target="_blank" rel="noopener" data-magnet="0.15">
+            <span class="k">→ LINKEDIN</span>
+            <span class="v">linkedin.com/in/jestaz</span>
+          </a>
+          <a class="contact__cta" href="https://www.jestazyao.com/_files/ugd/e0f941_57fada2f786c4b899f033ae341ed743e.pdf" target="_blank" rel="noopener" data-magnet="0.15">
+            <span class="k">→ RESUME</span>
+            <span class="v">PDF · 1 page</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="site-foot__grid">
+    <div class="site-foot__brand">
+      <div class="h-display">Jestaz Yao</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--mute);">[ PRODUCT DESIGNER · NYC ]</div>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ FEATURED</span>
+      <a href="projects/director.html">Director · Supply Chain MAS</a>
+      <a href="projects/rag.html">Visual RAG Memory Map</a>
+      <a href="projects/aipattern.html">The Translator Pattern</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ SELECTED</span>
+      <a href="projects/mechapro.html">MechaPro · B2B</a>
+      <a href="projects/sage.html">SAGE · AI receptionist</a>
+      <a href="projects/gather.html">Gather</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ CONTACT</span>
+      <a href="mailto:yxhzdm@gmail.com">yxhzdm@gmail.com</a>
+      <a href="https://www.linkedin.com/in/jestaz/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+  <div class="site-foot__legal">
+    <span>[ © 2026 JESTAZ YAO ]</span>
+    <span>NEW YORK CITY · WORKING GLOBALLY</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
