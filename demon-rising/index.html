@@ -130,7 +130,7 @@
     padding:9px 13px; color:var(--gold);
     border:1px solid var(--line); background:rgba(20,12,36,0.7);
   }
-  .trailer-wrap{ width:100%; max-width:720px; margin:46px auto 0; }
+  .trailer-wrap{ width:100%; max-width:560px; margin:46px auto 0; }
   .video-link{
     position:relative; display:block; width:100%; padding-bottom:56.25%;
     background:#000; border:1px solid var(--line); overflow:hidden;
@@ -310,13 +310,22 @@
   .devlog-cap b{ color:var(--gold-bright); }
 
   /* ---------- inline trailer video (v6) ---------- */
-  video.video-link{
-    display:block; width:100%; height:auto;
-    aspect-ratio:16/9;
-    border:1px solid var(--gold); background:#000;
+  .video-frame{
+    position:relative;
+    width:100%; aspect-ratio:16/9;
+    border:1px solid var(--gold);
     box-shadow:0 18px 40px rgba(0,0,0,0.6);
+    overflow:hidden;
+    background:#0a0612;
   }
-  video.video-link:focus{ outline:2px solid var(--gold-bright); outline-offset:2px; }
+  .video-frame video.video-link{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:contain;
+    background:transparent;
+    display:block;
+  }
+  .video-frame video.video-link:focus{ outline:2px solid var(--gold-bright); outline-offset:-2px; }
 
   @media (max-width:780px){
     .devlog-strip{ grid-template-columns:1fr; }
@@ -365,12 +374,14 @@
   </div>
 
   <div class="trailer-wrap" id="trailer">
-    <video class="video-link" controls playsinline preload="metadata" width="1920" height="1080"
-      poster="screenshots/steam_1920x1080_1.png"
-      aria-label="Demon Rising trailer">
-      <source src="screenshots/DemonRising.mp4" type="video/mp4">
-      Your browser does not support inline video. <a href="screenshots/DemonRising.mp4">Download the trailer (MP4).</a>
-    </video>
+    <div class="video-frame">
+      <video class="video-link" controls playsinline preload="metadata"
+        poster="screenshots/steam_1920x1080_1.png"
+        aria-label="Demon Rising trailer">
+        <source src="screenshots/DemonRising.mp4" type="video/mp4">
+        Your browser does not support inline video. <a href="screenshots/DemonRising.mp4">Download the trailer (MP4).</a>
+      </video>
+    </div>
     <span class="video-cap">Trailer hosted locally &mdash; no third-party tracking.</span>
   </div>
 
