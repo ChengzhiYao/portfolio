@@ -554,7 +554,49 @@
       <p>That principle is what made me confident to build the next system on top of
         it.</p>
 
-            <h3>Three Devlogs, Three Iterations</h3>
+            <h3>The Thesis &mdash; AI Lives Inside The Loop, Not On Top Of It</h3>
+      <p>The shortest way to explain how I think about AI product design is to draw
+        the game's loop and point at where the model lives. Almost everything else
+        in this case study is a consequence of that picture.</p>
+
+      <figure class="case-figure" style="max-width:1100px">
+        <img src="screenshots/the_player_loop.png" alt="The Player Loop — and where AI sits inside it" loading="lazy">
+        <figcaption>Six steps. Two layers. The model touches three of the six steps
+          (Council, Boss, Next Run); the other three are pure deterministic
+          gameplay. Pull the model out and the loop still runs.</figcaption>
+      </figure>
+
+      <p><b>Most AI-native games are AI-first.</b> They wrap a gameplay loop around
+        a model: every NPC line is generated, the simulation depends on the model
+        being there, and the design assumes inference is available, fast, and
+        correct. When the model misbehaves &mdash; slow, offline, wrong, or
+        hallucinating &mdash; the experience breaks at the seam where the AI was
+        load-bearing.</p>
+      <p><b>Demon Rising is built the other way around.</b> The loop comes first.
+        The model is asked to do exactly three things, in three of the six steps,
+        and in each of them there is a deterministic answer underneath. Council
+        debates run on a keyword classifier first and an LLM only when one is
+        warm. The First Hero's dialogue runs on authored templates first and the
+        LLM only as a stylistic upgrade. Her memory and identity layers run with
+        no model in the loop at all. Strip the LLM out completely and the game is
+        a full, shippable roguelike auto-battler.</p>
+      <p><b>That's the innovation, and it's a product claim, not a tech claim.</b>
+        Most "AI in games" demos are about how much the model can do. The
+        interesting question for a product designer is the opposite: how little
+        can the model be allowed to do before the experience stops working? When
+        the answer is <em>nothing</em>, you can ship. When the model is
+        present, it becomes pure upside &mdash; not a single-point-of-failure
+        dependency. The same posture is what made the First Hero possible: she
+        carries cross-run memory designed at the system level, not the model
+        level, so her relationship with the player exists whether or not a
+        language model is in the loop at any given session.</p>
+      <p>The three callouts at the bottom of the graphic are the same three rules
+        I apply to any AI product I work on now: <b>build the substrate before the
+        model</b>, <b>cap the dependency with a deterministic contract</b>, and
+        <b>treat the relationship between player and system as the actual design
+        surface</b> &mdash; not the prompt that touches it.</p>
+
+      <h3>Three Devlogs, Three Iterations</h3>
       <p>The system in this case study didn't arrive in one pass. Each devlog
         marked the moment a different bet had landed:</p>
       <div class="devlog-strip">
