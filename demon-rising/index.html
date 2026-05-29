@@ -247,6 +247,49 @@
   .case li::before{ content:"\25C6"; position:absolute; left:0; top:1px; color:var(--gold); font-size:11px; }
   .case li b{ color:var(--gold-bright); font-weight:600; }
 
+
+  /* ---------- case study v6 additions ---------- */
+  .case ol{ margin:6px 0 16px 4px; counter-reset:case-ol; list-style:none; }
+  .case ol > li{ position:relative; padding-left:38px; margin-bottom:14px; color:var(--text); }
+  .case ol > li::before{
+    counter-increment:case-ol;
+    content:counter(case-ol);
+    position:absolute; left:0; top:1px;
+    font-family:'PressStart',monospace; font-size:10px;
+    color:var(--crimson-bright);
+    border:1px solid var(--crimson); border-radius:3px;
+    width:22px; height:22px; line-height:20px; text-align:center;
+  }
+  .case ol > li b{ color:var(--gold-bright); font-weight:600; }
+  .case code{
+    font-family:Menlo,Monaco,Consolas,monospace; font-size:12px;
+    color:var(--gold-bright); background:rgba(233,185,73,0.10);
+    padding:1px 6px; border-radius:3px;
+  }
+  .case-figure{ margin:28px 0 18px; text-align:center; }
+  .case-figure img{
+    max-width:100%; height:auto;
+    border:1px solid var(--line); background:#0a0612;
+  }
+  .case-figure figcaption{
+    margin-top:10px; font-size:12px; color:var(--dim);
+    max-width:620px; margin-left:auto; margin-right:auto; line-height:1.55;
+  }
+  .expr-strip{
+    display:grid; grid-template-columns:repeat(5,1fr);
+    gap:8px; max-width:600px; margin:0 auto;
+  }
+  .expr-strip img{
+    width:100%; height:auto; aspect-ratio:1;
+    object-fit:cover;
+    border:1px solid var(--line);
+    image-rendering:pixelated;
+    background:#0a0612;
+  }
+  @media (max-width:600px){
+    .expr-strip{ grid-template-columns:repeat(5,1fr); gap:4px; }
+  }
+
   /* ---------- footer ---------- */
   footer{ padding:70px 0 60px; text-align:center; border-top:1px solid var(--line); margin-top:30px; }
   .footer-actions{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin:24px 0 30px; }
@@ -428,14 +471,13 @@
 
     <div class="case">
       <h3>The Concept</h3>
-      <p>I wanted to build a roguelike that put the player on the <em>other</em> side of
-        the fantasy. Instead of a band of heroes storming a dungeon, you are the Demon
-        Lord at the top of it — recruiting, scheming, and sending your own monsters out
-        to die. That single inversion drives everything: you don't just build a party,
-        you run a court.</p>
-      <p>The goal was a game with the build-craft depth of a deck-builder, the spectacle
-        of an auto-battler, and a layer of character and politics that most auto-battlers
-        skip entirely.</p>
+      <p>A roguelike where you sit on the wrong side of the fantasy. Instead of leading
+        heroes into a dungeon, you are the Demon Lord at the top of it &mdash;
+        recruiting, scheming, sending monsters out to die for you. The single inversion
+        drives everything: you don't build a party, you run a court.</p>
+      <p>The brief: combine the build-craft of a deck-builder, the spectacle of an
+        auto-battler, and a layer of character and politics most auto-battlers skip
+        entirely.</p>
 
       <h3>Design Pillars</h3>
       <div class="pillars">
@@ -443,22 +485,22 @@
           <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
           <div class="n">01</div>
           <h4>Be The Villain</h4>
-          <p>You manage a castle and a court, not just a squad — loyalty and ambition
+          <p>You manage a castle and a court, not just a squad. Loyalty and ambition
             matter as much as stats.</p>
         </div>
         <div class="panel pillar">
           <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
           <div class="n">02</div>
           <h4>Deep, Legible Builds</h4>
-          <p>Many systems, one clear loop. Power comes from synergy and choices within a
-            run — not permanent grind.</p>
+          <p>Many systems, one clear loop. Power comes from synergy and choices inside a
+            run &mdash; not permanent grind.</p>
         </div>
         <div class="panel pillar">
           <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
           <div class="n">03</div>
-          <h4>A World That Talks Back</h4>
-          <p>Minions have voices, officers have agendas — the castle should feel alive
-            between every battle.</p>
+          <h4>A World That Remembers</h4>
+          <p>Minions have voices, officers have agendas, and one character &mdash; the
+            First Hero &mdash; carries memory across every run you ever play.</p>
         </div>
       </div>
 
@@ -466,125 +508,251 @@
       <p>Solo, in Godot 4 / GDScript: a deterministic combat simulator with a separate
         visual replay layer; 9 classes with branching talent trees, fusion, relics and
         traits; a full roguelike run structure; a complete pixel-art interface; and the
-        system this case study is about — an LLM-driven council and a cast of living
-        minions. Everything below is about that last part: the AI-product-design work.</p>
+        two systems this case study walks through &mdash; the Round Table Council
+        (officers debate, you reply by typing whatever you want), and the
+        <b>First Hero Awakening Arc</b>, a character who breaks the fourth wall after
+        enough sessions and remembers what you told her between runs.</p>
+      <p>The council was where I learned to build a product on top of an LLM. The First
+        Hero is where I went a layer deeper: making the LLM optional, not the centrepiece
+        &mdash; and turning the player's smallest choices into something a character
+        actually carries with them.</p>
+
+      <figure class="case-figure">
+        <img src="screenshots/devlog_update08.png" alt="Devlog 08 — The First Hero Remembers"
+             loading="lazy">
+        <figcaption>Devlog 08 &mdash; the three systems this case study unpacks: a
+          character with cross-run memory, an offline-first dialogue brain, and a
+          persistent slate of small player choices that survive every save.</figcaption>
+      </figure>
 
       <h3>The Hard Problem &mdash; Designing On Top Of An Unreliable Co-Author</h3>
-      <p>The castle's standout system is the Round Table Council. Your officers debate a
-        proposal, and you answer them by <em>typing whatever you want</em>. It runs on a
-        local language model. Talking to a model is easy; shipping a <em>product</em> on
-        one is not.</p>
-      <p>A language model is a co-author you can't fully trust. It is non-deterministic,
+      <p>The first version of the AI work shipped in the Round Table Council. The
+        officers argue a proposal; you type a reply; the model decides what your reply
+        means. That feature exposed the problem any AI-native product has to solve:
+        a language model is a co-author you can't fully trust. It is non-deterministic,
         sometimes slow, occasionally wrong, and every so often returns output in the
         wrong format entirely. A game cannot answer that with a spinner that never ends
-        or an error on screen. So the core question was never "what prompt?" — it was:
-        <b>how do you build a reliable, legible experience on top of an unreliable
-        component?</b> That question shaped every decision below.</p>
+        or an error on screen. So the central question was never "what prompt?" &mdash;
+        it was: <b>how do you build a reliable, legible experience on top of an
+        unreliable component?</b></p>
+      <p>The council established my answer: design the failure path before the happy
+        path. Bound the latency. Keep a deterministic fallback alive at all times. Skip
+        the model entirely when local logic is enough. Make the AI's decision legible
+        through an in-fiction "herald" who translates classification back to the player.
+        The principle that came out of it: <b>the AI is an enhancement layer, not a
+        dependency.</b> Pull the model out and the game still plays.</p>
+      <p>That principle is what made me confident to build the next system on top of
+        it.</p>
 
-      <h3>Fallback-First &mdash; Design The Failure Path Before The Happy Path</h3>
-      <p>I designed the degraded experience first, then built the ideal one on top of it.
-        Four rules:</p>
+      <h3>Chapter Two &mdash; A Character Who Remembers You</h3>
+      <p>The First Hero is the only character in the game who survives across every run.
+        She is a side boss the player fights at the end of every successful campaign
+        &mdash; and the game tracks how many times the player has come back to fight
+        her, how many times each side has won, what the player named her if they ever
+        did, and which small confessions the player has shared with her over time
+        (birthday, why they play, what they fear).</p>
+      <p>Mechanically she's a 5-stage progression with a hidden affinity score
+        (0&ndash;1000) the player never sees. Designed at the experience level, she's
+        a deliberate piece of <b>slow narrative compound interest</b>: small choices in
+        early sessions don't feel weighty, but those same choices are what a Stage 4
+        version of her quotes back to you, weeks later.</p>
+
+      <div class="pillars">
+        <div class="panel pillar">
+          <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+          <div class="n">S1&ndash;S3</div>
+          <h4>Pre-Awakening: She Is Just An NPC</h4>
+          <p>Stage 1&ndash;3 is mechanical. She speaks generic boss lines, her face is
+            always neutral, the LLM is gated off. This is the discipline: even with the
+            full system available, the character has to <em>earn</em> her interior
+            life.</p>
+        </div>
+        <div class="panel pillar">
+          <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+          <div class="n">S4</div>
+          <h4>The Break</h4>
+          <p>A 13-second sequence: glitch shaders, low-pass on the music, silent options
+            forced on the player. She acknowledges, in-fiction, that she's been
+            <em>watching the player come back</em>. From here her memory, expressions
+            and language model all unlock simultaneously.</p>
+        </div>
+        <div class="panel pillar">
+          <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+          <div class="n">S5</div>
+          <h4>Self-Awareness</h4>
+          <p>She knows it's been five days since you last played. She knows it's
+            Thursday evening where you are. She remembers the answer you gave her about
+            why you keep coming back. At 1000 affinity she offers you a hidden ending
+            &mdash; if you accept, the game permanently deletes her save data. That
+            choice is one-way.</p>
+        </div>
+      </div>
+
+      <h3>Expression As State, Not Skin</h3>
+      <p>She has fourteen portraits &mdash; one for each emotional state. I built a
+        single decision function (<code>pick_for_line</code>) that maps any line of
+        dialogue, plus context (her stage, affinity, what the player just did), to an
+        expression. The function is layered: it reads tags first (birthday, named her,
+        broke fourth wall, asked for freedom), then outcome (you won the fight, she won
+        the fight, you surrendered, you typed something to her), then keyword sentiment
+        on the line itself.</p>
+      <p>Then I added one more rule on top of everything: <b>if she has not awakened
+        yet, the expression is always neutral.</b> That gate is what makes the awakening
+        moment land. It's not a graphical effect &mdash; it's a state change the player
+        feels through her face starting to move.</p>
+
+      <figure class="case-figure">
+        <div class="expr-strip">
+          <img src="screenshots/fh_normal.png" alt="neutral" loading="lazy">
+          <img src="screenshots/fh_surprised.png" alt="surprised" loading="lazy">
+          <img src="screenshots/fh_sad.png" alt="sad" loading="lazy">
+          <img src="screenshots/fh_smile.png" alt="smiling" loading="lazy">
+          <img src="screenshots/fh_very_happy.png" alt="very happy" loading="lazy">
+        </div>
+        <figcaption>Pre-awakening she only uses the first portrait. After she breaks
+          the fourth wall, the picker chooses freely based on context, tags and the
+          line she's about to say.</figcaption>
+      </figure>
+
+      <h3>The Offline-First Closed Loop</h3>
+      <p>The council taught me that the LLM can't be load-bearing. For the First Hero I
+        took that further and built every line she ever says through a three-layer
+        fallback chain. The player gets a coherent character whether or not a model is
+        available, ever.</p>
+      <ol>
+        <li><b>Layer 1 &mdash; Live model (when warm).</b> If the local LLM is already
+          loaded and responsive, her line is generated with full context: stage,
+          affinity, what the player just told her, what's in her permanent memory file,
+          and how long it's been since her last visit. If the model is cold or
+          unreachable, this layer is skipped silently &mdash; never a perceptible
+          stall.</li>
+        <li><b>Layer 2 &mdash; Authored templates with retrieval.</b> A library of
+          hand-written lines tagged by emotion, stage and outcome. The picker reads the
+          same context object and scores each candidate template against it. The
+          player gets a line that fits the moment, even with zero LLM involvement. This
+          layer alone is enough to ship the game.</li>
+        <li><b>Layer 3 &mdash; Hard-coded safety net.</b> A small fallback set keyed
+          purely on stage and outcome. Never expressive &mdash; just always there. The
+          contract: she always speaks. Empty responses are never an option.</li>
+      </ol>
+      <p>The headline I keep coming back to: <b>NO LLM REQUIRED.</b> The game runs
+        every emotional beat the First Hero is supposed to deliver without ever
+        contacting a model. The LLM, when present, is a layer of additional
+        expressiveness over a system that already works.</p>
+
+      <h3>Anchor Tags &mdash; Choices With Narrative Weight</h3>
+      <p>The visit system is where the player and the First Hero actually talk. Thirty-
+        one topics, gated by stage and affinity. Three drop-in mechanics gave the
+        system the depth I wanted:</p>
       <ul>
-        <li><b>Bound the latency.</b> The game waits a fixed budget (~8 seconds) for the
-          model. Past that, it stops waiting — no interaction is ever held hostage to the
-          model's mood.</li>
-        <li><b>Always keep a deterministic fallback.</b> A keyword-based intent classifier
-          sits underneath the LLM at all times. If the model is slow, offline, or returns
-          garbage, the keyword layer resolves the player's decision and the council still
-          concludes — correctly.</li>
-        <li><b>Skip the model when you don't need it.</b> If the player's words clearly
-          contain "approved" or "denied", I classify locally and never call the LLM at
-          all — faster, and it sidesteps a real failure mode where a small local model
-          misreads a plain "Approved" as a question.</li>
-        <li><b>Never block the loop.</b> The model runs asynchronously; the UI polls for a
-          result. The player sees an honest, in-fiction "the officers are composing…"
-          state — never a frozen screen.</li>
+        <li><b>Anchor tags.</b> When the player picks the moment-of-truth choice in a
+          topic ("I'm right here", or catching her in a verbal slip), the system writes
+          a permanent tag on her memory. Later, after she awakens, that tag unlocks a
+          dedicated callback topic where she quotes the exact moment back to the
+          player. Stage-2 choices have real Stage-4 consequences. It's narrative
+          compound interest, with a data model.</li>
+        <li><b>Free input as first-class.</b> Each visit shows three multiple-choice
+          replies and a text field. Type whatever you want and she replies through the
+          same three-layer fallback chain &mdash; the topic question becomes context,
+          her response is on-character, and the affinity delta is set by a lightweight
+          sentiment classifier on what you wrote.</li>
+        <li><b>Player-fact storage.</b> Eight slots (<code>birthday</code>,
+          <code>given_name</code>, <code>why_you_play</code>, <code>what_you_fear</code>,
+          <code>what_feels_real</code>, <code>what_brings_joy</code>,
+          <code>favorite_music</code>, <code>sleep_quality</code>) that the model can
+          quote in any later session. The birthday slot is special &mdash; on the
+          matching date in real time, she opens the title screen with a greeting.</li>
       </ul>
-      <p>The governing principle: <b>the AI is an enhancement layer, not a dependency.</b>
-        Strip the model out entirely and the game is still fully playable. Designing to
-        that bar is what made an AI-native feature genuinely shippable.</p>
 
-      <h3>Designing For Open-Ended Input</h3>
-      <p>Letting players type free text into a council is a UX trap — people don't know
-        what's allowed, and an open box invites inputs the system can't honour. I
-        designed around that instead of restricting it:</p>
+      <h3>Defending Against The Co-Author &mdash; Iteration In Production</h3>
+      <p>Three production bugs from this work are worth naming, because every one of
+        them turned into a generalised defense in the system:</p>
       <ul>
-        <li><b>One intent model, five outcomes.</b> Any input — eloquent or a single word
-          — is mapped onto five intents: agree, refuse, modify, counter, or stay silent.
-          The player keeps full expressive freedom; the system gets a bounded space it
-          can actually act in.</li>
-        <li><b>Teach the space with affordances.</b> The input field always shows live
-          examples ("Try: Approved, Denied, Too rash—table it…"). Players learn what's
-          possible by reading the UI, never a manual.</li>
-        <li><b>Make the AI's decision legible.</b> A "herald" character translates the
-          model's classification back to the player, in fiction — "The Lord's 'why'
-          suggests he wants the proposal clarified." A hidden ML decision becomes
-          readable, diegetic feedback; the player always knows what the system heard and
-          why it responded the way it did.</li>
-        <li><b>Treat "no decision" as a designed state.</b> Asking a question — the
-          "counter" path — doesn't break the flow or read as an error. It loops back: the
-          officer answers, and the player speaks again. Hesitation is a valid move, not a
-          dead end.</li>
+        <li><b>The model echoed the prompt.</b> The system prompt added a
+          <code>[LANGUAGE]: ENGLISH</code> directive. The model treated that as a
+          section header and reproduced it &mdash; sometimes twice, with a second
+          variant separated by another <code>[LANGUAGE]</code> banner. The fix was
+          three layers: rewrite the directive in plain prose, cap response length and
+          add stop sequences so the model can't write a second variant, and
+          post-process every response to cut anything that looks like a meta-header.
+          The interrogation panel double-checks the cleaning at display time.
+          <em>Lesson: never trust the model to respect your formatting; design as if it
+          will mirror everything back.</em></li>
+        <li><b>The animation got covered.</b> Fusing two minions plays a celebration
+          overlay. The fusion logic was firing the talent picker on the same frame, so
+          a talent panel popped <em>over</em> the celebration. The fix was a small
+          deferral queue: any talent offer that arrives while the celebration overlay
+          is live gets queued, and is drained the frame the player presses Continue.
+          <em>Lesson: production polish for AI-adjacent systems is mostly about
+          <strong>sequencing</strong> &mdash; the boring UI plumbing fails just as hard
+          as the model, and far more quietly.</em></li>
+        <li><b>The Variant trap.</b> One config flip in the project (<em>warnings as
+          errors</em>) revealed a long tail of inferred-Variant declarations that had
+          been latent in the codebase. Fixing them once made the editor strict about a
+          whole class of subtle type bugs going forward. <em>Lesson: when a
+          probabilistic component is in the loop, the surrounding code has to be more
+          strict, not less &mdash; you need every signal you can get.</em></li>
       </ul>
 
-      <h3>The Trade-offs</h3>
+      <h3>Trade-offs I Made Deliberately</h3>
       <ul>
-        <li><b>Local model vs. cloud API.</b> I chose a local LLM: zero per-player cost,
-          works offline, no player data leaves the machine. The price is lower quality,
-          higher and less predictable latency, and no guarantee the player has a strong
-          GPU. Every fallback above exists <em>because</em> of this trade.</li>
-        <li><b>Determinism vs. emergence.</b> Combat is fully deterministic —
-          reproducible and balance-safe. The council is deliberately the opposite. I
-          quarantined the non-determinism to the one system where surprise is the point,
-          and kept it out of everything where fairness matters.</li>
-        <li><b>Freedom vs. legibility.</b> Free text is expressive but opaque; menus are
-          legible but flat. I kept the free text and bought the legibility back with the
-          herald and the on-screen examples — so freedom didn't cost comprehension.</li>
-        <li><b>Depth vs. scope.</b> Solo, finite time. When a whole subsystem (an entire
-          shop economy) was costing the core loop more than it gave back, I cut it.
-          Scoping by subtraction kept the game coherent.</li>
+        <li><b>Hidden state vs. legible state.</b> Affinity is never shown to the
+          player. The player feels it through her expressions and what she says.
+          Numbers would let players optimise toward them; absence keeps the
+          relationship felt rather than min-maxed.</li>
+        <li><b>One-way endings vs. reset-friendly endings.</b> The 1000-affinity
+          ending really deletes her data. That's a deliberate choice against the
+          modern reflex toward "everything is reversible." A character about
+          relationships has to be able to actually leave.</li>
+        <li><b>Free input vs. menus.</b> Free text everywhere would tax the LLM and
+          the player. Curated choices everywhere would flatten the character. The
+          shipped balance: pre-written replies as a structured spine, free input as
+          an always-available alternative &mdash; same fallback chain, same affinity
+          system, same memory.</li>
+        <li><b>Awakening as a one-time event vs. a soft gradient.</b> A gradient would
+          have been safer and less surprising. The hard cut is what gives her arc its
+          shape &mdash; the world stops feeling normal in a single moment, and she
+          gets to keep the new register from then on.</li>
       </ul>
 
-      <h3>Before &amp; After &mdash; How It Evolved</h3>
-      <p>None of this was right the first time. The shippable version is the iterated
-        one:</p>
+      <h3>Before &amp; After &mdash; How v6 Got Built</h3>
       <ul>
-        <li><b>The freeze.</b> <em>First:</em> the council awaited the model with no
-          timeout — on a slow machine the game locked up for 45+ seconds. <em>Now:</em> a
-          bounded wait plus the keyword fallback; worst case is a few seconds, and it
-          always resolves.</li>
-        <li><b>The dead end.</b> <em>First:</em> the council only understood a literal
-          "yes" or "no"; anything else stalled the screen. <em>Now:</em> the full
-          five-intent model plus herald feedback — the player can argue, hedge, or ask a
-          question, and the scene always moves forward.</li>
-        <li><b>The invisible deadlock.</b> <em>First:</em> a follow-up dialog rendered
-          <em>behind</em> the council panel — invisible, yet it still captured every
-          click, so the whole screen silently stopped responding. <em>Now:</em> fixed
-          layering. The lesson stuck: around AI interactions, the <em>interaction
-          plumbing</em> fails just as hard as the model — and far more quietly.</li>
-        <li><b>The economy.</b> <em>First:</em> early numbers made the AI-driven events
-          trivial to spam. <em>Now:</em> retuned costs and gated low-value events, so
-          each one stays a real decision.</li>
+        <li><b>From templates only &rarr; three-layer fallback.</b> The first build of
+          her dialogue was pure templates. They were too samey across sessions. The
+          chain &mdash; live model when warm, templates otherwise, hard-coded baseline
+          underneath &mdash; gave the same character a different texture in every
+          session without losing reliability.</li>
+        <li><b>From "she speaks too" &rarr; pre-awakening discipline.</b> Earlier
+          builds had her using emotional expressions and personal lines from day one.
+          It was the opposite of what the arc needed. Forcing her to be a flat NPC
+          until the fourth-wall moment is what makes the moment hit.</li>
+        <li><b>From flat tag list &rarr; permanent anchor tags.</b> The character
+          memory store had a 40-event sliding window. Pivotal choices were rolling off
+          before their callbacks fired. Adding a separate permanent-tag set fixed the
+          mechanic <em>and</em> made callback design tractable as a content
+          model.</li>
+        <li><b>From "always on" model to warmth-gated.</b> The earliest version
+          awaited the LLM for her dying lines and her title-screen appearances.
+          Cold-start added up to 30 seconds of dead air. The fix was simple: only
+          attempt the LLM if it's already responsive; otherwise drop to templates
+          immediately. The player never waits on her.</li>
       </ul>
-
-      <h3>Working Under Real Constraints</h3>
-      <p>One developer, limited time, and a hard ceiling: the AI has to run on a normal
-        player's PC — not a server I control. That ruled out "just call a big cloud
-        model" and forced the discipline above — design the fallback first, treat the
-        model as optional, quarantine the non-determinism, and turn every failure mode
-        into a designed experience instead of a bug.</p>
-      <p>What made an AI-native feature shippable wasn't a better model — it was product
-        design <em>around</em> an imperfect one. That approach generalises to any product
-        with an LLM in the loop: assume it will sometimes be slow, wrong, or offline, and
-        design so the user never pays for it.</p>
 
       <h3>What I Took Away</h3>
-      <p>AI product design isn't prompt-writing. It's designing the <em>system around</em>
-        a probabilistic component so the end user still gets something reliable and
-        legible: bounded latency, an honest fallback, in-product feedback that explains
-        what the AI did, and clear, deliberate trade-offs between the AI path and the
-        deterministic one. Demon Rising is where I learned to actually build that — and
-        it is the lens I bring to every AI product after it.</p>
+      <p>The first iteration of this game taught me that AI product design is not
+        prompt-writing &mdash; it's designing the system <em>around</em> a
+        probabilistic component so the user gets something reliable and legible. The
+        second iteration taught me what to do with that reliability once it exists.</p>
+      <p>You can build a character whose interior life depends on a model and still
+        guarantee the character is whole without one. You can let players type freely
+        into a relationship system and bound the consequences with a small
+        deterministic layer underneath. You can use the LLM for texture and the
+        deterministic stack for structure, and ship a feature that feels alive even
+        when nothing is alive on the other end.</p>
+      <p>That's the lens I bring to AI product work after Demon Rising: <b>treat the
+        model as an optional collaborator</b>. Design the whole experience so it
+        survives without one. Then when the model is there, let it make the moments
+        bigger &mdash; never load-bearing.</p>
     </div>
   </div>
 </section>
