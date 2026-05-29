@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Featured work — Jestaz Yao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,500;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --bg-2:#FAFAF9; --bg-3:#F3F3F1; --bg-4:#EEECE6;
+    --ink:#0F0F0E; --ink-2:#2A2A28; --ink-3:#555554; --ink-4:#8A8A87; --ink-5:#B4B4B0;
+    --line:#E5E3DE; --line-2:#D0CCC3;
+    --accent:#B8A885; --accent-2:#8B7355; --accent-soft:#F1EBDD;
+    --green:#6B8E5A; --red:#B55454; --amber:#D9A441;
+    --sans:'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --serif:'Fraunces', Georgia, serif;
+    --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:transparent;color:var(--ink);font-family:var(--sans);font-weight:400;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  .wrap{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
+  .feat{
+    display:grid;
+    grid-template-columns:1.05fr 1fr;
+    background:var(--bg-3);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    text-decoration:none;
+    color:inherit;
+    transition:border-color .2s ease,transform .2s ease;
+    cursor:pointer;
+  }
+  .feat:hover{border-color:var(--line-2)}
+  .feat:hover .cta{color:var(--accent-2)}
+  .feat-visual{
+    padding:54px 48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--bg-3);
+    min-height:420px;
+  }
+  .feat-content{
+    padding:52px 52px 48px;
+    background:var(--bg-2);
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+    border-left:1px solid var(--line);
+  }
+  .tags{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .tag{
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    padding:6px 11px;
+    border-radius:3px;
+    border:1px solid var(--line-2);
+    color:var(--ink-3);
+    background:transparent;
+  }
+  .tag.dark{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .feat h2{
+    font-family:var(--sans);
+    font-size:36px;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.1;
+    color:var(--ink);
+  }
+  .feat h2 em{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:500;
+    color:var(--accent-2);
+  }
+  .feat p{
+    font-size:15.5px;
+    line-height:1.6;
+    color:var(--ink-3);
+  }
+  .feat p b{font-weight:600;color:var(--ink-2)}
+  .meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:22px 28px;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.04em;
+    color:var(--ink-4);
+    padding-top:4px;
+  }
+  .meta b{color:var(--ink-2);font-weight:500}
+  .cta{
+    margin-top:auto;
+    padding-top:10px;
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:500;
+    color:var(--ink);
+    border-bottom:1px solid var(--ink);
+    align-self:flex-start;
+    transition:color .2s ease;
+  }
+  /* Demon Rising card — a game piece carries both a case study and a playable build */
+  .feat.is-static{cursor:default}
+  .cta-row{margin-top:auto;padding-top:10px;display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+  .cta-row a{font-family:var(--sans);font-size:14px;font-weight:500;text-decoration:none;border-bottom:1px solid;transition:color .2s ease,border-color .2s ease}
+  .cta-row a.go{color:var(--ink);border-bottom-color:var(--ink)}
+  .cta-row a.alt{color:var(--ink-3);border-bottom-color:var(--line-2)}
+  .feat:hover .cta-row a.go{color:var(--accent-2);border-bottom-color:var(--accent-2)}
+  .cta-row a.alt:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
+  .v0{
+    width:100%;
+    max-width:520px;
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px 14px 18px;
+  }
+  .v0-head{
+    font-family:var(--mono);
+    font-size:8.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-4);
+    padding:4px 4px 12px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .v0-head .gdot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .v0-graph{width:100%;aspect-ratio:16/11;display:block}
+  .v1{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    width:100%;
+    max-width:520px;
+  }
+  .v1-panel{
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .v1-head{
+    font-family:var(--mono);
+    font-size:8.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-4);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--line);
+  }
+  .v1-head .gdot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+  .v1 .bubble-u{height:20px;background:var(--ink);border-radius:10px;align-self:flex-end;width:72%;border-bottom-right-radius:3px}
+  .v1 .bubble-a{height:28px;background:var(--bg-2);border:1px solid var(--line);border-radius:10px;width:84%;align-self:flex-start;border-bottom-left-radius:3px}
+  .v1 .bubble-g{height:30px;background:color-mix(in srgb,var(--green) 12%,var(--bg));border:1px solid color-mix(in srgb,var(--green) 35%,var(--line));border-radius:10px;width:86%;align-self:flex-start;border-bottom-left-radius:3px}
+  .v1 .input-row{display:flex;gap:6px;align-items:center;margin-top:4px}
+  .v1 .input-field{flex:1;height:22px;background:var(--bg-2);border:1px solid var(--line);border-radius:11px}
+  .v1 .input-btn{height:22px;padding:0 12px;background:var(--ink);color:var(--bg);border-radius:11px;display:flex;align-items:center;font-family:var(--sans);font-size:9px;font-weight:500}
+  .v1-gate{display:grid;grid-template-columns:12px 1fr;gap:8px;align-items:flex-start;padding:7px 0}
+  .v1-gate + .v1-gate{border-top:1px solid var(--line)}
+  .v1-gate .gd{width:7px;height:7px;border-radius:50%;background:var(--green);margin-top:5px;box-shadow:0 0 0 2.5px color-mix(in srgb,var(--green) 20%,transparent)}
+  .v1-gate .gmeta .gk{font-family:var(--mono);font-size:7.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);margin-bottom:2px}
+  .v1-gate .gmeta .gv{font-size:10px;color:var(--ink-2);line-height:1.3;font-weight:500}
+  .v1-action{
+    margin-top:6px;
+    padding:7px 10px;
+    background:var(--ink);
+    color:var(--bg);
+    border-radius:4px;
+    font-family:var(--mono);
+    font-size:9.5px;
+    text-align:center;
+    letter-spacing:.02em;
+  }
+  .v2{
+    width:100%;
+    max-width:520px;
+    background:var(--bg);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px 14px 18px;
+  }
+  .v2-head{
+    font-family:var(--mono);
+    font-size:8.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-4);
+    padding:4px 4px 12px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:14px;
+  }
+  .v2-map{width:100%;aspect-ratio:16/11;display:block}
+  @media (max-width:900px){
+    .feat{grid-template-columns:1fr}
+    .feat-visual{padding:40px 32px;min-height:340px}
+    .feat-content{padding:40px 36px 36px;border-left:none;border-top:1px solid var(--line)}
+    .feat h2{font-size:30px}
+  }
+  @media (max-width:560px){
+    .feat-visual{padding:30px 22px;min-height:300px}
+    .feat-content{padding:32px 26px 30px;gap:18px}
+    .feat h2{font-size:26px}
+    .feat p{font-size:14.5px}
+    .v1{gap:10px}
+    .v1-panel{padding:11px}
+    .meta{gap:14px 20px;font-size:10.5px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- ─── 1. DIRECTOR ─── -->
+  <a href="https://www.jestazyao.com/supplyai" target="_blank" rel="noopener" class="feat">
+    <div class="feat-visual">
+      <div class="v0">
+        <div class="v0-head">
+          <span>Director · Routing graph · Multi-step</span>
+          <span class="gdot"></span>
+        </div>
+        <svg class="v0-graph" viewBox="0 0 480 330" xmlns="http://www.w3.org/2000/svg">
+          <rect x="190" y="14" width="100" height="44" rx="6" fill="#FAFAF9" stroke="#0F0F0E" stroke-width="1.2"/>
+          <circle cx="204" cy="34" r="3" fill="#B8A885"/>
+          <text x="240" y="36" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#0F0F0E">Director</text>
+          <text x="240" y="50" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#8A8A87" letter-spacing="0.5">GPT · 4O-MINI</text>
+          <path d="M 220,58 C 220,110 78,128 78,180" fill="none" stroke="#B8A885" stroke-width="1.6" stroke-dasharray="4 4"/>
+          <path d="M 232,58 C 232,110 186,128 186,180" fill="none" stroke="#D6D3CB" stroke-width="1.2"/>
+          <path d="M 248,58 C 248,110 294,128 294,180" fill="none" stroke="#D6D3CB" stroke-width="1.2"/>
+          <path d="M 260,58 C 260,110 402,128 402,180" fill="none" stroke="#0F0F0E" stroke-width="1.6"/>
+          <rect x="28" y="180" width="100" height="52" rx="6" fill="#FFFFFF" stroke="#B8A885" stroke-width="1.6"/>
+          <circle cx="44" cy="200" r="4" fill="#B8A885">
+            <animate attributeName="opacity" values="1;0.4;1" dur="1.4s" repeatCount="indefinite"/>
+          </circle>
+          <text x="78" y="204" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#0F0F0E">Network</text>
+          <text x="78" y="222" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#B8A885" letter-spacing="0.5">RUNNING</text>
+          <rect x="136" y="180" width="100" height="52" rx="6" fill="#FAFAF9" stroke="#E5E3DE"/>
+          <circle cx="152" cy="200" r="3.5" fill="#B4B4B0"/>
+          <text x="186" y="204" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#0F0F0E">Forecast</text>
+          <text x="186" y="222" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#8A8A87" letter-spacing="0.5">IDLE</text>
+          <rect x="244" y="180" width="100" height="52" rx="6" fill="#FAFAF9" stroke="#E5E3DE"/>
+          <circle cx="260" cy="200" r="3.5" fill="#B4B4B0"/>
+          <text x="294" y="204" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#0F0F0E">Demand</text>
+          <text x="294" y="222" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#8A8A87" letter-spacing="0.5">IDLE</text>
+          <rect x="352" y="180" width="100" height="52" rx="6" fill="#FFFFFF" stroke="#0F0F0E" stroke-width="1.6"/>
+          <circle cx="368" cy="200" r="4" fill="#0F0F0E"/>
+          <text x="402" y="204" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#0F0F0E">Risk</text>
+          <text x="402" y="222" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#0F0F0E" letter-spacing="0.5">5 FOUND</text>
+          <g transform="translate(28, 262)">
+            <rect x="0" y="0" width="424" height="40" rx="4" fill="#FAFAF9" stroke="#E5E3DE"/>
+            <rect x="14" y="11" width="62" height="18" rx="3" fill="#0F0F0E"/>
+            <text x="45" y="23" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="500" fill="#FAFAF9" letter-spacing="0.5">PLAN 01</text>
+            <text x="86" y="24" font-family="JetBrains Mono, monospace" font-size="11" fill="#8A8A87">→</text>
+            <rect x="106" y="11" width="68" height="18" rx="3" fill="#FFFFFF" stroke="#B8A885"/>
+            <text x="140" y="23" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="500" fill="#B8A885" letter-spacing="0.5">REFLECT</text>
+            <text x="184" y="24" font-family="JetBrains Mono, monospace" font-size="11" fill="#8A8A87">→</text>
+            <rect x="204" y="11" width="62" height="18" rx="3" fill="#0F0F0E"/>
+            <text x="235" y="23" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="500" fill="#FAFAF9" letter-spacing="0.5">PLAN 02</text>
+            <text x="280" y="24" font-family="JetBrains Mono, monospace" font-size="8" fill="#8A8A87" letter-spacing="0.5">F1=0.94 · 30Q BENCH</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="feat-content">
+      <div class="tags">
+        <span class="tag dark">Featured</span>
+        <span class="tag">Multi-agent</span>
+        <span class="tag">Eval-driven</span>
+      </div>
+      <h2>Director · <em>Supply Chain MAS.</em></h2>
+      <p>A multi-agent system that turns 180,519 raw orders into a one-paragraph answer — by routing through four specialised sub-agents, surfacing the raw rows behind every claim, and benchmarking three router strategies against each other. <b>Built for legibility, not for autonomy.</b></p>
+      <div class="meta">
+        <span><b>Role</b> · Solo design + engineering</span>
+        <span><b>Year</b> · 2026</span>
+        <span><b>Read time</b> · 10 min</span>
+      </div>
+      <span class="cta">Read the case study →</span>
+    </div>
+  </a>
+  <!-- ─── 2. MEMORY MAP ─── -->
+  <a href="https://www.jestazyao.com/rag" target="_blank" rel="noopener" class="feat">
+    <div class="feat-visual">
+      <div class="v2">
+        <div class="v2-head">Memory map · 42 cards · 6 clusters</div>
+        <svg class="v2-map" viewBox="0 0 480 330" xmlns="http://www.w3.org/2000/svg">
+          <g>
+            <circle cx="125" cy="110" r="68" fill="#EDE6D6" opacity="0.85"/>
+            <text x="115" y="70" font-family="JetBrains Mono, monospace" font-size="10" fill="#8B7355" letter-spacing="0.5">identity · 5</text>
+            <circle cx="110" cy="115" r="3.5" fill="#8B7355"/>
+            <circle cx="135" cy="100" r="3.5" fill="#8B7355"/>
+            <circle cx="145" cy="130" r="3.5" fill="#8B7355"/>
+            <circle cx="105" cy="140" r="3.5" fill="#8B7355"/>
+            <circle cx="125" cy="115" r="3.5" fill="#8B7355"/>
+          </g>
+          <g>
+            <circle cx="250" cy="105" r="58" fill="#DFD6C0" opacity="0.85"/>
+            <text x="230" y="68" font-family="JetBrains Mono, monospace" font-size="10" fill="#8B7355" letter-spacing="0.5">project · 4</text>
+            <circle cx="235" cy="105" r="3.5" fill="#6B8E5A"/>
+            <circle cx="260" cy="95" r="3.5" fill="#6B8E5A"/>
+            <circle cx="265" cy="120" r="3.5" fill="#6B8E5A"/>
+            <circle cx="245" cy="125" r="3.5" fill="#6B8E5A"/>
+          </g>
+          <g>
+            <circle cx="380" cy="125" r="54" fill="#F5EBC9" opacity="0.85"/>
+            <text x="352" y="85" font-family="JetBrains Mono, monospace" font-size="10" fill="#B8925A" letter-spacing="0.5">preference · 3</text>
+            <circle cx="370" cy="120" r="3.5" fill="#D9A441"/>
+            <circle cx="390" cy="115" r="3.5" fill="#D9A441"/>
+            <circle cx="385" cy="140" r="3.5" fill="#D9A441"/>
+          </g>
+          <g>
+            <circle cx="135" cy="235" r="56" fill="#D8E3CE" opacity="0.85"/>
+            <text x="120" y="290" font-family="JetBrains Mono, monospace" font-size="10" fill="#5A7A4A" letter-spacing="0.5">taboo · 4</text>
+            <circle cx="120" cy="225" r="3.5" fill="#5A7A4A"/>
+            <circle cx="145" cy="230" r="3.5" fill="#5A7A4A"/>
+            <circle cx="135" cy="245" r="3.5" fill="#5A7A4A"/>
+            <circle cx="150" cy="250" r="3.5" fill="#5A7A4A"/>
+          </g>
+          <g>
+            <circle cx="255" cy="245" r="50" fill="#F0D5D5" opacity="0.85"/>
+            <text x="238" y="300" font-family="JetBrains Mono, monospace" font-size="10" fill="#B55454" letter-spacing="0.5">style · 3</text>
+            <circle cx="245" cy="240" r="3.5" fill="#B55454"/>
+            <circle cx="265" cy="235" r="3.5" fill="#B55454"/>
+            <circle cx="260" cy="255" r="3.5" fill="#B55454"/>
+          </g>
+          <g>
+            <circle cx="370" cy="245" r="40" fill="#DEDBD3" opacity="0.85"/>
+            <circle cx="362" cy="243" r="3.5" fill="#8A8A87"/>
+            <circle cx="378" cy="250" r="3.5" fill="#8A8A87"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="feat-content">
+      <div class="tags">
+        <span class="tag dark">Featured</span>
+        <span class="tag">AI memory</span>
+        <span class="tag">Retrieval · UX</span>
+      </div>
+      <h2>Visual RAG <em>Memory Map.</em></h2>
+      <p>A desktop chatbot you can see remembering you. Extracted memory cards, a 2D map of everything the system knows about you, and inline retrieval chips that put the source right where the eye already is. <b>Built for trust, not for novelty.</b></p>
+      <div class="meta">
+        <span><b>Role</b> · Solo designer + build</span>
+        <span><b>Year</b> · 2026</span>
+        <span><b>Read time</b> · 6 min</span>
+      </div>
+      <span class="cta">Read the case study →</span>
+    </div>
+  </a>
+  <!-- ─── 3. TRANSLATOR PATTERN ─── -->
+  <a href="https://www.jestazyao.com/aipattern" target="_blank" rel="noopener" class="feat">
+    <div class="feat-visual">
+      <div class="v1">
+        <div class="v1-panel">
+          <div class="v1-head"><span>Support · A3921</span><span class="gdot"></span></div>
+          <div class="bubble-u"></div>
+          <div class="bubble-a"></div>
+          <div class="bubble-g"></div>
+          <div class="input-row">
+            <div class="input-field"></div>
+            <div class="input-btn">Send</div>
+          </div>
+        </div>
+        <div class="v1-panel">
+          <div class="v1-head"><span>Decision trace</span><span class="gdot"></span></div>
+          <div class="v1-gate"><span class="gd"></span><div class="gmeta"><div class="gk">01 · Understand</div><div class="gv">Refund on A3921</div></div></div>
+          <div class="v1-gate"><span class="gd"></span><div class="gmeta"><div class="gk">02 · Complete</div><div class="gv">All info present</div></div></div>
+          <div class="v1-gate"><span class="gd"></span><div class="gmeta"><div class="gk">03 · Certain</div><div class="gv">High confidence</div></div></div>
+          <div class="v1-gate"><span class="gd"></span><div class="gmeta"><div class="gk">04 · Allowed</div><div class="gv">Policy pass</div></div></div>
+          <div class="v1-action">refund($74.50)</div>
+        </div>
+      </div>
+    </div>
+    <div class="feat-content">
+      <div class="tags">
+        <span class="tag dark">Featured</span>
+        <span class="tag">Design pattern</span>
+        <span class="tag">AI + policy</span>
+      </div>
+      <h2>The <em>Translator Pattern.</em></h2>
+      <p>A reusable design pattern for AI products where decisions carry real-world consequences. The LLM translates; <b>deterministic code decides.</b> Worked out in detail on a refund bot — stress-tested against six adversarial scenarios.</p>
+      <div class="meta">
+        <span><b>Role</b> · Solo designer</span>
+        <span><b>Year</b> · 2026</span>
+        <span><b>Read time</b> · 8 min</span>
+      </div>
+      <span class="cta">Read the case study →</span>
+    </div>
+  </a>
+  <!-- ─── 4. DEMON RISING ─── -->
+  <div class="feat is-static">
+    <div class="feat-visual">
+      <div class="v0">
+        <div class="v0-head">
+          <span>Council · Intent routing · Fallback</span>
+          <span class="gdot"></span>
+        </div>
+        <svg class="v0-graph" viewBox="0 0 480 330" xmlns="http://www.w3.org/2000/svg">
+          <!-- input -->
+          <rect x="160" y="14" width="160" height="40" rx="6" fill="#FAFAF9" stroke="#0F0F0E" stroke-width="1.2"/>
+          <circle cx="176" cy="34" r="3" fill="#B8A885"/>
+          <text x="244" y="32" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#0F0F0E">Lord speaks</text>
+          <text x="244" y="46" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#8A8A87" letter-spacing="0.5">FREE-TEXT REPLY</text>
+          <!-- input -> lanes -->
+          <path d="M 232,54 C 232,78 122,72 122,96" fill="none" stroke="#B8A885" stroke-width="1.6" stroke-dasharray="4 4"/>
+          <path d="M 258,54 C 258,78 358,72 358,96" fill="none" stroke="#0F0F0E" stroke-width="1.6"/>
+          <!-- lane A: LLM classifier -->
+          <rect x="30" y="96" width="185" height="64" rx="6" fill="#FFFFFF" stroke="#B8A885" stroke-width="1.6"/>
+          <circle cx="48" cy="116" r="4" fill="#B8A885">
+            <animate attributeName="opacity" values="1;0.35;1" dur="1.5s" repeatCount="indefinite"/>
+          </circle>
+          <text x="122" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#0F0F0E">LLM classifier</text>
+          <text x="122" y="134" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#B8A885" letter-spacing="0.5">PROBABILISTIC</text>
+          <rect x="68" y="140" width="108" height="13" rx="3" fill="#F1EBDD"/>
+          <text x="122" y="149" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#8B7355" letter-spacing="0.5">≤ 8s LATENCY BUDGET</text>
+          <!-- lane B: keyword fallback -->
+          <rect x="265" y="96" width="185" height="64" rx="6" fill="#FAFAF9" stroke="#0F0F0E" stroke-width="1.6"/>
+          <circle cx="283" cy="116" r="4" fill="#0F0F0E"/>
+          <text x="357" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#0F0F0E">Keyword fallback</text>
+          <text x="357" y="134" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#8A8A87" letter-spacing="0.5">DETERMINISTIC</text>
+          <rect x="303" y="140" width="108" height="13" rx="3" fill="#0F0F0E"/>
+          <text x="357" y="149" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#FAFAF9" letter-spacing="0.5">ALWAYS RESOLVES</text>
+          <!-- fallback relationship A -> B -->
+          <text x="240" y="112" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6.5" fill="#8A8A87" letter-spacing="0.3">SLOW / OFFLINE</text>
+          <path d="M 216,120 L 258,120" fill="none" stroke="#B4B4B0" stroke-width="1.2" stroke-dasharray="3 3"/>
+          <path d="M 253,116 L 261,120 L 253,124" fill="none" stroke="#B4B4B0" stroke-width="1.2"/>
+          <!-- lanes -> converge -->
+          <path d="M 122,160 C 122,178 240,176 240,190" fill="none" stroke="#D6D3CB" stroke-width="1.2"/>
+          <path d="M 358,160 C 358,178 240,176 240,190" fill="none" stroke="#0F0F0E" stroke-width="1.4"/>
+          <!-- intent chips -->
+          <rect x="36" y="192" width="72" height="24" rx="4" fill="#0F0F0E"/>
+          <text x="72" y="207" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="500" fill="#FAFAF9" letter-spacing="0.5">AGREE</text>
+          <rect x="120" y="192" width="72" height="24" rx="4" fill="#FFFFFF" stroke="#D0CCC3"/>
+          <text x="156" y="207" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#555554" letter-spacing="0.5">REFUSE</text>
+          <rect x="204" y="192" width="72" height="24" rx="4" fill="#FFFFFF" stroke="#D0CCC3"/>
+          <text x="240" y="207" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#555554" letter-spacing="0.5">MODIFY</text>
+          <rect x="288" y="192" width="72" height="24" rx="4" fill="#FFFFFF" stroke="#D0CCC3"/>
+          <text x="324" y="207" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#555554" letter-spacing="0.5">COUNTER</text>
+          <rect x="372" y="192" width="72" height="24" rx="4" fill="#FFFFFF" stroke="#D0CCC3"/>
+          <text x="408" y="207" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#555554" letter-spacing="0.5">SILENCE</text>
+          <text x="240" y="234" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6.5" fill="#8A8A87" letter-spacing="0.3">5-WAY INTENT MODEL</text>
+          <!-- chosen -> resolve bar -->
+          <path d="M 72,216 L 72,250" fill="none" stroke="#0F0F0E" stroke-width="1.4"/>
+          <g transform="translate(28, 250)">
+            <rect x="0" y="0" width="424" height="40" rx="4" fill="#FAFAF9" stroke="#E5E3DE"/>
+            <rect x="14" y="11" width="58" height="18" rx="3" fill="#0F0F0E"/>
+            <text x="43" y="23" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="500" fill="#FAFAF9" letter-spacing="0.5">AGREE</text>
+            <text x="82" y="24" font-family="JetBrains Mono, monospace" font-size="11" fill="#8A8A87">→</text>
+            <text x="100" y="24" font-family="Inter, sans-serif" font-size="10" font-weight="500" fill="#2A2A28">Council resolves the proposal</text>
+            <text x="410" y="24" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="7.5" fill="#8A8A87" letter-spacing="0.4">0 DEAD-ENDS</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="feat-content">
+      <div class="tags">
+        <span class="tag dark">Featured</span>
+        <span class="tag">LLM in the loop</span>
+        <span class="tag">Fallback design</span>
+      </div>
+      <h2>Demon Rising · <em>The Council.</em></h2>
+      <p>A dark-fantasy roguelike whose castle court runs on a local LLM — officers debate, and the player answers them in free text. The model classifies intent; a deterministic keyword layer and a bounded latency budget decide. <b>Built to stay playable even when the AI never answers.</b></p>
+      <div class="meta">
+        <span><b>Role</b> · Solo design + build</span>
+        <span><b>Year</b> · 2026</span>
+        <span><b>Read time</b> · 9 min</span>
+      </div>
+      <div class="cta-row">
+        <a class="go" href="https://demonrising.jestazyao.com" target="_blank" rel="noopener">Read the case study →</a>
+        <a class="alt" href="https://orhpius.itch.io/demon-rising" target="_blank" rel="noopener">Play on itch.io ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
