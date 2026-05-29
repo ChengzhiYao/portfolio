@@ -572,6 +572,96 @@
         </a>
       </div>
 
+      <h3>Chapter Zero &mdash; The Foundation That Was Secretly a Memory Layer</h3>
+      <p>The clearest version of how I think about AI product design is in what
+        devlog 06 doesn't say out loud: nothing about AI was being built. The brief
+        was narrative coherence. The constraint was a roguelike's hostility to
+        story.</p>
+      <p>Most roguelikes solve replayability with randomness, and randomness flattens
+        story. Players remember stats; they don't remember plot. I wanted a campaign
+        that survived being run twenty times. The bet I made was a hybrid: three
+        authored chapters per campaign, gated by named bosses, with persistent castle
+        state across all of them. Inside each chapter the loop stays procedural and
+        replayable. The chapter spine is hand-built and doesn't move.</p>
+
+      <figure class="case-figure" style="max-width:760px">
+        <img src="screenshots/devlog_update06.png" alt="Devlog 06 — The Long War" loading="lazy">
+        <figcaption>Devlog 06 &mdash; the campaign frame that made the rest of the
+          game's memory work possible.</figcaption>
+      </figure>
+
+      <p><b>The trade-off.</b> Authored narrative spine versus pure procedural
+        run-to-run variance. I chose the spine. The cost is that some sessions feel
+        repetitive earlier than a fully procedural roguelike would. The gain is a
+        story the player can actually summarise &mdash; "I lost Chapter 2 because I
+        spent all my action points on the council," not "I died because RNG."
+        Legibility was worth more than novelty here.</p>
+      <p><b>What it shipped.</b> A three-boss campaign structure with persistent
+        castle state, a chapter-level save model, and &mdash; the thing that
+        mattered most in hindsight &mdash; a generic "record" data type that any
+        entity (castle, officer, prisoner, eventually the First Hero) could write
+        into. At the time, that record store existed only to track which chapter
+        the player was in and which decisions had carried forward. Two devlogs
+        later, the same record store was the substrate for cross-run character
+        memory.</p>
+      <p><b>The AI-product-design lesson.</b> Build the infrastructure for the
+        feature you can't see yet. The work that earned its keep in devlog 08
+        wasn't designed in devlog 08 &mdash; it was designed in devlog 06, when I
+        was building a campaign tracker. The discipline is the same one that holds
+        in any AI product: <b>own the substrate before you put a model on top of
+        it.</b> Memory, state, retrieval, and identity are product surfaces. Build
+        them as if no model exists, and then the model is the easiest part to
+        add.</p>
+
+      <h3>Chapter One &mdash; Identity Before Flexibility</h3>
+      <p>Devlog 07 looks like a class-balancing patch. It's actually about constraint
+        design &mdash; the same skill every AI product person ends up needing whether
+        they realise it or not.</p>
+      <p>Going in: nine classes, all sharing the same talent grammar, all assembled
+        from the same generic pool of stat buffs. The result was that no class had a
+        mechanical fantasy. Players said "I want crit damage," not "I want Blood
+        Hunter." That meant the game's deepest expression layer &mdash; build
+        choice &mdash; was a difficulty knob, not a vocabulary.</p>
+
+      <figure class="case-figure" style="max-width:760px">
+        <img src="screenshots/devlog_update07.png" alt="Devlog 07 — Class Sets" loading="lazy">
+        <figcaption>Devlog 07 &mdash; the identity layer. Each class got a signature
+          weapon, armour, and relic set, plus a talent path written for that fantasy
+          specifically. Nine real characters, not nine reskinned stat blocks.</figcaption>
+      </figure>
+
+      <p><b>The trade-off.</b> Build freedom versus class identity. The flexible
+        version, where any class could pick anything, was strictly more powerful in
+        every metric I could measure &mdash; but every class felt the same. I
+        narrowed each class to a signature set (weapon + armour + relic + talent
+        path written for that set), and accepted that cross-class hybrid builds
+        would be weaker. The cost was real. The payoff was that a returning player
+        could finally <em>name</em> what they liked about a run &mdash; not "I had
+        good crit chance," but "I went deep Blood Hunter and the third tier kept
+        snowballing." Identity gave the experience a vocabulary it didn't have.</p>
+      <p><b>What it shipped.</b> Nine class-bound sets, set bonuses that scale with
+        commitment, and talent paths that fork inside a class instead of across
+        classes. Each set is stage-gated, so progression inside a run is also
+        progression deeper into a character's fantasy. That stage-gated unlock
+        shape is the same one I reused, almost unchanged, for the First Hero's
+        visit-topic pool a year later &mdash; topics filtered by stage, only some
+        affinities open later topics, anchor choices unlock callbacks. Different
+        domain, identical structure.</p>
+      <p><b>The AI-product-design lesson.</b> Constraint is what makes voice
+        legible. When an LLM is in the loop, the same principle holds harder, not
+        less &mdash; the model behaves more consistently in a bounded grammar than
+        in an unbounded one. The work I did on the Class Sets system was, in
+        retrospect, my warm-up for designing the First Hero's tag-and-stage
+        grammar: pick a small, named, intentional vocabulary; let everything else
+        compose from it. <b>Identity before flexibility</b> is a class-design
+        principle in this game, and a system-design principle in every AI product
+        I've worked on since.</b></p>
+      <p>By the time devlog 08 landed, devlog 06 had given me a memory layer with
+        no model on top of it, and devlog 07 had given me a vocabulary discipline
+        for character identity. The First Hero is what happens when those two
+        pieces meet a language model &mdash; but the design work that made her
+        shippable happened in the two devlogs before her.</p>
+
       <h3>Chapter Two &mdash; A Character Who Remembers You</h3>
       <p>The First Hero is the only character in the game who survives across every run.
         She is a side boss the player fights at the end of every successful campaign
