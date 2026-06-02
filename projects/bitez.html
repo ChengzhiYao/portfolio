@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Bitez — Jestaz Yao</title>
+<meta name="description" content="An iOS app that picks one restaurant for you, instead of showing 50. A case study in Product AI design — where the model lives, where deterministic code lives, and what the user sees when either layer fails." />
+<meta name="theme-color" content="#08080A" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/styles.css" />
+<style>
+  /* ─────────────────────────────────────────────────────────────
+     Bitez case-study specifics. Inherits the site's variables
+     (--bg, --gold, --display, --mono, etc.) from styles.css.
+     ───────────────────────────────────────────────────────────── */
+
+  /* Override the default 4-col proj-meta grid to fit the 5 cells we
+     use on this page (the extra one is the TEAM cell crediting the
+     co-founder behind the Duo Craft App Store listing). Mobile
+     collapses to a sensible stack so the meta doesn't shrink to 5
+     unreadable columns. */
+  .proj-meta--five { grid-template-columns: repeat(5, 1fr); gap: 22px; }
+  @media (max-width: 1100px) {
+    .proj-meta--five { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  }
+  @media (max-width: 640px) {
+    .proj-meta--five { grid-template-columns: 1fr; gap: 14px; }
+  }
+
+  /* "AI architecture" handoff diagram — model side vs. code side. */
+  .ai-arch {
+    display: grid;
+    grid-template-columns: 1fr 70px 1fr;
+    gap: 18px;
+    align-items: stretch;
+    margin-top: 26px;
+  }
+  .ai-arch__col {
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    padding: 22px;
+    border-radius: 6px;
+  }
+  .ai-arch__col h4 {
+    font-family: var(--display); font-size: 17px; font-weight: 500;
+    margin: 8px 0 14px; letter-spacing: -.01em; color: var(--text);
+  }
+  .ai-arch__col .lbl {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .ai-arch__col .lbl.alt { color: var(--mute); }
+  .ai-arch__col ul {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; gap: 10px;
+  }
+  .ai-arch__col li {
+    font-size: 13.5px; line-height: 1.5; color: var(--text-2);
+    padding-left: 16px; position: relative;
+  }
+  .ai-arch__col li::before {
+    content: ""; position: absolute; left: 0; top: 8px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold);
+  }
+  .ai-arch__col.alt li::before { background: var(--mute); }
+  .ai-arch__mid {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 10px; color: var(--gold);
+    letter-spacing: .12em; text-transform: uppercase;
+  }
+  .ai-arch__mid .arrow {
+    width: 2px; height: 60px; background: linear-gradient(180deg, transparent, var(--gold), transparent);
+    margin: 8px 0;
+  }
+
+  /* Three "stage" cards used for the cost-optimization story. */
+  .stage-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 24px;
+  }
+  .stage {
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    padding: 22px;
+    border-radius: 6px;
+    position: relative;
+  }
+  .stage .head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--mute);
+  }
+  .stage .head .pct { color: var(--gold); font-weight: 500; }
+  .stage h4 {
+    font-family: var(--display); font-size: 18px; font-weight: 500;
+    line-height: 1.3; margin: 10px 0 8px; letter-spacing: -.01em; color: var(--text);
+  }
+  .stage p { font-size: 13.5px; line-height: 1.55; margin: 0 0 10px; color: var(--text-2); }
+  .stage .keyline {
+    font-family: var(--mono); font-size: 11px; color: var(--gold);
+    padding: 8px 10px; background: rgba(212,184,106,.06);
+    border-left: 2px solid var(--gold); margin-top: 12px;
+  }
+
+  /* AI fallback defense layers (5 stacked guards). */
+  .layer-stack { margin-top: 22px; display: grid; gap: 10px; }
+  .layer {
+    display: grid;
+    grid-template-columns: 70px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    border-radius: 4px;
+  }
+  .layer .n {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .layer .desc { font-size: 14px; color: var(--text); line-height: 1.4; }
+  .layer .desc b { color: var(--text); font-weight: 500; }
+  .layer .tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+    color: var(--mute); text-transform: uppercase;
+  }
+
+  /* Iteration timeline — tester feedback + paired ship. The build
+     column anchors each row to a real TestFlight release artifact,
+     without any specific date framing (no sprint-speed framing). */
+  .timeline { margin-top: 24px; display: grid; gap: 12px; }
+  .tl-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 18px;
+    align-items: start;
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    border-radius: 4px;
+  }
+  .tl-row .build {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .12em;
+    color: var(--gold); text-transform: uppercase; padding-top: 2px;
+  }
+  .tl-row .body { color: var(--text-2); font-size: 13.5px; line-height: 1.5; }
+  .tl-row .body .feedback {
+    display: block;
+    font-family: var(--mono); font-size: 11px; color: var(--text);
+    background: var(--bg-3); border-left: 2px solid var(--gold);
+    padding: 8px 10px; margin-bottom: 8px;
+  }
+  .tl-row .body .fix { color: var(--text-2); }
+  .tl-row .body .fix b { color: var(--text); font-weight: 500; }
+
+  /* ─── Inline locked-image wrapper ───────────────────────────
+     Used for every real app screenshot that appears inline in
+     the case study (AI Moments, Transparency Problem hero,
+     Mood-Gate diptych). Default state: blurred + a small gold
+     pill telling the reader where to enter the password. Once
+     the user enters the password in section 07, the same
+     sessionStorage flag flips every wrapper on the page to
+     .is-unlocked and all images de-blur together.
+     ───────────────────────────────────────────────────────── */
+  .locked-img {
+    position: relative;
+    border-radius: 26px;
+    overflow: hidden;
+  }
+  .locked-img > img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: blur(18px) saturate(.55);
+    transition: filter .45s ease;
+    pointer-events: none;
+    user-select: none;
+  }
+  .locked-img.is-unlocked > img {
+    filter: none;
+    pointer-events: auto;
+    user-select: auto;
+  }
+  .locked-img__hint {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 14px;
+    background: rgba(8,8,10,.92);
+    border: 1px solid rgba(212,184,106,.45);
+    border-radius: 100px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    white-space: nowrap;
+    z-index: 2;
+    transition: opacity .35s ease;
+    box-shadow: 0 8px 24px rgba(0,0,0,.5);
+  }
+  .locked-img__hint::before { content: "🔒  "; opacity: .9; }
+  .locked-img.is-unlocked .locked-img__hint {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Visible banner near the top of the page so first-time readers
+     know to scroll for the password — only shown until unlocked. */
+  .lock-banner {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid rgba(212,184,106,.3);
+    background: rgba(212,184,106,.05);
+    border-radius: 6px;
+    margin-top: 22px;
+  }
+  .lock-banner__icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(212,184,106,.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: var(--gold); flex-shrink: 0;
+  }
+  .lock-banner__copy {
+    font-size: 13.5px; color: var(--text-2); line-height: 1.45;
+    flex: 1;
+  }
+  .lock-banner__copy b { color: var(--text); font-weight: 500; }
+  .lock-banner__copy a {
+    color: var(--gold); text-decoration: none;
+    border-bottom: 1px dotted rgba(212,184,106,.4);
+  }
+  .is-walkthrough-unlocked .lock-banner { display: none; }
+
+  /* Real iPhone screenshots — used both inline (showing AI in action)
+     and inside the password-gated walkthrough grid. iPhone aspect 9:19.5,
+     rounded to mimic the device, with a soft shadow on dark BG. */
+  .device-shot {
+    border-radius: 26px;
+    background: #0A0A10;
+    box-shadow:
+      0 30px 60px rgba(0,0,0,.55),
+      0 0 0 1px rgba(255,255,255,.06),
+      inset 0 0 0 1px rgba(255,255,255,.04);
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  /* Two-up showcase used by the AI Moments section. Each row pairs
+     one screenshot with the prose explaining what AI did there. */
+  .moment {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 32px;
+    align-items: start;
+    margin-top: 28px;
+    padding: 26px;
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    border-radius: 8px;
+  }
+  .moment + .moment { margin-top: 18px; }
+  .moment__img { padding: 0; }
+  .moment__copy h4 {
+    font-family: var(--display); font-size: 20px; font-weight: 500;
+    letter-spacing: -.01em; line-height: 1.25; color: var(--text);
+    margin: 0 0 12px;
+  }
+  .moment__copy .role {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .moment__copy .role::before {
+    content: ""; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--gold); box-shadow: 0 0 8px var(--gold-glow);
+  }
+  .moment__copy p { font-size: 14px; line-height: 1.6; color: var(--text-2); margin: 0 0 12px; }
+  .moment__copy .quote {
+    font-family: var(--mono); font-size: 12.5px; color: var(--text);
+    padding: 12px 14px; background: var(--bg-3);
+    border-left: 2px solid var(--gold); margin: 10px 0;
+  }
+  .moment__copy .quote em { color: var(--gold); font-style: normal; }
+  .moment__copy .stack {
+    margin-top: 14px;
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .moment__copy .pill {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--mute);
+    border: 1px solid var(--line-3); padding: 5px 9px; border-radius: 100px;
+  }
+
+  /* Timeline rows with side-by-side before/after screenshots. */
+  .tl-shot {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: 180px 1fr 180px;
+    gap: 22px;
+    align-items: center;
+    padding: 18px;
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    border-radius: 6px;
+  }
+  .tl-shot__cap {
+    text-align: center;
+  }
+  .tl-shot__cap .label {
+    display: block;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--mute);
+    margin-top: 10px;
+  }
+  .tl-shot__cap .label b { color: var(--gold); font-weight: 500; }
+  .tl-shot__copy h4 {
+    font-family: var(--display); font-size: 17px; font-weight: 500;
+    letter-spacing: -.01em; margin: 0 0 10px; color: var(--text);
+  }
+  .tl-shot__copy p { font-size: 13.5px; line-height: 1.55; margin: 0; color: var(--text-2); }
+  .tl-shot__copy .arrow {
+    text-align: center;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .12em;
+    color: var(--gold); margin: 8px 0;
+  }
+
+  /* The blurred / password-gated zone. */
+  .lock-wrap { position: relative; margin-top: 24px; }
+  .lock-content {
+    filter: blur(16px);
+    transition: filter .4s ease;
+    pointer-events: none;
+    user-select: none;
+  }
+  .lock-wrap.is-unlocked .lock-content {
+    filter: none;
+    pointer-events: auto;
+    user-select: auto;
+  }
+  .lock-overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 5;
+    transition: opacity .35s ease;
+  }
+  .lock-wrap.is-unlocked .lock-overlay {
+    opacity: 0; pointer-events: none;
+  }
+  .lock-card {
+    background: rgba(13, 13, 17, .92);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid var(--line-3);
+    border-radius: 8px;
+    padding: 28px 30px;
+    max-width: 420px;
+    width: calc(100% - 48px);
+    box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(212,184,106,.12);
+    text-align: center;
+  }
+  .lock-card .lock-eyebrow {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+    color: var(--gold); text-transform: uppercase; display: inline-flex;
+    align-items: center; gap: 8px;
+  }
+  .lock-card .lock-eyebrow::before {
+    content: ""; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--gold); box-shadow: 0 0 8px var(--gold-glow);
+  }
+  .lock-card h3 {
+    font-family: var(--display); font-size: 22px; font-weight: 500;
+    letter-spacing: -.01em; line-height: 1.25; color: var(--text);
+    margin: 10px 0 6px;
+  }
+  .lock-card p {
+    font-size: 13px; line-height: 1.55; color: var(--text-2);
+    margin: 0 0 18px;
+  }
+  .lock-form { display: flex; gap: 8px; }
+  .lock-form input {
+    flex: 1; min-width: 0;
+    background: var(--bg-3); color: var(--text);
+    border: 1px solid var(--line); border-radius: 4px;
+    padding: 11px 14px;
+    font-family: var(--mono); font-size: 13px;
+    letter-spacing: .04em;
+    outline: none;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .lock-form input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212,184,106,.12);
+  }
+  .lock-form button {
+    background: var(--gold); color: #1A1208;
+    border: 0; border-radius: 4px;
+    padding: 11px 18px;
+    font-family: var(--mono); font-size: 11px; font-weight: 500;
+    letter-spacing: .14em; text-transform: uppercase;
+    cursor: pointer;
+    transition: background .2s ease, transform .1s ease;
+  }
+  .lock-form button:hover { background: var(--gold-2); }
+  .lock-form button:active { transform: translateY(1px); }
+  .lock-hint {
+    margin-top: 14px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+    color: var(--mute); text-transform: uppercase;
+  }
+  .lock-hint a { color: var(--gold); text-decoration: none; }
+  .lock-hint a:hover { text-decoration: underline; }
+  .lock-error {
+    margin-top: 10px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+    color: #FF6B6B; text-transform: uppercase;
+    min-height: 12px;
+    opacity: 0;
+    transition: opacity .2s ease;
+  }
+  .lock-error.is-visible { opacity: 1; }
+
+  /* Mock screenshot grid behind the lock (gets blurred). */
+  .shot-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    padding: 14px;
+    background: var(--bg-3);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  .shot {
+    aspect-ratio: 9 / 19.5;
+    border-radius: 18px;
+    background:
+      linear-gradient(180deg, rgba(255,122,47,.30), rgba(255,59,48,.12) 40%, rgba(20,12,8,.85)),
+      radial-gradient(circle at 50% 30%, rgba(255,213,168,.4), transparent 60%),
+      var(--bg-2);
+    border: 1px solid rgba(255,122,47,.25);
+    position: relative;
+    overflow: hidden;
+  }
+  .shot::after {
+    content: "Bitez"; position: absolute; left: 0; right: 0; top: 38%;
+    text-align: center; font-family: var(--display); font-size: 14px;
+    color: rgba(255,255,255,.85); letter-spacing: .02em;
+  }
+  .shot.alt {
+    background:
+      linear-gradient(180deg, rgba(28,20,16,.65), rgba(10,7,6,.95)),
+      radial-gradient(circle at 50% 25%, rgba(255,122,47,.45), transparent 55%),
+      var(--bg-2);
+  }
+  .shot.alt::after { content: "Tonight's pick"; }
+  .shot.alt2 {
+    background:
+      linear-gradient(180deg, rgba(255,122,47,.18), rgba(28,20,16,.95)),
+      var(--bg-2);
+  }
+  .shot.alt2::after { content: "Why this one"; }
+  .shot.alt3 {
+    background:
+      linear-gradient(180deg, rgba(20,16,12,.95), rgba(10,7,6,1)),
+      radial-gradient(circle at 50% 70%, rgba(255,122,47,.3), transparent 50%),
+      var(--bg-2);
+  }
+  .shot.alt3::after { content: "Settings"; }
+
+  .testflight-cta {
+    margin-top: 22px;
+    display: flex; flex-wrap: wrap; gap: 14px;
+    padding: 18px 20px;
+    border: 1px solid var(--gold); border-radius: 6px;
+    background: rgba(212,184,106,.06);
+    align-items: center; justify-content: space-between;
+  }
+  .testflight-cta .copy {
+    font-size: 14px; color: var(--text);
+  }
+  .testflight-cta .copy b { color: var(--gold); font-weight: 500; }
+  .testflight-cta a {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--gold);
+    border: 1px solid var(--gold); padding: 10px 16px; border-radius: 4px;
+    text-decoration: none;
+    transition: background .2s ease, color .2s ease;
+  }
+  .testflight-cta a:hover { background: var(--gold); color: #1A1208; }
+
+  @media (max-width: 900px) {
+    .ai-arch { grid-template-columns: 1fr; }
+    .ai-arch__mid { flex-direction: row; padding: 8px 0; }
+    .ai-arch__mid .arrow { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0 8px; }
+    .stage-grid { grid-template-columns: 1fr; }
+    .layer { grid-template-columns: 50px 1fr; }
+    .layer .tag { display: none; }
+    .tl-row { grid-template-columns: 1fr; gap: 6px; }
+    .moment { grid-template-columns: 1fr; gap: 18px; }
+    .moment__img { max-width: 240px; margin: 0 auto; }
+    .tl-shot { grid-template-columns: 1fr; }
+    .tl-shot__cap { max-width: 200px; margin: 0 auto; }
+    .shot-grid { grid-template-columns: repeat(2, 1fr); }
+    .testflight-cta { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body class="project-page">
+
+<script src="../js/main.js" defer></script>
+
+<nav class="proj-nav">
+  <a class="proj-nav__brand" href="../index.html">Jestaz<span class="dot"></span></a>
+  <div class="proj-nav__links">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#selected" data-jump="#selected">Works</a>
+    <a href="../index.html#about" data-jump="#about">About</a>
+    <a href="mailto:yxhzdm@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<div class="dotgrid"></div>
+<div class="vignette"></div>
+
+<header class="proj-hero">
+  <div class="proj-hero__eyebrow">
+    <span class="swatch"></span>
+    <span>[ iOS APP · PRODUCT AI · TESTFLIGHT BETA · 2026 ]</span>
+  </div>
+  <h1 class="h-display proj-hero__title">Bitez · <span style="color: var(--gold);">on-device AI for what to eat.</span></h1>
+  <p class="proj-hero__sub">You're hungry. You open the app. It picks <em>one</em> restaurant for you — not fifty — and explains why in a sentence you'd actually want to read. <strong>This case study is about giving the AI only the jobs it's good at (reading what you typed, writing the friendly explanation) and keeping every real decision somewhere the user can see. Plus the hardest design problem of single-pick recommenders: making the user feel heard even when the algorithm picks the same place again.</strong></p>
+</header>
+
+<section class="proj-meta proj-meta--five">
+  <div class="proj-meta__cell"><span class="k">→ CORE NEED</span><span class="v">"I'm hungry. Tell me one place to go right now — and why." Replace endless feeds with a single confident pick the user can audit, change their mind on, and trust again next time.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ STATUS</span><span class="v">TestFlight beta · iterating with internal + external testers · every build paired to a specific piece of tester feedback before shipping.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ MY ROLE</span><span class="v">Co-founder · Product AI designer + iOS engineer. I designed and built the entire app — prompt design, on-device LLM integration, recommender, hallucination guards, sticky reasoning, transparent UI for non-obvious algorithm decisions, brand and visual system.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ TEAM</span><span class="v">Co-founder: <strong>Akhil Tadiparthi</strong> — runs <strong>Duo Craft</strong> (the publishing entity on the App Store listing), holds the Apple Developer account, and handles incorporation, legal, finance, and distribution. The split lets me focus 100% on product and build.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ STACK</span><span class="v">SwiftUI · iOS 17/26 · Apple Foundation Models (on-device LLM) · Google Places (New) · WeatherKit · MetricKit · 100% on-device, no backend.</span></div>
+</section>
+
+<!-- Discoverability banner — tells first-time readers where to
+     enter the password. Hidden when the page is already unlocked. -->
+<div class="proj-section" style="padding-top: 0;">
+  <div class="lock-banner">
+    <div class="lock-banner__icon">🔒</div>
+    <div class="lock-banner__copy">
+      <b>App screenshots throughout this case study are gated.</b>
+      The product isn't public yet, so the visuals are blurred until you enter the password.
+      <a href="#walkthrough">Scroll to the bottom to unlock →</a>
+      Don't have the password? <a href="mailto:yxhzdm@gmail.com?subject=Bitez%20case-study%20password">Email me.</a>
+    </div>
+  </div>
+</div>
+
+<div class="proj-section">
+  <div class="proj-stats" style="grid-template-columns: repeat(4, 1fr); margin-top: 0;">
+    <div class="proj-stat"><div class="v">2</div><div class="k">Apple Foundation Models touchpoints · narrowly scoped</div></div>
+    <div class="proj-stat"><div class="v">100%</div><div class="k">picks ship with user-auditable reasoning</div></div>
+    <div class="proj-stat"><div class="v">0</div><div class="k">hallucinated narrations · model output rejected if unanchored</div></div>
+    <div class="proj-stat"><div class="v">1/day</div><div class="k">typical Google Places call per user, after caching kicks in</div></div>
+  </div>
+</div>
+
+<section class="proj-section">
+  <span class="eyebrow">01 / THE CORE NEED</span>
+  <h2 class="h-display">"Just tell me where to eat" is a <em>decision</em> request — not a discovery request.</h2>
+  <p class="lede">Existing apps treat hunger like a research project. Open Yelp, Google Maps, OpenTable — every one shows a 50-item list sorted by something opaque, and transfers the work of deciding from app to user. The actual job-to-be-done is <strong>"hand me a single confident pick, with the reasoning I can audit, in the time it takes me to put my shoes on."</strong> The product builds outward from that one act.</p>
+
+  <div class="proj-points">
+    <div class="proj-point">
+      <span class="n">→ DECISION FATIGUE</span>
+      <h4>50 options ≠ help.</h4>
+      <p>Showing more transfers cognitive load onto the user. A confident product picks one. The only way to do that without being wrong a lot is to have a <strong>reasoning system the user can interrogate</strong> when they disagree.</p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ TRUST DEFICIT</span>
+      <h4>Recommendations need receipts.</h4>
+      <p>"We picked this because of X, Y, Z" beats "trending now." Every reason is sourced (rating · weather · your taste · distance · time · budget) and shown explicitly. <strong>Showing the work is what makes one-pick viable.</strong></p>
+    </div>
+    <div class="proj-point">
+      <span class="n">→ MOMENT-AWARENESS</span>
+      <h4>Mood + weather + budget + history all matter.</h4>
+      <p>The same person at noon on Wednesday and 9pm on Friday wants different things. The recommender reads time, weather, learned price tier, recently-presented set, and a single user-chosen mood. The AI's job is to make that read feel <strong>human, not algorithmic</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">02 / AI ARCHITECTURE</span>
+  <h2 class="h-display">The model translates. <em>Code decides.</em> Both layers are visible to the user.</h2>
+  <p class="lede">This is the central Product AI question on every product I design: <strong>what is the model allowed to decide?</strong> In Bitez the answer is narrow on purpose. The LLM (Apple Foundation Models, on-device) gets two jobs — both about turning messy human language into something deterministic code can work with, or rendering deterministic code's output in human language. Everything that affects the actual recommendation runs through plain Swift.</p>
+
+  <div class="ai-arch">
+    <div class="ai-arch__col">
+      <span class="lbl">→ LLM SIDE · Apple Foundation Models</span>
+      <h4>Reads intent. Writes warmth.</h4>
+      <ul>
+        <li><b>Parse free-text dish requests.</b> "Curry-something hearty" / "ramyon" / "fish that doesn't smell." Returns a typed <code>DishIntent</code> the recommender can use.</li>
+        <li><b>Narrate the pick in friend-voice.</b> One warm sentence + 3 short reasons, grounded only in the deterministic reasoning facts. Tone the user actually wants to read.</li>
+        <li><b>Nothing the user can't override.</b> Both outputs are advisory; the underlying signals are always visible if AI fails or hallucinates.</li>
+      </ul>
+    </div>
+
+    <div class="ai-arch__mid">
+      <span>HANDOFF</span>
+      <div class="arrow"></div>
+      <span>JSON</span>
+      <div class="arrow"></div>
+      <span>SCORING</span>
+    </div>
+
+    <div class="ai-arch__col alt">
+      <span class="lbl alt">→ CODE SIDE · deterministic recommender</span>
+      <h4>Picks the place. Justifies the pick.</h4>
+      <ul>
+        <li><b>Weighted scoring</b> across rating, distance, walkability, cuisine match, mood bias, budget tier, learned history, and a recently-presented penalty for variety.</li>
+        <li><b>The reasoning engine</b> mines facts from sourced signals — Ratings, Weather, Your taste, Distance, Time, Your budget — each carrying a strength score the UI ranks.</li>
+        <li><b>Honesty fact for budget mismatch:</b> if a $$ wins for a $$$$ user, the engine surfaces a dedicated fact explaining why — turned a perceived bug into the most-loved feature in testing.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top:32px; text-align:center; font-family:var(--mono); color:var(--gold); font-size:14px; letter-spacing:.08em;">[ MODEL READS · CODE DECIDES · MODEL NARRATES ]</p>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     SECTION 03 — Two AI moments, shown.
+     This is the heart of the Product AI case study: each of the two
+     model touchpoints, rendered in a real screenshot with the prose
+     describing what the LLM is doing in that exact frame.
+     ───────────────────────────────────────────────────────────── -->
+<section class="proj-section">
+  <span class="eyebrow">03 / TWO AI MOMENTS, SHOWN</span>
+  <h2 class="h-display">Both AI touchpoints, captured <em>in the live app</em>.</h2>
+  <p class="lede">Apple's on-device LLM has two narrow, high-leverage jobs in Bitez. Below are real frames from the TestFlight build — the model isn't simulated, the screenshots aren't mockups. Each one shows exactly what the LLM contributes and what's still being decided by deterministic code underneath.</p>
+
+  <div class="moment">
+    <div class="moment__img">
+      <div class="locked-img" data-bb-lock>
+        <img class="device-shot"
+             src="../site-media/bestbite/04-calibration-live-data.png"
+             alt="Bitez calibration screen — Found 20 spots near 113564, Filtering by $$$$ budget, Matching French, Locking in Spicy lover" />
+        <span class="locked-img__hint">Enter password below to view</span>
+      </div>
+    </div>
+    <div class="moment__copy">
+      <span class="role">Moment 01 · PARSE</span>
+      <h4>Free-text dish intent → structured cuisine, mood, and flags.</h4>
+      <p>The calibration screen replays everything the user just said. The last row — <strong>"Locking in Spicy lover"</strong> — is the Foundation Models output. The user didn't pick "Spicy" from a list; they typed it (or "curry-something hearty", or "fish that doesn't smell"), and Apple's on-device LLM extracted it into a typed <code>DishIntent</code> the recommender knows how to use.</p>
+      <div class="quote">User input: <em>"curry-something hearty"</em><br/>LLM output: <code>{ dish: "curry", cuisine: "Indian", isHearty: true }</code></div>
+      <p>The model never picks the restaurant. It only converts messy phrasing into structured fields. A 110-entry keyword dictionary acts as the safety net — instant on common cases, the LLM only runs when the dictionary can't pin a cuisine. The result feels like the app understood you.</p>
+      <div class="stack">
+        <span class="pill">Apple Foundation Models</span>
+        <span class="pill">@Generable schema</span>
+        <span class="pill">Keyword fallback · 110+ entries</span>
+        <span class="pill">5s timeout race</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="moment">
+    <div class="moment__img">
+      <div class="locked-img" data-bb-lock>
+        <img class="device-shot"
+             src="../site-media/bestbite/05-pick-budget-honesty.png"
+             alt="Bitez pick view — Nami Nori West Village, friend-voice narration above, budget honesty fact below explaining why $$ won when user said $$$$" />
+        <span class="locked-img__hint">Enter password below to view</span>
+      </div>
+    </div>
+    <div class="moment__copy">
+      <span class="role">Moment 02 · NARRATE</span>
+      <h4>Sourced reasoning facts → one warm sentence the user actually wants to read.</h4>
+      <p>The line above the restaurant name — <em>"Jestaz, Out of everything nearby, Nami Nori West Village is the one. Trust me."</em> — is the model speaking. But it's not free-styling. It's reading the deterministic reasoning facts (rating, distance, walking time, mood, weather, recently-presented penalty, the budget-honesty fact below) and rewriting them in one sentence.</p>
+      <div class="quote">Hallucination guard: the line is rejected if it doesn't mention the <em>restaurant name</em>, <em>cuisine</em>, or <em>user's named dish</em>. If it fails, the template version takes over and the user never knows.</div>
+      <p>Underneath, the deterministic reasoning is still visible — every fact is sourced (BUDGET in this frame), strength-ranked, and auditable. <strong>The AI adds warmth; it doesn't replace the math.</strong> When a user changes their budget and the same place wins, the reasoning row labelled "Still your best match" is sticky — AI narration can't overwrite the honest fact underneath.</p>
+      <div class="stack">
+        <span class="pill">@Generable AINarrationSchema</span>
+        <span class="pill">Hallucination guard</span>
+        <span class="pill">Grounded on facts</span>
+        <span class="pill">Sticky reasoning</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top:32px;">Two bounded jobs. Both about <em>language</em> — reading user phrasing, writing the explanation. Neither one ever decides anything that touches money, distance, or the actual pick.</p>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     SECTION 04 — The transparency problem.
+     The signature Product AI design moment in Bitez: the
+     recommender holds, the user's expectation moved, and the
+     interface has to defend the unchanged pick on five fronts
+     within three seconds. Came directly from real tester
+     feedback ("my friend keep saying after you change the
+     budget range, it's giving you the same restaurant").
+     ───────────────────────────────────────────────────────────── -->
+<section class="proj-section">
+  <span class="eyebrow">04 / THE TRANSPARENCY PROBLEM</span>
+  <h2 class="h-display">When the user moves but the recommendation <em>doesn't</em>.</h2>
+  <p class="lede">A user opens Settings, drags budget from <strong>$$</strong> to <strong>$$$$</strong>, taps Save &amp; refresh. The recommender re-ranks. The same restaurant wins. Mathematically the algorithm is right: a 4.5★ place 12 minutes away beats every $$$$ option in the user's radius on signal weight. <strong>Perceptually the app is broken.</strong> The user changed the input. They expect the output to change. When it doesn't, the algorithm has three seconds to defend itself out loud — or it loses the user.</p>
+
+  <p class="lede" style="margin-top: 14px;">This is the design problem most "smart" recommenders lose on. Yelp shows fifty options so the user feels in control. A single-pick product can't do that — and that's exactly the problem worth solving. <strong>This is the signature moment of the case study because it's the test of whether transparent reasoning is a real design discipline or just a buzzword.</strong></p>
+
+  <div class="moment" style="margin-top: 36px;">
+    <div class="moment__img">
+      <div class="locked-img" data-bb-lock>
+        <img class="device-shot"
+             src="../site-media/bestbite/05-pick-budget-honesty.png"
+             alt="Pick view defending an off-tier choice with five visible design moves" />
+        <span class="locked-img__hint">Enter password below to view</span>
+      </div>
+    </div>
+    <div class="moment__copy">
+      <span class="role">The fix · five visible layers</span>
+      <h4>Same pick. Visibly defended on five fronts, in one screen.</h4>
+      <p>The feedback came from a real tester. Direct quote, not paraphrased: <em>"my friend keep saying after you change the budget range, it's giving you the same restaurant."</em> One line of feedback, five layered design moves in response. The same place wins — but everything <strong>around</strong> the place changes loudly enough that the user understands the algorithm <em>did</em> run, and <em>did</em> hear them.</p>
+    </div>
+  </div>
+
+  <div class="layer-stack">
+    <div class="layer">
+      <span class="n">→ 01</span>
+      <span class="desc"><b>The price-tier badge gets visibly louder.</b> "$$ <em>below your $$$$</em>" rendered inline under the rating row. The single most direct answer to "did my $$$$ change even take effect?" — yes, we read $$$$, and yes, we picked $$ anyway. The user knows the signal landed before they read another line.</span>
+      <span class="tag">UI EMPHASIS</span>
+    </div>
+    <div class="layer">
+      <span class="n">→ 02</span>
+      <span class="desc"><b>The budget honesty fact.</b> A sticky reasoning row, surfacing every time pick.priceLevel != profile.budget: "<em>You said $$$$ but $$ won — it beats your higher-tier options here on rating, distance, or what you actually keep eating.</em>" Sticky means AI narration cannot overwrite it. The reasoning shows its work, in plain language, every time.</span>
+      <span class="tag">NARRATIVE</span>
+    </div>
+    <div class="layer">
+      <span class="n">→ 03</span>
+      <span class="desc"><b>"Still your strongest match" chip.</b> When the user-driven refresh re-ranks to the same restaurant, a small confirmation chip surfaces: <em>"This is my strongest match for you right now — trust it."</em> Tells the user explicitly the algorithm ran AND landed here again — not "nothing happened".</span>
+      <span class="tag">RUN CONFIRMATION</span>
+    </div>
+    <div class="layer">
+      <span class="n">→ 04</span>
+      <span class="desc"><b>Recently-presented penalty.</b> Inside the recommender: a <code>−25</code> score penalty against any restaurant the user has been shown in the recent past. Doesn't reshape the whole ranking, but gives the algorithm a small variety nudge so cold relaunches don't always land on yesterday's pick. Pure code, invisible to the user — but the user feels the variety.</span>
+      <span class="tag">ALGORITHM NUDGE</span>
+    </div>
+    <div class="layer">
+      <span class="n">→ 05</span>
+      <span class="desc"><b>Post-save confirmation toast.</b> "Updated — showing your top $$$$ picks" appears briefly after Save &amp; refresh, before the user has read anything else on screen. The change is acknowledged the moment it happens, not retroactively inferred from a different pick that never came.</span>
+      <span class="tag">ACK</span>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top: 32px;">The recommendation didn't change. <strong>Everything around it did.</strong> Five visible design moves, ranging from a single inline phrase to a recommender-level score penalty, all in service of one outcome: <em>the user understands the algorithm heard them, even when the result lands in the same place.</em> The friend who'd called it broken never raised that complaint again.</p>
+
+  <p class="lede" style="margin-top: 18px; font-family: var(--mono); font-size: 13px; color: var(--gold); letter-spacing: .04em;">[ ALGORITHM HOLDS &nbsp;·&nbsp; UI DEFENDS &nbsp;·&nbsp; USER UNDERSTANDS ]</p>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">05 / FEEDING THE AI WITHOUT PAYING TWICE</span>
+  <h2 class="h-display">On-device AI is free. The <em>ground truth</em> it anchors to isn't.</h2>
+  <p class="lede">Apple's Foundation Models run free on the user's phone. Google Places (New) — the data the recommender grounds every reasoning fact against — does not. A naive build hits the API on every screen open and burns the unit economics inside a week. Three small caching choices, each protecting the AI's accuracy without paying for it more than once a day.</p>
+
+  <div class="stage-grid">
+    <div class="stage">
+      <div class="head"><span>01 · POOLS</span></div>
+      <h4>Multi-pool cache.</h4>
+      <p>Eight LRU pools by query signature — toggling Italian → Korean → Italian is free after the second visit.</p>
+    </div>
+    <div class="stage">
+      <div class="head"><span>02 · TIME</span></div>
+      <h4>Local "open now" math.</h4>
+      <p>Fetch the weekly schedule once, compute open / closed locally against the device clock. The pool stays valid 24 hours, not 30 minutes.</p>
+    </div>
+    <div class="stage">
+      <div class="head"><span>03 · EMERGENCY</span></div>
+      <h4>Weather-triggered refetch.</h4>
+      <p>Severe-weather alerts at the user's coordinate enter the cache signature → automatic miss → live refetch right when local hours actually shift.</p>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top:32px; text-align:center; font-family:var(--mono); color:var(--gold); font-size:14px; letter-spacing:.08em;">[ NAIVE: 1 API CALL / APP OPEN &nbsp; → &nbsp; STAGED: ~1 / DAY / USER ]</p>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     SECTION 05 / ITERATION — based on real TestFlight feedback.
+     Every row pairs a tester / user moment with what shipped.
+     This is the part most "shipped product" case studies skip.
+     ───────────────────────────────────────────────────────────── -->
+<section class="proj-section">
+  <span class="eyebrow">05 / TESTER-DRIVEN ITERATION</span>
+  <h2 class="h-display">Every TestFlight build is paired to a specific <em>tester observation</em>.</h2>
+  <p class="lede">Iteration is the proof that the product is being validated by real people, not assumed from the inside. Each release below pairs an actual quote from a TestFlight tester with the design / engineering response that shipped in answer. The point isn't speed — it's that the loop is closed: feedback in, fix out, ship, repeat. Nothing reverse-engineered for the case study.</p>
+
+  <div class="timeline">
+    <div class="tl-row">
+      <span class="build">01</span>
+      <span class="body">
+        <span class="feedback">"This app keeps recommending closed restaurants."</span>
+        <span class="fix"><b>Hard-filter rule:</b> drop only <em>confirmed-closed</em> places from Google's <code>openNow</code>; keep <em>unknown</em> hours in the pool but bias them lower. Pool got smaller, pool got more honest. Three days later this got smarter: Stage 2 computes "open now" locally from the cached weekly schedule.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">02</span>
+      <span class="body">
+        <span class="feedback">"It just showed me a strip club."</span>
+        <span class="fix"><b>Three-layer venue filter:</b> primary-type denylist (night_club, casino, adult_entertainment), secondary-type denylist (any matching tag), and a name-token blocklist for places whose primary type lies but whose name doesn't. Plus excludedTypes pushed to Google at fetch time.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">03</span>
+      <span class="body">
+        <span class="feedback">"After I changed the budget, the same restaurant came back."</span>
+        <span class="fix"><b>Four moves at once:</b> heavier price-tier weight in the scorer, a much larger visible <code>$$</code> badge, a "Still your top pick" confirmation chip when re-ranking legitimately picks the same place, and a <code>-25</code> recently-presented penalty so cold relaunches don't always land on yesterday's pick.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">04</span>
+      <span class="body">
+        <span class="feedback">"Why did you pick $$ when I said $$$$?"</span>
+        <span class="fix"><b>The budget honesty fact:</b> a dedicated reasoning row appears when the pick is off-tier — <em>"You said $$$$ but $$ won — it beats your higher-tier options on rating, distance, or what you actually keep eating."</em> Sticky (AI narration can't replace it), visible the entire time the pick stays on screen.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">05</span>
+      <span class="body">
+        <span class="feedback">"I kept tapping Skip and the screen froze."</span>
+        <span class="fix"><b>Two-layer freeze defense:</b> 5-second timeout race around every AI call (TaskGroup against a sleep), and a 2.5-second LoaderOverlay kill-switch that force-hides any stuck spinner. The unhappy path now has the same care as the happy one.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">06</span>
+      <span class="body">
+        <span class="feedback">"What's this 'Range requires lowerBound &lt;= upperBound' crash?"</span>
+        <span class="fix"><b>Triple-layer markdown defense:</b> escape every dynamic field with a <code>markdownSafe</code> extension, balance-check <code>**</code> / <code>_</code> counts at the <code>AttributedString.markdown()</code> entry, and sanitize AI-generated reasons before they reach the parser. Same crash had recurred — this stop-shipped it.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">07</span>
+      <span class="body">
+        <span class="feedback">"The more I use it, the less API budget should burn."</span>
+        <span class="fix"><b>Cost optimization Stages 1 + 2:</b> multi-pool cache (8 LRU signatures) so toggling cuisines is free after the first visit, plus 24-hour cache backed by locally-computed open/closed math. Combined cumulative API savings: ~60-80% depending on session pattern.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">08</span>
+      <span class="body">
+        <span class="feedback">"What if there's a storm — won't hours be wrong?"</span>
+        <span class="fix"><b>Stage 3 — WeatherKit emergency refetch.</b> Severe / extreme weather alerts at the user's coordinate enter the cache signature, automatically busting the 24-hour cache exactly when local schedules become unreliable. Home banner: <em>"Winter Storm Warning — hours may vary."</em> Honest signal, free API.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">09</span>
+      <span class="body">
+        <span class="feedback">"App crashed in Foundation Models again."</span>
+        <span class="fix"><b>Crash-crumb pattern.</b> UserDefaults flag set before each AI call, cleared on normal return. Next launch sees it stuck → previous run died inside Apple's framework → disable AI for this session, escalate to permanent after two strikes. App never crashes inside the same Apple bug twice in a row.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">10</span>
+      <span class="body">
+        <span class="feedback">"I want to find a cafe to sit and work from — not a restaurant."</span>
+        <span class="fix"><b>Cafe as a parallel app context.</b> Eat / Cafe pill at the top of Home switches the entire experience. The two modes share the UI shell and almost nothing else: different Google fetch (cafe / coffee_shop / bakery / breakfast_restaurant types, with <code>restaurant</code> excluded by <code>excludedPrimaryTypes</code> only so cafes carrying "restaurant" as a SECONDARY tag still pass), a separate <code>cafeScore</code> branch (review count proxies capacity, <code>dineIn</code> confirms real seating, <code>editorialSummary</code> scanned for "quiet / cozy / intimate", price tier inverted so $-$$ wins), a separate cache pool, and DISTANCE ranking instead of POPULARITY — so the local independent beats Magnolia Bakery 30 minutes away. Mood and dish intent are disabled in Cafe context: they describe meals, not work spots.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">11</span>
+      <span class="body">
+        <span class="feedback">"I switched Eat → Cafe → Eat and the same cafe showed up as my dinner pick — with a warning sticker."</span>
+        <span class="fix"><b>Mock-data fallback excised, in-memory pool wiped on every context switch.</b> The first ship had a defensive layer that fell back to MockData (Greenleaf Kitchen et al.) when Google returned empty, fronted by a "Showing sample picks" sticker. Honest in dev mode — dishonest the moment a real user sees a place that doesn't exist. Removed the fallback, removed the banner, and tightened the lifecycle so any context flip clears <code>restaurants = []</code> before the new fetch can race. No pool leakage between modes; failures now produce a true empty state with a clear "set your city" CTA, not fake picks dressed up as real ones.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">12</span>
+      <span class="body">
+        <span class="feedback">"It recommended Bob's Donuts at 11 PM — closes at 11:30."</span>
+        <span class="fix"><b>Hours math became a first-class scoring concern.</b> Added <code>minutesUntilClose()</code> to the Restaurant model — runway computed locally from <code>regularHours</code> + device clock, no extra API call. Recommender now penalizes &lt;30 min runway by <code>-40</code> (effectively buries it), 30–60 by <code>-22</code>, 60–120 by <code>-8</code> — in both Eat and Cafe modes. Pick card swaps the generic "Open now" for a concrete <em>"Open until 11 PM"</em>, and when runway drops under an hour a red <em>"Closing in 35 min"</em> pill renders right under the meta row with a clock-with-exclamation glyph. Same data drives the score and the warning; no chance of disagreement.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">13</span>
+      <span class="body">
+        <span class="feedback">"Some guy named Shakil Ahmad just showed up as a bakery 25 miles away."</span>
+        <span class="fix"><b>Two-layer junk gate.</b> Pattern observed in the wild: someone creates a Google Maps "business" profile with their own personal name, tags it "Bakery", uploads an office-building exterior photo, 0 reviews, 0 rating, "Claim this business" flag — and Google's API surfaces it ranked by distance. The <code>(rating == 0 &amp;&amp; reviewCount == 0)</code> combo is now a hard reject at the provider layer. Plus a defensive distance gate that drops any computed result beyond 1.5× the requested search radius regardless of name or quality — Google occasionally ships places with miscoded lat/lng that pass the API's own radius check.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">14</span>
+      <span class="body">
+        <span class="feedback">"Allow 'Bitez<br>这个icon 现在怎么有两个缺口?<br>食物也有缺口?<br>Bitez' to use your location?"</span>
+        <span class="fix"><b>The submission-day catch.</b> The <code>CFBundleDisplayName</code> key in <code>Info.plist</code> had been silently corrupted — chat-debug content from an earlier session had embedded itself into the production app name. iOS injects that string verbatim into the system permission popup. Caught in real-device testing the day before App Store submission would have shipped — a guaranteed Apple review rejection. Fixed both Debug and Release configurations and replaced the location-permission description with the proper brand copy. Confidence in real-device dogfooding restored.</span>
+      </span>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top:32px;">Reading this top-to-bottom is the design discipline: <strong>every fix paid down a specific human moment</strong>. Not a sprint plan, not a roadmap — feedback in, fix out, ship.</p>
+
+  <!-- Before / after diptych: the Mood Gate is the screen that
+       changed most across the iteration. early builds used 4 hard-coded
+       moods. Current build has 2 moods + an AI free-text input. -->
+  <div class="tl-shot">
+    <div class="tl-shot__cap">
+      <div class="locked-img" data-bb-lock>
+        <img class="device-shot" src="../site-media/bestbite/01-mood-gate-v1-may20.png" alt="Mood Gate v1 — 4 mood cards, no AI input" />
+        <span class="locked-img__hint">Enter password</span>
+      </div>
+      <span class="label">EARLY BUILD · <b>4 moods, no AI</b></span>
+    </div>
+    <div class="tl-shot__copy">
+      <h4>The mood gate went from a 4-card menu to a 2-card + free-text input.</h4>
+      <p>Day-zero hypothesis: pick a mood, get a place. Day-ten reality: testers wanted to <em>say what they wanted</em>. Removing "I'm hungry" and "Comfort food" cut the mood taxonomy in half; adding the free-text input gave the LLM its first job (PARSE) and let users phrase real cravings — "ramyon", "fish that doesn't smell", "curry-something hearty".</p>
+      <div class="arrow">↓ AI ENTERED HERE ↓</div>
+      <p style="font-size: 12.5px; margin-top: 6px;">The "Try 'curry' or 'something spicy'" placeholder is a hint and a contract: speak normally, the app understands. Apple Foundation Models parses, the keyword dictionary is the safety net.</p>
+    </div>
+    <div class="tl-shot__cap">
+      <div class="locked-img" data-bb-lock>
+        <img class="device-shot" src="../site-media/bestbite/06-mood-gate-v3-may30.png" alt="Mood Gate v3 — 2 mood cards plus an AI free-text input" />
+        <span class="locked-img__hint">Enter password</span>
+      </div>
+      <span class="label">CURRENT BUILD · <b>2 moods + AI input</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     SECTION 06 / WALKTHROUGH — password-gated, sessionStorage.
+     ───────────────────────────────────────────────────────────── -->
+<section class="proj-section" id="walkthrough">
+  <span class="eyebrow">06 / APP WALKTHROUGH</span>
+  <h2 class="h-display">The actual product, the screens, the <em>TestFlight build</em>.</h2>
+  <p class="lede">Everything above explains <em>why</em> Bitez is built the way it is. What follows is <em>what it actually looks like</em> — the real screens, the interaction patterns, and how to try it yourself. Because the app is unreleased, this section is gated behind a password I share with hiring managers and collaborators. Email me for access — usually a few hours.</p>
+
+  <div class="lock-wrap" id="lockWrap">
+    <div class="lock-content">
+      <div class="shot-grid">
+        <img class="device-shot" src="../site-media/bestbite/02-welcome.png"
+             alt="Bitez welcome screen — I'll pick. You eat." />
+        <img class="device-shot" src="../site-media/bestbite/03-onboarding-cuisines.png"
+             alt="Bitez onboarding step 3 — cuisine preferences with Surprise me button" />
+        <img class="device-shot" src="../site-media/bestbite/04-calibration-live-data.png"
+             alt="Bitez calibration screen showing live Google data" />
+        <img class="device-shot" src="../site-media/bestbite/05-pick-budget-honesty.png"
+             alt="Bitez pick view with budget honesty fact" />
+      </div>
+
+      <div class="testflight-cta">
+        <div class="copy">
+          <b>Try Bitez on your iPhone</b><br/>
+          TestFlight invite · iOS 17+ · 20+ testers so far.
+        </div>
+        <a href="https://testflight.apple.com/join/WvuaS2P7" target="_blank" rel="noopener">Open TestFlight ↗</a>
+      </div>
+
+      <p style="margin-top: 24px; color: var(--text-2); font-size: 14px; line-height: 1.55;">
+        Detailed walkthrough notes: the mood gate logic, the calibration animation with live
+        restaurant count, the reasoning chip behavior on a budget mismatch, the
+        recently-presented penalty for variety, the offline / mock-data banner system, the
+        Apple Maps fallback for food deserts, and the in-app implicit history learning loop.
+      </p>
+    </div>
+
+    <div class="lock-overlay">
+      <div class="lock-card" role="dialog" aria-labelledby="lockTitle">
+        <span class="lock-eyebrow">Restricted · TestFlight build</span>
+        <h3 id="lockTitle">Enter the password to view the walkthrough.</h3>
+        <p>Bitez isn't public yet. If you're a hiring manager or collaborator I'm talking with, the password is in our thread. Otherwise, drop me a line — usually I send it back within a few hours.</p>
+        <form class="lock-form" id="lockForm" autocomplete="off">
+          <input type="password" id="lockInput" placeholder="Password" aria-label="Password" required />
+          <button type="submit">Unlock</button>
+        </form>
+        <div class="lock-error" id="lockError">Incorrect — try again or email me.</div>
+        <div class="lock-hint">
+          Don't have it? <a href="mailto:yxhzdm@gmail.com?subject=Bitez%20case-study%20access">Email yxhzdm@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">07 / WHAT I LEARNED</span>
+  <h2 class="h-display">Product AI isn't about <em>adding more model</em>. It's about deciding what the model isn't allowed to do.</h2>
+  <p class="lede">Product AI isn't about adding more model. It's about <strong>deciding precisely where the model adds value the rest of the system can't</strong>. In Bitez the model parses messy human input into typed data and rewrites deterministic facts in human voice — both irreducibly language tasks. Everything else (which restaurant, which budget, which hours, which signals matter most tonight) is plain Swift the user can audit. That separation is what made the AI feel <em>present</em> without ever being <em>in charge</em>.</p>
+
+  <p class="lede" style="margin-top:32px; font-style:italic;">A single confident pick. Two AI moments — read intent, write warmth. Reasoning the user can audit. Infrastructure that doesn't cost more than it earns. <strong>That's the product. The case study is a tour of the design decisions holding those four things together.</strong></p>
+</section>
+
+<nav class="proj-next">
+  <div>
+    <span class="label">[ INDEX ]</span>
+    <a href="../index.html#selected" data-magnet="0.1">← All Featured Work</a>
+  </div>
+  <div style="text-align:right;">
+    <span class="label">[ NEXT ]</span>
+    <a href="director.html" data-magnet="0.1">Director · <span class="sub">Supply Chain MAS</span> →</a>
+  </div>
+</nav>
+
+<footer class="site-foot">
+  <div class="site-foot__grid">
+    <div class="site-foot__brand">
+      <div class="h-display">Jestaz Yao</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--mute);">[ PRODUCT DESIGNER · NYC ]</div>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ WORK</span>
+      <a href="director.html">Director · Supply Chain MAS</a>
+      <a href="rag.html">Visual RAG Memory Map</a>
+      <a href="../index.html#selected">All projects</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ ELSEWHERE</span>
+      <a href="https://www.linkedin.com/in/jestaz/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../Jestaz_Yao_Resume_2026.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ CONTACT</span>
+      <a href="mailto:yxhzdm@gmail.com">yxhzdm@gmail.com</a>
+    </div>
+  </div>
+  <div class="site-foot__legal">
+    <span>[ © 2026 JESTAZ YAO ]</span>
+    <span>NEW YORK CITY · WORKING GLOBALLY</span>
+  </div>
+</footer>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   Password gate for the walkthrough section.
+   • One-time entry per browser session (sessionStorage).
+   • Compares against a sha-256 hash so the plaintext password
+     isn't visible in view-source. Pure visual gating — the
+     blurred content is still in the page DOM. Good enough to
+     filter casual visitors; not a secret-keeping mechanism.
+   • Default password: BESTBITE2026  (rotate by replacing
+     PWD_HASH below with: echo -n YOURPASS | shasum -a 256 )
+   ───────────────────────────────────────────────────────────── */
+(function () {
+  // sha-256 of "BESTBITE2026"
+  const PWD_HASH = '2a31d18b8df7c93ce1e4cf41bdd33547ecbe07b0bd33a9fadd6f8e60c4dbd13a';
+  const STORAGE_KEY = 'bestbite_walkthrough_unlocked';
+
+  const wrap   = document.getElementById('lockWrap');
+  const form   = document.getElementById('lockForm');
+  const input  = document.getElementById('lockInput');
+  const errorEl= document.getElementById('lockError');
+
+  function applyUnlocked() {
+    // The big walkthrough block.
+    wrap.classList.add('is-unlocked');
+    // Every inline locked screenshot on the page (AI Moments hero
+    // shots, Transparency-Problem pick, Mood-Gate diptych).
+    document.querySelectorAll('[data-bb-lock]')
+      .forEach(el => el.classList.add('is-unlocked'));
+    // Body flag lets us hide the discoverability banner at the top.
+    document.body.classList.add('is-walkthrough-unlocked');
+  }
+
+  // Honor a previous unlock for this browser tab session.
+  if (sessionStorage.getItem(STORAGE_KEY) === '1') {
+    applyUnlocked();
+  }
+
+  async function sha256(text) {
+    const buf = new TextEncoder().encode(text);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const attempt = (input.value || '').trim();
+    if (!attempt) return;
+    const hash = await sha256(attempt);
+    if (hash === PWD_HASH) {
+      sessionStorage.setItem(STORAGE_KEY, '1');
+      errorEl.classList.remove('is-visible');
+      applyUnlocked();
+    } else {
+      errorEl.classList.add('is-visible');
+      input.value = '';
+      input.focus();
+    }
+  });
+})();
+</script>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
