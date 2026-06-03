@@ -65,7 +65,7 @@
 <!-- HUD: bottom-right scroll readout -->
 <div class="hud hud-br">
   <div class="scroll-readout">
-    <span class="count"><strong>001</strong> <span class="max">/ 009</span></span>
+    <span class="count"><strong>001</strong> <span class="max">/ 010</span></span>
     <div class="rail"></div>
     <span class="hint">drag · wheel · arrows</span>
   </div>
@@ -121,37 +121,37 @@
     <section class="panel">
       <div class="panel__index"><strong>[ 02 ]</strong> · FEATURED WORK</div>
       <div class="panel__edge">2026 · IN DEPTH</div>
-      <div class="panel__ruler"><span>FOUR CASE STUDIES</span><span>10·6·8·9 MIN</span><span>ALL SHIPPED</span></div>
+      <div class="panel__ruler"><span>FIVE CASE STUDIES</span><span>BESTBITE · NEWEST</span><span>4 SHIPPED · 1 BETA</span></div>
 
       <div class="featured-intro">
         <div class="featured-intro__copy">
           <span class="eyebrow">01 · FEATURED WORK</span>
           <h2 class="h-display featured-intro__title">
-            Four case studies about the <em>hardest part</em> of AI design — deciding what the model doesn't decide.
+            Five case studies about the <em>hardest part</em> of AI design — deciding what the model doesn't decide.
           </h2>
           <p class="featured-intro__sub">
-            All four started from the same observation: LLM products fail in predictable ways. These are the design responses when you take that seriously — shipped, working code, not mockups.
+            All five started from the same observation: LLM products fail in predictable ways. These are the design responses when you take that seriously — shipped, working code, not mockups.
           </p>
         </div>
 
         <div class="featured-intro__list">
-          <a href="projects/director.html" class="featured-intro__row" data-magnet="0.05">
+          <a href="projects/bitez.html" class="featured-intro__row" data-magnet="0.05">
             <span class="n">/01</span>
+            <span class="t">Bitez · <span class="gold">iOS · Product AI</span></span>
+            <span class="d">Solo · on-device LLM · graceful fallback</span>
+            <span class="y">11 MIN</span>
+          </a>
+          <a href="projects/director.html" class="featured-intro__row" data-magnet="0.05">
+            <span class="n">/02</span>
             <span class="t">Director · <span class="gold">Supply Chain MAS</span></span>
             <span class="d">Multi-agent · eval-driven</span>
             <span class="y">10 MIN</span>
           </a>
           <a href="projects/rag.html" class="featured-intro__row" data-magnet="0.05">
-            <span class="n">/02</span>
+            <span class="n">/03</span>
             <span class="t">Visual RAG <span class="gold">Memory Map</span></span>
             <span class="d">AI memory · retrieval UX</span>
             <span class="y">6 MIN</span>
-          </a>
-          <a href="projects/aipattern.html" class="featured-intro__row" data-magnet="0.05">
-            <span class="n">/03</span>
-            <span class="t">The <span class="gold">Translator Pattern</span></span>
-            <span class="d">Design pattern · AI + policy</span>
-            <span class="y">8 MIN</span>
           </a>
           <a href="demon-rising/index.html" class="featured-intro__row" data-magnet="0.05">
             <span class="n">/04</span>
@@ -159,13 +159,125 @@
             <span class="d">LLM in the loop · fallback design</span>
             <span class="y">9 MIN</span>
           </a>
+          <a href="projects/aipattern.html" class="featured-intro__row" data-magnet="0.05">
+            <span class="n">/05</span>
+            <span class="t">The <span class="gold">Translator Pattern</span></span>
+            <span class="d">Design pattern · AI + policy</span>
+            <span class="y">8 MIN</span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- ============ PANEL 03 — Featured 01: Director ============ -->
-    <section class="panel" id="director">
+    <!-- ============ PANEL 03 — Featured 01: Bitez ============ -->
+    <section class="panel" id="bitez">
       <div class="panel__index"><strong>[ 03 ]</strong> · FEATURED / 01</div>
+      <div class="panel__edge">2026 · 11 MIN READ · TESTFLIGHT BETA</div>
+      <div class="panel__ruler"><span>iOS · SwiftUI</span><span>APPLE FOUNDATION MODELS</span><span>2 AI MOMENTS</span><span>~80% API SAVINGS</span></div>
+
+      <div class="featured">
+        <a href="projects/bitez.html" class="featured__media-main" aria-label="Open Bitez case study">
+          <svg viewBox="0 0 540 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%; height:100%;">
+            <defs>
+              <radialGradient id="bb-glow" cx="50%" cy="35%" r="55%">
+                <stop offset="0%" stop-color="#FF7A2F" stop-opacity=".55"/>
+                <stop offset="55%" stop-color="#FF7A2F" stop-opacity=".14"/>
+                <stop offset="100%" stop-color="#FF7A2F" stop-opacity="0"/>
+              </radialGradient>
+              <style>
+                .bb-card { fill: #131318; stroke: rgba(255,255,255,.18); stroke-width: 1; }
+                .bb-card-a { fill: #131318; stroke: #FF7A2F; stroke-width: 1.4; }
+                .bb-t { font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 500; fill: #EAEAEC; }
+                .bb-l { font-family: 'Geist Mono', monospace; font-size: 8px; letter-spacing: .08em; fill: #8A8A92; text-transform: uppercase; }
+                .bb-arrow { stroke: rgba(255,122,47,.45); stroke-width: 1; fill: none; marker-end: url(#bb-arrowhead); }
+              </style>
+              <marker id="bb-arrowhead" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 0 L 8 4 L 0 8 z" fill="rgba(255,122,47,.6)"/>
+              </marker>
+            </defs>
+
+            <text x="20" y="26" font-family="Geist Mono, monospace" font-size="10" letter-spacing="2" fill="#8A8A92">BESTBITE · iOS · model reads → code decides → model narrates</text>
+            <line x1="20" y1="38" x2="520" y2="38" stroke="rgba(255,255,255,.08)"/>
+
+            <!-- Left card: AI side (model) -->
+            <rect x="40" y="80" width="140" height="220" rx="10" fill="url(#bb-glow)"/>
+            <rect x="40" y="80" width="140" height="220" rx="10" class="bb-card-a"/>
+            <text x="110" y="106" class="bb-l" text-anchor="middle">apple foundation models</text>
+            <text x="110" y="138" class="bb-t" text-anchor="middle">PARSE</text>
+            <text x="110" y="152" class="bb-l" text-anchor="middle">free text → intent</text>
+            <line x1="60" y1="170" x2="160" y2="170" stroke="rgba(255,255,255,.10)"/>
+            <text x="110" y="196" class="bb-t" text-anchor="middle">NARRATE</text>
+            <text x="110" y="210" class="bb-l" text-anchor="middle">friend voice</text>
+            <text x="110" y="280" class="bb-l" text-anchor="middle">grounded · sourced facts</text>
+
+            <!-- Center: deterministic core -->
+            <rect x="210" y="60" width="120" height="260" rx="10" class="bb-card"/>
+            <text x="270" y="86" class="bb-l" text-anchor="middle">deterministic core</text>
+            <text x="270" y="118" class="bb-t" text-anchor="middle">RECOMMENDER</text>
+            <text x="270" y="134" class="bb-l" text-anchor="middle">weighted scoring</text>
+            <line x1="225" y1="152" x2="315" y2="152" stroke="rgba(255,255,255,.10)"/>
+            <text x="270" y="172" class="bb-t" text-anchor="middle">REASONING</text>
+            <text x="270" y="188" class="bb-l" text-anchor="middle">sourced facts</text>
+            <line x1="225" y1="206" x2="315" y2="206" stroke="rgba(255,255,255,.10)"/>
+            <text x="270" y="226" class="bb-t" text-anchor="middle">CACHE</text>
+            <text x="270" y="242" class="bb-l" text-anchor="middle">multi-pool · 24h</text>
+            <line x1="225" y1="260" x2="315" y2="260" stroke="rgba(255,255,255,.10)"/>
+            <text x="270" y="280" class="bb-t" text-anchor="middle">WEATHER</text>
+            <text x="270" y="296" class="bb-l" text-anchor="middle">emergency refetch</text>
+
+            <!-- Right card: output -->
+            <rect x="360" y="80" width="140" height="220" rx="10" class="bb-card"/>
+            <text x="430" y="106" class="bb-l" text-anchor="middle">user surface</text>
+            <text x="430" y="138" class="bb-t" text-anchor="middle">ONE PICK</text>
+            <text x="430" y="152" class="bb-l" text-anchor="middle">not fifty</text>
+            <line x1="380" y1="170" x2="480" y2="170" stroke="rgba(255,255,255,.10)"/>
+            <text x="430" y="196" class="bb-t" text-anchor="middle">WHY</text>
+            <text x="430" y="210" class="bb-l" text-anchor="middle">auditable reasons</text>
+            <line x1="380" y1="228" x2="480" y2="228" stroke="rgba(255,255,255,.10)"/>
+            <text x="430" y="248" class="bb-t" text-anchor="middle">$$ HONEST</text>
+            <text x="430" y="262" class="bb-l" text-anchor="middle">budget mismatch fact</text>
+
+            <!-- Arrows between cards -->
+            <line x1="180" y1="170" x2="208" y2="170" class="bb-arrow"/>
+            <line x1="332" y1="170" x2="358" y2="170" class="bb-arrow"/>
+
+            <text x="20" y="376" class="bb-l">2 AI integration points · grounded narration · live with TestFlight testers</text>
+          </svg>
+        </a>
+
+        <div class="featured__copy">
+          <div class="featured__tags">
+            <span class="featured__tag is-filled">FEATURED</span>
+            <span class="featured__tag">Product AI</span>
+            <span class="featured__tag">On-device LLM</span>
+            <span class="featured__tag">Transparent reasoning</span>
+          </div>
+
+          <h2 class="h-display featured__title">
+            Bitez · <span class="sub">the on-device AI that picks one.</span>
+          </h2>
+
+          <p class="featured__desc">
+            You're hungry. You open Bitez. It picks <em>one</em> place — not fifty — and explains why in a sentence you'd want to hear from a friend. Apple's on-device AI does the language part: <strong>reading what you typed, writing the explanation</strong>. The actual reasoning behind the pick is laid out on screen — every fact sourced, never a black box. Currently in TestFlight beta.
+          </p>
+
+          <div class="featured__meta">
+            <span>ROLE <span class="sep">·</span> <strong>Founder · Product AI designer</strong></span>
+            <span>YEAR <span class="sep">·</span> <strong>2026</strong></span>
+            <span>READ <span class="sep">·</span> <strong>11 min</strong></span>
+          </div>
+
+          <div class="featured__ctas">
+            <a href="projects/bitez.html" class="featured__link" data-magnet="0.12">Read the case study →</a>
+            <a href="projects/bitez.html#walkthrough" class="featured__link" data-magnet="0.12" style="margin-left:18px;">Request TestFlight access →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PANEL 04 — Featured 02: Director ============ -->
+    <section class="panel" id="director">
+      <div class="panel__index"><strong>[ 04 ]</strong> · FEATURED / 02</div>
       <div class="panel__edge">2026 · 10 MIN READ</div>
       <div class="panel__ruler"><span>F1=0.94</span><span>180,519 ROWS</span><span>4 SUB-AGENTS</span><span>3 ROUTER STRATEGIES</span></div>
 
@@ -271,9 +383,9 @@
       </div>
     </section>
 
-    <!-- ============ PANEL 04 — Featured 02: Visual RAG Memory Map ============ -->
+    <!-- ============ PANEL 05 — Featured 03: Visual RAG Memory Map ============ -->
     <section class="panel" id="rag">
-      <div class="panel__index"><strong>[ 04 ]</strong> · FEATURED / 02</div>
+      <div class="panel__index"><strong>[ 05 ]</strong> · FEATURED / 03</div>
       <div class="panel__edge">2026 · 6 MIN READ</div>
       <div class="panel__ruler"><span>42 CARDS</span><span>6 CLUSTERS</span><span>UMAP 2D</span><span>LOCAL-FIRST</span></div>
 
@@ -489,9 +601,88 @@
       </div>
     </section>
 
-    <!-- ============ PANEL 05 — Featured 03: Translator Pattern ============ -->
+    <!-- ============ PANEL 06 — Featured 04: Demon Rising ============ -->
+    <section class="panel" id="demon">
+      <div class="panel__index"><strong>[ 06 ]</strong> · FEATURED / 04</div>
+      <div class="panel__edge">2026 · 9 MIN READ</div>
+      <div class="panel__ruler"><span>≤ 8s LATENCY</span><span>0 DEAD-ENDS</span><span>5-WAY INTENT</span></div>
+
+      <div class="featured">
+        <a href="demon-rising/index.html" class="featured__media-main" aria-label="Open Demon Rising · The Council">
+          <svg viewBox="0 0 540 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%; height:100%;">
+            <defs>
+              <radialGradient id="dr-glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#D4B86A" stop-opacity=".45"/>
+                <stop offset="60%" stop-color="#D4B86A" stop-opacity=".12"/>
+                <stop offset="100%" stop-color="#D4B86A" stop-opacity="0"/>
+              </radialGradient>
+              <style>
+                .dr-circle { fill: #131318; stroke: rgba(255,255,255,.18); stroke-width: 1; }
+                .dr-circle-a { fill: #131318; stroke: #D4B86A; stroke-width: 1.4; }
+                .dr-t { font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 500; fill: #EAEAEC; }
+                .dr-l { font-family: 'Geist Mono', monospace; font-size: 8px; letter-spacing: .08em; fill: #8A8A92; text-transform: uppercase; }
+                .dr-link { stroke: rgba(212,184,106,.35); stroke-width: .8; fill: none; }
+              </style>
+            </defs>
+
+            <text x="20" y="26" font-family="Geist Mono, monospace" font-size="10" letter-spacing="2" fill="#8A8A92">DEMON RISING · THE COUNCIL · 5 advisors · llm-in-loop</text>
+            <line x1="20" y1="38" x2="520" y2="38" stroke="rgba(255,255,255,.08)"/>
+
+            <!-- Center: player -->
+            <circle cx="270" cy="210" r="38" fill="url(#dr-glow)"/>
+            <circle cx="270" cy="210" r="22" class="dr-circle-a"/>
+            <text x="270" y="208" class="dr-t" text-anchor="middle">YOU</text>
+            <text x="270" y="220" class="dr-l" text-anchor="middle">player</text>
+
+            <!-- 5 council members positioned around -->
+            <g><circle cx="270" cy="90" r="32" class="dr-circle"/><text x="270" y="88" class="dr-t" text-anchor="middle">War</text><text x="270" y="100" class="dr-l" text-anchor="middle">attack</text></g>
+            <g><circle cx="160" cy="160" r="32" class="dr-circle"/><text x="160" y="158" class="dr-t" text-anchor="middle">Faith</text><text x="160" y="170" class="dr-l" text-anchor="middle">ritual</text></g>
+            <g><circle cx="380" cy="160" r="32" class="dr-circle"/><text x="380" y="158" class="dr-t" text-anchor="middle">Trade</text><text x="380" y="170" class="dr-l" text-anchor="middle">resource</text></g>
+            <g><circle cx="190" cy="290" r="32" class="dr-circle"/><text x="190" y="288" class="dr-t" text-anchor="middle">Court</text><text x="190" y="300" class="dr-l" text-anchor="middle">decree</text></g>
+            <g><circle cx="350" cy="290" r="32" class="dr-circle"/><text x="350" y="288" class="dr-t" text-anchor="middle">People</text><text x="350" y="300" class="dr-l" text-anchor="middle">mood</text></g>
+
+            <!-- Lines from player to council -->
+            <line x1="270" y1="188" x2="270" y2="122" class="dr-link"/>
+            <line x1="252" y1="200" x2="186" y2="174" class="dr-link"/>
+            <line x1="288" y1="200" x2="354" y2="174" class="dr-link"/>
+            <line x1="256" y1="226" x2="210" y2="270" class="dr-link"/>
+            <line x1="284" y1="226" x2="330" y2="270" class="dr-link"/>
+
+            <text x="20" y="376" class="dr-l">5-way intent classifier · ≤ 8s LLM latency · 0 dead-ends across 80 sessions</text>
+          </svg>
+        </a>
+
+        <div class="featured__copy">
+          <div class="featured__tags">
+            <span class="featured__tag is-filled">FEATURED</span>
+            <span class="featured__tag">LLM in the loop</span>
+            <span class="featured__tag">Game</span>
+          </div>
+
+          <h2 class="h-display featured__title">
+            Demon Rising · <span class="sub">The Council.</span>
+          </h2>
+
+          <p class="featured__desc">
+            A browser-based narrative game where 5 council advisors react to the player's choices in natural language. The LLM classifies player intent into 5 channels, generates contextual responses, and the game state stays consistent. <strong>Latency budget ≤ 8s, 0 dead-ends, designed fallbacks for every failure mode.</strong>
+          </p>
+
+          <div class="featured__meta">
+            <span>ROLE <span class="sep">·</span> <strong>Design + LLM eng</strong></span>
+            <span>YEAR <span class="sep">·</span> <strong>2026</strong></span>
+            <span>READ <span class="sep">·</span> <strong>9 min · external</strong></span>
+          </div>
+
+          <div class="featured__ctas">
+            <a href="demon-rising/index.html" class="featured__link" data-magnet="0.12">Play the game ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PANEL 07 — Featured 05: Translator Pattern ============ -->
     <section class="panel" id="aipattern">
-      <div class="panel__index"><strong>[ 05 ]</strong> · FEATURED / 03</div>
+      <div class="panel__index"><strong>[ 07 ]</strong> · FEATURED / 05</div>
       <div class="panel__edge">2026 · 8 MIN READ</div>
       <div class="panel__ruler"><span>4 GATES</span><span>6/6 ATTACKS BLOCKED</span><span>0 HALLUCINATED APPROVALS</span></div>
 
@@ -597,94 +788,15 @@
       </div>
     </section>
 
-    <!-- ============ PANEL 06 — Featured 04: Demon Rising ============ -->
-    <section class="panel" id="demon">
-      <div class="panel__index"><strong>[ 06 ]</strong> · FEATURED / 04</div>
-      <div class="panel__edge">2026 · 9 MIN READ</div>
-      <div class="panel__ruler"><span>≤ 8s LATENCY</span><span>0 DEAD-ENDS</span><span>5-WAY INTENT</span></div>
-
-      <div class="featured">
-        <a href="demon-rising/index.html" class="featured__media-main" aria-label="Open Demon Rising · The Council">
-          <svg viewBox="0 0 540 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%; height:100%;">
-            <defs>
-              <radialGradient id="dr-glow" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#D4B86A" stop-opacity=".45"/>
-                <stop offset="60%" stop-color="#D4B86A" stop-opacity=".12"/>
-                <stop offset="100%" stop-color="#D4B86A" stop-opacity="0"/>
-              </radialGradient>
-              <style>
-                .dr-circle { fill: #131318; stroke: rgba(255,255,255,.18); stroke-width: 1; }
-                .dr-circle-a { fill: #131318; stroke: #D4B86A; stroke-width: 1.4; }
-                .dr-t { font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 500; fill: #EAEAEC; }
-                .dr-l { font-family: 'Geist Mono', monospace; font-size: 8px; letter-spacing: .08em; fill: #8A8A92; text-transform: uppercase; }
-                .dr-link { stroke: rgba(212,184,106,.35); stroke-width: .8; fill: none; }
-              </style>
-            </defs>
-
-            <text x="20" y="26" font-family="Geist Mono, monospace" font-size="10" letter-spacing="2" fill="#8A8A92">DEMON RISING · THE COUNCIL · 5 advisors · llm-in-loop</text>
-            <line x1="20" y1="38" x2="520" y2="38" stroke="rgba(255,255,255,.08)"/>
-
-            <!-- Center: player -->
-            <circle cx="270" cy="210" r="38" fill="url(#dr-glow)"/>
-            <circle cx="270" cy="210" r="22" class="dr-circle-a"/>
-            <text x="270" y="208" class="dr-t" text-anchor="middle">YOU</text>
-            <text x="270" y="220" class="dr-l" text-anchor="middle">player</text>
-
-            <!-- 5 council members positioned around -->
-            <g><circle cx="270" cy="90" r="32" class="dr-circle"/><text x="270" y="88" class="dr-t" text-anchor="middle">War</text><text x="270" y="100" class="dr-l" text-anchor="middle">attack</text></g>
-            <g><circle cx="160" cy="160" r="32" class="dr-circle"/><text x="160" y="158" class="dr-t" text-anchor="middle">Faith</text><text x="160" y="170" class="dr-l" text-anchor="middle">ritual</text></g>
-            <g><circle cx="380" cy="160" r="32" class="dr-circle"/><text x="380" y="158" class="dr-t" text-anchor="middle">Trade</text><text x="380" y="170" class="dr-l" text-anchor="middle">resource</text></g>
-            <g><circle cx="190" cy="290" r="32" class="dr-circle"/><text x="190" y="288" class="dr-t" text-anchor="middle">Court</text><text x="190" y="300" class="dr-l" text-anchor="middle">decree</text></g>
-            <g><circle cx="350" cy="290" r="32" class="dr-circle"/><text x="350" y="288" class="dr-t" text-anchor="middle">People</text><text x="350" y="300" class="dr-l" text-anchor="middle">mood</text></g>
-
-            <!-- Lines from player to council -->
-            <line x1="270" y1="188" x2="270" y2="122" class="dr-link"/>
-            <line x1="252" y1="200" x2="186" y2="174" class="dr-link"/>
-            <line x1="288" y1="200" x2="354" y2="174" class="dr-link"/>
-            <line x1="256" y1="226" x2="210" y2="270" class="dr-link"/>
-            <line x1="284" y1="226" x2="330" y2="270" class="dr-link"/>
-
-            <text x="20" y="376" class="dr-l">5-way intent classifier · ≤ 8s LLM latency · 0 dead-ends across 80 sessions</text>
-          </svg>
-        </a>
-
-        <div class="featured__copy">
-          <div class="featured__tags">
-            <span class="featured__tag is-filled">FEATURED</span>
-            <span class="featured__tag">LLM in the loop</span>
-            <span class="featured__tag">Game</span>
-          </div>
-
-          <h2 class="h-display featured__title">
-            Demon Rising · <span class="sub">The Council.</span>
-          </h2>
-
-          <p class="featured__desc">
-            A browser-based narrative game where 5 council advisors react to the player's choices in natural language. The LLM classifies player intent into 5 channels, generates contextual responses, and the game state stays consistent. <strong>Latency budget ≤ 8s, 0 dead-ends, designed fallbacks for every failure mode.</strong>
-          </p>
-
-          <div class="featured__meta">
-            <span>ROLE <span class="sep">·</span> <strong>Design + LLM eng</strong></span>
-            <span>YEAR <span class="sep">·</span> <strong>2026</strong></span>
-            <span>READ <span class="sep">·</span> <strong>9 min · external</strong></span>
-          </div>
-
-          <div class="featured__ctas">
-            <a href="demon-rising/index.html" class="featured__link" data-magnet="0.12">Play the game ↗</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- (SAGE moved to Selected — see panel 07 below) -->
     <section class="panel" aria-hidden="true" style="display:none;">
       <div class="panel__index"><strong>[ -- ]</strong> · RETIRED</div>
       <div class="panel__edge">(hidden)</div>
     </section>
 
-    <!-- ============ PANEL 07 — Selected ============ -->
+    <!-- ============ PANEL 08 — Selected ============ -->
     <section class="panel" id="selected">
-      <div class="panel__index"><strong>[ 07 ]</strong> · SELECTED</div>
+      <div class="panel__index"><strong>[ 08 ]</strong> · SELECTED</div>
       <div class="panel__edge">2019 — 2025</div>
       <div class="panel__ruler"><span>4 PROJECTS</span><span>E-COMM · AI · A11Y · SOCIAL</span></div>
 
@@ -808,9 +920,9 @@
       </div>
     </section>
 
-    <!-- ============ PANEL 08 — About ============ -->
+    <!-- ============ PANEL 09 — About ============ -->
     <section class="panel" id="about">
-      <div class="panel__index"><strong>[ 08 ]</strong> · ABOUT</div>
+      <div class="panel__index"><strong>[ 09 ]</strong> · ABOUT</div>
       <div class="panel__edge">JESTAZ YAO · NYC</div>
       <div class="panel__ruler"><span>NYC</span><span>EST 2019</span><span>SENIOR</span><span>OPEN · Q3 2026</span></div>
 
@@ -856,9 +968,9 @@
       </div>
     </section>
 
-    <!-- ============ PANEL 09 — Contact ============ -->
+    <!-- ============ PANEL 10 — Contact ============ -->
     <section class="panel" id="contact">
-      <div class="panel__index"><strong>[ 09 ]</strong> · CONTACT</div>
+      <div class="panel__index"><strong>[ 10 ]</strong> · CONTACT</div>
       <div class="panel__edge">OPEN · Q3 2026 · TRANSMITTING</div>
       <div class="panel__ruler"><span>EMAIL · LINKEDIN · RESUME</span><span>RESPONSE WITHIN 48H</span></div>
 
@@ -899,6 +1011,7 @@
     </div>
     <div class="site-foot__col">
       <span class="k">→ FEATURED</span>
+      <a href="projects/bitez.html">Bitez · iOS · Product AI</a>
       <a href="projects/director.html">Director · Supply Chain MAS</a>
       <a href="projects/rag.html">Visual RAG Memory Map</a>
       <a href="projects/aipattern.html">The Translator Pattern</a>

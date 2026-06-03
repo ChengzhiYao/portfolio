@@ -693,16 +693,113 @@
 </section>
 
 <!-- ─────────────────────────────────────────────────────────────
-     SECTION 04 — The transparency problem.
-     The signature Product AI design moment in Bitez: the
-     recommender holds, the user's expectation moved, and the
-     interface has to defend the unchanged pick on five fronts
-     within three seconds. Came directly from real tester
-     feedback ("my friend keep saying after you change the
-     budget range, it's giving you the same restaurant").
+     SECTION 03.5 — The learning loop.
+     Bitez gets smarter the more you use it — without ever sending
+     your taste data anywhere. This is the section that defends the
+     "privacy by default" promise against the "but doesn't it need
+     data to be useful?" pushback. The answer is: yes, and the
+     data is the only thing the user actually generates — local
+     counts of what they actually committed to. Cap the math so
+     it can't override explicit preferences, and the loop becomes
+     a quiet upgrade instead of a creepy profile.
      ───────────────────────────────────────────────────────────── -->
 <section class="proj-section">
-  <span class="eyebrow">04 / THE TRANSPARENCY PROBLEM</span>
+  <span class="eyebrow">04 / THE LEARNING LOOP</span>
+  <h2 class="h-display">Bitez gets smarter every visit — and the data never <em>leaves</em> your phone.</h2>
+  <p class="lede">The privacy promise and the personalization promise usually fight. A normal app says: <em>"to recommend better, we need your behaviour."</em> Then it ships that behaviour to a server, models you, and the more it knows the better it pretends to be. Bitez does the opposite: every "I'm going" tap is a private signal recorded in a counter on the device. After 5 commits the recommender knows what you actually pick — without anyone else knowing anything.</p>
+
+  <div class="ai-arch" style="margin-top: 32px;">
+    <div class="ai-arch__col">
+      <span class="lbl">EXPLICIT (what you typed)</span>
+      <h4>Onboarding declaration.</h4>
+      <ul style="margin: 0; padding-left: 18px; line-height: 1.7; font-size: 14.5px;">
+        <li><b>cuisines: [italian, korean]</b> — the chips you tapped at sign-up</li>
+        <li><b>budget: $$</b> — the tier you said you live at</li>
+        <li><b>dietary: [vegetarian]</b> — declared filters</li>
+        <li><b>maxDistance: nearby</b> — how far you said you'll walk</li>
+      </ul>
+      <p style="margin-top: 14px; font-size: 13px; color: var(--text-dim);">These are <em>what you said</em>. Treated as ground truth at cold start, because the app doesn't have anything else to go on yet.</p>
+    </div>
+    <div class="ai-arch__sep" aria-hidden="true">→</div>
+    <div class="ai-arch__col">
+      <span class="lbl">IMPLICIT (what you actually do)</span>
+      <h4>Local on-device counts.</h4>
+      <ul style="margin: 0; padding-left: 18px; line-height: 1.7; font-size: 14.5px;">
+        <li><code>likedCuisines: ["japanese": 5, "italian": 1]</code></li>
+        <li><code>likedPriceLevels: [3: 4, 2: 1]</code></li>
+        <li><code>recentVisits: [last 10 "I'm going" snapshots]</code></li>
+        <li><code>seen: [skipped IDs for current session]</code></li>
+      </ul>
+      <p style="margin-top: 14px; font-size: 13px; color: var(--text-dim);">These are <em>what you actually picked</em>. Live counters, never reset on app close, never synced anywhere. The user who declared $$ but keeps choosing $$$ gets a quiet $$$ bias from then on — without ever being told "you're a $$$ person now."</p>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top: 36px;">The math is deliberately bounded. Implicit signals are <strong>+bonus on top of the explicit framework</strong>, never a replacement for it. A user who declared "no Japanese" gets that respected even if they accidentally tapped one Japanese place — the explicit veto wins. Implicit cuisine gets up to <code>+18</code> in Special mood; price-tier learning caps at <code>+6</code> as a tiebreaker. The recommender can lean into what you do, but it can't override what you said.</p>
+
+  <p class="lede" style="margin-top: 14px;">What the app deliberately <em>doesn't</em> learn is just as important: no negative dampening on cuisines you skipped (that's a confirmation-bias loop where you stop seeing whole categories), no time-of-day × cuisine cross-tables (would overfit in 1.0 with 3-5 data points and pin a user to one mood-shape forever), no cross-user collaborative filtering at all (would require an account and a server — kills the privacy promise dead). Each one is queued as a 2.0 candidate when there's enough usage data to make the math honest.</p>
+
+  <div class="layout-2col" style="margin-top: 32px;">
+    <div class="layout-2col__cell">
+      <h4 style="font-family: var(--display); font-weight: 500; font-size: 17px; letter-spacing: -.01em; margin: 0 0 10px;">Where the user sees it.</h4>
+      <p style="font-size: 14.5px; line-height: 1.65; color: var(--text-dim);">Settings → <em>Recent visits</em>. Five most recent "I'm going" taps, tap to re-open in Google Maps or Apple Maps. The only visible surface of the learning data — everything else lives quietly inside the scorer. Users who want to see the model see it; users who don't, don't.</p>
+    </div>
+    <div class="layout-2col__cell">
+      <h4 style="font-family: var(--display); font-weight: 500; font-size: 17px; letter-spacing: -.01em; margin: 0 0 10px;">Where the design discipline shows up.</h4>
+      <p style="font-size: 14.5px; line-height: 1.65; color: var(--text-dim);">Reset everything in Settings is one tap. The "you're being learned about" anxiety is mitigated by making the data visibly cheap to throw away. The privacy promise isn't a clause buried in the EULA — it's an action button two screens deep.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     SECTION 05 — Two modes, two pools.
+     The Eat / Cafe split is architectural, not a filter chip:
+     different Google fetch, different scoring branch, different
+     cache pool, different Settings section. This section makes
+     the case that giving the recommender two CONTEXTS instead of
+     one universal "find food" pool is the cleanest answer to
+     "I'm hungry" vs "I want to sit and work for 2 hours."
+     ───────────────────────────────────────────────────────────── -->
+<section class="proj-section">
+  <span class="eyebrow">05 / TWO MODES, TWO POOLS</span>
+  <h2 class="h-display">A user looking for dinner and a user looking for a cafe are <em>different products</em>. The toggle reflects that.</h2>
+  <p class="lede">Most restaurant-finder apps put a "Cafes" filter chip on the same list and call it a feature. That's wrong, because the success criteria genuinely differ — a dinner pick is rated on food quality, price tier, occasion fit; a cafe pick is rated on dwell-time signals (real seating, wifi-mention rate, noise level, room to spread out a laptop for two hours). Same word, "place to eat," very different shopping list. Bitez doesn't share the pool. The corner toggle is the visible surface of an architectural split.</p>
+
+  <div class="ai-arch" style="margin-top: 32px;">
+    <div class="ai-arch__col">
+      <span class="lbl">EAT MODE</span>
+      <h4>"I want a meal."</h4>
+      <ul style="margin: 0; padding-left: 18px; line-height: 1.7; font-size: 14.5px;">
+        <li><b>Google types pulled:</b> cuisine-specific <code>*_restaurant</code> types based on the user's saved cuisines (or generic <code>restaurant</code> when none)</li>
+        <li><b>Excluded at API:</b> <code>cafe</code>, <code>coffee_shop</code>, <code>tea_house</code> primaries — Starbucks structurally cannot appear in Eat results</li>
+        <li><b>Rank by:</b> <code>POPULARITY</code> — surfaces the strong, well-reviewed options</li>
+        <li><b>Scoring branch:</b> dish keywords, cuisine match, mood-shifted budget, dietary tags, dish-intent text from the search box</li>
+        <li><b>UI:</b> Mood chips (Quick / Special), dish-intent search button, Cuisines + Dietary visible in Settings</li>
+      </ul>
+    </div>
+    <div class="ai-arch__sep" aria-hidden="true">⇄</div>
+    <div class="ai-arch__col">
+      <span class="lbl">CAFE MODE</span>
+      <h4>"I want to sit and stay."</h4>
+      <ul style="margin: 0; padding-left: 18px; line-height: 1.7; font-size: 14.5px;">
+        <li><b>Google types pulled:</b> <code>cafe</code>, <code>coffee_shop</code>, <code>bakery</code>, <code>breakfast_restaurant</code>, <code>brunch_restaurant</code> (cafes registered as breakfast spots are common in NYC)</li>
+        <li><b>Excluded at API:</b> <code>restaurant</code>, <code>bar</code>, <code>fast_food_restaurant</code> primaries — actual restaurants don't sneak into Cafe results just because they serve coffee</li>
+        <li><b>Rank by:</b> <code>DISTANCE</code> — popularity drags in Magnolia/Levain 30 min away; the local independent that's actually walkable wins</li>
+        <li><b>Scoring branch:</b> review-count as capacity proxy, <code>dineIn</code> for real seating, <code>editorialSummary</code> scanned for "cozy / quiet / intimate," price tier INVERTED so $-$$ wins</li>
+        <li><b>UI:</b> Mood chips hidden (no Quick/Special — irrelevant to working from a cafe); dish intent disabled; "Cafe extras" Settings (Real seating preferred, Outdoor preferred, Quieter places preferred)</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top: 32px;">The cache layer follows the split. Each fetch signature carries the context as its first axis (<code>"dining"</code> vs <code>"cafe"</code>), so the two pools never overlap or evict each other in the 8-signature LRU bundle. A user who toggles back and forth doesn't lose what they had — the cafe pool sleeps while the dining pool is active and vice-versa. The Settings sheet adapts: cuisines and dietary sections vanish when the context is Cafe (they describe meals, not work spots); "Cafe extras" appears in their place. Two contexts, two scorers, two Settings shapes — one navigation shell.</p>
+
+  <p class="lede" style="margin-top: 14px;">The design question that made this section worth writing: <strong>when should a product give the user a context switch vs a filter?</strong> A filter says "here's the same data, sliced differently." A context says "here's a different question, asked differently, answered differently." The threshold I held: if the WINNING signals change shape — not just weights, but which signals enter the math at all — then it's a context, not a filter. Dinner picks weight dish keywords; cafe picks weight dwell-time signals. Different shape. Two modes earned the split.</p>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     SECTION 06 — The transparency problem.
+     ───────────────────────────────────────────────────────────── -->
+<section class="proj-section">
+  <span class="eyebrow">06 / THE TRANSPARENCY PROBLEM</span>
   <h2 class="h-display">When the user moves but the recommendation <em>doesn't</em>.</h2>
   <p class="lede">A user opens Settings, drags budget from <strong>$$</strong> to <strong>$$$$</strong>, taps Save &amp; refresh. The recommender re-ranks. The same restaurant wins. Mathematically the algorithm is right: a 4.5★ place 12 minutes away beats every $$$$ option in the user's radius on signal weight. <strong>Perceptually the app is broken.</strong> The user changed the input. They expect the output to change. When it doesn't, the algorithm has three seconds to defend itself out loud — or it loses the user.</p>
 
@@ -758,7 +855,7 @@
 </section>
 
 <section class="proj-section">
-  <span class="eyebrow">05 / FEEDING THE AI WITHOUT PAYING TWICE</span>
+  <span class="eyebrow">07 / FEEDING THE AI WITHOUT PAYING TWICE</span>
   <h2 class="h-display">On-device AI is free. The <em>ground truth</em> it anchors to isn't.</h2>
   <p class="lede">Apple's Foundation Models run free on the user's phone. Google Places (New) — the data the recommender grounds every reasoning fact against — does not. A naive build hits the API on every screen open and burns the unit economics inside a week. Three small caching choices, each protecting the AI's accuracy without paying for it more than once a day.</p>
 
@@ -789,7 +886,7 @@
      This is the part most "shipped product" case studies skip.
      ───────────────────────────────────────────────────────────── -->
 <section class="proj-section">
-  <span class="eyebrow">05 / TESTER-DRIVEN ITERATION</span>
+  <span class="eyebrow">08 / TESTER-DRIVEN ITERATION</span>
   <h2 class="h-display">Every TestFlight build is paired to a specific <em>tester observation</em>.</h2>
   <p class="lede">Iteration is the proof that the product is being validated by real people, not assumed from the inside. Each release below pairs an actual quote from a TestFlight tester with the design / engineering response that shipped in answer. The point isn't speed — it's that the loop is closed: feedback in, fix out, ship, repeat. Nothing reverse-engineered for the case study.</p>
 
@@ -905,6 +1002,134 @@
         <span class="fix"><b>The submission-day catch.</b> The <code>CFBundleDisplayName</code> key in <code>Info.plist</code> had been silently corrupted — chat-debug content from an earlier session had embedded itself into the production app name. iOS injects that string verbatim into the system permission popup. Caught in real-device testing the day before App Store submission would have shipped — a guaranteed Apple review rejection. Fixed both Debug and Release configurations and replaced the location-permission description with the proper brand copy. Confidence in real-device dogfooding restored.</span>
       </span>
     </div>
+
+    <div class="tl-row">
+      <span class="build">15</span>
+      <span class="body">
+        <span class="feedback">"It said 4 min walk but Maps took me 18 minutes — there's a highway between us."</span>
+        <span class="fix"><b>MKDirections for the recommended pick only.</b> After the recommender selects a place, fire ONE MKDirections call (Apple Maps' free pedestrian routing API) for that specific pick. Single-flight — any new pick cancels the previous request, no TaskGroup races (the parallel version had crashed under iOS 26 beta). Only fires when straight-line haversine says ≥5 min away, since that's where freeways, water, and bridge crossings make geometry lie. The walk-time label on the card updates the moment Apple's route returns — typically 200–800ms. Haversine stays the cheap baseline; MKDirections is the truth pass.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">16</span>
+      <span class="body">
+        <span class="feedback">"I typed 11364 in Settings and got 'Set your city' — but Onboarding accepted the same zip just fine."</span>
+        <span class="fix"><b>Onboarding / Settings parity for location input.</b> Centralized the city → coordinates translation in one <code>resolveCityToCoordinates</code> method called by both surfaces. Three-layer geocode: raw input → 5-digit ZIP gets a <code>", USA"</code> suffix (CLGeocoder's well-known blind spot) → 1.1-second pause + retry to recover from rate-limit throttling. Process-cache so repeated lookups of the same text never hit Apple. <strong>Plus a stricter rule on top:</strong> both surfaces now require the city field to contain at least one letter — pure-digit ZIPs are rejected at validation with an inline "Type Bayside instead of 11364" hint. Stops the failure before it can happen.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">17</span>
+      <span class="body">
+        <span class="feedback">"Is this 'WHAT REVIEWERS LOVE' card AI-generated, or actual review text? I can't tell."</span>
+        <span class="fix"><b>Source-attributed summary, three paths, three badges.</b> One review-summary card body, three possible sources, three visually distinct attribution rows so the user always knows what they're reading. On-device AI synthesis → <em>✦ APPLE INTELLIGENCE · ON-DEVICE</em> (sparkle icon, accent purple). Google's editorial blurb verbatim → <em>FROM GOOGLE'S EDITORIAL SUMMARY</em> (warm orange). First positive review unedited → <em>FROM A RECENT REVIEW</em>. A negative-tone token list (<code>"terrible"</code>, <code>"avoid"</code>, <code>"would not recommend"</code> ...) is scanned at every layer so the "what reviewers <em>love</em>" promise on the card title can't be falsified by a 1-star rant slipping through.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">18</span>
+      <span class="body">
+        <span class="feedback">"Every time I open the app I have to look at 'What kind of bite tonight?' before I can see a pick. Annoying."</span>
+        <span class="fix"><b>Mood Gate removed from the auto-show paths.</b> Two paths used to dump the user onto the full-screen mood selector — post-onboarding entry and re-entry after a 30-minute idle window. Both were redundant: Home already shows the mood chips and the dish-text search button right under the greeting. Removed both auto-show triggers; the gate code stays in the project for users who specifically want the screen via the search button, but it never auto-appears. <strong>Fewer screens, no functionality lost</strong> — the kind of removal that's harder to justify than an addition.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">19</span>
+      <span class="body">
+        <span class="feedback">"Why is Starbucks showing up when I asked for dinner?"</span>
+        <span class="fix"><b>Eat / Cafe pool separation tightened at the API layer.</b> Added <code>cafe</code>, <code>coffee_shop</code>, and <code>tea_house</code> to dining mode's <code>excludedPrimaryTypes</code> — Google never returns a coffee-shop primary place when the user picked Eat, so the Starbucks-as-dinner case is structurally impossible. The reverse already excludes restaurant/bar/fast-food primaries from cafe mode. Bakery stays in Eat (Levain, Tartine, etc. are real food destinations). The two contexts are now truly disjoint pools — not just differently-scored views of the same pool.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">20</span>
+      <span class="body">
+        <span class="feedback">"After one AI timeout I lost AI for the rest of the session — and after two crashes I lost AI for good. Way too aggressive."</span>
+        <span class="fix"><b>AI auto-disable removed; replaced with user-controlled toggle.</b> The old "AI failed once → disable session" / "AI failed twice → disable forever" defense was meant to stop crash loops on iOS 26 beta, but the cure was worse: a single transient timeout could lose the user AI for hours. Every nil result is now just logged; every new pick gets a fresh AI attempt. The only ways AI gets disabled now are (a) the explicit "Skip AI summaries" Settings toggle (the user picks when iOS reliability isn't worth the wait), or (b) the in-session breadcrumb that protects against an immediate crash loop. A migration on first launch of this build clears stale "permanently disabled" UserDefaults flags from older builds, so users whose AI got stuck off in earlier sessions get it back automatically.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">21</span>
+      <span class="body">
+        <span class="feedback">"I keep trying to use this at red lights but the buttons are tiny and the friend line is hard to read at a glance."</span>
+        <span class="fix"><b>Driving mode as a whole UI shell, not a layout tweak.</b> Detection aggregates three independent signals — CarPlay scene connect (<code>UISceneSession.Role</code> raw-string match, no CarPlay entitlement needed), AVAudioSession current route containing <code>bluetoothA2DP</code> / <code>bluetoothHFP</code> / <code>carAudio</code>, and <code>CMMotionActivityManager</code> reporting <code>automotive</code> at non-low confidence. Any one fires, the entire <code>PickView</code> swaps for <code>DrivingPickView</code>: pure-black background, 54pt restaurant name, 140pt Skip / I'm going buttons, friend line as the deterministic template (AI's 25-second timeout doesn't fit a stoplight). Auto-narrate via <code>AVSpeechSynthesizer</code> with <code>.duckOthers</code> + <code>voicePrompt</code> mode plays the friend line over CarPlay audio. Voice input via <code>SFSpeechRecognizer</code> (on-device when available) — tap mic, say "ramen", get a fresh pick. Settings → Diagnostics has a sticky <em>Force driving view</em> toggle for demoing without an actual car. False positives (Bluetooth headphones on a walk) get a "Use normal view" pill in the top-right.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">22</span>
+      <span class="body">
+        <span class="feedback">"View their menu just bounces me to a sketchy website. I want to see what the food actually looks like first."</span>
+        <span class="fix"><b>Killed the external-link CTA. Built an in-app gallery ranked by Apple Vision.</b> "See the place" sheet renders every photo Google has for the restaurant (up to 8) as a 2-column grid. Each image runs through <code>VNClassifyImageRequest</code> on-device: 60+ food-related identifier tokens (food, dish, pizza, ramen, salad, burger, ...) compute a max food confidence; anti-tokens (storefront, facade, sign, person, building) above 0.5 zero it out. Photos sort food-first so the burger photo floats above the storefront, but storefronts stay visible — the user wanted to "see the place," not just the food. Zero network round-trips for classification, zero permission prompts, ~25–80ms per image on A15+. The original website still lives as "View their store" at the bottom of the sheet — one tap further, no longer the front door.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">23</span>
+      <span class="body">
+        <span class="feedback">"The review on this card — is that a real review? Can I see the other ones?"</span>
+        <span class="fix"><b>Review-summary card became an expand surface.</b> Source attribution stayed (editorial / review badges), but when the source is a positive review snippet and Google returned 2+ usable ones, a tap-anywhere "SHOW N REVIEWS" toggle reveals all of them. Each expanded review gets its OWN quote glyph + body + thin separator — the first prototype shared a single quote icon at the top-left of the card and the two stacked reviews read like one giant run-on quote. Empty-string snippets are filtered out before counting, so "SHOW 3 REVIEWS" can't disagree with the number you see on expand. Single-snippet and editorial cards stay tap-disabled but render at full opacity — replacing the previous <code>Button + .disabled</code> implementation that dimmed the whole card and looked broken on the very places that didn't need a toggle.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">24</span>
+      <span class="body">
+        <span class="feedback">"Why are random places with 5 ratings showing up? Those don't feel real."</span>
+        <span class="fix"><b>Quality gate tightened at the provider layer.</b> Old rule rejected only when rating==0 AND reviewCount<3. New rule rejects ANY place with reviewCount<3 regardless of star rating — the same gate that caught the "Shakil Ahmad - Bakery" unclaimed-listing pattern now also catches the more subtle "1× 5-star review from an owner-aligned account" pattern that flatters a brand-new listing into looking established. Applied upstream of type filtering so it kicks in for Eat AND Cafe modes. Cache version v16 → v17 so existing users' first session on the new build repopulates the pool with the new floor — no waiting for the 24-hour cache to age out.</span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">25</span>
+      <span class="body">
+        <span class="feedback">A multi-day Foursquare experiment ending in a delete. The story is the discipline.</span>
+        <span class="fix">
+          <b>Why I tried Foursquare in the first place.</b> Google Places — the only data source the app uses — has documented gaps. There's no structured <em>noise level</em> ("is this place quiet enough to read in?"), no structured <em>wifi</em> info ("can I open a laptop here?"), and no review-source voice distinct from Google's own reviewer base. For the Cafe mode I'd just shipped (builds 10 / 11), those three gaps are exactly what users care about. Foursquare publicly advertised all three as <em>structured fields</em> with a generous 180k-call / month free tier. On paper the integration looked free: a single per-pick enrichment call gives me the missing axes, and "FROM A FOURSQUARE TIP — DIFFERENT CROWD" surfaces a non-Google review voice as a separate card so the user sees the place through two crowds, not one. Did the full build: created a Service API key, switched to the new <code>places-api.foursquare.com</code> host, added Bearer-prefixed auth + the required <code>X-Places-Api-Version</code> date header, modeled the per-pick enrichment (<code>foursquareNoiseLevel</code> / <code>foursquareHasWifi</code> / <code>foursquareTips</code> / <code>foursquareVerified</code>), wired it into <code>cafeScore</code> as the strongest noise signal (quiet → +24, very_loud → −28), and shipped the blue-accented review-source card.
+          <br><br>
+          <b>Why I deleted it.</b> Foursquare's free tier returned 429 "no API credits remaining" on every app request — but a curl test from the same machine, same key, same minute returned 200 with 179,960 monthly requests still on the counter. The diff between the two requests was the <code>fields=</code> parameter: <code>attributes</code> and <code>tips</code> — the exact two fields I was integrating Foursquare to get — are categorized as <strong>Premium Data</strong> and require per-call paid credits even when free-tier quota is untouched. Without those fields, the integration provided exactly one usable signal: the <code>verified</code> boolean. One boolean is not worth a per-pick HTTP round-trip, the 429 log noise, the extra cache-invalidation surface, the schema risk on the <code>Restaurant</code> model. Two options: pay for Premium credits to keep the original value proposition, or accept that the free-tier reduction made the integration a net loss. I chose the second one. Deleted enricher, the AppCoordinator hook, the four Restaurant fields, the Recommender wiring, the blue tip card. Cache version bumped v17 → v18 so the on-disk shape matches in-memory. Left a stub file with this rationale so a future me doesn't try the same experiment twice.
+          <br><br>
+          <strong>What's documented here is the deletion, not the build.</strong> Shipping a feature and removing it once the economics break is a separate discipline from never building it.
+        </span>
+      </span>
+    </div>
+
+    <div class="tl-row">
+      <span class="build">26</span>
+      <span class="body">
+        <span class="feedback">A recurring fatal-error "Range requires lowerBound &lt;= upperBound" crash, traced into <code>libswiftCore</code> on a background queue inside FoundationModels.</span>
+        <span class="fix"><b>FoundationModels turned off until iOS 26.6.</b> Hard-killed both <code>narrate()</code> (friend-line + reasoning rewrite) and the AI fallback inside <code>parseDishIntent</code>. Every escalation of input sanitization across the last weeks — <code>asciiOnly</code>, <code>markdownBalanced</code>, escape-all-markdown, AttributedString parser short-circuit — bought roughly a week of stability before a new edge case landed in the tokenizer. The trap is a Swift precondition inside Apple's framework, on a background queue, untouchable by <code>try?</code> and unreachable from our code. Friendlier and more honest to route around: <code>ReasoningEngine</code>'s deterministic friend-line templates and the 80+ entry keyword-dictionary dish parser cover the same UX surface (warmer copy lost, never crashes). Re-enable is two <code>return nil</code> deletions when iOS 26.6+ ships a tokenizer fix. <strong>The honest story is choosing reliability over a marginally-warmer sentence</strong> — the same kind of trade-off as build 25's delete.</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- New before/after diptych — proof that the build-19 separation and
+       the build-20 Settings AI controls actually ship in the running app.
+       Both shots come from real iPhone-17-simulator testing on Jun 2. -->
+  <div class="tl-shot" style="margin-top:36px;">
+    <div class="tl-shot__cap">
+      <div class="locked-img" data-bb-lock>
+        <img class="device-shot" src="../site-media/bestbite/07-starbucks-in-eat-jun02.png" alt="Starbucks Coffee Company appearing in Eat mode — pre-fix" />
+        <span class="locked-img__hint">Enter password</span>
+      </div>
+      <span class="label">BEFORE BUILD 19 · <b>Starbucks in Eat mode</b></span>
+    </div>
+    <div class="tl-shot__copy">
+      <h4>The Eat / Cafe boundary was a scoring suggestion, not a structural rule.</h4>
+      <p>Picture left: Eat mode, $$$$ budget, recommender picks <strong>Starbucks Coffee Company</strong>. Even with the "below your $" honesty fact rendered, this is a category miss — the user asked for dinner. The cafe pool and the dining pool used to share a Google search and differ only in scoring weights. Build 19 split them at the API layer: cafe primaries are excluded from Eat fetches, restaurant primaries are excluded from Cafe fetches, and the two contexts become truly disjoint pools.</p>
+      <div class="arrow">↓ THIS IS NOW STRUCTURALLY IMPOSSIBLE ↓</div>
+      <p style="font-size: 12.5px; margin-top: 6px;">"Closest match in your range" pill on the card was correct — Starbucks really was the closest 4-min-walk venue. The bug was the pool, not the scorer.</p>
+    </div>
+    <div class="tl-shot__cap">
+      <div class="locked-img" data-bb-lock>
+        <img class="device-shot" src="../site-media/bestbite/08-settings-ai-toggle-jun02.png" alt="Settings screen showing Skip AI summaries toggle and Try AI again now button" />
+        <span class="locked-img__hint">Enter password</span>
+      </div>
+      <span class="label">AFTER BUILD 20 · <b>User-controlled AI</b></span>
+    </div>
   </div>
 
   <p class="lede" style="margin-top:32px;">Reading this top-to-bottom is the design discipline: <strong>every fix paid down a specific human moment</strong>. Not a sprint plan, not a roadmap — feedback in, fix out, ship.</p>
@@ -940,7 +1165,7 @@
      SECTION 06 / WALKTHROUGH — password-gated, sessionStorage.
      ───────────────────────────────────────────────────────────── -->
 <section class="proj-section" id="walkthrough">
-  <span class="eyebrow">06 / APP WALKTHROUGH</span>
+  <span class="eyebrow">09 / APP WALKTHROUGH</span>
   <h2 class="h-display">The actual product, the screens, the <em>TestFlight build</em>.</h2>
   <p class="lede">Everything above explains <em>why</em> Bitez is built the way it is. What follows is <em>what it actually looks like</em> — the real screens, the interaction patterns, and how to try it yourself. Because the app is unreleased, this section is gated behind a password I share with hiring managers and collaborators. Email me for access — usually a few hours.</p>
 
@@ -992,7 +1217,7 @@
 </section>
 
 <section class="proj-section">
-  <span class="eyebrow">07 / WHAT I LEARNED</span>
+  <span class="eyebrow">10 / WHAT I LEARNED</span>
   <h2 class="h-display">Product AI isn't about <em>adding more model</em>. It's about deciding what the model isn't allowed to do.</h2>
   <p class="lede">Product AI isn't about adding more model. It's about <strong>deciding precisely where the model adds value the rest of the system can't</strong>. In Bitez the model parses messy human input into typed data and rewrites deterministic facts in human voice — both irreducibly language tasks. Everything else (which restaurant, which budget, which hours, which signals matter most tonight) is plain Swift the user can audit. That separation is what made the AI feel <em>present</em> without ever being <em>in charge</em>.</p>
 

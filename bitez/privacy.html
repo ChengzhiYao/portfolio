@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Bitez · Privacy Policy</title>
+<meta name="description" content="Bitez is an on-device iOS app. Nothing about you leaves the phone except the data sent to Google Places to find restaurants and Apple WeatherKit to check for severe weather. No account, no analytics, no tracking, no ads." />
+<meta name="theme-color" content="#08080A" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/styles.css" />
+<style>
+  /* Short-form legal page styles. Keeps the dark / gold / Geist
+     idiom from the rest of the site but uses plain vertical scroll
+     since a privacy policy needs to be linear-readable. */
+  body.legal-page { background: var(--bg); color: var(--text); }
+
+  /* Re-enable the native cursor on this page (the rest of the site
+     hides the cursor in favor of a custom one drawn by main.js,
+     which we deliberately don't load here — these pages should be
+     boring, fast, and accessibility-correct). */
+  html, body.legal-page,
+  body.legal-page *  { cursor: auto !important; }
+  body.legal-page a,
+  body.legal-page button,
+  body.legal-page summary,
+  body.legal-page details summary { cursor: pointer !important; }
+
+  .legal-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 80px 28px 120px;
+  }
+  .legal-eyebrow {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 14px; display: inline-block;
+  }
+  .legal-wrap h1 {
+    font-family: var(--display); font-size: clamp(34px, 4vw, 52px);
+    font-weight: 500; letter-spacing: -.025em; line-height: 1.05;
+    margin: 0 0 10px; color: var(--text);
+  }
+  .legal-wrap .updated {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+    color: var(--mute); text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+  .legal-wrap h2 {
+    font-family: var(--display); font-size: 22px; font-weight: 500;
+    letter-spacing: -.01em; margin: 42px 0 14px;
+    color: var(--text);
+  }
+  .legal-wrap p,
+  .legal-wrap li {
+    font-size: 15.5px; line-height: 1.65; color: var(--text-2);
+    margin: 0 0 14px;
+  }
+  .legal-wrap p strong, .legal-wrap li strong { color: var(--text); font-weight: 500; }
+  .legal-wrap ul {
+    padding-left: 0;
+    list-style: none;
+    margin: 0 0 14px;
+  }
+  .legal-wrap li {
+    padding-left: 22px;
+    position: relative;
+  }
+  .legal-wrap li::before {
+    content: "→";
+    position: absolute; left: 0; top: 0;
+    color: var(--gold);
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .legal-wrap a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(212,184,106,.4);
+  }
+  .legal-wrap a:hover { border-bottom-color: var(--gold); }
+  .legal-wrap .keyline {
+    border-left: 2px solid var(--gold);
+    background: rgba(212,184,106,.06);
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--text);
+  }
+  .legal-wrap .back {
+    display: inline-block;
+    margin-bottom: 28px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: .12em; color: var(--mute);
+    text-transform: uppercase;
+    border: 0; padding-bottom: 0;
+  }
+  .legal-wrap .back:hover { color: var(--gold); }
+</style>
+</head>
+<body class="legal-page">
+
+<div class="dotgrid"></div>
+<div class="vignette"></div>
+
+<main class="legal-wrap">
+  <span class="legal-eyebrow">Bitez · Privacy Policy</span>
+  <h1>What the app sees, and what stays on your phone.</h1>
+  <div class="updated">Last updated: May 30, 2026</div>
+
+  <p><strong>The short version:</strong> Bitez is an on-device app. There is no Bitez server, no Bitez account, no Bitez tracking, no Bitez analytics, and no Bitez ads. The only times anything leaves your phone are when the app asks Google Places where the restaurants are, when it asks Apple WeatherKit about severe weather in your area, and when iOS itself sends Apple a crash report. Everything else stays local.</p>
+
+  <h2>What stays on your device</h2>
+  <p>The following data is stored only inside the Bitez app on your iPhone, using iOS's standard local storage (UserDefaults). It never gets transmitted anywhere:</p>
+  <ul>
+    <li><strong>Your name</strong> (entered during onboarding).</li>
+    <li><strong>Your city or ZIP</strong> (entered during onboarding, optional).</li>
+    <li><strong>Your cuisine preferences and dietary preferences</strong> (chosen during onboarding).</li>
+    <li><strong>Your budget tier</strong> ($, $$, $$$, $$$$).</li>
+    <li><strong>Your distance preference</strong> (Walk, Nearby, Wider).</li>
+    <li><strong>Which restaurants you said "I'm going" to</strong> and which ones you skipped — used to learn your taste over time.</li>
+    <li><strong>The restaurants we've recently shown you</strong> — used so we don't keep recommending the same place every time.</li>
+    <li><strong>What you type into the free-text dish input</strong> ("curry, something hearty") — this is parsed locally by Apple's on-device LLM and never leaves your phone.</li>
+    <li><strong>A cache of restaurant data</strong> previously fetched from Google Places, so the app works fast and uses less data on subsequent opens.</li>
+  </ul>
+
+  <div class="keyline">
+    You can erase all of the above at any time: open the app, tap Settings, then <strong>Reset everything</strong>. That permanently wipes your profile, your history, the cache, and any locally stored preferences. The app behaves like a brand-new install on the next open.
+  </div>
+
+  <h2>What gets sent off your device — and to whom</h2>
+
+  <p><strong>1. Google Places API (New).</strong> When you ask for a restaurant pick, Bitez sends your approximate coordinates and your filter criteria (cuisine, price tier, search radius) to Google Places so it can return restaurants near you. The app does <strong>not</strong> send your name, your history, what you typed into the dish input, or any persistent identifier — only the data needed to ask "what restaurants exist around these coordinates with these characteristics?" Google's handling of that data is governed by their own <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">privacy policy</a>.</p>
+
+  <p><strong>2. Apple WeatherKit.</strong> Bitez asks WeatherKit whether there is an active severe-weather alert at your coordinate, so that during a blizzard or hurricane it can refresh restaurant hours instead of trusting yesterday's cache. The coordinate goes to Apple. Apple's WeatherKit handling is covered by their <a href="https://www.apple.com/legal/privacy/data/en/weather/" target="_blank" rel="noopener">Apple Weather Privacy Policy</a>.</p>
+
+  <p><strong>3. Apple Foundation Models (on-device).</strong> When you type something into the dish input field, Bitez uses Apple's on-device LLM to understand what you wrote. This model runs entirely on your phone. <strong>Your typed text does not leave the device.</strong> It is not sent to Apple, OpenAI, Bitez, or any third party.</p>
+
+  <p><strong>4. iOS crash reports (only if you opt in).</strong> If you have "Share with App Developers" enabled in iOS Settings → Privacy & Security → Analytics & Improvements, iOS will send anonymized crash and hang reports to Apple, which the developer can access through Xcode's MetricKit. These reports contain technical diagnostic information (stack traces, memory state) — not your name, location, or app content. If you disable that iOS setting, nothing is sent.</p>
+
+  <h2>What Bitez does not do</h2>
+  <ul>
+    <li><strong>No account.</strong> You don't sign up, you don't log in, you don't have a password.</li>
+    <li><strong>No analytics SDKs.</strong> No Mixpanel, no Amplitude, no Firebase Analytics, no Segment, no Sentry, no Branch.</li>
+    <li><strong>No advertising SDKs.</strong> No tracking pixels, no ad networks, no IDFA collection.</li>
+    <li><strong>No cross-app tracking.</strong> Bitez does not request App Tracking Transparency permission because there is nothing to track.</li>
+    <li><strong>No persistent identifier sent off-device.</strong> Your local profile has an internal random ID for app state, but it never goes off your phone.</li>
+    <li><strong>No selling, renting, or sharing of your data.</strong> The app has no business model that involves your data.</li>
+  </ul>
+
+  <h2>Location permission</h2>
+  <p>Bitez requests <strong>Location When In Use</strong> so it can find restaurants near you in real time. You can refuse this and the app will fall back to your manually entered city or ZIP. You can revoke it at any time in iOS Settings → Privacy & Security → Location Services → Bitez.</p>
+
+  <h2>Children</h2>
+  <p>Bitez is rated 4+ on the App Store. The app does not knowingly collect any data from children, because the app does not knowingly collect data from anyone in a server-side sense. There is no Bitez database with user records in it.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If meaningful changes happen — for example, if Bitez ever adds a backend, an account system, or a third-party integration that handles user data — this page will be updated and the "Last updated" date at the top will reflect that. Material changes will also be noted in the in-app release notes for that version.</p>
+
+  <h2>Contact</h2>
+  <p>Questions, concerns, or feedback about this policy or how Bitez handles data — write to <a href="mailto:team.duocraft@gmail.com?subject=Bitez%20privacy%20question">team.duocraft@gmail.com</a>. Plain English, usually replied to within 48 hours.</p>
+
+  <p style="margin-top: 48px; font-size: 13px; color: var(--mute); font-family: var(--mono); letter-spacing: .04em;">
+    Bitez · Published by Duo Craft · New York · 2026
+  </p>
+</main>
+
+</body>
+</html>

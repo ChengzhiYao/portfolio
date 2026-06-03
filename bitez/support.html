@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Bitez · Support</title>
+<meta name="description" content="Support for Bitez — common questions, how to reset the app, how to report a bug, and how to reach the developer." />
+<meta name="theme-color" content="#08080A" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/styles.css" />
+<style>
+  /* Mirrors privacy.html — keep visual parity. */
+  body.legal-page { background: var(--bg); color: var(--text); }
+
+  /* Re-enable the native cursor (the rest of the site hides it in
+     favor of a custom one drawn by main.js, which we don't load on
+     this static page). */
+  html, body.legal-page,
+  body.legal-page *  { cursor: auto !important; }
+  body.legal-page a,
+  body.legal-page button,
+  body.legal-page summary,
+  body.legal-page details summary { cursor: pointer !important; }
+
+  .legal-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 80px 28px 120px;
+  }
+  .legal-eyebrow {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 14px; display: inline-block;
+  }
+  .legal-wrap h1 {
+    font-family: var(--display); font-size: clamp(34px, 4vw, 52px);
+    font-weight: 500; letter-spacing: -.025em; line-height: 1.05;
+    margin: 0 0 10px; color: var(--text);
+  }
+  .legal-wrap .updated {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+    color: var(--mute); text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+  .legal-wrap h2 {
+    font-family: var(--display); font-size: 22px; font-weight: 500;
+    letter-spacing: -.01em; margin: 42px 0 14px;
+    color: var(--text);
+  }
+  .legal-wrap p, .legal-wrap li {
+    font-size: 15.5px; line-height: 1.65; color: var(--text-2);
+    margin: 0 0 14px;
+  }
+  .legal-wrap p strong, .legal-wrap li strong { color: var(--text); font-weight: 500; }
+  .legal-wrap ul {
+    padding-left: 0;
+    list-style: none;
+    margin: 0 0 14px;
+  }
+  .legal-wrap li {
+    padding-left: 22px;
+    position: relative;
+  }
+  .legal-wrap li::before {
+    content: "→";
+    position: absolute; left: 0; top: 0;
+    color: var(--gold);
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .legal-wrap a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(212,184,106,.4);
+  }
+  .legal-wrap a:hover { border-bottom-color: var(--gold); }
+  .legal-wrap .keyline {
+    border-left: 2px solid var(--gold);
+    background: rgba(212,184,106,.06);
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--text);
+  }
+  .legal-wrap .back {
+    display: inline-block;
+    margin-bottom: 28px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: .12em; color: var(--mute);
+    text-transform: uppercase;
+    border: 0; padding-bottom: 0;
+  }
+  .legal-wrap .back:hover { color: var(--gold); }
+
+  /* FAQ disclosure rows. */
+  .faq { margin: 24px 0; display: grid; gap: 0; }
+  .faq__row {
+    border-top: 1px solid var(--line);
+    padding: 18px 0;
+  }
+  .faq__row:last-child { border-bottom: 1px solid var(--line); }
+  .faq__row summary {
+    font-family: var(--display);
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+  }
+  .faq__row summary::-webkit-details-marker { display: none; }
+  .faq__row summary::after {
+    content: "+";
+    font-family: var(--mono);
+    font-size: 18px;
+    color: var(--gold);
+    transition: transform .2s ease;
+  }
+  .faq__row[open] summary::after { transform: rotate(45deg); }
+  .faq__row .answer {
+    margin-top: 14px;
+    font-size: 14.5px;
+    color: var(--text-2);
+    line-height: 1.6;
+  }
+  .faq__row .answer p { margin: 0 0 10px; font-size: 14.5px; }
+  .faq__row .answer code {
+    font-family: var(--mono); font-size: 12.5px;
+    background: var(--bg-2); padding: 1px 6px; border-radius: 3px;
+    color: var(--text);
+  }
+
+  .support-card {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 20px;
+    border: 1px solid var(--gold);
+    background: rgba(212,184,106,.06);
+    border-radius: 6px;
+    margin: 22px 0;
+  }
+  .support-card .icon {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(212,184,106,.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: var(--gold); flex-shrink: 0;
+  }
+  .support-card .body { flex: 1; font-size: 14.5px; color: var(--text); line-height: 1.5; }
+  .support-card .body b { color: var(--gold); font-weight: 500; }
+  .support-card a {
+    color: var(--gold); text-decoration: none;
+    border-bottom: 1px dotted rgba(212,184,106,.4);
+  }
+</style>
+</head>
+<body class="legal-page">
+
+<div class="dotgrid"></div>
+<div class="vignette"></div>
+
+<main class="legal-wrap">
+  <span class="legal-eyebrow">Bitez · Support</span>
+  <h1>Need a hand with Bitez?</h1>
+  <div class="updated">Last updated: May 30, 2026</div>
+
+  <p>Bitez is a one-person app — that means support is a person, not a ticketing system. Email me directly and you'll usually hear back within 48 hours, often the same day. Below are answers to the questions that come up most often.</p>
+
+  <div class="support-card">
+    <div class="icon">✉</div>
+    <div class="body">
+      <b>Email me directly:</b>
+      <a href="mailto:team.duocraft@gmail.com?subject=Bitez%20support">team.duocraft@gmail.com</a>
+      — bugs, feature requests, restaurant data complaints, anything.
+    </div>
+  </div>
+
+  <h2>Frequently asked</h2>
+
+  <div class="faq">
+
+    <details class="faq__row">
+      <summary>The app keeps recommending the same restaurant. How do I get a different one?</summary>
+      <div class="answer">
+        <p>Tap <strong>Skip</strong> on the pick screen. Bitez remembers what it's shown you and bias-pushes those down the list on the next pick. If you keep getting the same place across cold launches, open Settings → <strong>Reset everything</strong> and re-onboard — your taste history resets and the recommendation field opens back up.</p>
+      </div>
+    </details>
+
+    <details class="faq__row">
+      <summary>I picked $$$$ but the app showed me a $$ place. Is it broken?</summary>
+      <div class="answer">
+        <p>No — that's deliberate. When a cheaper place beats every $$$$ option in your area on rating, distance, and your own history, Bitez surfaces it and tells you why on the pick card. Look for the reasoning row labeled <code>BUDGET</code> on the screen. If you want stricter budget enforcement, open Settings and re-save your budget — that nudges the scorer to weigh price tier more heavily.</p>
+      </div>
+    </details>
+
+    <details class="faq__row">
+      <summary>Bitez isn't finding any restaurants near me.</summary>
+      <div class="answer">
+        <p>Three things to check:</p>
+        <p>1. <strong>Location permission:</strong> iOS Settings → Privacy &amp; Security → Location Services → Bitez — set to "While Using the App".</p>
+        <p>2. <strong>City field:</strong> if location is disabled, open Settings inside the app and enter a city or ZIP manually.</p>
+        <p>3. <strong>Distance preference:</strong> if you're set to "Walk" in a low-density area, switch to "Wider".</p>
+        <p>If none of those help, you might be in a food desert — the app surfaces an Apple Maps fallback button on the empty state so you can still find delivery options.</p>
+      </div>
+    </details>
+
+    <details class="faq__row">
+      <summary>The recommendation reasoning is wrong / weird / hallucinated.</summary>
+      <div class="answer">
+        <p>Bitez's reasoning rows are sourced from real signals (Google ratings, distance, weather, your stated preferences). When the on-device AI writes the friend-voice line at the top, it's allowed to rephrase those signals but not to invent new ones — a hallucination guard rejects AI output that doesn't anchor to a real fact. If you see something weird, screenshot it and email me — it's a real bug to fix.</p>
+      </div>
+    </details>
+
+    <details class="faq__row">
+      <summary>How do I delete all my data?</summary>
+      <div class="answer">
+        <p>Open the app, tap Settings, scroll to the bottom, tap <strong>Reset everything</strong>. That wipes your profile, your taste history, the restaurant cache, and any AI-related flags. The next launch is exactly like a fresh install.</p>
+        <p>If you'd rather just uninstall: long-press the app icon → Remove App → Delete App. iOS removes all app data with the app.</p>
+      </div>
+    </details>
+
+    <details class="faq__row">
+      <summary>Does Bitez work offline?</summary>
+      <div class="answer">
+        <p>Partially. If you've used the app recently, Bitez caches the restaurant pool and can show you a pick from cache without an internet connection. An "Offline" banner appears so you know the data isn't fresh. New searches (different cuisine, different city) require a connection because they need a fresh Google Places call.</p>
+      </div>
+    </details>
+
+    <details class="faq__row">
+      <summary>Why does the app sometimes say "Set your city for live picks"?</summary>
+      <div class="answer">
+        <p>You're seeing demo data because Bitez either couldn't get your location or doesn't have a manually entered city yet. Tap the banner → it opens Settings. Enter a city or ZIP, or tap "Use my current location" and grant the permission. Live picks come back on the next refresh.</p>
+      </div>
+    </details>
+
+    <details class="faq__row">
+      <summary>I want to add a feature / report a bug.</summary>
+      <div class="answer">
+        <p>Email me at <a href="mailto:team.duocraft@gmail.com?subject=Bitez%20feature%20idea">team.duocraft@gmail.com</a> with a screenshot if you have one. Subject line "Bitez feature" or "Bitez bug" — I read every one. The features that get built are usually the ones that come from real users, not from the roadmap.</p>
+      </div>
+    </details>
+
+    <details class="faq__row">
+      <summary>What does the app do with my location?</summary>
+      <div class="answer">
+        <p>It sends your approximate coordinate to <strong>Google Places</strong> to look up restaurants near you, and to <strong>Apple WeatherKit</strong> to check whether a severe-weather alert is active in your area. That's it. No location is stored on any server Bitez controls — there is no Bitez server. Full details are in the <a href="privacy.html">Privacy Policy</a>.</p>
+      </div>
+    </details>
+
+    <details class="faq__row">
+      <summary>What devices does Bitez work on?</summary>
+      <div class="answer">
+        <p>iPhone running iOS 17 or later. The on-device AI features (the friend-voice line, free-text dish parsing) require iOS 26 and an Apple Intelligence-capable iPhone. On older devices, Bitez falls back to template-based reasoning automatically — every fact is still sourced and visible, the writing is just less warm.</p>
+      </div>
+    </details>
+
+  </div>
+
+  <h2>Privacy</h2>
+  <p>Bitez is on-device. No account, no analytics, no ads, no tracking. The full <a href="privacy.html">Privacy Policy</a> explains exactly what data exists, where it lives, and what gets sent off the phone (very little).</p>
+
+  <h2>Still stuck?</h2>
+  <p>Write to <a href="mailto:team.duocraft@gmail.com?subject=Bitez%20support">team.duocraft@gmail.com</a>. Include your iPhone model, your iOS version, and a screenshot if you can — that triples the speed of the answer.</p>
+
+  <p style="margin-top: 48px; font-size: 13px; color: var(--mute); font-family: var(--mono); letter-spacing: .04em;">
+    Bitez · Published by Duo Craft · New York · 2026
+  </p>
+</main>
+
+</body>
+</html>
