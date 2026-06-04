@@ -1169,7 +1169,7 @@
 <section class="proj-section">
   <span class="eyebrow">08·5 / ADAPTIVE LAYERS</span>
   <h2 class="h-display">The product <em>reshapes around you</em> — never the reverse.</h2>
-  <p class="lede">Most "smart" food apps make the user adapt to the product: pick a filter, scroll a list, calibrate to what the UI offers. Bitez does the opposite — the app watches what's around the user (CarPlay connected, Bluetooth audio paired, motion classifier says automotive) and reshapes the entire surface in response. The same discipline extends to travel mode, environment preferences, and how photos are ranked. Four examples of one belief: <strong>the product owes the user flexibility, not the other way around.</strong></p>
+  <p class="lede">Most "smart" food apps make the user adapt to the product: pick a filter, scroll a list, calibrate to what the UI offers. Bitez does the opposite — the app watches what's around the user (CarPlay connected, Bluetooth audio paired, motion classifier says automotive) and reshapes the entire surface in response. The same discipline extends to travel mode and environment preferences. Three examples of one belief: <strong>the product owes the user flexibility, not the other way around.</strong></p>
 
   <div class="adaptive-grid" style="margin-top:32px; display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:24px;">
 
@@ -1203,19 +1203,9 @@
       <p style="font-size:13.5px; color:var(--mute); margin-top:6px;">Environment toggles bias scoring without burning extra API calls (Google returns the same pool either way — the recommender just lifts pet-friendly and easy-parking places higher when these are on). The Apple Intelligence block lets the user kill AI summaries with one tap if iOS is acting up, AND retry mid-session — auto-disable was removed because a single transient timeout used to lose AI for hours. Bottom: <em>Force driving view</em> in Diagnostics, persisting across launches so the in-car layout can be demoed without an actual car. <strong>Every control the user might need is a single toggle deep.</strong></p>
     </div>
 
-    <div class="adaptive-card">
-      <div class="locked-img" data-bb-lock>
-        <img class="device-shot" src="../site-media/bestbite/12-vision-gallery.png" alt="Bitez See the place gallery — Apple Vision ranks food photos above storefront photos for Haidilao Hotpot" />
-        <span class="locked-img__hint">Enter password</span>
-      </div>
-      <span class="label" style="display:block; margin-top:14px; font-family:var(--mono); font-size:11px; color:var(--gold); letter-spacing:.12em;">D · ON-DEVICE VISION</span>
-      <h4 style="margin-top:6px;">Photos sort food-first. No labels. No network.</h4>
-      <p style="font-size:13.5px; color:var(--mute); margin-top:6px;">Google Places returns photos without semantic tags — the first one might be a storefront, the second a parking lot, the actual food buried at position 6. The "See the place" sheet runs each image through <code>VNClassifyImageRequest</code> on-device: 60+ food tokens (food, dish, pizza, ramen, salad, ...) compute a max confidence; anti-tokens (storefront, facade, sign, person, building) above 0.5 zero it out. Sort by food confidence, food photos float to the top, storefronts sink. ~25–80ms per image on A15+. <strong>Zero network round-trips. Zero permission prompts. Zero API cost.</strong></p>
-    </div>
-
   </div>
 
-  <p class="lede" style="margin-top:36px;">Four context layers, one principle: <strong>read the user's situation, reshape to match it, never the reverse.</strong> The in-car shell reads the car, the travel mode picker reads the user's intent, the environment toggles read declared preference, the gallery reads the photos themselves. Each one removes an instance of "you'd think this app cared, but it doesn't" — the kind of small misalignment that adds up to the user closing the tab.</p>
+  <p class="lede" style="margin-top:36px;">Three context layers, one principle: <strong>read the user's situation, reshape to match it, never the reverse.</strong> The in-car shell reads the car. The travel mode picker reads the user's intent. The environment toggles read declared preference. Each one removes an instance of "you'd think this app cared, but it doesn't" — the kind of small misalignment that adds up to the user closing the tab.</p>
 </section>
 
 
