@@ -1271,12 +1271,12 @@
      isn't visible in view-source. Pure visual gating — the
      blurred content is still in the page DOM. Good enough to
      filter casual visitors; not a secret-keeping mechanism.
-   • Default password: BESTBITE2026  (rotate by replacing
-     PWD_HASH below with: echo -n YOURPASS | shasum -a 256 )
+   • Current password: 1145  (rotate by replacing PWD_HASH below
+     with: echo -n YOURPASS | shasum -a 256 )
    ───────────────────────────────────────────────────────────── */
 (function () {
-  // sha-256 of "BESTBITE2026"
-  const PWD_HASH = '3454659127ad7971f698a40a994699fad3f9b2f1cdba2af02ecb9c8d719eb6c8';
+  // sha-256 of "1145"
+  const PWD_HASH = 'a5bef651c8e3fd6cc63c43cd6bc1341af97d78af828f152c0f40d5a06570bd34';
   const STORAGE_KEY = 'bestbite_walkthrough_unlocked';
 
   const wrap   = document.getElementById('lockWrap');
