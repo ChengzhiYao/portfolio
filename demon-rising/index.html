@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Demon Rising — Case Study</title>
-<meta name="description" content="Demon Rising — a dark-fantasy roguelike auto-battler. A solo-developed game project built in Godot 4. Portfolio case study.">
+<meta name="description" content="Demon Rising — a dark-fantasy roguelike auto-battler. A solo-developed game project built in Godot 4. Released on Steam (v1.5). Portfolio case study.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%230A0612'/%3E%3Ctext%20x='50%25'%20y='62%25'%20text-anchor='middle'%20font-family='-apple-system,sans-serif'%20font-weight='700'%20font-size='18'%20fill='%23E9B949'%3ED%3C/text%3E%3Ccircle%20cx='24'%20cy='22'%20r='2.5'%20fill='%23D23B52'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="screenshots/steam_1920x1080_1.png">
 <meta property="og:title" content="Demon Rising — AI Product Design Case Study">
@@ -363,6 +363,73 @@
     .hud-chip{ padding:5px 10px; font-size:11px; }
   }
 
+
+  /* ---------- post-launch (v1.5) ---------- */
+  .postlaunch{ max-width:960px; margin:0 auto; display:flex; flex-direction:column; gap:34px; }
+  .pl-block{
+    position:relative;
+    background:linear-gradient(160deg,var(--panel),var(--panel2));
+    border:1px solid var(--line);
+    padding:30px 30px 28px;
+  }
+  .pl-block .pl-head{
+    display:flex; align-items:baseline; gap:14px;
+    margin-bottom:14px;
+    padding-bottom:14px;
+    border-bottom:1px dashed rgba(155,143,168,0.22);
+    flex-wrap:wrap;
+  }
+  .pl-block .pl-num{
+    font-family:'PressStart',monospace; font-size:11px;
+    color:var(--crimson-bright);
+    border:1px solid var(--crimson);
+    padding:6px 9px;
+  }
+  .pl-block h3{
+    font-family:'PressStart',monospace; font-size:14px;
+    color:var(--gold-bright); line-height:1.45;
+    margin:0;
+  }
+  .pl-block .pl-kicker{
+    color:var(--dim); font-size:11px;
+    font-family:'PressStart',monospace; letter-spacing:1px;
+  }
+  .pl-block p{ color:var(--text); margin-bottom:13px; font-size:15px; line-height:1.75; }
+  .pl-block p:last-child{ margin-bottom:0; }
+  .pl-block p.dim{ color:var(--dim); font-size:13.5px; }
+  .pl-block b{ color:var(--gold-bright); font-weight:600; }
+  .pl-block code{
+    font-family:Menlo,Monaco,Consolas,monospace; font-size:12.5px;
+    color:var(--gold-bright); background:rgba(233,185,73,0.10);
+    padding:1px 6px; border-radius:3px;
+  }
+  .pl-block .pl-meta{
+    margin-top:18px; padding-top:14px;
+    border-top:1px dashed rgba(155,143,168,0.22);
+    display:flex; gap:18px; flex-wrap:wrap;
+    font-size:11px; color:var(--dim); font-family:'PressStart',monospace;
+    letter-spacing:1px;
+  }
+  .pl-block .pl-meta b{ color:var(--gold); font-weight:400; }
+  .pl-stack{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
+    margin:8px 0 14px;
+  }
+  .pl-stack .stack-cell{
+    border:1px solid var(--line); padding:14px 12px;
+    background:rgba(20,12,36,0.55);
+  }
+  .pl-stack .stack-cell .label{
+    font-family:'PressStart',monospace; font-size:9px;
+    color:var(--crimson-bright); letter-spacing:1px;
+    margin-bottom:6px;
+  }
+  .pl-stack .stack-cell .body{ font-size:13px; color:var(--text); line-height:1.55; }
+  @media (max-width:780px){
+    .pl-stack{ grid-template-columns:1fr; }
+    .pl-block{ padding:24px 20px; }
+  }
+
   /* ---------- footer ---------- */
   footer{ padding:70px 0 60px; text-align:center; border-top:1px solid var(--line); margin-top:30px; }
   .footer-actions{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin:24px 0 30px; }
@@ -473,7 +540,7 @@
         <div class="fact"><span class="k">ENGINE</span><span class="v">Godot 4 &middot; GDScript</span></div>
         <div class="fact"><span class="k">AI</span><span class="v">Local LLM in the game loop</span></div>
         <div class="fact"><span class="k">GENRE</span><span class="v">Roguelike Auto-Battler</span></div>
-        <div class="fact"><span class="k">STATUS</span><span class="v"><a href="https://store.steampowered.com/app/4753210/Demon_Rising/" target="_blank" rel="noopener" style="color:#66c0f4;text-decoration:none">Released on Steam &middot; v1.2</a></span></div>
+        <div class="fact"><span class="k">STATUS</span><span class="v"><a href="https://store.steampowered.com/app/4753210/Demon_Rising/" target="_blank" rel="noopener" style="color:#66c0f4;text-decoration:none">Released on Steam &middot; v1.5</a></span></div>
       </div>
     </div>
   </div>
@@ -988,6 +1055,218 @@
         survives without one. Then when the model is there, let it make the moments
         bigger &mdash; never load-bearing.</p>
     </div>
+  </div>
+</section>
+
+
+<!-- ============ POST-LAUNCH ENGINEERING (v1.5) ============ -->
+<section id="post-launch">
+  <div class="wrap">
+    <div class="divider"><span>&#9670;</span></div>
+    <div class="kicker">ENGINEERING POLISH &middot; v1.2 &rarr; v1.5</div>
+    <h2>After Launch &mdash; Six Systems<br>Hardened Into A Standard</h2>
+    <p class="section-sub">v1.2 shipped working. v1.5 shipped <em>consistent</em>. These are
+      the six systems I built and rebuilt after launch &mdash; the ones that turned a thousand
+      tiny inconsistencies into one identifiable game.</p>
+
+    <div class="postlaunch">
+
+      <!-- 01 - STYLE SKILL -->
+      <div class="pl-block">
+        <span class="br tl"></span><span class="br tr"></span>
+        <span class="br bl"></span><span class="br br2"></span>
+        <div class="pl-head">
+          <span class="pl-num">01</span>
+          <div>
+            <h3>A Self-Correcting Style System</h3>
+            <span class="pl-kicker">The canon doc that fixes itself</span>
+          </div>
+        </div>
+        <p>By v1.2 the game had over thirty popups, cinematics, and chat panels. Some
+          had purple borders. Some had blue. Some had gold corner brackets, some had
+          solid rounded boxes. Each one had been authored across long sessions, and
+          small drift had compounded into <b>visual noise</b>.</p>
+        <p>The fix wasn't more careful coding. It was treating the canonical look as
+          a <b>spec the team reads before every new panel</b> &mdash; codified as a
+          <code>demon-rising-style</code> skill: color palette, typography scale,
+          z-index ladder, frame conventions, chat-panel canon, popup canon, cinematic
+          rules. Every fix I made got added back to the skill so the next panel
+          wouldn't repeat the mistake.</p>
+        <p class="dim">The result is a doc that ages by absorption, not by editing.
+          The skill went from a blank file to a forty-rule playbook over two weeks,
+          purely from drift I noticed and corrected.</p>
+        <div class="pl-meta"><b>OUTCOME:</b> &mdash; every new popup in v1.5 shipped from
+          the same playbook on first pass.</div>
+      </div>
+
+      <!-- 02 - POPUP QUEUE -->
+      <div class="pl-block">
+        <span class="br tl"></span><span class="br tr"></span>
+        <span class="br bl"></span><span class="br br2"></span>
+        <div class="pl-head">
+          <span class="pl-num">02</span>
+          <div>
+            <h3>The Popup Queue</h3>
+            <span class="pl-kicker">Deterministic end-of-battle flow</span>
+          </div>
+        </div>
+        <p>End of a battle could fire <b>five overlays on the same frame</b>: reward
+          cinematic, level-up toast, fusion banner, buff upgrade, sacrifice prompt.
+          Three would stack, swallow each other's clicks, and the cinematic Continue
+          button would dead-end under a layer the player couldn't see.</p>
+        <div class="pl-stack">
+          <div class="stack-cell"><div class="label">Z-INDEX LADDER</div>
+            <div class="body">Awakening 4500 &middot; Cinematic 4600 &middot; Toast 4700 &mdash;
+              now a single source of truth across thirteen overlays.</div></div>
+          <div class="stack-cell"><div class="label">PRIORITY QUEUE</div>
+            <div class="body">Modal &gt; cinematic &gt; toast. Modals
+              pause cinematics; cinematics push toasts to the tail.</div></div>
+          <div class="stack-cell"><div class="label">CLICK GUARD</div>
+            <div class="body">Every overlay registers its interactive footprint
+              so the layer below knows it's blocked.</div></div>
+        </div>
+        <p class="dim">A real example: the Sacrifice cinematic's Continue button was
+          unclickable because the Awakening panel sat one z-band higher. Bumping
+          Sacrifice from 4088 to 4600 and rolling all cinematics onto the canonical
+          ladder fixed it permanently &mdash; <em>and</em> documented the ladder so
+          it can't drift again.</p>
+        <div class="pl-meta"><b>OUTCOME:</b> &mdash; zero overlap reports since v1.4.</div>
+      </div>
+
+      <!-- 03 - FUSION DISCOVERABILITY STACK -->
+      <div class="pl-block">
+        <span class="br tl"></span><span class="br tr"></span>
+        <span class="br bl"></span><span class="br br2"></span>
+        <div class="pl-head">
+          <span class="pl-num">03</span>
+          <div>
+            <h3>The Fusion Discoverability Stack</h3>
+            <span class="pl-kicker">Surfacing the system the game is named after</span>
+          </div>
+        </div>
+        <p>Player behavior in early v1.x showed an uncomfortable truth: <b>most
+          players never tried fusion</b>. The mechanic the game's title leans on was
+          invisible. Adding a tooltip wouldn't have moved the needle &mdash; the
+          problem was that the player didn't know <em>when</em> fusion was possible.</p>
+        <p>So I built a layered nudge sequence, all firing exactly at the moment the
+          opportunity opens:</p>
+        <div class="pl-stack">
+          <div class="stack-cell"><div class="label">LAYER 1 &middot; PULSE</div>
+            <div class="body">The Fuse button breathes (scale 1.0 &harr; 1.12) the
+              instant a fusable trio enters the roster.</div></div>
+          <div class="stack-cell"><div class="label">LAYER 2 &middot; CHIP</div>
+            <div class="body">Every demon that's part of a fusable trio gets a
+              <code>&#10022; FUSABLE</code> chip on its card.</div></div>
+          <div class="stack-cell"><div class="label">LAYER 3 &middot; BANNER</div>
+            <div class="body">The first time the world map opens with a trio,
+              an inline banner explains the mechanic in one sentence.</div></div>
+        </div>
+        <p>Each layer turns itself off as soon as the player engages, so they never
+          stack into noise. The pulse flag re-arms on a new run, but only if a
+          fusable trio actually exists &mdash; the cue is honest, not chatty.</p>
+        <p class="dim">A subtle bug I caught here: my first version checked for
+          <code>&ge;2</code> demons of the same class. The real fusion rule is
+          <code>&ge;3</code> of the same class <em>and</em> tier. Players who saw
+          the pulse and then couldn't fuse would have lost trust in the cue forever.
+          Honesty in feedback is itself a system.</p>
+        <div class="pl-meta"><b>OUTCOME:</b> &mdash; fusion attempt rate jumped after the
+          stack landed.</div>
+      </div>
+
+      <!-- 04 - CORNER TOAST ICON SYSTEM -->
+      <div class="pl-block">
+        <span class="br tl"></span><span class="br tr"></span>
+        <span class="br bl"></span><span class="br br2"></span>
+        <div class="pl-head">
+          <span class="pl-num">04</span>
+          <div>
+            <h3>One Toast, Every Event</h3>
+            <span class="pl-kicker">Corner notifications with portraits, gear, and rarity</span>
+          </div>
+        </div>
+        <p>The v1.2 toast was a text label. By v1.5 it carries the same visual
+          identity as the rest of the UI: a <b>36&times;36 framed icon at the
+          rarity color of the event</b>, then the text. One function signature,
+          one styling pass, every system in the game just hands it what it has.</p>
+        <div class="pl-stack">
+          <div class="stack-cell"><div class="label">LEVEL UP</div>
+            <div class="body">Demon portrait &middot; tier color (R/SR/SSR/UR)</div></div>
+          <div class="stack-cell"><div class="label">EQUIPMENT DROP</div>
+            <div class="body">Item icon &middot; rarity border from EquipmentFusion</div></div>
+          <div class="stack-cell"><div class="label">BOSS DEFEATED</div>
+            <div class="body">Boss portrait &middot; dark-gold border</div></div>
+        </div>
+        <p class="dim">Buff upgrades use the same toast with a buff icon and a level
+          color that ramps Lv1 silver &rarr; Lv5 bright gold &mdash; a tiny visual
+          spike I wanted players to feel without reading anything.</p>
+        <div class="pl-meta"><b>OUTCOME:</b> &mdash; one shared toast call site, used by
+          seven systems, all visually consistent.</div>
+      </div>
+
+      <!-- 05 - TITLE TIP POOL -->
+      <div class="pl-block">
+        <span class="br tl"></span><span class="br tr"></span>
+        <span class="br bl"></span><span class="br br2"></span>
+        <div class="pl-head">
+          <span class="pl-num">05</span>
+          <div>
+            <h3>The Title Screen Tip Pool</h3>
+            <span class="pl-kicker">35+ rotating tips with read-time scaling</span>
+          </div>
+        </div>
+        <p>New players had nowhere to learn small mechanics &mdash; fusion,
+          awakening, talent paths &mdash; except by playing. So the title screen now
+          rotates a pool of <b>35+ tips</b>, each prefixed with
+          <code>&#10022; TIP &middot;</code>, formatted in EN/ZH, drawn from the
+          systems they describe.</p>
+        <p>The rotation timer isn't fixed. It <b>scales with character count</b>:
+          short tips sit for a few seconds, long ones get the time they need to be
+          read. Anything shorter than the longest read-time would have made the
+          longer tips feel cut off; anything longer would have made the short ones
+          feel idle.</p>
+        <p class="dim">The pool is the place new mechanics get announced. When v1.5
+          shipped the corner toast icon system, the tip pool grew by one. The same
+          loop that ships the feature ships its discoverability.</p>
+        <div class="pl-meta"><b>OUTCOME:</b> &mdash; one canonical place to teach
+          mechanics, written EN+ZH, scaled to read time.</div>
+      </div>
+
+      <!-- 06 - CINEMATIC CANONICALIZATION -->
+      <div class="pl-block">
+        <span class="br tl"></span><span class="br tr"></span>
+        <span class="br bl"></span><span class="br br2"></span>
+        <div class="pl-head">
+          <span class="pl-num">06</span>
+          <div>
+            <h3>Cinematics &amp; Chat &mdash; All On One Canon</h3>
+            <span class="pl-kicker">Sacrifice, alchemy, intro, officer chat &mdash; unified</span>
+          </div>
+        </div>
+        <p>Sacrifice cinematic used orange. Alchemic Summoning used cyan. Intro
+          slides leaned purple. The officer chat panel had a cold-blue typing
+          indicator that didn't match anything else in the game. Each one had been
+          built in a different week with a different mood. None of them <em>looked
+          like the same game</em>.</p>
+        <p>The v1.5 pass rolled all of them onto the canon: <b>dark-gold corner
+          brackets, the same beige typing indicator, square dots, matching
+          read-time pacing</b>. The Sacrifice cinematic's stuck Continue button got
+          fixed in the same pass &mdash; a click bug and a visual drift were the
+          same root cause, and shipping the fix as one change made the rule visible.</p>
+        <p class="dim">The chat panel deserves its own line. The Demon Officer
+          dialog window is now the <b>canonical chat surface</b> for everything
+          downstream &mdash; tutorials, conversations, future companion systems.
+          When I add a new chat-style UI, I copy this panel; I don't redesign it.</p>
+        <div class="pl-meta"><b>OUTCOME:</b> &mdash; thirteen overlays, one identity.</div>
+      </div>
+
+    </div>
+
+    <p class="section-sub" style="margin-top:46px;max-width:720px">
+      The takeaway across all six: <em>polish isn't a phase, it's a system</em>.
+      Every drift I fixed got added to the playbook. Every system that fired in the
+      wrong order got a deterministic queue. Every visual that broke the canon
+      taught the canon a new rule.
+    </p>
   </div>
 </section>
 
