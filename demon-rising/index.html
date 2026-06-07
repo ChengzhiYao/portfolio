@@ -1028,7 +1028,7 @@
 <section id="post-launch-style-skill" class="post-launch">
   <div class="wrap">
     <div class="divider"><span>&#9670;</span></div>
-    <div class="kicker">POST-LAUNCH SYSTEM &middot; 01 / 06</div>
+    <div class="kicker">POST-LAUNCH SYSTEM &middot; 01 / 07</div>
     <h2>A Self-Correcting Style System</h2>
     <p class="section-sub">By v1.2 the game had over thirty popups, cinematics, and chat panels &mdash; and they had drifted. The fix was a doc that ages by absorption.</p>
     <div class="case">
@@ -1077,7 +1077,7 @@
 <section id="post-launch-popup-queue" class="post-launch">
   <div class="wrap">
     <div class="divider"><span>&#9670;</span></div>
-    <div class="kicker">POST-LAUNCH SYSTEM &middot; 02 / 06</div>
+    <div class="kicker">POST-LAUNCH SYSTEM &middot; 02 / 07</div>
     <h2>The Popup Queue &mdash; Deterministic End-Of-Battle Flow</h2>
     <p class="section-sub">End of a battle could fire five overlays on the same frame. The fix was a single source of truth for the z-index ladder plus a priority queue.</p>
     <div class="case">
@@ -1125,7 +1125,7 @@
 <section id="post-launch-fusion-stack" class="post-launch">
   <div class="wrap">
     <div class="divider"><span>&#9670;</span></div>
-    <div class="kicker">POST-LAUNCH SYSTEM &middot; 03 / 06</div>
+    <div class="kicker">POST-LAUNCH SYSTEM &middot; 03 / 07</div>
     <h2>The Fusion Discoverability Stack</h2>
     <p class="section-sub">Player behavior in early v1.x showed an uncomfortable truth: most players never tried fusion. So I built a layered nudge sequence.</p>
     <div class="case">
@@ -1185,7 +1185,7 @@
 <section id="post-launch-toast-icons" class="post-launch">
   <div class="wrap">
     <div class="divider"><span>&#9670;</span></div>
-    <div class="kicker">POST-LAUNCH SYSTEM &middot; 04 / 06</div>
+    <div class="kicker">POST-LAUNCH SYSTEM &middot; 04 / 07</div>
     <h2>One Toast, Every Event &mdash; Corner Notifications With Identity</h2>
     <p class="section-sub">The v1.2 toast was a text label. By v1.5 it carries the same visual identity as the rest of the UI &mdash; one signature, every system.</p>
     <div class="case">
@@ -1238,7 +1238,7 @@
 <section id="post-launch-tip-pool" class="post-launch">
   <div class="wrap">
     <div class="divider"><span>&#9670;</span></div>
-    <div class="kicker">POST-LAUNCH SYSTEM &middot; 05 / 06</div>
+    <div class="kicker">POST-LAUNCH SYSTEM &middot; 05 / 07</div>
     <h2>The Title Screen Tip Pool &mdash; 35+ Rotating Tips With Read-Time Scaling</h2>
     <p class="section-sub">New players had nowhere to learn small mechanics except by playing. The title screen now teaches in the dead time.</p>
     <div class="case">
@@ -1279,7 +1279,7 @@
 <section id="post-launch-cinematic-canon" class="post-launch">
   <div class="wrap">
     <div class="divider"><span>&#9670;</span></div>
-    <div class="kicker">POST-LAUNCH SYSTEM &middot; 06 / 06</div>
+    <div class="kicker">POST-LAUNCH SYSTEM &middot; 06 / 07</div>
     <h2>Cinematics &amp; Chat &mdash; All On One Canon</h2>
     <p class="section-sub">Sacrifice was orange. Alchemy was cyan. Intro slides leaned purple. None of them looked like the same game. The v1.5 pass rolled all of them onto canon.</p>
     <div class="case">
@@ -1323,6 +1323,68 @@
     </div>
   </div>
 </section>
+
+<section id="post-launch-llm-pipeline" class="post-launch">
+  <div class="wrap">
+    <div class="divider"><span>&#9670;</span></div>
+    <div class="kicker">POST-LAUNCH SYSTEM &middot; 07 / 07 &mdash; FLAGSHIP UPDATE</div>
+    <h2>The LLM Voice Pipeline &mdash; Making A 3GB Local Model Behave Like Ten Distinct Characters</h2>
+    <p class="section-sub">v1.3 is the biggest engineering pass on the game since launch. The Demon Lord's officers were always supposed to feel like <em>people</em>, not chatbots. Phi-3.5-mini, 2.7B parameters, running locally on the player's CPU, did not get there by itself. It got there through a nine-step voice engineering pipeline, a three-layer leak defense, two new model knobs, an authored anchor system, a memory layer for past conversations, and a 25-entry quirk catalog. The work runs to about 220 commits across two months. This section is the long answer to a short question: <b>how do you ship a local LLM that sounds like a person, not a co-author?</b></p>
+
+    <div class="case">
+
+      <h3>The Problem &mdash; A 3GB Model That Wanted To Be A Chatbot, Not A Character</h3>
+      <p>Demon Rising ships with a local LLM &mdash; <b>Phi-3.5-mini, ~2.7B parameters, ~3GB on disk</b>, bundled with the game and served by a local Ollama process. The intent: every Demon officer and the First Hero have their own voice. The reality at v1.2: every officer sounded like the same polite, slightly theatrical narrator. Phi was good at <em>being helpful</em>, which is the wrong thing for a Stoic vampire knight to be. It defaulted to ornate fantasy phrases, summarized its own replies in parentheses, and when given crude input it apologized for the player. The model could not be retrained, fine-tuned, or replaced &mdash; it had to ship. So the work moved up the stack: every behavior the model wouldn't do on its own had to be <em>engineered around it</em>. Nine systems, working together, each fixing one specific failure of generic LLM behavior.</p>
+
+      <h3>Step 1 &mdash; The Voice Card</h3>
+      <p>The first failure was identity collapse. Every officer reverted to the same "noble knight" template. The fix: a <b>per-personality voice card</b> in the system prompt &mdash; a paragraph-long description of how this <em>kind</em> of person talks, plus three few-shot examples of in-character lines. Eight personality archetypes (stoic, passionate, callous, loyal, proud, cunning, reckless, fanatical), each with a hand-written voice card. The prompts are now built compositionally: <code>VoiceLib.build_persona_block(personality, name, class, en)</code> returns the card; every chat site uses the same builder. The eight cards live in one file. The change cost a single import in every LLM call site &mdash; nine files. It killed the "every officer sounds the same" complaint in one commit.</p>
+
+      <h3>Step 2 &mdash; Three Voice Tics Per Character</h3>
+      <p>Voice cards make personalities sound different from each other. They don't make a Stoic vampire sound like <em>your</em> Stoic vampire. The next step: <b>three small recurring tics per personality</b> &mdash; a sigh, a half-laugh, a verbal pause. Passionate Succubi get "Mm." and "*purr*"; Stoic knights get a clipped "Tch." and the occasional silence beat. Each personality has its three baked into the voice card, and a <b>validator</b> on the output side: if a reply comes back with none of the personality's tics, the validator <em>prepends one</em>. The model can refuse to use the tic. The output can't.</p>
+
+      <h3>Step 3 &mdash; Audio-Visual Emotion Layer (40% Of The Emotion, Zero Words)</h3>
+      <p>The next failure was emotional flatness. Phi could write a "she's angry" reply, but the reply alone didn't <em>land</em>. Replacing the model wasn't an option. So I moved 40% of the emotional load off the words and into the rendering layer: portraits tween (modulate burst, position shake, scale pop), music ducks briefly under emotional spikes, and an SFX library hooks specific tags. When the LLM emits <code>[ANGRY]</code> in its reply, the portrait shakes, the music dips, a "miss" SFX punches in &mdash; <em>before</em> the bubble even finishes typing. The player feels the emotion before they read the words. The reply itself can be three syllables and still hit.</p>
+
+      <h3>Step 4 &mdash; Authored Anchor + LLM Drift</h3>
+      <p>For pivotal moments &mdash; an officer's farewell, the First Hero's dying line, a council closer &mdash; LLM-generated text was <em>good enough</em> but not <em>great</em>. So the closers got authored: <b>2&ndash;4 hand-written variants per topic per exit type</b>, indexed by stage cluster (early / mid / late) and register tier (cold / warm). The LLM still drives the body of the conversation. The endings come from JSON. Total scope: roughly 200 authored lines covering the First Hero's free-chat topics, demon farewell beats, and council outcomes. The system file: <code>data/first_hero_closers.json</code>.</p>
+
+      <h3>Step 5 &mdash; Memory As Scenes (Not Summary)</h3>
+      <p>By v1.2 the game had a memory layer, but it was the wrong kind &mdash; <em>summaries</em>. "Player has been cold with this demon." Vague. Useless to the model. The rewrite stores <b>scenes</b> instead: literal `(player_msg, demon_reply, emotion_tag, weight)` tuples, persisted to disk per-character, capped at 20 per entity with weight-priority eviction. When the player chats with the demon again, the top 2 scenes by weight get injected into the system prompt as a "memorable moments" block. The LLM can now reference specific past exchanges, in their own words, and the references actually <em>match</em>. The compute_scene_weight heuristic boosts emotional moments + recent moments + scenes the player explicitly named (the "remember when" signal). Storage: about 8KB per character, JSON.</p>
+
+      <h3>Step 6 &mdash; Emotion-Gated Register</h3>
+      <p>Same character, different relationship: a Loyal officer at 90 loyalty should speak <em>differently</em> than one at 30, even with the same prompt. The emotion-gated register adds a paragraph to the system prompt that scales the tone &mdash; cold/neutral/warm tier &mdash; based on loyalty AND a per-turn <b>emotional spike</b> computed from the player's last message. The spike is a small float in [-1, +1] that boosts or drops the register temporarily. A warm officer who just got insulted gets a cold-leaning spike for one turn. The register block lives in VoiceLib too &mdash; <code>register_block_for(personality, loyalty_pct, en, spike)</code> &mdash; and the affinity-to-pct math has its own helper. This is the most underrated of the nine: it's invisible until the player notices that <em>their</em> Loyal officer sounds different from someone else's Loyal officer.</p>
+
+      <h3>Step 7 &mdash; Temperature Staging</h3>
+      <p>Phi was running at a fixed sampling temperature of 0.75 for every call site. Wrong. A Stoic knight in formal council should sample at 0.55 (clipped, deterministic). A Passionate Succubus mid-breakdown should sample at 1.00 (raw, jumpy). The temperature staging system computes the actual temperature per call from <em>four dimensions</em>: personality offset (-0.10 to +0.15), First Hero stage (-0.15 to +0.15), register pct (-0.05 to +0.10), and emotion spike magnitude (up to +0.20). The result is clamped per-scenario to a corridor: council debate caps at 0.78 (formal), fusion-eve floors at 0.65 (high anxiety), awakening floors at 0.80 (excited). And <b>top_p auto-couples</b> to temperature &mdash; 0.75 at cold, 0.95 at hot &mdash; so the sampling distribution actually tightens or opens in sync, not just the temperature. Both knobs threaded through one helper: <code>VoiceLib.compute_temperature()</code>. Telemetry prints every call's actual values to the console for tuning.</p>
+
+      <h3>Step 8 &mdash; Silence Is A Reply</h3>
+      <p>Some replies the model shouldn't make. When the player is cruel, an over-eager LLM gives an apology &mdash; "I will be strong for you, Lord." Wrong. A Stoic knight, slighted, should go silent. The system has three layers. <b>(1) Code pre-gate:</b> if the player input is dismissive or shouts "shut up" AND the personality is quiet AND register is cold, the LLM call is skipped entirely and a personality-keyed silence bubble shows ("…" / "*looks away*" / "*tears up*"). <b>(2) LLM-decided silence:</b> the prompt offers a <code>[SILENCE]</code> token; the sanitizer recognizes it and routes to the silence path. <b>(3) Three-stage escalation:</b> 1st crude input gets a verbal hurt reply, 2nd forces silence even on non-quiet personalities, 3rd triggers a walk-away &mdash; the demon delivers a personality-keyed farewell and the chat panel closes after two seconds. The portrait does a personality-differentiated micro-tween (Stoic barely moves, Passionate's portrait dims and dips visibly). And the silenced moments are recorded as memory scenes with elevated weight, so the LLM in the <em>next</em> session can remember it: "I remember when you said X and I couldn't answer."</p>
+
+      <h3>Step 9 &mdash; Specific Weird Character</h3>
+      <p>Personalities make characters sound different from <em>each other</em>. Quirks make characters sound like <em>themselves</em>. Each demon, at creation, draws one quirk from a 25-entry catalog &mdash; counter ("Three guards. Three."), weapon-touch ("*hand on hilt* Yes, Lord"), micro-laugh ("Heh."), object-fixation ("The window again"), and twenty-two more. The quirk is filtered by personality (a Stoic doesn't get "*purrs*"), persisted to the demon dict, and injected as a paragraph in the system prompt: <em>"Quirk: you count things &mdash; slip a number into about 1 in 4 replies, no more."</em> The model doesn't always obey; that's fine. About one in three or four replies, the quirk surfaces. Over a play session the player notices: <em>"Wait &mdash; she always counts. That's her thing."</em> Identity from a one-line prompt addition. The First Hero gets her own unique quirk (not from the catalog) that ties to her memory arc: she counts the days since the player last visited her.</p>
+
+      <h3>The Three-Layer Leak Defense &mdash; Why Small Models Need A Bouncer</h3>
+      <p>The other half of the work was defensive. Phi-3.5-mini under heavy quantization <em>escapes role</em>. It outputs self-justification appendices: "(This reply conveys a sense of loyalty and desire for continued unity without being overly verbose, adhering to the rules.)" It writes prompt scaffolding into the reply: "## Your task: For the next part of your instruction&hellip;" It even <b>reverse-roleplays the player:</b> "Lord: 'I need your&hellip; assistance.'" Each leak got a <em>three-layer fix</em>:</p>
+      <ul style="margin:0 0 16px 22px; color:var(--text-dim, #b8a994);">
+        <li><b>Layer 1 &mdash; Stop sequences.</b> Tell the model to stop generating the moment a known-bad token appears. About 80 sequences covering self-justification parens, markdown headers, scaffold echoes, and reverse-roleplay openings.</li>
+        <li><b>Layer 2 &mdash; Sanitizer markers.</b> Substring scan on the lowercased reply; if a known-bad phrase appears anywhere, reject the entire reply and route to fallback. About 40 markers, scenario-specific extra markers passed per call site.</li>
+        <li><b>Layer 3 &mdash; Line-level truncation.</b> Split the reply by newline and walk it. If a line starts with <code>Lord:</code> / <code>Demon Lord:</code> / <code>Your task:</code> / <code>For the next part&hellip;</code>, the model has entered prompt-replay state &mdash; truncate everything from that line down. Only the in-character lines <em>before</em> the escape survive.</li>
+      </ul>
+      <p>And critically: <b>the fallback path never echoes raw LLM output.</b> Every call site has a hardcoded personality-keyed fallback for the case where all three defenses reject. The model gets to fail; the player never sees it.</p>
+
+      <h3>The Self-Documenting Skill</h3>
+      <p>Every leak pattern, every defense, every wiring decision, every call site, every corridor &mdash; all of it lives in an <b>agent skill</b> in the repo (<code>skills/llm-leak-defense/SKILL.md</code>). The skill has a META RULE: every new LLM-related fix, every new call site, every new VoiceLib helper, every prompt modification &mdash; <em>must</em> update the skill in the same commit. The catalog has eight named leak patterns at the moment, each with the exact phrase that leaked, the file/line of the fix, and the three-layer defense applied. The site list has all ten LLM call sites with their corridor, spike strategy, and scenario tag in a table. A new LLM site can be wired correctly on the first try by following the checklist.</p>
+
+      <h3>What All Of This Adds Up To</h3>
+      <p>Pick any officer. The voice card tells the model what kind of person she is. The three tics make her sound like <em>her</em>. The A/V layer makes you feel her emotion before you read it. The authored anchors give pivotal moments dignity. The memory scenes mean she can reference specific past exchanges in her own words. The register adjusts her tone based on how she feels about you right now. The temperature corridor keeps her in the right vocal range for the scene. The silence path lets her refuse to speak when words would cheapen it. The quirk gives her one weird specific thing that's hers alone. And the three-layer defense keeps the underlying model's failures off the screen.</p>
+      <p>None of these is a model upgrade. <em>All of them</em> are engineering choices above the model. The model itself, on this machine, in this game, is the same Phi-3.5-mini it was at v1.2. Everything that makes it feel like ten different people lives in 1,200 lines of GDScript and a self-documenting skill.</p>
+
+      <div class="outcome"><b>OUTCOME:</b> nine systems, three defense layers, ten LLM call sites, twenty-five quirks, one self-documenting skill &mdash; and a 3GB local model now ships ten characters who feel local-trained on themselves.</div>
+
+    </div>
+  </div>
+</section>
+
 
 <!-- ============ FOOTER ============ -->
 <footer>
