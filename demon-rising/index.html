@@ -510,6 +510,293 @@
   </div>
 </section>
 
+<!-- ============ LEADERBOARD VALIDATION (early hook) ============ -->
+<style>
+  /* ---------- Leaderboard reconstruction ---------- */
+  .lb-frame{
+    max-width:780px; margin:0 auto 48px;
+    background:linear-gradient(160deg,#1f0f3a,#2a1452);
+    border:1px solid var(--line);
+    padding:28px 28px 22px;
+    position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,0.45);
+  }
+  .lb-frame .br{ position:absolute; width:14px; height:14px; pointer-events:none; }
+  .lb-frame .br.tl{ top:-1px; left:-1px; border-top:3px solid var(--gold); border-left:3px solid var(--gold); }
+  .lb-frame .br.tr{ top:-1px; right:-1px; border-top:3px solid var(--gold); border-right:3px solid var(--gold); }
+  .lb-frame .br.bl{ bottom:-1px; left:-1px; border-bottom:3px solid var(--gold); border-left:3px solid var(--gold); }
+  .lb-frame .br.br2{ bottom:-1px; right:-1px; border-bottom:3px solid var(--gold); border-right:3px solid var(--gold); }
+
+  .lb-title{
+    font-family:'PressStart',monospace;
+    color:var(--gold-bright);
+    font-size:22px; letter-spacing:4px;
+    text-align:center; margin-bottom:18px;
+    text-shadow:0 3px 0 #4a2f06;
+  }
+  .lb-stats{
+    font-family:'PressStart',monospace;
+    color:var(--text); font-size:10px; letter-spacing:1px;
+    text-align:center; padding-bottom:14px;
+    border-bottom:1px solid rgba(233,185,73,0.25);
+    margin-bottom:10px;
+    line-height:1.7;
+  }
+  .lb-stats .dot{ color:var(--gold); margin:0 8px; }
+
+  .lb-head, .lb-row{
+    display:grid;
+    grid-template-columns: 30px 30px 1fr 70px 80px 80px 80px;
+    align-items:center; gap:10px;
+    font-family:'PressStart',monospace;
+    font-size:10px; padding:9px 6px;
+  }
+  .lb-head{
+    color:var(--gold); letter-spacing:1.5px;
+    background:rgba(74,47,6,0.45);
+    border-bottom:1px solid rgba(233,185,73,0.35);
+  }
+  .lb-row{
+    color:var(--text); letter-spacing:1px;
+    border-bottom:1px solid rgba(155,143,168,0.10);
+  }
+  .lb-row:last-of-type{ border-bottom:0; }
+  .lb-row .pip{
+    width:22px; height:22px; display:inline-block;
+    border:1px solid rgba(255,255,255,0.15);
+    image-rendering:pixelated;
+  }
+  .lb-row .tag{ color:var(--gold); }
+  .lb-row .name{ color:var(--text); }
+  .lb-row .score{ color:var(--text); text-align:right; }
+  .lb-row .time{ color:var(--cyan); }
+  .lb-row .pwr{ color:var(--purple); }
+  .lb-row .status{ color:#a8e3a3; }
+
+  .lb-foot{
+    text-align:center; padding:14px 0 6px;
+    color:var(--dim); font-family:'PressStart',monospace;
+    font-size:9px; letter-spacing:1.5px;
+  }
+  .lb-cta{
+    margin-top:10px; padding:14px;
+    border:1px solid var(--gold);
+    color:var(--gold-bright);
+    font-family:'PressStart',monospace; font-size:11px;
+    text-align:center; letter-spacing:2px;
+  }
+
+  /* ---------- Insight grid below the leaderboard ---------- */
+  .lb-insights{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:18px;
+    max-width:860px; margin:0 auto 32px;
+  }
+  .lb-insight{ padding:22px 22px 24px; }
+  .lb-insight .stat{
+    font-family:'PressStart',monospace; font-size:24px;
+    color:var(--gold-bright); margin-bottom:8px;
+    text-shadow:0 2px 0 #4a2f06;
+  }
+  .lb-insight .label{
+    font-family:'PressStart',monospace; font-size:9px;
+    color:var(--crimson-bright); letter-spacing:1.5px;
+    margin-bottom:10px;
+  }
+  .lb-insight p{ color:var(--text); font-size:14px; margin:0; line-height:1.6; }
+
+  @media (max-width:780px){
+    .lb-head, .lb-row{
+      grid-template-columns: 24px 24px 1fr 60px 70px 70px 60px;
+      font-size:8.5px; gap:6px; padding:8px 4px;
+    }
+    .lb-title{ font-size:16px; letter-spacing:2px; }
+    .lb-stats{ font-size:8.5px; }
+    .lb-insights{ grid-template-columns:1fr; }
+  }
+</style>
+
+<section id="post-launch-leaderboard" class="post-launch">
+  <div class="wrap">
+    <div class="divider"><span>&#9670;</span></div>
+    <div class="kicker">POST-LAUNCH VALIDATION &middot; MEASURED ON STEAM</div>
+    <h2>The Leaderboard Says The AI Design Actually Worked</h2>
+    <p class="section-sub">A roguelike with a free-text negotiation system has a lot of places players can quit &mdash; an LLM hangs, an intent doesn't resolve, the council loops. The leaderboard is the empirical answer to whether the fallback-first design held up against real players, not adversarial test runs.</p>
+
+    <!-- ===== Reconstructed leaderboard (live data, v1.5) ===== -->
+    <div class="lb-frame">
+      <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+
+      <div class="lb-title">RUN LEADERBOARD</div>
+      <div class="lb-stats">
+        Your local best: <span style="color:var(--gold-bright);">9135</span>
+        <span class="dot">&middot;</span>
+        <span style="color:var(--gold-bright);">9</span> local clears
+        <span class="dot">&middot;</span>
+        Global rank: <span style="color:var(--gold-bright);">#10</span>
+      </div>
+
+      <div class="lb-head">
+        <span>#</span><span></span><span>PLAYER</span>
+        <span style="text-align:right;">SCORE</span>
+        <span>TIME</span><span>TOP</span><span>STATUS</span>
+      </div>
+
+      <div class="lb-row">
+        <span>1</span>
+        <span class="pip" style="background:#e8a48a;"></span>
+        <span><span class="tag">[A0]</span> <span class="name">FeEscame</span></span>
+        <span class="score">9299</span>
+        <span class="time">25m 00:</span>
+        <span class="pwr">Pwr 1500</span>
+        <span class="status">&check; CLEAR</span>
+      </div>
+
+      <div class="lb-row">
+        <span>2</span>
+        <span class="pip" style="background:#3d5530;"></span>
+        <span><span class="tag">[A0]</span> <span class="name">Nordlys</span></span>
+        <span class="score">3990</span>
+        <span class="time">15m 36:</span>
+        <span class="pwr">Pwr 1899</span>
+        <span class="status">&check; CLEAR</span>
+      </div>
+
+      <div class="lb-row">
+        <span>3</span>
+        <span class="pip" style="background:#8a6a52;"></span>
+        <span><span class="tag">[A0]</span> <span class="name">syzygy</span></span>
+        <span class="score">3690</span>
+        <span class="time">17m 53:</span>
+        <span class="pwr">Pwr 965</span>
+        <span class="status">&check; CLEAR</span>
+      </div>
+
+      <div class="lb-row">
+        <span>4</span>
+        <span class="pip" style="background:#5a3d2a;"></span>
+        <span><span class="tag">[A0]</span> <span class="name">Vetro</span></span>
+        <span class="score">3591</span>
+        <span class="time">13m 53:</span>
+        <span class="pwr">Pwr 3448</span>
+        <span class="status">&check; CLEAR</span>
+      </div>
+
+      <div class="lb-row">
+        <span>5</span>
+        <span class="pip" style="background:#a89070;"></span>
+        <span><span class="tag">[A0]</span> <span class="name">Nomnombra</span></span>
+        <span class="score">3514</span>
+        <span class="time">21m 23:</span>
+        <span class="pwr">Pwr 1549</span>
+        <span class="status">&check; CLEAR</span>
+      </div>
+
+      <div class="lb-row">
+        <span>6</span>
+        <span class="pip" style="background:#2a2a2a;"></span>
+        <span><span class="tag">[A0]</span> <span class="name">MadKingRo</span></span>
+        <span class="score">3216</span>
+        <span class="time">12m 00:</span>
+        <span class="pwr">Pwr 726</span>
+        <span class="status">&check; CLEAR</span>
+      </div>
+
+      <div class="lb-row">
+        <span>7</span>
+        <span class="pip" style="background:#4e5f78;"></span>
+        <span><span class="tag">[A0]</span> <span class="name">FrozenShi</span></span>
+        <span class="score">2972</span>
+        <span class="time">11m 48:</span>
+        <span class="pwr">Pwr 3255</span>
+        <span class="status">&check; CLEAR</span>
+      </div>
+
+      <div class="lb-row">
+        <span>8</span>
+        <span class="pip" style="background:#c46b40;"></span>
+        <span><span class="tag">[A0]</span> <span class="name">Ameis Ara</span></span>
+        <span class="score">2825</span>
+        <span class="time">45m 16:</span>
+        <span class="pwr">Pwr 589</span>
+        <span class="status">&check; CLEAR</span>
+      </div>
+
+      <div class="lb-row">
+        <span>9</span>
+        <span class="pip" style="background:#7a7a7a;"></span>
+        <span><span class="tag">[A0]</span> <span class="name">tp61tj32c</span></span>
+        <span class="score">2670</span>
+        <span class="time">19m 32:</span>
+        <span class="pwr">Pwr 872</span>
+        <span class="status">&check; CLEAR</span>
+      </div>
+
+      <div class="lb-foot">Click row for run details &middot; Global Top 50</div>
+      <div class="lb-cta">&uarr; Re-upload local best to Steam (9135)</div>
+    </div>
+
+    <p style="text-align:center; color:var(--dim); font-size:12px; margin:-30px auto 40px; max-width:680px;">
+      In-product leaderboard reconstructed in HTML from the live v1.5 capture &middot; data unchanged &middot; every visible entry is a real Steam player.
+    </p>
+
+    <!-- ===== Headline insights ===== -->
+    <div class="lb-insights">
+      <div class="panel lb-insight">
+        <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+        <div class="label">COMPLETION RATE</div>
+        <div class="stat">86%</div>
+        <p>Of players who started a run, <b>86% finished one</b>. Indie roguelike baselines sit between 10&ndash;25%. The number is the strongest signal that the bounded-latency budget and fallback-first intent classifier are doing their job &mdash; the AI never blocks the player long enough to make them quit.</p>
+      </div>
+      <div class="panel lb-insight">
+        <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+        <div class="label">TOP-10 STATUS</div>
+        <div class="stat">9 / 9</div>
+        <p>Every visible Top-10 run on the global board is marked <span style="color:#a8e3a3;">&check; CLEAR</span>. Not a single DNF, abandoned save, or stuck state. The "0 dead-end states across the intent model" claim &mdash; previously validated only on adversarial test inputs &mdash; survives contact with real players who never read the design doc.</p>
+      </div>
+      <div class="panel lb-insight">
+        <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+        <div class="label">TIME VARIANCE</div>
+        <div class="stat">4&times;</div>
+        <p>The fastest clear took <b>11m 48s</b>. The slowest, <b>45m 16s</b>. Same difficulty, same systems &mdash; clear in both. The five-way intent taxonomy (<i>agree / refuse / modify / counter / silence</i>) accommodates a speed-runner who fires <i>agree</i> three times in a row <em>and</em> a player who spends ten minutes per council on <i>modify / counter</i>. Neither play style is penalized.</p>
+      </div>
+      <div class="panel lb-insight">
+        <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+        <div class="label">POWER VARIANCE</div>
+        <div class="stat">6&times;</div>
+        <p>Top Power across the nine clears ranges from <b>589</b> to <b>3448</b> &mdash; and it does <em>not</em> correlate with rank. The #4-by-score run has the highest power (3448). The #6-by-score run has the lowest power that cleared (726). Players are winning with <b>completely different builds</b>. The AI doesn't gate progress on stat optimization; the keyword fallback resolves intent regardless of how the player chose to build.</p>
+      </div>
+    </div>
+
+    <div class="case">
+
+      <h3>The Headline Number &mdash; 86% Completion Is The Whole Argument</h3>
+      <p>Most player abandonment in dialogue-AI games happens at the exact moment the model fails &mdash; long pause, malformed output, intent resolves to "I don't know what to do." The player stops trusting the screen and closes the tab. <b>The 86% completion rate is the empirical answer to whether that failure mode was actually designed out.</b> If the LLM intent classifier hangs or returns garbage, the deterministic keyword classifier resolves the input in under a second; if both fail, a personality-keyed silence bubble fires and the game continues. The player never gets the "the AI broke" experience because the system never lets the AI's broken-ness reach the surface.</p>
+      <p>Eight-six percent is also the answer to a sharper question: <em>was the &le;8s latency budget actually felt by the player?</em> A latency budget that runs in test mode is a wall in the spec. A latency budget that produces a real completion curve is a property of the shipped product.</p>
+
+      <h3>Top-10 Globally &mdash; Every Single Entry Cleared</h3>
+      <p>The leaderboard column on the right says <span style="color:#a8e3a3;">&check; CLEAR</span> nine times in a row. This is the only column the system would ever show as <em>not</em> a clear (a partial run or abandoned save would surface as IN-PROGRESS or DNF). The fact that every Top-10 player on the global board got to the end credits &mdash; with no exception &mdash; is the production-data version of "0 dead-end states across the intent model." That claim used to live inside adversarial test runs the user never saw. Now it's printed on the leaderboard.</p>
+
+      <h3>The Time Spread &mdash; The Intent Taxonomy Earns Its Vocabulary</h3>
+      <p>A four-times time variance &mdash; <b>11m 48s</b> to <b>45m 16s</b> &mdash; on the same difficulty, all clearing, says the intent system isn't railroading anyone. The fast runs are mostly <i>agree</i> and <i>refuse</i> &mdash; confident binary decisions, no negotiation. The slow runs lean on <i>modify</i> and <i>counter</i> &mdash; back-and-forth, multi-turn, often with <i>silence</i> as a strategic move. <b>Both styles resolve.</b> Both reach the end credits. The five-way taxonomy isn't a UX flourish; it's the reason a 45-minute roleplayer and a 12-minute speed-runner are both on the same leaderboard.</p>
+      <p>The legible AI feedback &mdash; the in-product "herald" that surfaces the intent classification back to the player in plain language &mdash; matters most for the slow runs. A 45-minute player only stays 45 minutes if they trust what the system thinks they're saying. The herald is the trust signal that lets a player spend ten minutes on one council.</p>
+
+      <h3>The Power Spread &mdash; The AI Doesn't Care How You Build</h3>
+      <p>Look at the Power column. <b>Pwr 589</b> at rank 8. <b>Pwr 3448</b> at rank 4. <b>Pwr 726</b> at rank 6, beating Pwr 3255 at rank 7. The numbers go in essentially random directions relative to score and time. <em>That's the proof that the AI layer isn't quietly favoring an optimal build.</em> If the intent classifier was secretly easier to handle when the player's roster was strong, low-power runs wouldn't clear &mdash; they'd stall when the model's confidence dropped on weaker decisions. They don't. They clear. The deterministic keyword pre-pass resolves the negotiation regardless of what the player's army looks like underneath.</p>
+
+      <h3>Score And Time Are Decoupled &mdash; Players Are Rewarded For Engagement, Not Speed</h3>
+      <p>Rank #1 took <b>25 minutes</b> for <b>9,299 points</b>. Rank #7 took <b>11 minutes 48 seconds</b> for <b>2,972 points</b>. Score isn't a time-bonus calculation in disguise &mdash; it's a depth-of-engagement number. More council interactions, more negotiation turns, more anchor-tag moments earned in conversation, more weight. <b>The fact that the top of the leaderboard is the long, deliberate run, not the short one, says the system is paying players to engage with the AI rather than skip past it.</b> That's the opposite of what happens when a dialogue system is broken &mdash; in a broken system, speed-runs always win because every model interaction is friction.</p>
+
+      <h3>What The Data Says The Design Got Right</h3>
+      <p>The leaderboard validates the four claims the case study has been making all along: <b>bounded latency</b> (no abandonment from model hangs &rarr; 86% completion), <b>fallback-first pipeline</b> (no dead-end states &rarr; 100% top-10 clear), <b>intent taxonomy that accommodates play styles</b> (4&times; time variance, all clearing), and <b>legible AI feedback</b> (engagement-rewarding score curve, not speed-rewarding). None of these claims rest on adversarial test inputs anymore. They rest on real Steam players, with real builds, in real first-time sessions, ending in real end-credit screens.</p>
+      <p>The user above (rank #10, local best 9135, 9 local clears) is me. The other nine are not. The leaderboard is a small dataset &mdash; the Steam top-50 board only shows the elite tier &mdash; but it's the dataset that matters: if the players competing for the top score are the ones who pushed hardest on the AI surface and <em>every one of them finished</em>, the design didn't just survive contact with users. It rewarded them for going deeper into it.</p>
+
+      <div class="outcome"><b>OUTCOME:</b> 86% run completion rate &middot; 9 of 9 visible Top-10 clears &middot; 4&times; clear-time variance &middot; 6&times; power variance with no rank correlation &middot; live Steam leaderboard with maker dogfooding ranked #10 globally on local best.</div>
+
+    </div>
+  </div>
+</section>
+
+
 <!-- ============ FEATURES ============ -->
 <section id="features">
   <div class="wrap">
@@ -1380,294 +1667,6 @@
       <p>None of these is a model upgrade. <em>All of them</em> are engineering choices above the model. The model itself, on this machine, in this game, is the same Phi-3.5-mini it was at v1.2. Everything that makes it feel like ten different people lives in 1,200 lines of GDScript and a self-documenting skill.</p>
 
       <div class="outcome"><b>OUTCOME:</b> nine systems, three defense layers, ten LLM call sites, twenty-five quirks, one self-documenting skill &mdash; and a 3GB local model now ships ten characters who feel local-trained on themselves.</div>
-
-    </div>
-  </div>
-</section>
-
-
-
-<!-- ============ POST-LAUNCH 08 · LEADERBOARD VALIDATION ============ -->
-<style>
-  /* ---------- Leaderboard reconstruction ---------- */
-  .lb-frame{
-    max-width:780px; margin:0 auto 48px;
-    background:linear-gradient(160deg,#1f0f3a,#2a1452);
-    border:1px solid var(--line);
-    padding:28px 28px 22px;
-    position:relative;
-    box-shadow:0 30px 80px rgba(0,0,0,0.45);
-  }
-  .lb-frame .br{ position:absolute; width:14px; height:14px; pointer-events:none; }
-  .lb-frame .br.tl{ top:-1px; left:-1px; border-top:3px solid var(--gold); border-left:3px solid var(--gold); }
-  .lb-frame .br.tr{ top:-1px; right:-1px; border-top:3px solid var(--gold); border-right:3px solid var(--gold); }
-  .lb-frame .br.bl{ bottom:-1px; left:-1px; border-bottom:3px solid var(--gold); border-left:3px solid var(--gold); }
-  .lb-frame .br.br2{ bottom:-1px; right:-1px; border-bottom:3px solid var(--gold); border-right:3px solid var(--gold); }
-
-  .lb-title{
-    font-family:'PressStart',monospace;
-    color:var(--gold-bright);
-    font-size:22px; letter-spacing:4px;
-    text-align:center; margin-bottom:18px;
-    text-shadow:0 3px 0 #4a2f06;
-  }
-  .lb-stats{
-    font-family:'PressStart',monospace;
-    color:var(--text); font-size:10px; letter-spacing:1px;
-    text-align:center; padding-bottom:14px;
-    border-bottom:1px solid rgba(233,185,73,0.25);
-    margin-bottom:10px;
-    line-height:1.7;
-  }
-  .lb-stats .dot{ color:var(--gold); margin:0 8px; }
-
-  .lb-head, .lb-row{
-    display:grid;
-    grid-template-columns: 30px 30px 1fr 70px 80px 80px 80px;
-    align-items:center; gap:10px;
-    font-family:'PressStart',monospace;
-    font-size:10px; padding:9px 6px;
-  }
-  .lb-head{
-    color:var(--gold); letter-spacing:1.5px;
-    background:rgba(74,47,6,0.45);
-    border-bottom:1px solid rgba(233,185,73,0.35);
-  }
-  .lb-row{
-    color:var(--text); letter-spacing:1px;
-    border-bottom:1px solid rgba(155,143,168,0.10);
-  }
-  .lb-row:last-of-type{ border-bottom:0; }
-  .lb-row .pip{
-    width:22px; height:22px; display:inline-block;
-    border:1px solid rgba(255,255,255,0.15);
-    image-rendering:pixelated;
-  }
-  .lb-row .tag{ color:var(--gold); }
-  .lb-row .name{ color:var(--text); }
-  .lb-row .score{ color:var(--text); text-align:right; }
-  .lb-row .time{ color:var(--cyan); }
-  .lb-row .pwr{ color:var(--purple); }
-  .lb-row .status{ color:#a8e3a3; }
-
-  .lb-foot{
-    text-align:center; padding:14px 0 6px;
-    color:var(--dim); font-family:'PressStart',monospace;
-    font-size:9px; letter-spacing:1.5px;
-  }
-  .lb-cta{
-    margin-top:10px; padding:14px;
-    border:1px solid var(--gold);
-    color:var(--gold-bright);
-    font-family:'PressStart',monospace; font-size:11px;
-    text-align:center; letter-spacing:2px;
-  }
-
-  /* ---------- Insight grid below the leaderboard ---------- */
-  .lb-insights{
-    display:grid; grid-template-columns:repeat(2,1fr); gap:18px;
-    max-width:860px; margin:0 auto 32px;
-  }
-  .lb-insight{ padding:22px 22px 24px; }
-  .lb-insight .stat{
-    font-family:'PressStart',monospace; font-size:24px;
-    color:var(--gold-bright); margin-bottom:8px;
-    text-shadow:0 2px 0 #4a2f06;
-  }
-  .lb-insight .label{
-    font-family:'PressStart',monospace; font-size:9px;
-    color:var(--crimson-bright); letter-spacing:1.5px;
-    margin-bottom:10px;
-  }
-  .lb-insight p{ color:var(--text); font-size:14px; margin:0; line-height:1.6; }
-
-  @media (max-width:780px){
-    .lb-head, .lb-row{
-      grid-template-columns: 24px 24px 1fr 60px 70px 70px 60px;
-      font-size:8.5px; gap:6px; padding:8px 4px;
-    }
-    .lb-title{ font-size:16px; letter-spacing:2px; }
-    .lb-stats{ font-size:8.5px; }
-    .lb-insights{ grid-template-columns:1fr; }
-  }
-</style>
-
-<section id="post-launch-leaderboard" class="post-launch">
-  <div class="wrap">
-    <div class="divider"><span>&#9670;</span></div>
-    <div class="kicker">POST-LAUNCH VALIDATION &middot; MEASURED ON STEAM</div>
-    <h2>The Leaderboard Says The AI Design Actually Worked</h2>
-    <p class="section-sub">A roguelike with a free-text negotiation system has a lot of places players can quit &mdash; an LLM hangs, an intent doesn't resolve, the council loops. The leaderboard is the empirical answer to whether the fallback-first design held up against real players, not adversarial test runs.</p>
-
-    <!-- ===== Reconstructed leaderboard (live data, v1.5) ===== -->
-    <div class="lb-frame">
-      <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
-
-      <div class="lb-title">RUN LEADERBOARD</div>
-      <div class="lb-stats">
-        Your local best: <span style="color:var(--gold-bright);">9135</span>
-        <span class="dot">&middot;</span>
-        <span style="color:var(--gold-bright);">9</span> local clears
-        <span class="dot">&middot;</span>
-        Global rank: <span style="color:var(--gold-bright);">#10</span>
-      </div>
-
-      <div class="lb-head">
-        <span>#</span><span></span><span>PLAYER</span>
-        <span style="text-align:right;">SCORE</span>
-        <span>TIME</span><span>TOP</span><span>STATUS</span>
-      </div>
-
-      <div class="lb-row">
-        <span>1</span>
-        <span class="pip" style="background:#e8a48a;"></span>
-        <span><span class="tag">[A0]</span> <span class="name">FeEscame</span></span>
-        <span class="score">9299</span>
-        <span class="time">25m 00:</span>
-        <span class="pwr">Pwr 1500</span>
-        <span class="status">&check; CLEAR</span>
-      </div>
-
-      <div class="lb-row">
-        <span>2</span>
-        <span class="pip" style="background:#3d5530;"></span>
-        <span><span class="tag">[A0]</span> <span class="name">Nordlys</span></span>
-        <span class="score">3990</span>
-        <span class="time">15m 36:</span>
-        <span class="pwr">Pwr 1899</span>
-        <span class="status">&check; CLEAR</span>
-      </div>
-
-      <div class="lb-row">
-        <span>3</span>
-        <span class="pip" style="background:#8a6a52;"></span>
-        <span><span class="tag">[A0]</span> <span class="name">syzygy</span></span>
-        <span class="score">3690</span>
-        <span class="time">17m 53:</span>
-        <span class="pwr">Pwr 965</span>
-        <span class="status">&check; CLEAR</span>
-      </div>
-
-      <div class="lb-row">
-        <span>4</span>
-        <span class="pip" style="background:#5a3d2a;"></span>
-        <span><span class="tag">[A0]</span> <span class="name">Vetro</span></span>
-        <span class="score">3591</span>
-        <span class="time">13m 53:</span>
-        <span class="pwr">Pwr 3448</span>
-        <span class="status">&check; CLEAR</span>
-      </div>
-
-      <div class="lb-row">
-        <span>5</span>
-        <span class="pip" style="background:#a89070;"></span>
-        <span><span class="tag">[A0]</span> <span class="name">Nomnombra</span></span>
-        <span class="score">3514</span>
-        <span class="time">21m 23:</span>
-        <span class="pwr">Pwr 1549</span>
-        <span class="status">&check; CLEAR</span>
-      </div>
-
-      <div class="lb-row">
-        <span>6</span>
-        <span class="pip" style="background:#2a2a2a;"></span>
-        <span><span class="tag">[A0]</span> <span class="name">MadKingRo</span></span>
-        <span class="score">3216</span>
-        <span class="time">12m 00:</span>
-        <span class="pwr">Pwr 726</span>
-        <span class="status">&check; CLEAR</span>
-      </div>
-
-      <div class="lb-row">
-        <span>7</span>
-        <span class="pip" style="background:#4e5f78;"></span>
-        <span><span class="tag">[A0]</span> <span class="name">FrozenShi</span></span>
-        <span class="score">2972</span>
-        <span class="time">11m 48:</span>
-        <span class="pwr">Pwr 3255</span>
-        <span class="status">&check; CLEAR</span>
-      </div>
-
-      <div class="lb-row">
-        <span>8</span>
-        <span class="pip" style="background:#c46b40;"></span>
-        <span><span class="tag">[A0]</span> <span class="name">Ameis Ara</span></span>
-        <span class="score">2825</span>
-        <span class="time">45m 16:</span>
-        <span class="pwr">Pwr 589</span>
-        <span class="status">&check; CLEAR</span>
-      </div>
-
-      <div class="lb-row">
-        <span>9</span>
-        <span class="pip" style="background:#7a7a7a;"></span>
-        <span><span class="tag">[A0]</span> <span class="name">tp61tj32c</span></span>
-        <span class="score">2670</span>
-        <span class="time">19m 32:</span>
-        <span class="pwr">Pwr 872</span>
-        <span class="status">&check; CLEAR</span>
-      </div>
-
-      <div class="lb-foot">Click row for run details &middot; Global Top 50</div>
-      <div class="lb-cta">&uarr; Re-upload local best to Steam (9135)</div>
-    </div>
-
-    <p style="text-align:center; color:var(--dim); font-size:12px; margin:-30px auto 40px; max-width:680px;">
-      In-product leaderboard reconstructed in HTML from the live v1.5 capture &middot; data unchanged &middot; every visible entry is a real Steam player.
-    </p>
-
-    <!-- ===== Headline insights ===== -->
-    <div class="lb-insights">
-      <div class="panel lb-insight">
-        <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
-        <div class="label">COMPLETION RATE</div>
-        <div class="stat">86%</div>
-        <p>Of players who started a run, <b>86% finished one</b>. Indie roguelike baselines sit between 10&ndash;25%. The number is the strongest signal that the bounded-latency budget and fallback-first intent classifier are doing their job &mdash; the AI never blocks the player long enough to make them quit.</p>
-      </div>
-      <div class="panel lb-insight">
-        <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
-        <div class="label">TOP-10 STATUS</div>
-        <div class="stat">9 / 9</div>
-        <p>Every visible Top-10 run on the global board is marked <span style="color:#a8e3a3;">&check; CLEAR</span>. Not a single DNF, abandoned save, or stuck state. The "0 dead-end states across the intent model" claim &mdash; previously validated only on adversarial test inputs &mdash; survives contact with real players who never read the design doc.</p>
-      </div>
-      <div class="panel lb-insight">
-        <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
-        <div class="label">TIME VARIANCE</div>
-        <div class="stat">4&times;</div>
-        <p>The fastest clear took <b>11m 48s</b>. The slowest, <b>45m 16s</b>. Same difficulty, same systems &mdash; clear in both. The five-way intent taxonomy (<i>agree / refuse / modify / counter / silence</i>) accommodates a speed-runner who fires <i>agree</i> three times in a row <em>and</em> a player who spends ten minutes per council on <i>modify / counter</i>. Neither play style is penalized.</p>
-      </div>
-      <div class="panel lb-insight">
-        <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
-        <div class="label">POWER VARIANCE</div>
-        <div class="stat">6&times;</div>
-        <p>Top Power across the nine clears ranges from <b>589</b> to <b>3448</b> &mdash; and it does <em>not</em> correlate with rank. The #4-by-score run has the highest power (3448). The #6-by-score run has the lowest power that cleared (726). Players are winning with <b>completely different builds</b>. The AI doesn't gate progress on stat optimization; the keyword fallback resolves intent regardless of how the player chose to build.</p>
-      </div>
-    </div>
-
-    <div class="case">
-
-      <h3>The Headline Number &mdash; 86% Completion Is The Whole Argument</h3>
-      <p>Most player abandonment in dialogue-AI games happens at the exact moment the model fails &mdash; long pause, malformed output, intent resolves to "I don't know what to do." The player stops trusting the screen and closes the tab. <b>The 86% completion rate is the empirical answer to whether that failure mode was actually designed out.</b> If the LLM intent classifier hangs or returns garbage, the deterministic keyword classifier resolves the input in under a second; if both fail, a personality-keyed silence bubble fires and the game continues. The player never gets the "the AI broke" experience because the system never lets the AI's broken-ness reach the surface.</p>
-      <p>Eight-six percent is also the answer to a sharper question: <em>was the &le;8s latency budget actually felt by the player?</em> A latency budget that runs in test mode is a wall in the spec. A latency budget that produces a real completion curve is a property of the shipped product.</p>
-
-      <h3>Top-10 Globally &mdash; Every Single Entry Cleared</h3>
-      <p>The leaderboard column on the right says <span style="color:#a8e3a3;">&check; CLEAR</span> nine times in a row. This is the only column the system would ever show as <em>not</em> a clear (a partial run or abandoned save would surface as IN-PROGRESS or DNF). The fact that every Top-10 player on the global board got to the end credits &mdash; with no exception &mdash; is the production-data version of "0 dead-end states across the intent model." That claim used to live inside adversarial test runs the user never saw. Now it's printed on the leaderboard.</p>
-
-      <h3>The Time Spread &mdash; The Intent Taxonomy Earns Its Vocabulary</h3>
-      <p>A four-times time variance &mdash; <b>11m 48s</b> to <b>45m 16s</b> &mdash; on the same difficulty, all clearing, says the intent system isn't railroading anyone. The fast runs are mostly <i>agree</i> and <i>refuse</i> &mdash; confident binary decisions, no negotiation. The slow runs lean on <i>modify</i> and <i>counter</i> &mdash; back-and-forth, multi-turn, often with <i>silence</i> as a strategic move. <b>Both styles resolve.</b> Both reach the end credits. The five-way taxonomy isn't a UX flourish; it's the reason a 45-minute roleplayer and a 12-minute speed-runner are both on the same leaderboard.</p>
-      <p>The legible AI feedback &mdash; the in-product "herald" that surfaces the intent classification back to the player in plain language &mdash; matters most for the slow runs. A 45-minute player only stays 45 minutes if they trust what the system thinks they're saying. The herald is the trust signal that lets a player spend ten minutes on one council.</p>
-
-      <h3>The Power Spread &mdash; The AI Doesn't Care How You Build</h3>
-      <p>Look at the Power column. <b>Pwr 589</b> at rank 8. <b>Pwr 3448</b> at rank 4. <b>Pwr 726</b> at rank 6, beating Pwr 3255 at rank 7. The numbers go in essentially random directions relative to score and time. <em>That's the proof that the AI layer isn't quietly favoring an optimal build.</em> If the intent classifier was secretly easier to handle when the player's roster was strong, low-power runs wouldn't clear &mdash; they'd stall when the model's confidence dropped on weaker decisions. They don't. They clear. The deterministic keyword pre-pass resolves the negotiation regardless of what the player's army looks like underneath.</p>
-
-      <h3>Score And Time Are Decoupled &mdash; Players Are Rewarded For Engagement, Not Speed</h3>
-      <p>Rank #1 took <b>25 minutes</b> for <b>9,299 points</b>. Rank #7 took <b>11 minutes 48 seconds</b> for <b>2,972 points</b>. Score isn't a time-bonus calculation in disguise &mdash; it's a depth-of-engagement number. More council interactions, more negotiation turns, more anchor-tag moments earned in conversation, more weight. <b>The fact that the top of the leaderboard is the long, deliberate run, not the short one, says the system is paying players to engage with the AI rather than skip past it.</b> That's the opposite of what happens when a dialogue system is broken &mdash; in a broken system, speed-runs always win because every model interaction is friction.</p>
-
-      <h3>What The Data Says The Design Got Right</h3>
-      <p>The leaderboard validates the four claims the case study has been making all along: <b>bounded latency</b> (no abandonment from model hangs &rarr; 86% completion), <b>fallback-first pipeline</b> (no dead-end states &rarr; 100% top-10 clear), <b>intent taxonomy that accommodates play styles</b> (4&times; time variance, all clearing), and <b>legible AI feedback</b> (engagement-rewarding score curve, not speed-rewarding). None of these claims rest on adversarial test inputs anymore. They rest on real Steam players, with real builds, in real first-time sessions, ending in real end-credit screens.</p>
-      <p>The user above (rank #10, local best 9135, 9 local clears) is me. The other nine are not. The leaderboard is a small dataset &mdash; the Steam top-50 board only shows the elite tier &mdash; but it's the dataset that matters: if the players competing for the top score are the ones who pushed hardest on the AI surface and <em>every one of them finished</em>, the design didn't just survive contact with users. It rewarded them for going deeper into it.</p>
-
-      <div class="outcome"><b>OUTCOME:</b> 86% run completion rate &middot; 9 of 9 visible Top-10 clears &middot; 4&times; clear-time variance &middot; 6&times; power variance with no rank correlation &middot; live Steam leaderboard with maker dogfooding ranked #10 globally on local best.</div>
 
     </div>
   </div>
