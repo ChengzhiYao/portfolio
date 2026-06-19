@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>MystNight · AI Game Master — Jestaz Yao</title>
+<meta name="description" content="A live web product where an AI runs a full murder-mystery for two players: it generates a locked hidden case, plays autonomous lying suspects, and adjudicates the accusation — in real time. Shipped, bilingual, monetized." />
+<meta name="theme-color" content="#08080A" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body class="project-page">
+
+<nav class="proj-nav">
+  <a class="proj-nav__brand" href="../index.html">Jestaz<span class="dot"></span></a>
+  <div class="proj-nav__links">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#selected" data-jump="#selected">Works</a>
+    <a href="../index.html#about" data-jump="#about">About</a>
+    <a href="mailto:yxhzdm@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<script src="../js/main.js" defer></script>
+
+<div class="dotgrid"></div>
+<div class="vignette"></div>
+
+<header class="proj-hero">
+  <div class="proj-hero__eyebrow">
+    <span class="swatch"></span>
+    <span>[ SOLO · DESIGN + FULL-STACK · 2026 ]</span>
+  </div>
+  <h1 class="h-display proj-hero__title">An AI that <em>hosts a murder mystery</em> for you and a friend.</h1>
+  <p class="proj-hero__sub">Two players join a room. An AI plays the <strong>host</strong> and the rest of the <strong>suspects</strong> — each with a secret motive. Every case is <strong>generated live</strong>, so it never plays out the same way twice. Shipped as a real product: bilingual, voiced, monetized.</p>
+
+  <div style="display:flex; gap:24px; flex-wrap:wrap; margin-top:8px;">
+    <a class="featured__link" href="https://www.mystnight.com" target="_blank" rel="noopener" data-magnet="0.12">Play the live game →</a>
+    <a class="featured__link is-secondary" href="https://github.com/ChengzhiYao/BoardGame" target="_blank" rel="noopener" data-magnet="0.12">View source ↗</a>
+  </div>
+</header>
+
+<section class="proj-meta">
+  <div class="proj-meta__cell"><span class="k">→ ROLE</span><span class="v">Solo — product, design, frontend, backend, prompt/LLM orchestration, payments, deploy.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ TYPE</span><span class="v">Self-initiated, shipped live product at mystnight.com — with real users, accounts and payments.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ STACK</span><span class="v">Next.js 14 (App Router) · Supabase (Postgres + RLS + Realtime + Auth) · DeepSeek / OpenAI (text) · OpenAI &amp; Azure Neural TTS (voice) · Stripe · Vercel.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ MODES</span><span class="v">AI-hosted murder mystery · Cthulhu-style investigation · lateral-thinking puzzles · party game — four game types, one engine.</span></div>
+</section>
+
+<div class="proj-section">
+  <div class="proj-stats" style="grid-template-columns: repeat(5, 1fr); margin-top: 0;">
+    <div class="proj-stat"><div class="v">2</div><div class="k">players to start</div></div>
+    <div class="proj-stat"><div class="v">5–8</div><div class="k">acts per case</div></div>
+    <div class="proj-stat"><div class="v">∞</div><div class="k">live-generated cases</div></div>
+    <div class="proj-stat"><div class="v">2</div><div class="k">languages (auto)</div></div>
+    <div class="proj-stat"><div class="v">1</div><div class="k">solo dev</div></div>
+  </div>
+</div>
+
+<section class="proj-section">
+  <span class="eyebrow">01 / PROBLEM</span>
+  <h2 class="h-display">A murder-mystery night needs a <em>group</em>, <em>prep</em>, and a <em>human host</em>.</h2>
+  <p class="lede">Scripted mystery kits are great — once you've bought one, scheduled six people, and read the host booklet for an hour. The format barely exists for <strong>two people on a weeknight</strong>, and once you've solved a script, it's spent.</p>
+  <div class="proj-points">
+    <div class="proj-point"><span class="n">→ 01 / PEOPLE</span><h4>You need a full table.</h4><p>Most mystery games fall apart below 4–6 players. Couples and remote pairs are left out.</p></div>
+    <div class="proj-point"><span class="n">→ 02 / A HOST</span><h4>Someone has to run it.</h4><p>A good session needs a game master who knows the truth, paces the reveals, and never breaks. That person can't really play.</p></div>
+    <div class="proj-point"><span class="n">→ 03 / REPLAY</span><h4>One script, one solve.</h4><p>Once you know the culprit, the box is dead. Fixed content doesn't replay.</p></div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">02 / WHAT I BUILT</span>
+  <h2 class="h-display">An <em>AI game master</em> that writes the case, plays the suspects, and runs the table.</h2>
+  <p class="lede">Pick a script and the system generates a complete, self-consistent, <strong>locked</strong> case behind the scenes — truth, culprit, motive, timeline, evidence and red herrings — then runs it as a live multiplayer session.</p>
+  <div class="proj-points" style="grid-template-columns: repeat(2, 1fr); gap: 24px;">
+    <div class="proj-point"><span class="n">→ HIDDEN CASE</span><h4>Locked truth, every suspect framed.</h4><p>For mystery scripts, every character — including the real players — gets a plausible motive and a secret. Only one is the real killer; the rest are deliberate misdirection. The truth is locked at generation and can't drift.</p></div>
+    <div class="proj-point"><span class="n">→ AUTONOMOUS NPCs</span><h4>Suspects that lie and scheme.</h4><p>AI characters act on their own goals: they accuse, defend, form alliances, and actively try to frame others — including you. They never speak for the real players, and they're influenced by what's actually said at the table.</p></div>
+    <div class="proj-point"><span class="n">→ REAL-TIME DUO</span><h4>Two humans, one link.</h4><p>Your friend clicks a link and joins instantly — no install, no signup. Private role info is isolated per player; public scene is shared and synced live.</p></div>
+    <div class="proj-point"><span class="n">→ VOICE + SCORING</span><h4>Read aloud, then graded.</h4><p>Optional neural TTS reads narration and each character in a distinct, gender-matched voice. At the end, every player gets a multi-metric scorecard on deduction, roleplay and key calls.</p></div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">03 / ENGINEERING</span>
+  <h2 class="h-display">The hard part isn't a chatbot. It's making an LLM run a <em>fair game</em>.</h2>
+  <div class="proj-points">
+    <div class="proj-point"><span class="n">→ STRUCTURED OUTPUT</span><h4>JSON the game can trust.</h4><p>Every turn returns strict JSON (narration, NPC lines, revealed evidence, private notes, act state) with schema enforcement, retry, and an OpenAI fallback when the primary model filters or truncates.</p></div>
+    <div class="proj-point"><span class="n">→ TRUTH INTEGRITY</span><h4>The answer can't move.</h4><p>The full case is generated once and stored server-side only; the host model is fed the secret file but is hard-blocked from leaking it, from spoon-feeding clues, and from impersonating real players (prompt + server-side filtering).</p></div>
+    <div class="proj-point"><span class="n">→ PACING ENGINE</span><h4>Acts on a real clock.</h4><p>5–8 AI-designed acts advance on a live timer (or host control), gated so you can only skip ahead once the act's key clue is actually found. Clues only surface on genuine investigation, never on autopilot.</p></div>
+    <div class="proj-point"><span class="n">→ SYNC + FALLBACK</span><h4>Resilient multiplayer.</h4><p>Supabase Realtime drives instant updates, with a polling fallback so invited (anonymous) players never desync — a bug I only caught by playing on two devices.</p></div>
+    <div class="proj-point"><span class="n">→ VOICE PIPELINE</span><h4>Provider-agnostic TTS.</h4><p>One endpoint, swappable between OpenAI and Azure neural voices by env flag, with per-character voice selection by gender and hash, a sequential playback queue, and storage caching so a line is never re-synthesized.</p></div>
+    <div class="proj-point"><span class="n">→ BILLING</span><h4>Free to try, then credits.</h4><p>Stripe credit packs for hosting, Google OAuth, a per-account credit ledger with webhook dedup, a free first game for every new account, and invited guests always free.</p></div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">04 / SHIPPED</span>
+  <h2 class="h-display">Not a demo — a <em>product</em> with users, payments and a domain.</h2>
+  <div class="proj-points" style="grid-template-columns: repeat(2, 1fr); gap: 24px;">
+    <div class="proj-point"><span class="n">→ LIVE</span><h4>mystnight.com</h4><p>Custom domain, auto HTTPS, bilingual UI that auto-detects the browser language, link-preview cards, and a private live-analytics panel for the operator.</p></div>
+    <div class="proj-point"><span class="n">→ FROM 0 → 1</span><h4>Whole loop, solo.</h4><p>Design, full-stack build, LLM orchestration, voice, payments, auth, deploy, and growth — one person, end to end.</p></div>
+  </div>
+</section>
+
+<nav class="proj-next">
+  <div>
+    <span class="label">[ PREVIOUS ]</span>
+    <a href="director.html" data-magnet="0.1">← Director · <span class="sub">Supply Chain MAS</span></a>
+  </div>
+  <div style="text-align:right;">
+    <span class="label">[ NEXT ]</span>
+    <a href="rag.html" data-magnet="0.1">Visual <span class="sub">RAG Memory Map</span> →</a>
+  </div>
+</nav>
+
+<footer class="site-foot">
+  <div class="site-foot__grid">
+    <div class="site-foot__brand">
+      <div class="h-display">Jestaz Yao</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--mute);">[ PRODUCT DESIGNER · NYC ]</div>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ WORK</span>
+      <a href="mystnight.html">MystNight · AI Game Master</a>
+      <a href="director.html">Director · Supply Chain MAS</a>
+      <a href="../index.html#selected">All projects</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ ELSEWHERE</span>
+      <a href="https://www.linkedin.com/in/jestaz/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../Jestaz_Yao_Resume_2026.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ CONTACT</span>
+      <a href="mailto:yxhzdm@gmail.com">yxhzdm@gmail.com</a>
+    </div>
+  </div>
+  <div class="site-foot__legal">
+    <span>[ © 2026 JESTAZ YAO ]</span>
+    <span>NEW YORK CITY · WORKING GLOBALLY</span>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
