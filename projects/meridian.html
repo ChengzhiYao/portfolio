@@ -100,6 +100,15 @@
   .fig-scroll{margin-top:14px;height:520px;overflow:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 20px 60px rgba(0,0,0,.4)}
   .fig-scroll img{width:100%;display:block}
   @media(max-width:760px){.fig-grid{grid-template-columns:1fr}}
+  .feat{display:grid;grid-template-columns:.82fr 1.18fr;gap:28px;align-items:center;padding:30px 0;border-top:1px solid var(--line)}
+  .feat__copy .n{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--gold)}
+  .feat__copy h3{font-family:var(--display);font-size:22px;font-weight:500;color:var(--text);margin:8px 0 10px;letter-spacing:-.015em}
+  .feat__copy p{font-size:14.5px;line-height:1.6;color:var(--text-2);margin:0 0 12px}
+  .feat__pts{list-style:none;padding:0;margin:0}
+  .feat__pts li{font-size:13.5px;color:var(--text-2);padding:5px 0 5px 18px;position:relative}
+  .feat__pts li:before{content:'→';position:absolute;left:0;color:var(--gold)}
+  .feat__demo .embed-app{height:470px}
+  @media(max-width:860px){.feat{grid-template-columns:1fr;gap:14px}}
 </style>
 </head>
 <body class="project-page">
@@ -203,21 +212,11 @@
   <span class="eyebrow">00 / OVERVIEW</span>
   <h2 class="h-display" style="margin-top:12px;">One system, <em>two surfaces</em>, kept in sync.</h2>
   <p class="lede">Most "design systems" are sticker sheets. Meridian is a single source of truth that drives both the Figma files and a running product — I built it end-to-end to prove I can <strong>operate</strong> one, not just draw one.</p>
-  <div id="sw">
-    <div class="sw__tabs">
-      <button class="sw__tab is-on" data-r="/overview" data-n="the daily snapshot — four KPICard instances, a CashFlow area chart, the Balance donut and the 4-agent AI insight row. Every block is a library component.">Overview</button>
-      <button class="sw__tab" data-r="/insights" data-n="AI-surfaced trends — stat cards, the shared chart + donut, and a Key-insights row reusing the same insight / recommendation / alert cards.">Insights</button>
-      <button class="sw__tab" data-r="/assistant" data-n="the 4-agent copilot — ChatBubble instances (role variant), suggestion chips and a composer. Ask it something; it routes to Analyst / Risk / Forecaster / Advisor.">AI Assistant</button>
-      <button class="sw__tab" data-r="/transactions" data-n="a real data table — search, Status / Date / Account filters, Badge tones for category and status, pagination. Try filtering it.">Transactions</button>
-      <button class="sw__tab" data-r="/payments" data-n="a transfer flow — a 4-step stepper, a transfer-details form (Select / Input / amount) and a live Review summary card.">Payments</button>
-    </div>
-    <p class="sw__note" id="swNote"><strong>Overview — </strong>the daily snapshot — four KPICard instances, a CashFlow area chart, the Balance donut and the 4-agent AI insight row. Every block is a library component.</p>
-    <div class="embed-frame">
-      <div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u" id="swUrl">meridian.app/overview · live</span></div>
-      <iframe class="embed-app" id="swFrame" src="../meridian-app/index.html#/overview" title="Meridian — live and interactive" loading="lazy"></iframe>
-    </div>
-    <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:10px;">↑ LIVE &amp; INTERACTIVE — NOT A SCREENSHOT. PICK A TAB, THEN USE THE REAL APP.</p>
+  <div class="embed-frame">
+    <div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/overview · live</span></div>
+    <iframe class="embed-app" src="../meridian-app/index.html#/overview" title="Meridian Overview — live and interactive" loading="lazy"></iframe>
   </div>
+  <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:10px;">↑ THE LIVE PRODUCT — NOT A SCREENSHOT. CLICK THE SIDEBAR TO MOVE BETWEEN SCREENS; FEATURE-BY-FEATURE WALKTHROUGH BELOW.</p>
 </div>
 
 <div class="proj-section">
@@ -248,8 +247,7 @@
     <img src="../site-media/meridian/figma/foundations.png" alt="Figma Foundations — color, type, spacing, elevation and data-viz tokens" loading="lazy"/>
     <img src="../site-media/meridian/figma/button-set.png" alt="Figma Button component set — 15 variants, Variant × Size" loading="lazy"/>
   </div>
-  <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:18px;">↓ THE COMPONENT BOARD — SCROLL THE ACTUAL FILE.</p>
-  <div class="fig-scroll"><img src="../site-media/meridian/figma/components-board.png" alt="Figma Components page — the full component library board"/></div>
+  <p style="margin-top:18px;color:var(--text-2);font-size:14.5px;line-height:1.6;">Every component in that file is rebuilt as real React code — the entire library, all 35+ components and their variants, runs live in <strong style="color:var(--text)">“The design system · live”</strong> section above (with a working dark-mode toggle). No screenshots of the component board — the real thing.</p>
 </section>
 
 <section class="proj-section">
@@ -326,9 +324,71 @@
 </section>
 
 <section class="proj-section">
-  <span class="eyebrow">04 / THE FULL SET</span>
-  <h2 class="h-display">Ten screens, <em>all from the same parts</em>.</h2>
-  <p>No screen owns a bespoke component — each is pure composition over the library. The featured five are live above; here's the whole product and what each is assembled from:</p>
+  <span class="eyebrow">04 / FEATURE WALKTHROUGH</span>
+  <h2 class="h-display">Not screenshots — <em>working features</em>, each explained.</h2>
+  <p class="lede">Four of the ten screens, live and interactive right here. Read what each does, then use it — click, filter, paginate, chat.</p>
+
+  <div class="feat">
+    <div class="feat__copy">
+      <span class="n">→ AI ASSISTANT</span>
+      <h3>A 4-agent treasury copilot, grounded in the data.</h3>
+      <p>Ask in plain English; the question routes to the right specialists and the Advisor answers — with the agents it used shown as tags.</p>
+      <ul class="feat__pts">
+        <li>Tap a suggestion — “Analyze cash flow”, “Find unusual expenses”, “Forecast Q4”.</li>
+        <li>Routes across Analyst · Risk · Forecaster · Advisor.</li>
+        <li>Right rail surfaces live AI insights &amp; recommendations.</li>
+      </ul>
+    </div>
+    <div class="feat__demo"><div class="embed-frame"><div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/assistant · live</span></div>
+      <iframe class="embed-app" src="../meridian-app/index.html#/assistant" title="AI Assistant — live" loading="lazy"></iframe></div></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat__copy">
+      <span class="n">→ TRANSACTIONS</span>
+      <h3>A real data table, not a picture of one.</h3>
+      <p>Search, filter and page through activity across accounts — every cell built from library components.</p>
+      <ul class="feat__pts">
+        <li>Search by merchant or category — rows update as you type.</li>
+        <li>Cycle the Status filter (All / Completed / Pending / Failed).</li>
+        <li>Badge tones encode category &amp; status; paginate the footer.</li>
+      </ul>
+    </div>
+    <div class="feat__demo"><div class="embed-frame"><div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/transactions · live</span></div>
+      <iframe class="embed-app" src="../meridian-app/index.html#/transactions" title="Transactions — live" loading="lazy"></iframe></div></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat__copy">
+      <span class="n">→ PAYMENTS</span>
+      <h3>A guided transfer flow that totals as you type.</h3>
+      <p>A four-step stepper, a transfer-details form, and a Review card that recomputes live.</p>
+      <ul class="feat__pts">
+        <li>Switch the From / To accounts.</li>
+        <li>Edit the amount — the Review summary updates instantly.</li>
+        <li>Stepper: Account ✓ · Verify ✓ · Fund · Review.</li>
+      </ul>
+    </div>
+    <div class="feat__demo"><div class="embed-frame"><div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/payments · live</span></div>
+      <iframe class="embed-app" src="../meridian-app/index.html#/payments" title="Payments — live" loading="lazy"></iframe></div></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat__copy">
+      <span class="n">→ REPORTS</span>
+      <h3>Stat cards over a typed report table.</h3>
+      <p>Month-to-date stats (note the live “Scheduled” badge) above a status-coded report table.</p>
+      <ul class="feat__pts">
+        <li>Four KPI-style stat cards with trend pills.</li>
+        <li>Status badges: Completed / Processing / Failed.</li>
+        <li>Type badges brand the Financial reports.</li>
+      </ul>
+    </div>
+    <div class="feat__demo"><div class="embed-frame"><div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/reports · live</span></div>
+      <iframe class="embed-app" src="../meridian-app/index.html#/reports" title="Reports — live" loading="lazy"></iframe></div></div>
+  </div>
+
+  <p style="margin-top:30px;">The full set — all ten, every one pure composition over the library:</p>
   <div class="comp-grid">
     <div class="comp"><b>Overview</b>KPI cards · chart · donut · AI insights</div>
     <div class="comp"><b>Accounts</b>page-header card · data table</div>
