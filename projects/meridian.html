@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Meridian — Treasury Design System · Jestaz Yao</title>
+<meta name="description" content="A 3-tier tokenized design system with 179 governed Figma components, published as a real React library and consumed by a working banking dashboard — design and code linked through Code Connect." />
+<meta name="theme-color" content="#08080A" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/styles.css" />
+<style>
+  /* ── token swatch strip ── */
+  .tok-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .tok{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--text-2);
+    border:1px solid var(--line);border-radius:6px;padding:6px 10px}
+  .tok i{width:14px;height:14px;border-radius:4px;display:block}
+
+  /* ── three-tier / layer rows ── */
+  .layer-row{display:grid;grid-template-columns:96px 1fr;gap:28px;padding:22px 0;border-top:1px solid var(--line)}
+  .layer-row .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--gold)}
+  .layer-row .head{font-family:var(--display);font-size:22px;font-weight:500;color:var(--text);margin-bottom:8px;letter-spacing:-.015em}
+  .layer-row p{font-size:14.5px;line-height:1.6;color:var(--text-2);margin:0}
+  .layer-row p strong{color:var(--text)}
+  @media(max-width:900px){.layer-row{grid-template-columns:1fr;gap:8px}}
+
+  /* ── animated Meridian mini-dashboard ── */
+  .md-frame{margin-top:30px;border-radius:14px;overflow:hidden;border:1px solid var(--line);
+    box-shadow:0 30px 80px rgba(0,0,0,.45);background:#F7F8FA;font-family:'Geist',system-ui,sans-serif}
+  .md-bar{height:34px;background:#fff;border-bottom:1px solid #E6E9EF;display:flex;align-items:center;gap:6px;padding:0 12px}
+  .md-bar i{width:9px;height:9px;border-radius:50%}
+  .md-bar .u{margin-left:10px;font-family:'Geist Mono',monospace;font-size:10px;color:#9BA3B4}
+  .md-body{padding:18px}
+  .md-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .md-kpi{background:#fff;border:1px solid #E6E9EF;border-radius:10px;padding:12px}
+  .md-kpi .l{font-size:10px;color:#6E7686;font-weight:500}
+  .md-kpi .n{font-size:19px;font-weight:600;color:#161A20;margin-top:5px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .md-kpi .d{display:inline-flex;align-items:center;gap:3px;margin-top:6px;font-size:10px;font-weight:600;
+    background:#E7F8EF;color:#0C7741;border-radius:999px;padding:2px 7px}
+  .md-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:10px;margin-top:10px}
+  .md-card{background:#fff;border:1px solid #E6E9EF;border-radius:10px;padding:14px}
+  .md-card .t{font-size:12px;font-weight:600;color:#161A20}
+  .md-card .s{font-size:10px;color:#9BA3B4;margin-top:1px}
+  .md-chart{width:100%;height:108px;margin-top:8px}
+  .md-line{fill:none;stroke-width:2.2;stroke-dasharray:360;stroke-dashoffset:360}
+  .md-area{opacity:0;transition:opacity .9s ease .5s}
+  .md-donut{display:block;margin:2px auto}
+  .md-seg{fill:none;stroke-width:13;stroke-dasharray:0 340;transition:stroke-dasharray .9s cubic-bezier(.4,0,.2,1)}
+  .md-dctr{font-size:15px;font-weight:600;fill:#161A20;font-variant-numeric:tabular-nums}
+  .md-ai{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+  .md-ai .c{background:#fff;border:1px solid #E6E9EF;border-radius:10px;padding:11px;opacity:0;transform:translateY(12px)}
+  .md-ai .c.r{background:#FDECEC;border-color:transparent}
+  .md-ai .c.b{border-color:#2E5CE6;box-shadow:0 0 0 3px rgba(46,92,229,.12)}
+  .md-tag{display:inline-block;font-size:9px;font-weight:600;border-radius:999px;padding:2px 7px;background:#ECF2FF;color:#1D43B8}
+  .md-tag.g{background:#E7F8EF;color:#0C7741}.md-tag.d{background:#FDECEC;color:#B92B30}
+  .md-ai .c .h{font-size:12px;font-weight:600;color:#161A20;margin-top:7px;line-height:1.3}
+  .md-ai .c .p{font-size:10px;color:#515868;margin-top:4px;line-height:1.45}
+  .md-agents{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+  .md-agent{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.06em;color:#1D43B8;background:#ECF2FF;
+    border-radius:999px;padding:3px 9px;opacity:.45}
+  .play .md-line{animation:mdDraw 1.5s ease forwards}
+  .play .md-line.out{animation-delay:.25s}
+  .play .md-area{opacity:1}
+  .play .md-seg.op{stroke-dasharray:142.5 340;transition-delay:.15s}
+  .play .md-seg.rs{stroke-dasharray:95 340;transition-delay:.35s}
+  .play .md-seg.pr{stroke-dasharray:61 340;transition-delay:.55s}
+  .play .md-seg.fx{stroke-dasharray:40.7 340;transition-delay:.75s}
+  .play .md-ai .c{animation:mdRise .6s ease forwards}
+  .play .md-ai .c:nth-child(1){animation-delay:.55s}
+  .play .md-ai .c:nth-child(2){animation-delay:.7s}
+  .play .md-ai .c:nth-child(3){animation-delay:.85s}
+  .play .md-agent{animation:mdPulse 2.4s ease-in-out infinite}
+  .play .md-agent:nth-child(2){animation-delay:.3s}.play .md-agent:nth-child(3){animation-delay:.6s}.play .md-agent:nth-child(4){animation-delay:.9s}
+  @keyframes mdDraw{to{stroke-dashoffset:0}}
+  @keyframes mdRise{to{opacity:1;transform:translateY(0)}}
+  @keyframes mdPulse{0%,100%{opacity:.4}50%{opacity:1}}
+  @media(max-width:720px){.md-kpis{grid-template-columns:repeat(2,1fr)}.md-grid,.md-ai{grid-template-columns:1fr}}
+
+  .comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:22px}
+  .comp{border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:var(--mono);font-size:11px;color:var(--text-2)}
+  .comp b{display:block;font-family:'Geist',sans-serif;font-size:13px;color:var(--text);font-weight:500;margin-bottom:3px}
+</style>
+</head>
+<body class="project-page">
+
+<nav class="proj-nav">
+  <a class="proj-nav__brand" href="../index.html">Jestaz<span class="dot"></span></a>
+  <div class="proj-nav__links">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#selected" data-jump="#selected">Works</a>
+    <a href="../index.html#about" data-jump="#about">About</a>
+    <a href="mailto:yxhzdm@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<script src="../js/main.js" defer></script>
+
+<div class="dotgrid"></div>
+<div class="vignette"></div>
+
+<header class="proj-hero">
+  <div class="proj-hero__eyebrow">
+    <span class="swatch"></span>
+    <span>[ DESIGN SYSTEMS · SOLO · 2026 ]</span>
+  </div>
+  <h1 class="h-display proj-hero__title">A treasury design system that <em>ships as a product.</em></h1>
+  <p class="proj-hero__sub">A 3-tier <strong>tokenized</strong> design system — 179 governed Figma components, published as a real React library, and <strong>consumed</strong> by a working banking dashboard. Design and code stay one system, linked through <strong>Code Connect</strong>.</p>
+
+  <div style="display:flex; gap:24px; flex-wrap:wrap; margin-top:8px;">
+    <a class="featured__link" href="REPLACE_WITH_VERCEL_URL" target="_blank" rel="noopener" data-magnet="0.12">Try the live demo →</a>
+    <a class="featured__link is-secondary" href="https://github.com/ChengzhiYao/meridian-design-system" target="_blank" rel="noopener" data-magnet="0.12">View source ↗</a>
+  </div>
+
+  <div class="tok-row">
+    <span class="tok"><i style="background:#2E5CE6"></i>brand/solid</span>
+    <span class="tok"><i style="background:#119651"></i>success</span>
+    <span class="tok"><i style="background:#CE8400"></i>warning</span>
+    <span class="tok"><i style="background:#DA3A3F"></i>danger</span>
+    <span class="tok"><i style="background:#161A20"></i>text/primary</span>
+    <span class="tok"><i style="background:#DFE3EA"></i>border/default</span>
+    <span class="tok">86 + 81 + 89 tokens · light / dark</span>
+  </div>
+
+  <!-- ░░ animated mini-dashboard (live HTML/CSS, no images) ░░ -->
+  <div class="md-frame" id="mdStage">
+    <div class="md-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app / overview</span></div>
+    <div class="md-body">
+      <div class="md-kpis">
+        <div class="md-kpi"><div class="l">Total Balance</div><div class="n" data-to="2847250" data-pre="$">$0</div><div class="d">↗ 12.5%</div></div>
+        <div class="md-kpi"><div class="l">Monthly Income</div><div class="n" data-to="486200" data-pre="$">$0</div><div class="d">↗ 8.2%</div></div>
+        <div class="md-kpi"><div class="l">Monthly Expenses</div><div class="n" data-to="312940" data-pre="$">$0</div><div class="d" style="background:#FDECEC;color:#B92B30">↘ 4.7%</div></div>
+        <div class="md-kpi"><div class="l">Net Cash Flow</div><div class="n" data-to="173260" data-pre="$">$0</div><div class="d">↗ 21.4%</div></div>
+      </div>
+      <div class="md-grid">
+        <div class="md-card">
+          <div class="t">Cash Flow</div><div class="s">Inflow vs outflow · last 12 months</div>
+          <svg class="md-chart" viewBox="0 0 320 120" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="mdIn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E5CE6" stop-opacity=".28"/><stop offset="1" stop-color="#2E5CE6" stop-opacity="0"/></linearGradient>
+              <linearGradient id="mdOut" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CE8400" stop-opacity=".22"/><stop offset="1" stop-color="#CE8400" stop-opacity="0"/></linearGradient>
+            </defs>
+            <path class="md-area" fill="url(#mdIn)" d="M8,80 35.6,76 63.3,77 90.9,70 118.5,66 146.2,62 173.8,64 201.5,55 229.1,50 256.7,46 284.4,40 312,52 V120 H8 Z"/>
+            <path class="md-area" fill="url(#mdOut)" d="M8,95 35.6,92 63.3,90 90.9,88 118.5,85 146.2,82 173.8,84 201.5,80 229.1,78 256.7,75 284.4,72 312,82 V120 H8 Z"/>
+            <polyline class="md-line" stroke="#2E5CE6" points="8,80 35.6,76 63.3,77 90.9,70 118.5,66 146.2,62 173.8,64 201.5,55 229.1,50 256.7,46 284.4,40 312,52"/>
+            <polyline class="md-line out" stroke="#CE8400" points="8,95 35.6,92 63.3,90 90.9,88 118.5,85 146.2,82 173.8,84 201.5,80 229.1,78 256.7,75 284.4,72 312,82"/>
+          </svg>
+        </div>
+        <div class="md-card">
+          <div class="t">Balance by Account</div>
+          <svg class="md-donut" width="150" height="150" viewBox="0 0 150 150">
+            <g transform="rotate(-90 75 75)">
+              <circle class="md-seg op" cx="75" cy="75" r="54" stroke="#2E5CE6" style="stroke-dashoffset:0"/>
+              <circle class="md-seg rs" cx="75" cy="75" r="54" stroke="#119651" style="stroke-dashoffset:-142.5"/>
+              <circle class="md-seg pr" cx="75" cy="75" r="54" stroke="#7C5CFC" style="stroke-dashoffset:-237.5"/>
+              <circle class="md-seg fx" cx="75" cy="75" r="54" stroke="#CE8400" style="stroke-dashoffset:-298.5"/>
+            </g>
+            <text class="md-dctr" x="75" y="80" text-anchor="middle">$2.85M</text>
+          </svg>
+        </div>
+      </div>
+      <div class="md-ai">
+        <div class="c"><span class="md-tag">+ AI generated</span><span class="md-tag g" style="float:right">High</span><div class="h">Expenses up 14% this month</div><div class="p">Software &amp; cloud drove most of the increase vs. your 3-month average.</div></div>
+        <div class="c r"><span class="md-tag d">⚠ Risk</span><div class="h">Unusual payroll spike</div><div class="p">Payroll is 38% above the typical cycle. Review before approving.</div></div>
+        <div class="c b"><span class="md-tag">+ Recommendation</span><div class="h">Move $40,000 to Reserve</div><div class="p">Operating is trending toward your $50K threshold by month-end.</div></div>
+      </div>
+      <div class="md-agents">
+        <span class="md-agent">◆ ANALYST</span><span class="md-agent">◆ RISK</span><span class="md-agent">◆ FORECASTER</span><span class="md-agent">◆ ADVISOR</span>
+      </div>
+    </div>
+  </div>
+  <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:10px;text-align:center;">↑ LIVE HTML/CSS — NOT AN IMAGE · BUILT FROM THE SAME TOKENS AS THE PRODUCT</p>
+</header>
+
+<section class="proj-meta">
+  <div class="proj-meta__cell"><span class="k">→ ROLE</span><span class="v">Solo — design system architecture, Figma component library, token pipeline, and the React product that consumes it.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ TYPE</span><span class="v">Self-initiated, interview-grade build. Sample client: "Meridian Bank" corporate treasury.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ STACK</span><span class="v">Figma Variables + Code Connect · React · Vite · Tailwind (token preset) · Recharts · Node/Express + OpenAI (4-agent layer).</span></div>
+  <div class="proj-meta__cell"><span class="k">→ SURFACES</span><span class="v">10 functional product screens · 179 Figma components/sets · one published code library.</span></div>
+</section>
+
+<div class="proj-section">
+  <span class="eyebrow">00 / OVERVIEW</span>
+  <h2 class="h-display" style="margin-top:12px;">One system, <em>two surfaces</em>, kept in sync.</h2>
+  <p class="lede">Most "design systems" are sticker sheets. Meridian is a single source of truth that drives both the Figma files and a running product — I built it end-to-end to prove I can <strong>operate</strong> one, not just draw one.</p>
+  <div class="media-full"><img src="../site-media/meridian/insights.png" alt="Meridian Insights screen — KPI cards, cash-flow chart, balance donut and AI insight cards" loading="lazy"/></div>
+</div>
+
+<div class="proj-section">
+  <div class="proj-stats" style="grid-template-columns:repeat(5,1fr);margin-top:0;">
+    <div class="proj-stat"><div class="v">179</div><div class="k">Figma components / sets</div></div>
+    <div class="proj-stat"><div class="v">3-tier</div><div class="k">token system</div></div>
+    <div class="proj-stat"><div class="v">10</div><div class="k">functional screens</div></div>
+    <div class="proj-stat"><div class="v">1 : 1</div><div class="k">Figma ↔ code · Code Connect</div></div>
+    <div class="proj-stat"><div class="v">100%</div><div class="k">app UI imported from library</div></div>
+  </div>
+</div>
+
+<section class="proj-section">
+  <span class="eyebrow">01 / THE THESIS</span>
+  <h2 class="h-display">Proof you <em>use</em> a system, not just make one.</h2>
+  <p class="lede">The hard part of a design system isn't the components — it's the discipline that keeps design and code one thing as the product grows.</p>
+  <div class="proj-points">
+    <div class="proj-point"><span class="n">→ 01 / TOKENS</span><h4>Nothing is hard-coded.</h4><p>Every color, radius and space binds to a variable. Change a token once and both Figma and the live app move together.</p></div>
+    <div class="proj-point"><span class="n">→ 02 / INSTANCES</span><h4>Screens are composed, not drawn.</h4><p>In Figma, screens contain only instances. In code, pages import only library components. No hand-built blocks on either side.</p></div>
+    <div class="proj-point"><span class="n">→ 03 / THE BRIDGE</span><h4>Design points at code.</h4><p>Code Connect maps each Figma component to its real code component, so Dev Mode shows the exact import + props.</p></div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">02 / THE SYSTEM</span>
+  <h2 class="h-display"><em>Tokens</em> → <em>Components</em> → <em>Patterns</em> → <em>Product</em>.</h2>
+
+  <div class="layer-row"><span class="lbl">01 · TOKENS</span><div>
+    <div class="head">One source, two surfaces.</div>
+    <p>Primitives → Semantic (Light/Dark) → Component. The same values live as Figma Variables and as CSS variables + a Tailwind preset in code — <strong>86 + 81 + 89 tokens</strong> across the three tiers.</p>
+  </div></div>
+  <div class="layer-row"><span class="lbl">02 · COMPONENTS</span><div>
+    <div class="head">Built once, in the library.</div>
+    <p>179 components/sets in Figma. The product consumes a focused set, each a real export in <strong>@jestaz/design-system</strong>.</p>
+    <div class="comp-grid">
+      <div class="comp"><b>Button</b>Variant × Size</div>
+      <div class="comp"><b>KPICard</b>Trend up / down</div>
+      <div class="comp"><b>BankCard</b>chip · masked PAN</div>
+      <div class="comp"><b>Badge</b>6 tones</div>
+      <div class="comp"><b>Input</b>4 states</div>
+      <div class="comp"><b>NavItem</b>active</div>
+      <div class="comp"><b>ChatBubble</b>role</div>
+      <div class="comp"><b>Charts</b>area · donut</div>
+    </div>
+  </div></div>
+  <div class="layer-row"><span class="lbl">03 · PATTERNS</span><div>
+    <div class="head">Composition with discipline.</div>
+    <p>Top bar, sidebar nav, page-header cards, page states, stat groups — all components, never loose frames. Screens assemble from instances only.</p>
+  </div></div>
+  <div class="layer-row"><span class="lbl">04 · PRODUCT</span><div>
+    <div class="head">The system in use.</div>
+    <p>A Meridian Bank treasury dashboard — 10 screens, a detailed simulated user, and a 4-agent AI layer (Analyst · Risk · Forecaster · Advisor). <strong>The app imports 100% of its UI from the library;</strong> the page files are pure composition.</p>
+  </div></div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">03 / THE BRIDGE</span>
+  <h2 class="h-display">Figma and code, <em>pointing at each other</em>.</h2>
+  <p>Code Connect maps each Figma component to its code component and translates variant props to code props. After publishing, Dev Mode shows the real snippet for that node — design hands off to engineering with zero translation.</p>
+  <div class="media-mid" style="padding:28px;background:var(--bg-2);border:1px solid var(--line);border-radius:6px;font-family:var(--mono);font-size:13px;color:var(--text-2);line-height:1.7;">
+    <span style="color:var(--mute)">// Button.figma.jsx — committed in the repo</span><br/>
+    figma.connect(Button, <span style="color:var(--gold)">'…?node-id=46-22'</span>, {<br/>
+    &nbsp;&nbsp;props: {<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;variant: figma.enum(<span style="color:var(--gold)">'Variant'</span>, { Primary:<span style="color:var(--gold)">'primary'</span>, … }),<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;size: figma.enum(<span style="color:var(--gold)">'Size'</span>, { Small:<span style="color:var(--gold)">'sm'</span>, Medium:<span style="color:var(--gold)">'md'</span>, Large:<span style="color:var(--gold)">'lg'</span> }),<br/>
+    &nbsp;&nbsp;},<br/>
+    &nbsp;&nbsp;example: (p) =&gt; &lt;Button variant={p.variant} size={p.size}&gt;Label&lt;/Button&gt;,<br/>
+    });
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">04 / SCREENS</span>
+  <h2 class="h-display">Ten screens, <em>all from the same parts</em>.</h2>
+  <p>Overview, Accounts, Cards, Payments, Transactions, Reports, Insights, AI Assistant, Settings, Support — every one assembled from the library, in light and dark.</p>
+  <div class="media-mid"><img src="../site-media/meridian/assistant.png" alt="Meridian AI Assistant — 4-agent treasury copilot with an AI-insights sidebar" loading="lazy"/></div>
+  <div class="media-mid"><img src="../site-media/meridian/transactions.png" alt="Meridian Transactions — filterable data table with status and category badges" loading="lazy"/></div>
+  <div class="media-mid"><img src="../site-media/meridian/reports.png" alt="Meridian Reports — stat cards and a reports data table" loading="lazy"/></div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">05 / WHAT I LEARNED</span>
+  <h2 class="h-display">Three things, building a system that ships.</h2>
+  <div class="proj-points">
+    <div class="proj-point"><span class="n">→ 01</span><h4>Consumption is the <em style="color:var(--gold);font-style:normal;">real</em> test.</h4><p>A library only proves itself when a product imports it and the page code becomes pure composition. That's the line between redrawing and operating.</p></div>
+    <div class="proj-point"><span class="n">→ 02</span><h4>Tokens are the <em style="color:var(--gold);font-style:normal;">contract</em>.</h4><p>When both surfaces bind to the same variables, "update the brand color" is one change, not a migration.</p></div>
+    <div class="proj-point"><span class="n">→ 03</span><h4>Governance beats <em style="color:var(--gold);font-style:normal;">volume</em>.</h4><p>179 components only stay coherent because of one rule: if it can appear twice, it's a component — never a frame.</p></div>
+  </div>
+</section>
+
+<nav class="proj-next">
+  <div>
+    <span class="label">[ PREVIOUS ]</span>
+    <a href="rag.html" data-magnet="0.1">← Visual <span class="sub">RAG Memory Map</span></a>
+  </div>
+  <div style="text-align:right;">
+    <span class="label">[ NEXT ]</span>
+    <a href="aipattern.html" data-magnet="0.1">The <span class="sub">Translator Pattern</span> →</a>
+  </div>
+</nav>
+
+<footer class="site-foot">
+  <div class="site-foot__grid">
+    <div class="site-foot__brand">
+      <div class="h-display">Jestaz Yao</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--mute);">[ PRODUCT DESIGNER · NYC ]</div>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ WORK</span>
+      <a href="meridian.html">Meridian · Treasury Design System</a>
+      <a href="rag.html">Visual RAG Memory Map</a>
+      <a href="../index.html#selected">All projects</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ ELSEWHERE</span>
+      <a href="https://www.linkedin.com/in/jestaz/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../Jestaz_Yao_Resume_2026.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ CONTACT</span>
+      <a href="mailto:yxhzdm@gmail.com">yxhzdm@gmail.com</a>
+    </div>
+  </div>
+  <div class="site-foot__legal">
+    <span>[ © 2026 JESTAZ YAO ]</span>
+    <span>NEW YORK CITY · WORKING GLOBALLY</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var stage = document.getElementById('mdStage');
+    if(!stage) return;
+    function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+    function countUp(){
+      stage.querySelectorAll('.md-kpi .n').forEach(function(el){
+        var to = +el.getAttribute('data-to'), dur = 1400, t0 = null;
+        function step(t){ if(!t0) t0 = t; var k = Math.min((t-t0)/dur,1); var e = 1-Math.pow(1-k,3);
+          el.textContent = fmt(to*e); if(k<1) requestAnimationFrame(step); }
+        requestAnimationFrame(step);
+      });
+    }
+    var done = false;
+    function play(){ if(done) return; done = true; stage.classList.add('play'); countUp(); }
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) play(); }); }, {threshold:.35});
+      io.observe(stage);
+    } else { play(); }
+  })();
+</script>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
