@@ -1528,6 +1528,8 @@ body.project-page { overflow-y: auto; overflow-x: hidden; }
 
   .hud-tl .hud__brand { font-size: 16px; }
  
+}
+
 /* =====================================================
    FX LAYER — interactive field, 3D cards, cursor label
    ===================================================== */
@@ -1588,3 +1590,11 @@ body.project-page { overflow-y: auto; overflow-x: hidden; }
 .fx-on .fx-panel > *:not(.panel__index):not(.panel__edge):not(.panel__ruler) { opacity: 1; transform: none; }
 @keyframes fxPanelIn { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
 .fx-on .fx-panel.fx-panel-in > *:not(.panel__index):not(.panel__edge):not(.panel__ruler) { animation: fxPanelIn .9s var(--ease-out) both; }
+
+/* Top-anchor content-heavy panels: header sits just below the corner chrome.
+   Vertical-centering these caused chrome overlap on short screens and a big
+   floating gap on tall screens. Hero stays centered (not listed here). */
+.panel > .featured-intro,
+.panel > .selected,
+.panel > .about,
+.panel > .contact { align-self: flex-start; }

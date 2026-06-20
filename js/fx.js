@@ -156,7 +156,7 @@
         const center = i * vw + vw / 2 + tx;
         const dist = Math.min(Math.abs(center - vw / 2) / vw, 1);
         const sc = 1 - dist * 0.035;
-        const op = 1 - Math.max(dist - 0.45, 0) * 0.36;
+        const op = 1;
         panels[i].style.transform = 'scale(' + sc.toFixed(4) + ')';
         panels[i].style.opacity = op.toFixed(3);
       }
