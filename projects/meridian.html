@@ -129,6 +129,28 @@
   .tx__arrow{display:grid;place-items:center;color:var(--gold);font-size:20px;animation:txPulse 1.8s ease-in-out infinite}
   @keyframes txPulse{0%,100%{opacity:.3}50%{opacity:1}}
   @media(max-width:860px){.tx{grid-template-columns:1fr}.tx__arrow{transform:rotate(90deg)}}
+
+  /* token graph */
+  .tg{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:stretch;margin-top:18px}
+  .tg__col{background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .tg__h{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--gold);margin-bottom:10px}
+  .tg__row{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--text-2);padding:4px 0}
+  .tg__row i{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid var(--line)}
+  .tg__arrow{display:grid;place-items:center;color:var(--gold);font-size:18px}
+  @media(max-width:860px){.tg{grid-template-columns:1fr}.tg__arrow{transform:rotate(90deg)}}
+  .a11y{width:100%;border-collapse:collapse;margin-top:18px;font-size:13.5px}
+  .a11y th,.a11y td{text-align:left;padding:11px 12px 11px 0;border-bottom:1px solid var(--line)}
+  .a11y th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:400}
+  .a11y td:first-child{font-family:var(--mono);font-size:11px;color:var(--text-2)}
+  .a11y .pass{color:var(--gold);font-family:var(--mono);font-size:11px}
+  .a11y .sw{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:middle;margin-right:6px;border:1px solid var(--line)}
+  .gov{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+  .gov__card{background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .gov__card h4{font-family:var(--display);font-size:16px;color:var(--text);margin:0 0 8px}
+  .gov__card p,.gov__card li{font-size:13.5px;color:var(--text-2);line-height:1.6}
+  .gov__card ul{margin:0;padding-left:16px}
+  .gov__code{font-family:var(--mono);font-size:11.5px;color:var(--text-2);line-height:1.8}
+  @media(max-width:760px){.gov{grid-template-columns:1fr}}
 </style>
 </head>
 <body class="project-page">
@@ -154,7 +176,7 @@
     <span>[ AI DESIGN SYSTEMS · ENTERPRISE · SOLO BUILD ]</span>
   </div>
   <h1 class="h-display proj-hero__title">An enterprise design system that <em>ships as a product.</em></h1>
-  <p class="proj-hero__sub">A 3-tier <strong>tokenized</strong> design system — 288 Figma Variables, 179 governed components, published as a real React library and <strong>consumed</strong> by a working banking dashboard, with design and code linked through <strong>Code Connect</strong>. Designed, engineered and governed <strong>end-to-end, by one person.</strong></p>
+  <p class="proj-hero__sub">A 3-tier <strong>tokenized</strong> design system — 288 Figma Variables, 179 governed components, published as a real React library and <strong>consumed</strong> by a working banking dashboard, with Figma↔code mappings authored in <strong>Code Connect</strong> and WCAG-AA tokens. Designed, engineered and governed <strong>end-to-end, by one person.</strong></p>
 
   <div style="display:flex; gap:24px; flex-wrap:wrap; margin-top:8px;">
     <a class="featured__link" href="../meridian-app/index.html" target="_blank" rel="noopener" data-magnet="0.12">Open the live demo →</a>
@@ -162,7 +184,7 @@
   </div>
 
   <div class="tok-row">
-    <span class="tok"><i style="background:#2E5CE6"></i>brand/solid</span>
+    <span class="tok"><i style="background:#2E5CE6"></i>color/bg/brand-bold</span>
     <span class="tok"><i style="background:#119651"></i>success</span>
     <span class="tok"><i style="background:#CE8400"></i>warning</span>
     <span class="tok"><i style="background:#DA3A3F"></i>danger</span>
@@ -240,11 +262,11 @@
 
 <div class="proj-section">
   <div class="proj-stats" style="grid-template-columns:repeat(5,1fr);margin-top:0;">
-    <div class="proj-stat"><div class="v">179</div><div class="k">Figma components / sets</div></div>
-    <div class="proj-stat"><div class="v">3-tier</div><div class="k">token system</div></div>
-    <div class="proj-stat"><div class="v">10</div><div class="k">functional screens</div></div>
-    <div class="proj-stat"><div class="v">1 : 1</div><div class="k">Figma ↔ code · Code Connect</div></div>
-    <div class="proj-stat"><div class="v">100%</div><div class="k">app UI imported from library</div></div>
+    <div class="proj-stat"><div class="v">100%</div><div class="k">app UI imported from the library</div></div>
+    <div class="proj-stat"><div class="v">0</div><div class="k">local components in the product</div></div>
+    <div class="proj-stat"><div class="v">1</div><div class="k">toggle re-themes 81 semantic tokens</div></div>
+    <div class="proj-stat"><div class="v">288</div><div class="k">variables · 3 collections</div></div>
+    <div class="proj-stat"><div class="v">179</div><div class="k">components · governed, instanced</div></div>
   </div>
 </div>
 
@@ -256,6 +278,7 @@
     <div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">jestaz-design-system</span></div>
     <iframe class="embed-app sys-live" src="../meridian-app/index.html?v=7#/styleguide" title="Jestaz Design System — live components" loading="lazy"></iframe>
   </div>
+  <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:10px;">LIVE REACT COMPONENTS · THE DEMO'S AI RUNS A DETERMINISTIC MOCK; THE REAL OPENAI 4-AGENT PATH SHIPS IN THE CODE.</p>
 </section>
 
 <section class="proj-section">
@@ -313,6 +336,40 @@
 </section>
 
 <section class="proj-section">
+  <span class="eyebrow">TOKEN ARCHITECTURE</span>
+  <h2 class="h-display">Three tiers, <em>one resolution path</em>.</h2>
+  <p class="lede">A component never references a raw color. Every value resolves Primitive → Semantic (mode-aware) → Component — so a brand change or a theme flip is one edit, not a migration.</p>
+  <div class="tg">
+    <div class="tg__col">
+      <div class="tg__h">① PRIMITIVE · raw scale</div>
+      <div class="tg__row"><i style="background:#ECF2FF"></i>color/primary/50</div>
+      <div class="tg__row"><i style="background:#85A4FF"></i>color/primary/300</div>
+      <div class="tg__row"><i style="background:#2E5CE6"></i>color/primary/500</div>
+      <div class="tg__row"><i style="background:#1D43B8"></i>color/primary/700</div>
+      <div class="tg__row" style="color:var(--mute)">118 variables · value only</div>
+    </div>
+    <div class="tg__arrow">→</div>
+    <div class="tg__col">
+      <div class="tg__h">② SEMANTIC · Light / Dark modes</div>
+      <div class="tg__row"><i style="background:#2E5CE6"></i>color/bg/brand-bold → primary/500</div>
+      <div class="tg__row"><i style="background:#1D43B8"></i>color/text/brand → primary/700</div>
+      <div class="tg__row"><i style="background:#161A20"></i>color/text/primary → neutral/900</div>
+      <div class="tg__row"><i style="background:#FFFFFF"></i>color/bg/surface → neutral/0</div>
+      <div class="tg__row" style="color:var(--mute)">81 variables · 2 modes</div>
+    </div>
+    <div class="tg__arrow">→</div>
+    <div class="tg__col">
+      <div class="tg__h">③ COMPONENT · scoped alias</div>
+      <div class="tg__row"><i style="background:#2E5CE6"></i>color/button/primary-bg → bg/brand-bold</div>
+      <div class="tg__row"><i style="background:#FFFFFF"></i>color/button/primary-fg → text/on-brand</div>
+      <div class="tg__row"><i style="background:#DFE3EA"></i>color/input/border → border/default</div>
+      <div class="tg__row" style="color:var(--mute)">89 variables · alias only</div>
+    </div>
+  </div>
+  <p style="margin-top:16px;color:var(--text-2);font-size:14px;"><strong style="color:var(--text)">Naming</strong> is <code>color/category/role-state</code> — <code>color/button/primary-bg-hover</code>, <code>color/text/secondary</code>, <code>color/border/default</code>. Components alias Semantic; Semantic aliases Primitive; a primitive never appears in a component. Flip the Semantic collection's mode and all 81 tokens re-resolve at once — that's the dark-mode toggle in the live library above.</p>
+</section>
+
+<section class="proj-section">
   <span class="eyebrow">ADVANCED FIGMA</span>
   <h2 class="h-display">Built with Figma's <em>system primitives</em> — not hand-drawn frames.</h2>
   <p class="lede">This is where the design-system craft lives: variables with modes, real component sets, component properties, an instance-swapped icon library, and Code Connect.</p>
@@ -342,7 +399,7 @@
 <section class="proj-section">
   <span class="eyebrow">THE BRIDGE</span>
   <h2 class="h-display">Figma and code, <em>pointing at each other</em>.</h2>
-  <p>Code Connect maps each Figma component to its code component and translates variant props to code props. After publishing, Dev Mode shows the real snippet for that node — design hands off to engineering with zero translation.</p>
+  <p>Code Connect maps each Figma component to its React export and translates variant props to code props, so Dev Mode shows the real snippet for that node — handoff with zero re-draw. <strong>Status, plainly:</strong> 27 components are mapped and committed (<code>code-connect/*.figma.jsx</code> — the real file is shown below) — that's every component the product's code library implements, each bound to its Figma node with variant→prop maps. The other Figma components are screen-level compositions, not standalone code exports, so there's nothing to bind them to. Publishing into Figma Dev Mode needs a Figma Dev seat (Org/Enterprise); once that's on it goes live with one command — <code>npx figma connect publish</code> — no rework, the mappings are done.</p>
 
   <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:20px;">↓ ON LOOP — ONE COMPONENT RESOLVING: VARIANT → CODE PROP → THE TOKENS IT BINDS.</p>
   <div class="tx" id="tx">
@@ -377,6 +434,36 @@
     &nbsp;&nbsp;},<br/>
     &nbsp;&nbsp;example: (p) =&gt; &lt;Button variant={p.variant} size={p.size}&gt;Label&lt;/Button&gt;,<br/>
     });
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">ACCESSIBILITY</span>
+  <h2 class="h-display">WCAG AA, <em>measured</em> — not claimed.</h2>
+  <p>Real contrast ratios from the shipped semantic tokens (computed, not estimated):</p>
+  <table class="a11y">
+    <thead><tr><th>Pair</th><th>Ratio</th><th>Level</th></tr></thead>
+    <tbody>
+      <tr><td><span class="sw" style="background:#161A20"></span>text/primary on bg/surface</td><td>17.5 : 1</td><td class="pass">AAA</td></tr>
+      <tr><td><span class="sw" style="background:#515868"></span>text/secondary on bg/surface</td><td>7.1 : 1</td><td class="pass">AAA</td></tr>
+      <tr><td><span class="sw" style="background:#2E5CE6"></span>text/on-brand on bg/brand-bold</td><td>5.5 : 1</td><td class="pass">AA</td></tr>
+      <tr><td><span class="sw" style="background:#1D43B8"></span>brand/fg on brand/subtle</td><td>7.4 : 1</td><td class="pass">AAA</td></tr>
+      <tr><td><span class="sw" style="background:#0C7741"></span>success/fg on success/bg</td><td>5.1 : 1</td><td class="pass">AA</td></tr>
+      <tr><td><span class="sw" style="background:#B92B30"></span>danger/fg on danger/bg</td><td>5.3 : 1</td><td class="pass">AA</td></tr>
+      <tr><td><span class="sw" style="background:#161A20"></span>text on surface · dark mode</td><td>16.4 : 1</td><td class="pass">AAA</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:16px;color:var(--text-2);font-size:14px;">Status is never color-only — every badge and trend pairs an icon + label with the color. Interactive components carry a brand focus ring (Button, Input, Tabs, nav).</p>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">GOVERNANCE</span>
+  <h2 class="h-display">A system you can <em>contribute to</em>, not just admire.</h2>
+  <div class="gov">
+    <div class="gov__card"><h4>The one rule</h4><p>If a piece of UI can appear twice, it's a component — never a hand-drawn frame. Figma screens and code pages are composed only of instances / imports. Tokens are never hard-coded.</p></div>
+    <div class="gov__card"><h4>Adding a component</h4><ul><li>Reuse-check the library first.</li><li>Build the Figma component + React export together.</li><li>New value? add a Semantic token, alias it in the Component tier.</li><li>Author the Code Connect mapping; publish on the next release.</li></ul></div>
+    <div class="gov__card"><h4>Versioning · @jestaz/design-system</h4><div class="gov__code">v0.1.0 — 3-tier tokens + core components<br/>v0.2.0 — Data Table, Page States, AI components<br/>v0.3.0 — Icon library + Code Connect mappings<br/><span style="color:var(--mute)">// semver · breaking token renames = major</span></div></div>
+    <div class="gov__card"><h4>Enforced, not just documented</h4><p>The rules live in a committed governance skill (<code>jestaz-ds-governance</code>) so every future change — by me or an agent — stays component-driven, token-bound and instances-only.</p></div>
   </div>
 </section>
 
@@ -447,12 +534,13 @@
 </section>
 
 <section class="proj-section">
-  <span class="eyebrow">05 / WHAT I LEARNED</span>
-  <h2 class="h-display">Three things, building a system that ships.</h2>
-  <div class="proj-points">
-    <div class="proj-point"><span class="n">→ 01</span><h4>Consumption is the <em style="color:var(--gold);font-style:normal;">real</em> test.</h4><p>A library only proves itself when a product imports it and the page code becomes pure composition. That's the line between redrawing and operating.</p></div>
-    <div class="proj-point"><span class="n">→ 02</span><h4>Tokens are the <em style="color:var(--gold);font-style:normal;">contract</em>.</h4><p>When both surfaces bind to the same variables, "update the brand color" is one change, not a migration.</p></div>
-    <div class="proj-point"><span class="n">→ 03</span><h4>Governance beats <em style="color:var(--gold);font-style:normal;">volume</em>.</h4><p>179 components only stay coherent because of one rule: if it can appear twice, it's a component — never a frame.</p></div>
+  <span class="eyebrow">05 / DECISIONS &amp; TRADEOFFS</span>
+  <h2 class="h-display">Every choice is a <em>killed alternative</em>.</h2>
+  <div class="proj-points" style="grid-template-columns:repeat(2,1fr);gap:24px;">
+    <div class="proj-point"><span class="n">→ THEMING</span><h4>Semantic modes, not duplicate dark components.</h4><p><strong>Chose:</strong> one component set; dark is a mode on the Semantic collection. <strong>Cost:</strong> every component must bind to semantic tokens — discipline upfront. <strong>Win:</strong> theming is one toggle, zero duplication, 81 tokens re-resolve at once.</p></div>
+    <div class="proj-point"><span class="n">→ VARIANTS</span><h4>One variant set, not many components.</h4><p><strong>Chose:</strong> Button = Variant × Size (15). <strong>Ruled out:</strong> separate Primary/Secondary components — the matrix would sprawl. <strong>Guardrail:</strong> icons are instance-swap + boolean props, not new variants, so the matrix stays small.</p></div>
+    <div class="proj-point"><span class="n">→ ICONS</span><h4>One component per icon + instance-swap.</h4><p><strong>Chose:</strong> a dedicated Icon library, swapped into buttons / nav / inputs. <strong>Ruled out:</strong> baked-in glyphs (un-swappable, duplicated). <strong>Cost:</strong> more components; <strong>win:</strong> one source, referenced everywhere.</p></div>
+    <div class="proj-point"><span class="n">→ THE PRODUCT</span><h4>The app imports the library — no local UI.</h4><p><strong>Chose:</strong> the dashboard consumes <code>@jestaz/design-system</code>; pages are pure composition. <strong>Cost:</strong> a real package boundary to maintain. <strong>Win:</strong> proves the system is consumable, not just drawable.</p></div>
   </div>
 </section>
 
@@ -523,10 +611,10 @@
     if(!btn||!wrap) return;
     var chips=wrap.querySelectorAll('.tx__chip');
     var V=[
-      {k:'primary',  label:'Primary',   bg:'#2E5CE6', fg:'#fff', bd:'none', toks:[['brand/solid','#2E5CE6'],['text/on-brand','#FFFFFF'],['radius/lg','8px']]},
-      {k:'secondary',label:'Secondary', bg:'#FFFFFF', fg:'#161A20', bd:'1px solid #DFE3EA', toks:[['bg/surface','#FFFFFF'],['border/default','#DFE3EA'],['text/primary','#161A20']]},
-      {k:'subtle',   label:'Subtle',    bg:'#ECF2FF', fg:'#1D43B8', bd:'none', toks:[['brand/subtle','#ECF2FF'],['brand/fg','#1D43B8'],['radius/lg','8px']]},
-      {k:'danger',   label:'Danger',    bg:'#DA3A3F', fg:'#fff', bd:'none', toks:[['danger/solid','#DA3A3F'],['text/on-brand','#FFFFFF'],['radius/lg','8px']]}
+      {k:'primary',  label:'Primary',   bg:'#2E5CE6', fg:'#fff', bd:'none', toks:[['color/button/primary-bg','#2E5CE6'],['color/button/primary-fg','#FFFFFF'],['radius/lg','8px']]},
+      {k:'secondary',label:'Secondary', bg:'#FFFFFF', fg:'#161A20', bd:'1px solid #DFE3EA', toks:[['color/button/secondary-bg','#FFFFFF'],['color/button/secondary-border','#DFE3EA'],['color/button/secondary-fg','#161A20']]},
+      {k:'subtle',   label:'Subtle',    bg:'#ECF2FF', fg:'#1D43B8', bd:'none', toks:[['color/button/subtle-bg','#ECF2FF'],['color/button/subtle-fg','#1D43B8'],['radius/lg','8px']]},
+      {k:'danger',   label:'Danger',    bg:'#DA3A3F', fg:'#fff', bd:'none', toks:[['color/button/danger-bg','#DA3A3F'],['color/button/danger-fg','#FFFFFF'],['radius/lg','8px']]}
     ];
     function render(v){
       btn.textContent=v.label; btn.style.background=v.bg; btn.style.color=v.fg; btn.style.border=v.bd;
