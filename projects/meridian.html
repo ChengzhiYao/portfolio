@@ -80,6 +80,14 @@
   .comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:22px}
   .comp{border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:var(--mono);font-size:11px;color:var(--text-2)}
   .comp b{display:block;font-family:'Geist',sans-serif;font-size:13px;color:var(--text);font-weight:500;margin-bottom:3px}
+
+  /* ── live interactive embed (the real app via iframe) ── */
+  .embed-frame{margin-top:18px;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.45);background:#fff}
+  .embed-bar{height:34px;background:#fff;border-bottom:1px solid #E6E9EF;display:flex;align-items:center;gap:6px;padding:0 12px}
+  .embed-bar i{width:9px;height:9px;border-radius:50%}
+  .embed-bar .u{margin-left:10px;font-family:'Geist Mono',monospace;font-size:10px;color:#9BA3B4}
+  .embed-app{display:block;width:100%;height:700px;border:0;background:#F7F8FA}
+  @media(max-width:720px){.embed-app{height:560px}}
 </style>
 </head>
 <body class="project-page">
@@ -108,7 +116,7 @@
   <p class="proj-hero__sub">A 3-tier <strong>tokenized</strong> design system — 179 governed Figma components, published as a real React library, and <strong>consumed</strong> by a working banking dashboard. Design and code stay one system, linked through <strong>Code Connect</strong>.</p>
 
   <div style="display:flex; gap:24px; flex-wrap:wrap; margin-top:8px;">
-    <a class="featured__link" href="REPLACE_WITH_VERCEL_URL" target="_blank" rel="noopener" data-magnet="0.12">Try the live demo →</a>
+    <a class="featured__link" href="../meridian-app/index.html" target="_blank" rel="noopener" data-magnet="0.12">Open the live demo →</a>
     <a class="featured__link is-secondary" href="https://github.com/ChengzhiYao/meridian-design-system" target="_blank" rel="noopener" data-magnet="0.12">View source ↗</a>
   </div>
 
@@ -183,7 +191,11 @@
   <span class="eyebrow">00 / OVERVIEW</span>
   <h2 class="h-display" style="margin-top:12px;">One system, <em>two surfaces</em>, kept in sync.</h2>
   <p class="lede">Most "design systems" are sticker sheets. Meridian is a single source of truth that drives both the Figma files and a running product — I built it end-to-end to prove I can <strong>operate</strong> one, not just draw one.</p>
-  <div class="media-full"><img src="../site-media/meridian/insights.png" alt="Meridian Insights screen — KPI cards, cash-flow chart, balance donut and AI insight cards" loading="lazy"/></div>
+  <div class="embed-frame">
+    <div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app · live · click around ↓</span></div>
+    <iframe class="embed-app" src="../meridian-app/index.html" title="Meridian dashboard — live and interactive" loading="lazy"></iframe>
+  </div>
+  <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:10px;">↑ THE REAL APP, EMBEDDED — NOT A SCREENSHOT. CLICK THE NAV · FILTER TRANSACTIONS · ASK THE AI · SWITCH SCREENS.</p>
 </div>
 
 <div class="proj-section">
@@ -213,7 +225,7 @@
 
   <div class="layer-row"><span class="lbl">01 · TOKENS</span><div>
     <div class="head">One source, two surfaces.</div>
-    <p>Primitives → Semantic (Light/Dark) → Component. The same values live as Figma Variables and as CSS variables + a Tailwind preset in code — <strong>86 + 81 + 89 tokens</strong> across the three tiers.</p>
+    <p>Primitives (118) → Semantic (81, Light/Dark modes) → Component (89). <strong>288 Figma Variables across 3 collections</strong> mirror exactly to CSS variables + a Tailwind preset in code. Flip the Semantic mode and the entire product re-themes.</p>
   </div></div>
   <div class="layer-row"><span class="lbl">02 · COMPONENTS</span><div>
     <div class="head">Built once, in the library.</div>
@@ -240,7 +252,21 @@
 </section>
 
 <section class="proj-section">
-  <span class="eyebrow">03 / THE BRIDGE</span>
+  <span class="eyebrow">ADVANCED FIGMA</span>
+  <h2 class="h-display">Built with Figma's <em>system primitives</em> — not hand-drawn frames.</h2>
+  <p class="lede">This is where the design-system craft lives: variables with modes, real component sets, component properties, an instance-swapped icon library, and Code Connect.</p>
+  <div class="proj-points" style="grid-template-columns:repeat(2,1fr);gap:24px;">
+    <div class="proj-point"><span class="n">→ VARIABLES · 3 COLLECTIONS</span><h4>288 variables, Light/Dark modes.</h4><p>Primitives (118) → Semantic (81, Light/Dark) → Component (89). One mode toggle re-themes the whole product — tokens, not styles.</p></div>
+    <div class="proj-point"><span class="n">→ COMPONENT SETS</span><h4>Variants, not copies.</h4><p>Button = 15 variants (Variant × Size). Badge 6 tones, Input 4 states, KPICard Up/Down — authored as proper variant sets.</p></div>
+    <div class="proj-point"><span class="n">→ COMPONENT PROPERTIES</span><h4>Boolean + instance-swap slots.</h4><p>Button exposes Leading/Trailing icon (BOOLEAN) and icon source (INSTANCE_SWAP); NavItem swaps its own icon. No baked-in glyphs.</p></div>
+    <div class="proj-point"><span class="n">→ ICON LIBRARY</span><h4>One component per icon.</h4><p>A dedicated Icon/ library, instance-swapped into buttons, nav and inputs — referenced across the system, never re-drawn.</p></div>
+    <div class="proj-point"><span class="n">→ AUTO-LAYOUT · GOVERNANCE</span><h4>Screens are instances only.</h4><p>179 masters across 9 pages (Foundations, Primitives, Components, Patterns, States, Data Table, Auth, Dashboard). If it can appear twice, it's a component.</p></div>
+    <div class="proj-point"><span class="n">→ CODE CONNECT</span><h4>Dev Mode shows real code.</h4><p>Each component maps to its React export with prop translation — engineering copies a working component, not a redraw.</p></div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">THE BRIDGE</span>
   <h2 class="h-display">Figma and code, <em>pointing at each other</em>.</h2>
   <p>Code Connect maps each Figma component to its code component and translates variant props to code props. After publishing, Dev Mode shows the real snippet for that node — design hands off to engineering with zero translation.</p>
   <div class="media-mid" style="padding:28px;background:var(--bg-2);border:1px solid var(--line);border-radius:6px;font-family:var(--mono);font-size:13px;color:var(--text-2);line-height:1.7;">
