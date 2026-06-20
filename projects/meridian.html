@@ -234,7 +234,7 @@
   <p class="lede">Most "design systems" are sticker sheets. Meridian is a single source of truth that drives both the Figma files and a running product — I built it end-to-end to prove I can <strong>operate</strong> one, not just draw one.</p>
   <div class="embed-frame">
     <div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/overview</span></div>
-    <iframe class="embed-app" src="../meridian-app/index.html#/overview" title="Meridian Overview" loading="lazy"></iframe>
+    <iframe class="embed-app" src="../meridian-app/index.html?v=3#/overview" title="Meridian Overview" loading="lazy"></iframe>
   </div>
 </div>
 
@@ -254,7 +254,7 @@
   <p class="lede">The component library, rendered from the shipped React code. Flip the mode and all 81 semantic tokens re-theme together — light to dark in a single move.</p>
   <div class="embed-frame">
     <div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">jestaz-design-system</span></div>
-    <iframe class="embed-app sys-live" src="../meridian-app/index.html#/styleguide" title="Jestaz Design System — live components" loading="lazy"></iframe>
+    <iframe class="embed-app sys-live" src="../meridian-app/index.html?v=3#/styleguide" title="Jestaz Design System — live components" loading="lazy"></iframe>
   </div>
 </section>
 
@@ -549,6 +549,7 @@
   (function(){
     function hook(f){ try{
       var d=f.contentDocument||f.contentWindow.document;
+      var st=d.createElement('style'); st.textContent='*{cursor:none!important}'; if(d.head)d.head.appendChild(st);
       d.addEventListener('mousemove',function(e){
         var r=f.getBoundingClientRect();
         window.dispatchEvent(new MouseEvent('mousemove',{clientX:r.left+e.clientX,clientY:r.top+e.clientY}));
