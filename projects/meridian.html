@@ -81,7 +81,7 @@
   .comp{border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:var(--mono);font-size:11px;color:var(--text-2)}
   .comp b{display:block;font-family:'Geist',sans-serif;font-size:13px;color:var(--text);font-weight:500;margin-bottom:3px}
 
-  /* ── live interactive embed (the real app via iframe) ── */
+  /* ── framed media (GIF / still) ── */
   .embed-frame{margin-top:18px;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.45);background:#fff}
   .embed-bar{height:34px;background:#fff;border-bottom:1px solid #E6E9EF;display:flex;align-items:center;gap:6px;padding:0 12px}
   .embed-bar i{width:9px;height:9px;border-radius:50%}
@@ -95,6 +95,7 @@
   .sw__note{font-size:14.5px;line-height:1.6;color:var(--text-2);margin:14px 0 0;min-height:44px}
   .sw__note strong{color:var(--text)}
   .sys-live{height:780px}
+  .embed-shot{display:block;width:100%}
   .fig-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;align-items:start}
   .fig-grid img{width:100%;border:1px solid var(--line);border-radius:10px;display:block;background:#fff}
   .fig-scroll{margin-top:14px;height:520px;overflow:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 20px 60px rgba(0,0,0,.4)}
@@ -109,6 +110,25 @@
   .feat__pts li:before{content:'→';position:absolute;left:0;color:var(--gold)}
   .feat__demo .embed-app{height:470px}
   @media(max-width:860px){.feat{grid-template-columns:1fr;gap:14px}}
+  .af-demo{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .af-sw{width:22px;height:22px;border-radius:5px;border:1px solid var(--line)}
+  .af-btn{display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 12px;border-radius:7px;font:600 12px/1 'Geist',sans-serif}
+  .af-code{font-family:var(--mono);font-size:11px;color:var(--text-2);background:var(--bg-2);border:1px solid var(--line);border-radius:6px;padding:6px 10px;line-height:1.5;word-break:break-word}
+  .af-ico{color:var(--text-2)}
+  .tx{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch;margin:18px 0 8px}
+  .tx__panel{background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .tx__lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--gold);margin-bottom:14px}
+  .tx__btn{display:inline-flex;align-items:center;height:38px;padding:0 18px;border-radius:8px;font:600 14px/1 'Geist',sans-serif;color:#fff;background:#2E5CE6;transition:all .5s}
+  .tx__chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+  .tx__chip{font-family:var(--mono);font-size:10px;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:3px 9px;transition:all .4s}
+  .tx__chip.on{color:#08080A;background:var(--gold);border-color:var(--gold)}
+  .tx__code{font-family:var(--mono);font-size:12px;line-height:1.7;color:var(--text-2);white-space:pre-wrap;margin:0}
+  .tx__code b{color:var(--gold);font-weight:400}
+  .tx__tok{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--text-2);padding:6px 0}
+  .tx__tok i{width:16px;height:16px;border-radius:4px;border:1px solid var(--line);flex:none}
+  .tx__arrow{display:grid;place-items:center;color:var(--gold);font-size:20px;animation:txPulse 1.8s ease-in-out infinite}
+  @keyframes txPulse{0%,100%{opacity:.3}50%{opacity:1}}
+  @media(max-width:860px){.tx{grid-template-columns:1fr}.tx__arrow{transform:rotate(90deg)}}
 </style>
 </head>
 <body class="project-page">
@@ -198,7 +218,7 @@
       </div>
     </div>
   </div>
-  <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:10px;text-align:center;">↑ LIVE HTML/CSS — NOT AN IMAGE · BUILT FROM THE SAME TOKENS AS THE PRODUCT</p>
+  <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:10px;text-align:center;">BUILT FROM THE SAME TOKENS AS THE PRODUCT</p>
 </header>
 
 <section class="proj-meta">
@@ -213,10 +233,9 @@
   <h2 class="h-display" style="margin-top:12px;">One system, <em>two surfaces</em>, kept in sync.</h2>
   <p class="lede">Most "design systems" are sticker sheets. Meridian is a single source of truth that drives both the Figma files and a running product — I built it end-to-end to prove I can <strong>operate</strong> one, not just draw one.</p>
   <div class="embed-frame">
-    <div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/overview · live</span></div>
-    <iframe class="embed-app" src="../meridian-app/index.html#/overview" title="Meridian Overview — live and interactive" loading="lazy"></iframe>
+    <div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/overview</span></div>
+    <img class="embed-shot" src="../site-media/meridian/gif/overview.png" alt="Meridian Overview — KPI cards, cash-flow chart, balance donut and AI insights"/>
   </div>
-  <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:10px;">↑ THE LIVE PRODUCT — NOT A SCREENSHOT. CLICK THE SIDEBAR TO MOVE BETWEEN SCREENS; FEATURE-BY-FEATURE WALKTHROUGH BELOW.</p>
 </div>
 
 <div class="proj-section">
@@ -230,12 +249,12 @@
 </div>
 
 <section class="proj-section">
-  <span class="eyebrow">THE DESIGN SYSTEM · LIVE</span>
-  <h2 class="h-display">The whole system, <em>running in this page</em>.</h2>
-  <p class="lede">Not a picture of a library — the library itself, rendered from the real React code I shipped. Tokens, every component, every variant. <strong>Hit “Dark mode” inside and watch all 81 semantic tokens re-theme at once.</strong></p>
+  <span class="eyebrow">THE DESIGN SYSTEM</span>
+  <h2 class="h-display">288 tokens, <em>one toggle</em>.</h2>
+  <p class="lede">The component library, rendered from the shipped React code. Flip the mode and all 81 semantic tokens re-theme together — light to dark in a single move.</p>
   <div class="embed-frame">
-    <div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">jestaz-design-system · live components</span></div>
-    <iframe class="embed-app sys-live" src="../meridian-app/index.html#/styleguide" title="Jestaz Design System — live components" loading="lazy"></iframe>
+    <div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">jestaz-design-system</span></div>
+    <img class="embed-shot" src="../site-media/meridian/gif/darkmode.gif" alt="Jestaz Design System — tokens and components re-theming light to dark"/>
   </div>
 </section>
 
@@ -247,7 +266,7 @@
     <img src="../site-media/meridian/figma/foundations.png" alt="Figma Foundations — color, type, spacing, elevation and data-viz tokens" loading="lazy"/>
     <img src="../site-media/meridian/figma/button-set.png" alt="Figma Button component set — 15 variants, Variant × Size" loading="lazy"/>
   </div>
-  <p style="margin-top:18px;color:var(--text-2);font-size:14.5px;line-height:1.6;">Every component in that file is rebuilt as real React code — the entire library, all 35+ components and their variants, runs live in <strong style="color:var(--text)">“The design system · live”</strong> section above (with a working dark-mode toggle). No screenshots of the component board — the real thing.</p>
+  <p style="margin-top:18px;color:var(--text-2);font-size:14.5px;line-height:1.6;">Every component in that file is rebuilt as real React code — the full library, all 35+ components and their variants, is in the design-system section above with a working dark-mode toggle.</p>
 </section>
 
 <section class="proj-section">
@@ -298,12 +317,25 @@
   <h2 class="h-display">Built with Figma's <em>system primitives</em> — not hand-drawn frames.</h2>
   <p class="lede">This is where the design-system craft lives: variables with modes, real component sets, component properties, an instance-swapped icon library, and Code Connect.</p>
   <div class="proj-points" style="grid-template-columns:repeat(2,1fr);gap:24px;">
-    <div class="proj-point"><span class="n">→ VARIABLES · 3 COLLECTIONS</span><h4>288 variables, Light/Dark modes.</h4><p>Primitives (118) → Semantic (81, Light/Dark) → Component (89). One mode toggle re-themes the whole product — tokens, not styles.</p></div>
-    <div class="proj-point"><span class="n">→ COMPONENT SETS</span><h4>Variants, not copies.</h4><p>Button = 15 variants (Variant × Size). Badge 6 tones, Input 4 states, KPICard Up/Down — authored as proper variant sets.</p></div>
-    <div class="proj-point"><span class="n">→ COMPONENT PROPERTIES</span><h4>Boolean + instance-swap slots.</h4><p>Button exposes Leading/Trailing icon (BOOLEAN) and icon source (INSTANCE_SWAP); NavItem swaps its own icon. No baked-in glyphs.</p></div>
-    <div class="proj-point"><span class="n">→ ICON LIBRARY</span><h4>One component per icon.</h4><p>A dedicated Icon/ library, instance-swapped into buttons, nav and inputs — referenced across the system, never re-drawn.</p></div>
-    <div class="proj-point"><span class="n">→ AUTO-LAYOUT · GOVERNANCE</span><h4>Screens are instances only.</h4><p>179 masters across 9 pages (Foundations, Primitives, Components, Patterns, States, Data Table, Auth, Dashboard). If it can appear twice, it's a component.</p></div>
-    <div class="proj-point"><span class="n">→ CODE CONNECT</span><h4>Dev Mode shows real code.</h4><p>Each component maps to its React export with prop translation — engineering copies a working component, not a redraw.</p></div>
+    <div class="proj-point"><span class="n">→ VARIABLES · 3 COLLECTIONS</span><h4>288 variables, Light/Dark modes.</h4><p>Primitives (118) → Semantic (81, Light/Dark) → Component (89). One mode toggle re-themes the whole product — tokens, not styles.</p>
+      <div class="af-demo"><span class="af-sw" style="background:#2E5CE6"></span><span class="af-sw" style="background:#119651"></span><span class="af-sw" style="background:#CE8400"></span><span class="af-sw" style="background:#DA3A3F"></span><span class="af-sw" style="background:#161A20"></span><span class="af-sw" style="background:#DFE3EA"></span></div></div>
+    <div class="proj-point"><span class="n">→ COMPONENT SETS</span><h4>Variants, not copies.</h4><p>Button = 15 variants (Variant × Size). Badge 6 tones, Input 4 states, KPICard Up/Down — authored as proper variant sets.</p>
+      <div class="af-demo"><span class="af-btn" style="background:#2E5CE6;color:#fff">Primary</span><span class="af-btn" style="background:#fff;color:#161A20;border:1px solid #DFE3EA">Secondary</span><span class="af-btn" style="background:#ECF2FF;color:#1D43B8">Subtle</span><span class="af-btn" style="background:#DA3A3F;color:#fff">Danger</span></div></div>
+    <div class="proj-point"><span class="n">→ COMPONENT PROPERTIES</span><h4>Boolean + instance-swap slots.</h4><p>Button exposes Leading/Trailing icon (BOOLEAN) and icon source (INSTANCE_SWAP); NavItem swaps its own icon. No baked-in glyphs.</p>
+      <div class="af-demo"><span class="af-btn" style="background:#2E5CE6;color:#fff">Label</span><span class="af-btn" style="background:#2E5CE6;color:#fff"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Label</span><span style="font-family:var(--mono);font-size:10px;color:var(--mute)">Leading icon ⇄ on/off</span></div></div>
+    <div class="proj-point"><span class="n">→ ICON LIBRARY</span><h4>One component per icon.</h4><p>A dedicated Icon/ library, instance-swapped into buttons, nav and inputs — referenced across the system, never re-drawn.</p>
+      <div class="af-demo af-ico">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 8 2.5 8H3.5S6 15 6 9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18M7 14v4M12 9v9M17 5v13"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+        <span style="font-family:var(--mono);font-size:10px;color:var(--mute)">Icon/…</span>
+      </div></div>
+    <div class="proj-point"><span class="n">→ AUTO-LAYOUT · GOVERNANCE</span><h4>Screens are instances only.</h4><p>179 masters across 9 pages (Foundations, Primitives, Components, Patterns, States, Data Table, Auth, Dashboard). If it can appear twice, it's a component.</p>
+      <div class="af-demo"><span class="af-code" style="width:auto">179 masters · 779 instances · 0 hand-drawn</span></div></div>
+    <div class="proj-point"><span class="n">→ CODE CONNECT</span><h4>Dev Mode shows real code.</h4><p>Each component maps to its React export with prop translation — engineering copies a working component, not a redraw.</p>
+      <div class="af-demo"><span class="af-code">figma.connect(Button, '…node-id=46-22', { variant: figma.enum('Variant', …) })</span></div></div>
   </div>
 </section>
 
@@ -311,6 +343,31 @@
   <span class="eyebrow">THE BRIDGE</span>
   <h2 class="h-display">Figma and code, <em>pointing at each other</em>.</h2>
   <p>Code Connect maps each Figma component to its code component and translates variant props to code props. After publishing, Dev Mode shows the real snippet for that node — design hands off to engineering with zero translation.</p>
+
+  <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:20px;">↓ ON LOOP — ONE COMPONENT RESOLVING: VARIANT → CODE PROP → THE TOKENS IT BINDS.</p>
+  <div class="tx" id="tx">
+    <div class="tx__panel">
+      <div class="tx__lbl">① COMPONENT</div>
+      <span class="tx__btn" id="txBtn">Primary</span>
+      <div class="tx__chips">
+        <span class="tx__chip on" data-k="primary">Primary</span>
+        <span class="tx__chip" data-k="secondary">Secondary</span>
+        <span class="tx__chip" data-k="subtle">Subtle</span>
+        <span class="tx__chip" data-k="danger">Danger</span>
+      </div>
+    </div>
+    <div class="tx__arrow">→</div>
+    <div class="tx__panel">
+      <div class="tx__lbl">② REACT CODE</div>
+      <pre class="tx__code" id="txCode">&lt;Button variant=<b>"primary"</b>&gt;Label&lt;/Button&gt;</pre>
+    </div>
+    <div class="tx__arrow">→</div>
+    <div class="tx__panel">
+      <div class="tx__lbl">③ BOUND TOKENS</div>
+      <div id="txTokens"></div>
+    </div>
+  </div>
+
   <div class="media-mid" style="padding:28px;background:var(--bg-2);border:1px solid var(--line);border-radius:6px;font-family:var(--mono);font-size:13px;color:var(--text-2);line-height:1.7;">
     <span style="color:var(--mute)">// Button.figma.jsx — committed in the repo</span><br/>
     figma.connect(Button, <span style="color:var(--gold)">'…?node-id=46-22'</span>, {<br/>
@@ -326,7 +383,7 @@
 <section class="proj-section">
   <span class="eyebrow">04 / FEATURE WALKTHROUGH</span>
   <h2 class="h-display">Not screenshots — <em>working features</em>, each explained.</h2>
-  <p class="lede">Four of the ten screens, live and interactive right here. Read what each does, then use it — click, filter, paginate, chat.</p>
+  <p class="lede">Three of the ten screens, in action — read what each does, then watch it happen.</p>
 
   <div class="feat">
     <div class="feat__copy">
@@ -339,14 +396,14 @@
         <li>Right rail surfaces live AI insights &amp; recommendations.</li>
       </ul>
     </div>
-    <div class="feat__demo"><div class="embed-frame"><div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/assistant · live</span></div>
-      <iframe class="embed-app" src="../meridian-app/index.html#/assistant" title="AI Assistant — live" loading="lazy"></iframe></div></div>
+    <div class="feat__demo"><div class="embed-frame"><div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/assistant</span></div>
+      <img class="embed-shot" src="../site-media/meridian/gif/assistant.gif" alt="AI Assistant — asking the 4-agent copilot, agents shown as tags"/></div></div>
   </div>
 
   <div class="feat">
     <div class="feat__copy">
       <span class="n">→ TRANSACTIONS</span>
-      <h3>A real data table, not a picture of one.</h3>
+      <h3>A sortable, filterable data table.</h3>
       <p>Search, filter and page through activity across accounts — every cell built from library components.</p>
       <ul class="feat__pts">
         <li>Search by merchant or category — rows update as you type.</li>
@@ -354,8 +411,8 @@
         <li>Badge tones encode category &amp; status; paginate the footer.</li>
       </ul>
     </div>
-    <div class="feat__demo"><div class="embed-frame"><div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/transactions · live</span></div>
-      <iframe class="embed-app" src="../meridian-app/index.html#/transactions" title="Transactions — live" loading="lazy"></iframe></div></div>
+    <div class="feat__demo"><div class="embed-frame"><div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/transactions</span></div>
+      <img class="embed-shot" src="../site-media/meridian/gif/transactions.gif" alt="Transactions — cycling the status filter, rows update live"/></div></div>
   </div>
 
   <div class="feat">
@@ -369,24 +426,10 @@
         <li>Stepper: Account ✓ · Verify ✓ · Fund · Review.</li>
       </ul>
     </div>
-    <div class="feat__demo"><div class="embed-frame"><div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/payments · live</span></div>
-      <iframe class="embed-app" src="../meridian-app/index.html#/payments" title="Payments — live" loading="lazy"></iframe></div></div>
+    <div class="feat__demo"><div class="embed-frame"><div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/payments</span></div>
+      <img class="embed-shot" src="../site-media/meridian/gif/payments.gif" alt="Payments — typing an amount, the Review total recomputes"/></div></div>
   </div>
 
-  <div class="feat">
-    <div class="feat__copy">
-      <span class="n">→ REPORTS</span>
-      <h3>Stat cards over a typed report table.</h3>
-      <p>Month-to-date stats (note the live “Scheduled” badge) above a status-coded report table.</p>
-      <ul class="feat__pts">
-        <li>Four KPI-style stat cards with trend pills.</li>
-        <li>Status badges: Completed / Processing / Failed.</li>
-        <li>Type badges brand the Financial reports.</li>
-      </ul>
-    </div>
-    <div class="feat__demo"><div class="embed-frame"><div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app/reports · live</span></div>
-      <iframe class="embed-app" src="../meridian-app/index.html#/reports" title="Reports — live" loading="lazy"></iframe></div></div>
-  </div>
 
   <p style="margin-top:30px;">The full set — all ten, every one pure composition over the library:</p>
   <div class="comp-grid">
@@ -468,28 +511,44 @@
     var done = false;
     function play(){ if(done) return; done = true; stage.classList.add('play'); countUp(); }
     if('IntersectionObserver' in window){
-      var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) play(); }); }, {threshold:.35});
-      io.observe(stage);
+      new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) play(); }); }, {threshold:.35}).observe(stage);
     } else { play(); }
   })();
 </script>
 
 <script>
   (function(){
-    var sw=document.getElementById('sw'); if(!sw) return;
-    var tabs=sw.querySelectorAll('.sw__tab'), frame=document.getElementById('swFrame'),
-        note=document.getElementById('swNote'), url=document.getElementById('swUrl');
-    tabs.forEach(function(t){ t.addEventListener('click',function(){
-      tabs.forEach(function(x){ x.classList.remove('is-on'); }); t.classList.add('is-on');
-      var r=t.getAttribute('data-r');
-      note.innerHTML='<strong>'+t.textContent+' — </strong>'+t.getAttribute('data-n');
-      url.textContent='meridian.app'+r+' · live';
-      try{ frame.contentWindow.location.hash='#'+r; }
-      catch(e){ frame.src='../meridian-app/index.html#'+r; }
-    }); });
+    var btn=document.getElementById('txBtn'), code=document.getElementById('txCode'),
+        toks=document.getElementById('txTokens'), wrap=document.getElementById('tx');
+    if(!btn||!wrap) return;
+    var chips=wrap.querySelectorAll('.tx__chip');
+    var V=[
+      {k:'primary',  label:'Primary',   bg:'#2E5CE6', fg:'#fff', bd:'none', toks:[['brand/solid','#2E5CE6'],['text/on-brand','#FFFFFF'],['radius/lg','8px']]},
+      {k:'secondary',label:'Secondary', bg:'#FFFFFF', fg:'#161A20', bd:'1px solid #DFE3EA', toks:[['bg/surface','#FFFFFF'],['border/default','#DFE3EA'],['text/primary','#161A20']]},
+      {k:'subtle',   label:'Subtle',    bg:'#ECF2FF', fg:'#1D43B8', bd:'none', toks:[['brand/subtle','#ECF2FF'],['brand/fg','#1D43B8'],['radius/lg','8px']]},
+      {k:'danger',   label:'Danger',    bg:'#DA3A3F', fg:'#fff', bd:'none', toks:[['danger/solid','#DA3A3F'],['text/on-brand','#FFFFFF'],['radius/lg','8px']]}
+    ];
+    function render(v){
+      btn.textContent=v.label; btn.style.background=v.bg; btn.style.color=v.fg; btn.style.border=v.bd;
+      code.innerHTML='&lt;Button variant=<b>"'+v.k+'"</b>&gt;Label&lt;/Button&gt;';
+      toks.innerHTML=v.toks.map(function(t){ var c=t[1].charAt(0)==='#'?t[1]:'transparent';
+        return '<div class="tx__tok"><i style="background:'+c+'"></i>'+t[0]+' · '+t[1]+'</div>'; }).join('');
+      chips.forEach(function(c){ c.classList.toggle('on', c.getAttribute('data-k')===v.k); });
+    }
+    var i=0; render(V[0]);
+    function start(){ if(btn._t) return; btn._t=setInterval(function(){ i=(i+1)%V.length; render(V[i]); }, 2200); }
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) start(); }); },{threshold:.4}).observe(wrap);
+    } else start();
   })();
 </script>
 
 <script src="../js/main.js"></script>
 </body>
 </html>
+=='#'?t[1]:'transparent';
+        return '<div class="tx__tok"><i style="background:'+c+'"></i>'+t[0]+' · '+t[1]+'</div>'; }).join('');
+      chips.forEach(function(c){ c.classList.toggle('on', c.getAttribute('data-k')===v.k); });
+    }
+    var i=0; render(V[0]);
+    function start(){ if(btn._t) return; btn._t=
