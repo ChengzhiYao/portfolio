@@ -262,11 +262,11 @@
 
 <div class="proj-section">
   <div class="proj-stats" style="grid-template-columns:repeat(5,1fr);margin-top:0;">
-    <div class="proj-stat"><div class="v">100%</div><div class="k">app UI imported from the library</div></div>
-    <div class="proj-stat"><div class="v">0</div><div class="k">local components in the product</div></div>
-    <div class="proj-stat"><div class="v">1</div><div class="k">toggle re-themes 81 semantic tokens</div></div>
-    <div class="proj-stat"><div class="v">288</div><div class="k">variables · 3 collections</div></div>
-    <div class="proj-stat"><div class="v">179</div><div class="k">components · governed, instanced</div></div>
+    <div class="proj-stat"><div class="v">179</div><div class="k">governed components · screens are instances only</div></div>
+    <div class="proj-stat"><div class="v">288</div><div class="k">design tokens · 3 tiers, Light/Dark</div></div>
+    <div class="proj-stat"><div class="v">779</div><div class="k">instances placed · 0 hand-drawn</div></div>
+    <div class="proj-stat"><div class="v">27</div><div class="k">components bridged to code · Code Connect</div></div>
+    <div class="proj-stat"><div class="v">100%</div><div class="k">app UI assembled from the library</div></div>
   </div>
 </div>
 
@@ -391,7 +391,7 @@
       </div></div>
     <div class="proj-point"><span class="n">→ AUTO-LAYOUT · GOVERNANCE</span><h4>Screens are instances only.</h4><p>179 masters across 9 pages (Foundations, Primitives, Components, Patterns, States, Data Table, Auth, Dashboard). If it can appear twice, it's a component.</p>
       <div class="af-demo"><span class="af-code" style="width:auto">179 masters · 779 instances · 0 hand-drawn</span></div></div>
-    <div class="proj-point"><span class="n">→ CODE CONNECT</span><h4>Dev Mode shows real code.</h4><p>Each component maps to its React export with prop translation — engineering copies a working component, not a redraw.</p>
+    <div class="proj-point"><span class="n">→ CODE CONNECT</span><h4>27 components mapped to real code.</h4><p>Each maps to its React export with variant→prop translation — engineering copies a working component, not a redraw. (Publish to Dev Mode is gated to Org/Enterprise plans; mappings are committed and publish-ready.)</p>
       <div class="af-demo"><span class="af-code">figma.connect(Button, '…node-id=46-22', { variant: figma.enum('Variant', …) })</span></div></div>
   </div>
 </section>
@@ -399,7 +399,7 @@
 <section class="proj-section">
   <span class="eyebrow">THE BRIDGE</span>
   <h2 class="h-display">Figma and code, <em>pointing at each other</em>.</h2>
-  <p>Code Connect maps each Figma component to its React export and translates variant props to code props, so Dev Mode shows the real snippet for that node — handoff with zero re-draw. <strong>Status, plainly:</strong> 27 components are mapped and committed (<code>code-connect/*.figma.jsx</code> — the real file is shown below) — that's every component the product's code library implements, each bound to its Figma node with variant→prop maps. The other Figma components are screen-level compositions, not standalone code exports, so there's nothing to bind them to. Publishing into Figma Dev Mode needs a Figma Dev seat (Org/Enterprise); once that's on it goes live with one command — <code>npx figma connect publish</code> — no rework, the mappings are done.</p>
+  <p>Code Connect maps each Figma component to its React export and translates variant props to code props, so Dev Mode shows the real snippet for that node — handoff with zero re-draw. <strong>Status, plainly:</strong> 27 components are mapped and committed (<code>code-connect/*.figma.jsx</code> — the real file is shown below) — every component the code library implements, each bound to its Figma node with variant→prop maps. The remaining Figma components are screen-level compositions, not standalone code exports, so there is nothing to bind. Going live in Dev Mode is gated to Figma's <strong>Organization / Enterprise</strong> plan — I verified this directly against Figma's publish API on my Full seat: the mappings validate, the plan tier is the only gate. The repo ships <strong>publish-ready</strong> — one command, <code>npx figma connect publish</code>, the day the file sits on an Org plan. I left it un-published rather than overstate it.</p>
 
   <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:20px;">↓ ON LOOP — ONE COMPONENT RESOLVING: VARIANT → CODE PROP → THE TOKENS IT BINDS.</p>
   <div class="tx" id="tx">
