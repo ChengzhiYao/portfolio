@@ -499,7 +499,7 @@ button { font: inherit; background: none; border: none; color: inherit; }
   display: grid;
   grid-template-columns: 1.4fr 1fr;
   gap: 6vw;
-  align-items: end;
+  align-items: start;
 }
 .featured-intro__copy { display: flex; flex-direction: column; gap: 22px; max-width: 740px; }
 .featured-intro__title {
