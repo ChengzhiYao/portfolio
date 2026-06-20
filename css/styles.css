@@ -698,14 +698,28 @@ button { font: inherit; background: none; border: none; color: inherit; }
 .selected__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 22px 16px;
+  gap: 16px 16px;
+  align-content: center;
 }
-.selected-card__media { aspect-ratio: 4 / 3 !important; padding: 14px !important; }
-.selected-card__body { padding: 14px 16px 16px !important; gap: 7px !important; }
-.selected-card__name { font-size: 17px !important; line-height: 1.18 !important; }
-.selected-card__desc { font-size: 12.5px !important; line-height: 1.5 !important; }
+/* Short viewports (e.g. 1366×768 laptops): keep the 2-row grid inside the locked panel height.
+   Selectors are scoped through .selected__grid / .selected-card to outrank the plain !important rules below. */
+@media (max-height: 840px) {
+  .selected .selected__grid { gap: 12px 14px; }
+  .selected__grid .selected-card__media { aspect-ratio: 16 / 9 !important; padding: 9px !important; }
+  .selected-card .selected-card__desc { -webkit-line-clamp: 2 !important; }
+  .selected-card .selected-card__body { padding: 10px 14px 11px !important; gap: 5px !important; }
+  .selected-card .selected-card__name { font-size: 15px !important; }
+}
+.selected-card__media { aspect-ratio: 16 / 10 !important; padding: 11px !important; }
+.selected-card__body { padding: 13px 15px 14px !important; gap: 6px !important; }
+.selected-card__name { font-size: 16px !important; line-height: 1.16 !important; }
+.selected-card__desc {
+  font-size: 12px !important; line-height: 1.5 !important;
+  display: -webkit-box !important; -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important; overflow: hidden !important;
+}
 .selected-card__meta { font-size: 10.5px !important; }
-.selected-card__cta { font-size: 10.5px !important; padding-top: 8px !important; margin-top: 4px !important; }
+.selected-card__cta { font-size: 10.5px !important; padding-top: 7px !important; margin-top: 2px !important; }
 .selected-card {
   display: flex; flex-direction: column;
   background: var(--bg-2);
@@ -1513,26 +1527,64 @@ body.project-page { overflow-y: auto; overflow-x: hidden; }
   .featured__title { font-size: 13vw; }
 
   .hud-tl .hud__brand { font-size: 16px; }
-  .hud-tl > span:not(.hud__brand):not(.led):not(.hud__sep) { font-size: 10.5px; }
-  .hud__live { padding: 4px 8px; font-size: 10px; }
-}
+ 
+/* =====================================================
+   FX LAYER — interactive field, 3D cards, cursor label
+   ===================================================== */
+#fx-field { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.fx-on .dotgrid { opacity: 0; }                      /* canvas field replaces the static grid */
 
-/* ========================================
-   ULTRA-SMALL — ≤ 380px (iPhone SE, fold)
-   ======================================== */
-@media (max-width: 380px) {
-  .panel { padding: 72px 16px 48px; }
-  .proj-section { padding: 32px 16px; }
-  .hero__title { font-size: 16vw; }
-  .selected-card__media { padding: 12px !important; }
-  .proj-stat .v { font-size: 26px; }
-  .hud-tl > span:not(.hud__brand):not(.led):not(.hud__sep) { display: none; }
-}
+.fx-on .selected-card { transform-style: preserve-3d; will-change: transform;
+  transition: transform .18s var(--ease-out), border-color .3s, box-shadow .35s; }
+.fx-on .selected-card.is-tilt { box-shadow: 0 30px 70px -28px rgba(0,0,0,.75); border-color: var(--line-3); }
+.fx-glare { position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  opacity: 0; transition: opacity .35s; z-index: 4; mix-blend-mode: screen;
+  background: radial-gradient(240px circle at var(--gx,50%) var(--gy,50%), rgba(212,184,106,.18), transparent 56%); }
+.is-tilt .fx-glare { opacity: 1; }
 
+.fx-cursor-label { position: fixed; top: 0; left: 0; z-index: 10000; pointer-events: none;
+  font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: .14em;
+  padding: 5px 9px; border-radius: 999px; background: var(--gold); color: #0b0b0d;
+  white-space: nowrap; opacity: 0; scale: .55; transform-origin: left top;
+  transition: opacity .2s var(--ease-out), scale .2s var(--ease-out); }
+.fx-cursor-label.show { opacity: 1; scale: 1; }
+
+@media (prefers-reduced-motion: reduce) { #fx-field { display: none; } .fx-on .dotgrid { opacity: 1; } }
+
+/* FX v2 — WebGL nebula sits beneath the constellation field */
+#fx-shader { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { #fx-shader { display: none; } }
+
+/* FX v3 — hero entrance choreography */
+.fx-intro .hud-tl, .fx-intro .hud-tr, .fx-intro .hud-bl, .fx-intro .hud-br,
+.fx-intro .panel--hero .panel__index, .fx-intro .panel--hero .panel__edge, .fx-intro .panel--hero .panel__ruler,
+.fx-intro .hero__status, .fx-intro .hero__meta-cell, .fx-intro .hero__sub {
+  opacity: 0; transform: translateY(14px);
+}
+.fx-sweep { position: absolute; inset: 0; pointer-events: none; z-index: 5; opacity: 0;
+  background: linear-gradient(105deg, transparent 42%, rgba(212,184,106,.12) 50%, transparent 58%); }
+.fx-sweep.run { animation: fxSweep 1.45s var(--ease-out) forwards; }
+@keyframes fxSweep { 0% { opacity: 0; transform: translateX(-45%); } 18% { opacity: 1; } 100% { opacity: 0; transform: translateX(60%); } }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .001ms !important;
-  }
+  .fx-intro .hud-tl, .fx-intro .hud-tr, .fx-intro .hud-bl, .fx-intro .hud-br,
+  .fx-intro .hero__status, .fx-intro .hero__meta-cell, .fx-intro .hero__sub,
+  .fx-intro .panel--hero .panel__index, .fx-intro .panel--hero .panel__edge, .fx-intro .panel--hero .panel__ruler { opacity: 1 !important; transform: none !important; }
 }
+
+/* FX v4 — per-panel content reveal on centering */
+.fx-on .fx-panel > *:not(.panel__index):not(.panel__edge):not(.panel__ruler) {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .9s var(--ease-out), transform .9s var(--ease-out);
+}
+.fx-on .fx-panel.fx-panel-in > *:not(.panel__index):not(.panel__edge):not(.panel__ruler) {
+  opacity: 1; transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-on .fx-panel > * { opacity: 1 !important; transform: none !important; }
+}
+
+/* FX v4.1 — fail-safe panel reveal: content visible by default, entrance is a pure animation.
+   Overrides the earlier persistent-hidden rule so content can NEVER get stuck invisible. */
+.fx-on .fx-panel > *:not(.panel__index):not(.panel__edge):not(.panel__ruler) { opacity: 1; transform: none; }
+@keyframes fxPanelIn { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+.fx-on .fx-panel.fx-panel-in > *:not(.panel__index):not(.panel__edge):not(.panel__ruler) { animation: fxPanelIn .9s var(--ease-out) both; }
