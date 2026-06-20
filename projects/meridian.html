@@ -88,6 +88,18 @@
   .embed-bar .u{margin-left:10px;font-family:'Geist Mono',monospace;font-size:10px;color:#9BA3B4}
   .embed-app{display:block;width:100%;height:700px;border:0;background:#F7F8FA}
   @media(max-width:720px){.embed-app{height:560px}}
+  .sw__tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .sw__tab{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--text-2);background:transparent;border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer;transition:all .2s}
+  .sw__tab:hover{color:var(--text);border-color:var(--text-2)}
+  .sw__tab.is-on{color:#08080A;background:var(--gold);border-color:var(--gold)}
+  .sw__note{font-size:14.5px;line-height:1.6;color:var(--text-2);margin:14px 0 0;min-height:44px}
+  .sw__note strong{color:var(--text)}
+  .sys-live{height:780px}
+  .fig-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;align-items:start}
+  .fig-grid img{width:100%;border:1px solid var(--line);border-radius:10px;display:block;background:#fff}
+  .fig-scroll{margin-top:14px;height:520px;overflow:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+  .fig-scroll img{width:100%;display:block}
+  @media(max-width:760px){.fig-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body class="project-page">
@@ -110,10 +122,10 @@
 <header class="proj-hero">
   <div class="proj-hero__eyebrow">
     <span class="swatch"></span>
-    <span>[ DESIGN SYSTEMS · SOLO · 2026 ]</span>
+    <span>[ AI DESIGN SYSTEMS · ENTERPRISE · SOLO BUILD ]</span>
   </div>
-  <h1 class="h-display proj-hero__title">A treasury design system that <em>ships as a product.</em></h1>
-  <p class="proj-hero__sub">A 3-tier <strong>tokenized</strong> design system — 179 governed Figma components, published as a real React library, and <strong>consumed</strong> by a working banking dashboard. Design and code stay one system, linked through <strong>Code Connect</strong>.</p>
+  <h1 class="h-display proj-hero__title">An enterprise design system that <em>ships as a product.</em></h1>
+  <p class="proj-hero__sub">A 3-tier <strong>tokenized</strong> design system — 288 Figma Variables, 179 governed components, published as a real React library and <strong>consumed</strong> by a working banking dashboard, with design and code linked through <strong>Code Connect</strong>. Designed, engineered and governed <strong>end-to-end, by one person.</strong></p>
 
   <div style="display:flex; gap:24px; flex-wrap:wrap; margin-top:8px;">
     <a class="featured__link" href="../meridian-app/index.html" target="_blank" rel="noopener" data-magnet="0.12">Open the live demo →</a>
@@ -191,11 +203,21 @@
   <span class="eyebrow">00 / OVERVIEW</span>
   <h2 class="h-display" style="margin-top:12px;">One system, <em>two surfaces</em>, kept in sync.</h2>
   <p class="lede">Most "design systems" are sticker sheets. Meridian is a single source of truth that drives both the Figma files and a running product — I built it end-to-end to prove I can <strong>operate</strong> one, not just draw one.</p>
-  <div class="embed-frame">
-    <div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">meridian.app · live · click around ↓</span></div>
-    <iframe class="embed-app" src="../meridian-app/index.html" title="Meridian dashboard — live and interactive" loading="lazy"></iframe>
+  <div id="sw">
+    <div class="sw__tabs">
+      <button class="sw__tab is-on" data-r="/overview" data-n="the daily snapshot — four KPICard instances, a CashFlow area chart, the Balance donut and the 4-agent AI insight row. Every block is a library component.">Overview</button>
+      <button class="sw__tab" data-r="/insights" data-n="AI-surfaced trends — stat cards, the shared chart + donut, and a Key-insights row reusing the same insight / recommendation / alert cards.">Insights</button>
+      <button class="sw__tab" data-r="/assistant" data-n="the 4-agent copilot — ChatBubble instances (role variant), suggestion chips and a composer. Ask it something; it routes to Analyst / Risk / Forecaster / Advisor.">AI Assistant</button>
+      <button class="sw__tab" data-r="/transactions" data-n="a real data table — search, Status / Date / Account filters, Badge tones for category and status, pagination. Try filtering it.">Transactions</button>
+      <button class="sw__tab" data-r="/payments" data-n="a transfer flow — a 4-step stepper, a transfer-details form (Select / Input / amount) and a live Review summary card.">Payments</button>
+    </div>
+    <p class="sw__note" id="swNote"><strong>Overview — </strong>the daily snapshot — four KPICard instances, a CashFlow area chart, the Balance donut and the 4-agent AI insight row. Every block is a library component.</p>
+    <div class="embed-frame">
+      <div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u" id="swUrl">meridian.app/overview · live</span></div>
+      <iframe class="embed-app" id="swFrame" src="../meridian-app/index.html#/overview" title="Meridian — live and interactive" loading="lazy"></iframe>
+    </div>
+    <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:10px;">↑ LIVE &amp; INTERACTIVE — NOT A SCREENSHOT. PICK A TAB, THEN USE THE REAL APP.</p>
   </div>
-  <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:10px;">↑ THE REAL APP, EMBEDDED — NOT A SCREENSHOT. CLICK THE NAV · FILTER TRANSACTIONS · ASK THE AI · SWITCH SCREENS.</p>
 </div>
 
 <div class="proj-section">
@@ -207,6 +229,28 @@
     <div class="proj-stat"><div class="v">100%</div><div class="k">app UI imported from library</div></div>
   </div>
 </div>
+
+<section class="proj-section">
+  <span class="eyebrow">THE DESIGN SYSTEM · LIVE</span>
+  <h2 class="h-display">The whole system, <em>running in this page</em>.</h2>
+  <p class="lede">Not a picture of a library — the library itself, rendered from the real React code I shipped. Tokens, every component, every variant. <strong>Hit “Dark mode” inside and watch all 81 semantic tokens re-theme at once.</strong></p>
+  <div class="embed-frame">
+    <div class="embed-bar"><i style="background:#F76D6D"></i><i style="background:#F6C744"></i><i style="background:#54C588"></i><span class="u">jestaz-design-system · live components</span></div>
+    <iframe class="embed-app sys-live" src="../meridian-app/index.html#/styleguide" title="Jestaz Design System — live components" loading="lazy"></iframe>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">THE FIGMA FILE</span>
+  <h2 class="h-display">Built solo — <em>nine pages</em>, 179 masters, governed.</h2>
+  <p>The source of truth: a structured Figma file with multi-mode Variables, variant sets, component properties and an icon library. Foundations and the Button set, straight from the file:</p>
+  <div class="fig-grid">
+    <img src="../site-media/meridian/figma/foundations.png" alt="Figma Foundations — color, type, spacing, elevation and data-viz tokens" loading="lazy"/>
+    <img src="../site-media/meridian/figma/button-set.png" alt="Figma Button component set — 15 variants, Variant × Size" loading="lazy"/>
+  </div>
+  <p style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--mute);margin-top:18px;">↓ THE COMPONENT BOARD — SCROLL THE ACTUAL FILE.</p>
+  <div class="fig-scroll"><img src="../site-media/meridian/figma/components-board.png" alt="Figma Components page — the full component library board"/></div>
+</section>
 
 <section class="proj-section">
   <span class="eyebrow">01 / THE THESIS</span>
@@ -282,12 +326,21 @@
 </section>
 
 <section class="proj-section">
-  <span class="eyebrow">04 / SCREENS</span>
+  <span class="eyebrow">04 / THE FULL SET</span>
   <h2 class="h-display">Ten screens, <em>all from the same parts</em>.</h2>
-  <p>Overview, Accounts, Cards, Payments, Transactions, Reports, Insights, AI Assistant, Settings, Support — every one assembled from the library, in light and dark.</p>
-  <div class="media-mid"><img src="../site-media/meridian/assistant.png" alt="Meridian AI Assistant — 4-agent treasury copilot with an AI-insights sidebar" loading="lazy"/></div>
-  <div class="media-mid"><img src="../site-media/meridian/transactions.png" alt="Meridian Transactions — filterable data table with status and category badges" loading="lazy"/></div>
-  <div class="media-mid"><img src="../site-media/meridian/reports.png" alt="Meridian Reports — stat cards and a reports data table" loading="lazy"/></div>
+  <p>No screen owns a bespoke component — each is pure composition over the library. The featured five are live above; here's the whole product and what each is assembled from:</p>
+  <div class="comp-grid">
+    <div class="comp"><b>Overview</b>KPI cards · chart · donut · AI insights</div>
+    <div class="comp"><b>Accounts</b>page-header card · data table</div>
+    <div class="comp"><b>Cards</b>BankCard · freeze switch · limit bar</div>
+    <div class="comp"><b>Payments</b>stepper · form · review card</div>
+    <div class="comp"><b>Transactions</b>filters · table · pagination</div>
+    <div class="comp"><b>Reports</b>stat cards · report table</div>
+    <div class="comp"><b>Insights</b>stat cards · chart · key insights</div>
+    <div class="comp"><b>AI Assistant</b>chat · agent tags · sidebar</div>
+    <div class="comp"><b>Settings</b>tabs · toggle rows · save bar</div>
+    <div class="comp"><b>Support</b>contact form · FAQ · live chat</div>
+  </div>
 </section>
 
 <section class="proj-section">
@@ -358,6 +411,22 @@
       var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) play(); }); }, {threshold:.35});
       io.observe(stage);
     } else { play(); }
+  })();
+</script>
+
+<script>
+  (function(){
+    var sw=document.getElementById('sw'); if(!sw) return;
+    var tabs=sw.querySelectorAll('.sw__tab'), frame=document.getElementById('swFrame'),
+        note=document.getElementById('swNote'), url=document.getElementById('swUrl');
+    tabs.forEach(function(t){ t.addEventListener('click',function(){
+      tabs.forEach(function(x){ x.classList.remove('is-on'); }); t.classList.add('is-on');
+      var r=t.getAttribute('data-r');
+      note.innerHTML='<strong>'+t.textContent+' — </strong>'+t.getAttribute('data-n');
+      url.textContent='meridian.app'+r+' · live';
+      try{ frame.contentWindow.location.hash='#'+r; }
+      catch(e){ frame.src='../meridian-app/index.html#'+r; }
+    }); });
   })();
 </script>
 
