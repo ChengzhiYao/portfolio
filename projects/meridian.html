@@ -544,5 +544,21 @@
 </script>
 
 <script src="../js/main.js"></script>
+<script>
+  /* keep the portfolio custom cursor following over same-origin iframes */
+  (function(){
+    function hook(f){ try{
+      var d=f.contentDocument||f.contentWindow.document;
+      d.addEventListener('mousemove',function(e){
+        var r=f.getBoundingClientRect();
+        window.dispatchEvent(new MouseEvent('mousemove',{clientX:r.left+e.clientX,clientY:r.top+e.clientY}));
+      },{passive:true});
+    }catch(err){} }
+    document.querySelectorAll('iframe.embed-app').forEach(function(f){
+      f.addEventListener('load',function(){ hook(f); });
+      try{ if(f.contentDocument&&f.contentDocument.readyState==='complete') hook(f); }catch(e){}
+    });
+  })();
+</script>
 </body>
 </html>
