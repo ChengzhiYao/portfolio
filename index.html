@@ -190,68 +190,72 @@
         <a href="projects/meridian.html" class="featured__media-main" aria-label="Open Meridian case study">
           <svg viewBox="0 0 540 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%; height:100%;">
             <defs>
-              <radialGradient id="md-glow" cx="50%" cy="35%" r="55%">
-                <stop offset="0%" stop-color="#D4B86A" stop-opacity=".42"/>
-                <stop offset="55%" stop-color="#D4B86A" stop-opacity=".10"/>
-                <stop offset="100%" stop-color="#D4B86A" stop-opacity="0"/>
-              </radialGradient>
               <style>
-                .md-card { fill: #131318; stroke: rgba(255,255,255,.16); stroke-width: 1; }
-                .md-card-a { fill: #131318; stroke: #D4B86A; stroke-width: 1.4; }
-                .md-t { font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 500; fill: #EAEAEC; }
-                .md-l { font-family: 'Geist Mono', monospace; font-size: 8px; letter-spacing: .08em; fill: #8A8A92; }
-                .md-g { font-family: 'Geist Mono', monospace; font-size: 8px; letter-spacing: .08em; fill: #D4B86A; }
-                .md-arrow { stroke: rgba(212,184,106,.55); stroke-width: 1; fill: none; marker-end: url(#md-ah); }
+                .ms-l { font-family: 'Geist Mono', monospace; font-size: 8px; letter-spacing: .07em; fill: #8A8A92; }
+                .ms-bn { font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 500; }
               </style>
-              <marker id="md-ah" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M 0 0 L 8 4 L 0 8 z" fill="rgba(212,184,106,.65)"/>
-              </marker>
             </defs>
 
-            <text x="20" y="26" font-family="Geist Mono, monospace" font-size="10" letter-spacing="2" fill="#8A8A92">MERIDIAN · token pipeline · primitive → semantic → component</text>
+            <text x="20" y="26" font-family="Geist Mono, monospace" font-size="10" letter-spacing="2" fill="#8A8A92">MERIDIAN · design system · tokens → components → product</text>
             <line x1="20" y1="38" x2="520" y2="38" stroke="rgba(255,255,255,.08)"/>
 
-            <!-- Primitive -->
-            <rect x="40" y="80" width="140" height="220" rx="10" class="md-card"/>
-            <text x="110" y="106" class="md-l" text-anchor="middle">① primitive · raw scale</text>
-            <rect x="60" y="124" width="14" height="14" rx="3" fill="#ECF2FF"/><text x="84" y="135" class="md-l">color/primary/50</text>
-            <rect x="60" y="148" width="14" height="14" rx="3" fill="#2E5CE6"/><text x="84" y="159" class="md-l">color/primary/500</text>
-            <rect x="60" y="172" width="14" height="14" rx="3" fill="#1D43B8"/><text x="84" y="183" class="md-l">color/primary/700</text>
-            <rect x="60" y="196" width="14" height="14" rx="3" fill="#161A20" stroke="rgba(255,255,255,.2)"/><text x="84" y="207" class="md-l">color/neutral/900</text>
-            <line x1="60" y1="226" x2="160" y2="226" stroke="rgba(255,255,255,.10)"/>
-            <text x="110" y="252" class="md-t" text-anchor="middle">118 VARIABLES</text>
-            <text x="110" y="268" class="md-l" text-anchor="middle">value only</text>
+            <!-- (1) primitive ramp -->
+            <text x="20" y="62" class="ms-l">① PRIMITIVES · raw scale</text>
+            <rect x="20"  y="70" width="22" height="20" rx="4" fill="#ECF2FF"/>
+            <rect x="46"  y="70" width="22" height="20" rx="4" fill="#C9D8FF"/>
+            <rect x="72"  y="70" width="22" height="20" rx="4" fill="#85A4FF"/>
+            <rect x="98"  y="70" width="22" height="20" rx="4" fill="#5C82F0"/>
+            <rect x="124" y="70" width="22" height="20" rx="4" fill="#2E5CE6"/>
+            <rect x="150" y="70" width="22" height="20" rx="4" fill="#1D43B8"/>
+            <rect x="176" y="70" width="22" height="20" rx="4" fill="#13307F"/>
+            <rect x="210" y="70" width="22" height="20" rx="4" fill="#FFFFFF"/>
+            <rect x="236" y="70" width="22" height="20" rx="4" fill="#DFE3EA"/>
+            <rect x="262" y="70" width="22" height="20" rx="4" fill="#6E6E78"/>
+            <rect x="288" y="70" width="22" height="20" rx="4" fill="#161A20" stroke="rgba(255,255,255,.18)"/>
+            <text x="330" y="84" class="ms-l">118 variables · blue + neutral</text>
 
-            <!-- Semantic (highlight) -->
-            <rect x="210" y="60" width="120" height="260" rx="10" fill="url(#md-glow)"/>
-            <rect x="210" y="60" width="120" height="260" rx="10" class="md-card-a"/>
-            <text x="270" y="86" class="md-g" text-anchor="middle">② semantic · light / dark</text>
-            <text x="270" y="116" class="md-t" text-anchor="middle">bg/brand-bold</text>
-            <text x="270" y="132" class="md-l" text-anchor="middle">→ primary/500</text>
-            <line x1="225" y1="150" x2="315" y2="150" stroke="rgba(255,255,255,.10)"/>
-            <text x="270" y="172" class="md-t" text-anchor="middle">text/primary</text>
-            <text x="270" y="188" class="md-l" text-anchor="middle">→ neutral/900</text>
-            <line x1="225" y1="206" x2="315" y2="206" stroke="rgba(255,255,255,.10)"/>
-            <text x="270" y="228" class="md-t" text-anchor="middle">81 VARIABLES</text>
-            <text x="270" y="244" class="md-l" text-anchor="middle">2 modes</text>
-            <text x="270" y="290" class="md-g" text-anchor="middle">one switch · re-themes all</text>
+            <!-- (2) components from variant sets -->
+            <text x="20" y="124" class="ms-l">② COMPONENTS · from variant sets</text>
+            <rect x="20" y="134" width="118" height="34" rx="8" fill="#2E5CE6"/>
+            <text x="79" y="156" class="ms-bn" fill="#FFFFFF" text-anchor="middle">Button</text>
+            <rect x="148" y="134" width="118" height="34" rx="8" fill="none" stroke="#3A3A44"/>
+            <text x="207" y="156" class="ms-bn" fill="#EAEAEC" text-anchor="middle">Secondary</text>
+            <rect x="276" y="134" width="160" height="34" rx="8" fill="#131318" stroke="#2A2A33"/>
+            <text x="288" y="155" class="ms-l" fill="#6E6E78">Amount</text>
+            <text x="424" y="156" font-family="Geist, sans-serif" font-size="11" fill="#EAEAEC" text-anchor="end">$40,000</text>
+            <rect x="448" y="140" width="40" height="22" rx="11" fill="#2E5CE6"/>
+            <circle cx="478" cy="151" r="8" fill="#FFFFFF"/>
 
-            <!-- Component -->
-            <rect x="360" y="80" width="140" height="220" rx="10" class="md-card"/>
-            <text x="430" y="106" class="md-l" text-anchor="middle">③ component · scoped</text>
-            <text x="430" y="136" class="md-t" text-anchor="middle">button/primary-bg</text>
-            <text x="430" y="152" class="md-l" text-anchor="middle">→ bg/brand-bold</text>
-            <line x1="380" y1="170" x2="480" y2="170" stroke="rgba(255,255,255,.10)"/>
-            <text x="430" y="192" class="md-t" text-anchor="middle">89 VARIABLES</text>
-            <text x="430" y="208" class="md-l" text-anchor="middle">alias only</text>
-            <line x1="380" y1="226" x2="480" y2="226" stroke="rgba(255,255,255,.10)"/>
-            <text x="430" y="252" class="md-g" text-anchor="middle">&lt;Button variant="primary" /&gt;</text>
-            <text x="430" y="268" class="md-l" text-anchor="middle">React · Code Connect</text>
+            <rect x="20" y="182" width="46" height="20" rx="10" fill="rgba(17,150,81,.16)" stroke="rgba(17,150,81,.5)"/>
+            <text x="43" y="195" class="ms-l" fill="#57E08F" text-anchor="middle">Live</text>
+            <rect x="74" y="182" width="34" height="20" rx="10" fill="rgba(46,92,230,.16)" stroke="rgba(46,92,230,.5)"/>
+            <text x="91" y="195" class="ms-l" fill="#6E9AFF" text-anchor="middle">AI</text>
+            <rect x="116" y="182" width="44" height="20" rx="10" fill="none" stroke="#3A3A44"/>
+            <text x="138" y="195" class="ms-l" fill="#8A8A92" text-anchor="middle">Beta</text>
+            <circle cx="184" cy="192" r="11" fill="#2E5CE6" stroke="#0D0D11" stroke-width="2"/>
+            <circle cx="200" cy="192" r="11" fill="#5C82F0" stroke="#0D0D11" stroke-width="2"/>
+            <circle cx="216" cy="192" r="11" fill="#1D43B8" stroke="#0D0D11" stroke-width="2"/>
+            <rect x="276" y="189" width="160" height="6" rx="3" fill="#2A2A33"/>
+            <rect x="276" y="189" width="104" height="6" rx="3" fill="#2E5CE6"/>
 
-            <line x1="180" y1="170" x2="208" y2="170" class="md-arrow"/>
-            <line x1="332" y1="170" x2="358" y2="170" class="md-arrow"/>
+            <!-- (3) one switch · light / dark — same card -->
+            <text x="20" y="240" class="ms-l">③ ONE SWITCH · light / dark — same component</text>
+            <rect x="20" y="250" width="240" height="120" rx="10" fill="#FAF7EF"/>
+            <text x="40" y="278" font-family="Geist Mono, monospace" font-size="8" letter-spacing=".08em" fill="#6E6E78">TOTAL BALANCE</text>
+            <text x="40" y="312" font-family="Geist, sans-serif" font-size="26" font-weight="600" fill="#161A20">$2.85M</text>
+            <text x="40" y="335" font-family="Geist, sans-serif" font-size="10" fill="#119651">+12.4% MoM</text>
+            <circle cx="214" cy="306" r="24" fill="none" stroke="#E4DECC" stroke-width="7"/>
+            <circle cx="214" cy="306" r="24" fill="none" stroke="#2E5CE6" stroke-width="7" stroke-dasharray="98 160" stroke-linecap="round" transform="rotate(-90 214 306)"/>
+            <text x="40" y="362" font-family="Geist Mono, monospace" font-size="7" fill="#9A958A">LIGHT MODE</text>
+            <rect x="280" y="250" width="240" height="120" rx="10" fill="#131318" stroke="rgba(255,255,255,.10)"/>
+            <text x="300" y="278" font-family="Geist Mono, monospace" font-size="8" letter-spacing=".08em" fill="#8A8A92">TOTAL BALANCE</text>
+            <text x="300" y="312" font-family="Geist, sans-serif" font-size="26" font-weight="600" fill="#EAEAEC">$2.85M</text>
+            <text x="300" y="335" font-family="Geist, sans-serif" font-size="10" fill="#57E08F">+12.4% MoM</text>
+            <circle cx="474" cy="306" r="24" fill="none" stroke="#2A2A33" stroke-width="7"/>
+            <circle cx="474" cy="306" r="24" fill="none" stroke="#2E5CE6" stroke-width="7" stroke-dasharray="98 160" stroke-linecap="round" transform="rotate(-90 474 306)"/>
+            <text x="300" y="362" font-family="Geist Mono, monospace" font-size="7" fill="#6E6E78">DARK MODE</text>
 
-            <text x="20" y="376" class="md-l">288 variables · 179 governed components · authored in Figma, consumed in code</text>
+            <text x="20" y="392" class="ms-l">288 variables · 179 governed components · authored in Figma, consumed in code</text>
           </svg>
         </a>
 
