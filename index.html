@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/styles.css?v=3" />
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2308080A'/%3E%3Ctext x='50%25' y='62%25' text-anchor='middle' font-family='-apple-system,sans-serif' font-weight='500' font-size='18' fill='%23EAEAEC'%3EJ%3C/text%3E%3Ccircle cx='25' cy='23' r='2.5' fill='%23D4B86A'/%3E%3C/svg%3E" />
 </head>
@@ -130,25 +130,29 @@
         </div>
         <div class="caps__grid">
           <div class="cap">
-            <span class="cap__n">/01</span>
+            <span class="cap__ghost">01</span>
+            <svg class="cap__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
             <h4>Design Systems &amp; Tokens</h4>
             <p>3-tier tokens · Figma Variables (light/dark) · governed component libraries · Figma↔code via Code Connect · semantic versioning &amp; governance · WCAG-AA baked in.</p>
             <div class="cap__proof"><a href="projects/meridian.html" data-magnet="0.08">Meridian →</a></div>
           </div>
           <div class="cap">
-            <span class="cap__n">/02</span>
+            <span class="cap__ghost">02</span>
+            <svg class="cap__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="12" r="2"/><path d="M7 6.9 17 11M7 17.1 17 13"/></svg>
             <h4>AI Decision Architecture</h4>
             <p>Multi-agent orchestration · intent taxonomies · policy &amp; confidence gating · structured outputs · grounded, legible, fallback-first behavior.</p>
             <div class="cap__proof"><a href="projects/director.html" data-magnet="0.08">Director</a> · <a href="projects/aipattern.html" data-magnet="0.08">Translator</a> · <a href="projects/mystnight.html" data-magnet="0.08">MystNight</a></div>
           </div>
           <div class="cap">
-            <span class="cap__n">/03</span>
+            <span class="cap__ghost">03</span>
+            <svg class="cap__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M8 14v3M13 9v8M18 5v12"/></svg>
             <h4>Data-heavy Product &amp; Dashboards</h4>
             <p>Treasury &amp; analytics dashboards · KPIs &amp; data-viz · configurators · permission-gated, high-stakes B2B flows.</p>
             <div class="cap__proof"><a href="projects/meridian.html" data-magnet="0.08">Meridian</a> · <a href="projects/mechapro.html" data-magnet="0.08">MechaPro</a> · <a href="projects/sage.html" data-magnet="0.08">SAGE</a></div>
           </div>
           <div class="cap">
-            <span class="cap__n">/04</span>
+            <span class="cap__ghost">04</span>
+            <svg class="cap__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg>
             <h4>Designs in Code</h4>
             <p>I ship, not just hand off — published React component libraries, SwiftUI apps, and TypeScript / Python prototypes that prove the design works in production.</p>
             <div class="cap__proof"><a href="projects/meridian.html" data-magnet="0.08">React lib</a> · <a href="projects/bitez.html" data-magnet="0.08">SwiftUI</a> · <a href="projects/director.html" data-magnet="0.08">FastAPI</a></div>
@@ -182,43 +186,49 @@
         </div>
 
         <div class="featured-intro__list">
-          <a href="projects/meridian.html" class="featured-intro__row" data-magnet="0.05">
+          <div class="ftabs">
+            <button class="ftab is-active" data-cat="all">All <i>7</i></button>
+            <button class="ftab" data-cat="ds">Design Systems <i>1</i></button>
+            <button class="ftab" data-cat="product">AI Products <i>2</i></button>
+            <button class="ftab" data-cat="system">AI Systems <i>4</i></button>
+          </div>
+          <a href="projects/meridian.html" class="featured-intro__row" data-magnet="0.05" data-cat="ds">
             <span class="n">/01</span>
             <span class="t">Meridian · <span class="gold">Treasury Design System</span></span>
             <span class="d"><b class="cat">DESIGN SYSTEM</b> · 3-tier tokens · 179 components</span>
             <span class="y">7 MIN</span>
           </a>
-          <a href="projects/mystnight.html" class="featured-intro__row" data-magnet="0.05">
+          <a href="projects/mystnight.html" class="featured-intro__row" data-magnet="0.05" data-cat="product">
             <span class="n">/02</span>
             <span class="t">MystNight · <span class="gold">AI Game Master</span></span>
             <span class="d"><b class="cat">AI PRODUCT</b> · live AI host · real-time 2-player</span>
             <span class="y">10 MIN</span>
           </a>
-          <a href="projects/bitez.html" class="featured-intro__row" data-magnet="0.05">
+          <a href="projects/bitez.html" class="featured-intro__row" data-magnet="0.05" data-cat="product">
             <span class="n">/03</span>
             <span class="t">Bitez · <span class="gold">iOS · Product AI</span></span>
             <span class="d"><b class="cat">AI PRODUCT</b> · on-device LLM · graceful fallback</span>
             <span class="y">11 MIN</span>
           </a>
-          <a href="demon-rising/index.html" class="featured-intro__row" data-magnet="0.05">
+          <a href="demon-rising/index.html" class="featured-intro__row" data-magnet="0.05" data-cat="system">
             <span class="n">/04</span>
             <span class="t">Demon Rising · <span class="gold">The Council</span></span>
             <span class="d"><b class="cat">AI SYSTEM</b> · LLM in the loop · fallback design</span>
             <span class="y">9 MIN</span>
           </a>
-          <a href="projects/director.html" class="featured-intro__row" data-magnet="0.05">
+          <a href="projects/director.html" class="featured-intro__row" data-magnet="0.05" data-cat="system">
             <span class="n">/05</span>
             <span class="t">Director · <span class="gold">Supply Chain MAS</span></span>
             <span class="d"><b class="cat">AI SYSTEM</b> · multi-agent · eval-driven</span>
             <span class="y">10 MIN</span>
           </a>
-          <a href="projects/rag.html" class="featured-intro__row" data-magnet="0.05">
+          <a href="projects/rag.html" class="featured-intro__row" data-magnet="0.05" data-cat="system">
             <span class="n">/06</span>
             <span class="t">Visual RAG <span class="gold">Memory Map</span></span>
             <span class="d"><b class="cat">AI SYSTEM</b> · AI memory · retrieval UX</span>
             <span class="y">6 MIN</span>
           </a>
-          <a href="projects/aipattern.html" class="featured-intro__row" data-magnet="0.05">
+          <a href="projects/aipattern.html" class="featured-intro__row" data-magnet="0.05" data-cat="system">
             <span class="n">/07</span>
             <span class="t">The <span class="gold">Translator Pattern</span></span>
             <span class="d"><b class="cat">AI PATTERN</b> · design pattern · AI + policy</span>
@@ -1350,7 +1360,31 @@
   </div>
 </footer>
 
-<script src="js/main.js"></script>
-<script src="js/fx.js"></script>
+<script src="js/main.js?v=3"></script>
+<script src="js/fx.js?v=3"></script>
+<script>
+/* Featured-list category tabs — filter + renumber visible rows */
+(function(){
+  var tabs = document.querySelectorAll('.ftab');
+  if(!tabs.length) return;
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.featured-intro__list .featured-intro__row'));
+  function apply(cat){
+    var i = 0;
+    rows.forEach(function(r){
+      var show = (cat === 'all') || (r.getAttribute('data-cat') === cat);
+      r.hidden = !show;
+      if(show){ i++; var n = r.querySelector('.n'); if(n) n.textContent = '/' + (i < 10 ? '0' : '') + i; }
+    });
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      tabs.forEach(function(x){ x.classList.remove('is-active'); });
+      t.classList.add('is-active');
+      apply(t.getAttribute('data-cat'));
+    });
+  });
+})();
+</script>
 </body>
 </html>
