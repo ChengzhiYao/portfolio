@@ -1598,3 +1598,48 @@ body.project-page { overflow-y: auto; overflow-x: hidden; }
 .panel > .selected,
 .panel > .about,
 .panel > .contact { align-self: flex-start; }
+
+/* About: principles sit directly under the title; bio spans the right column,
+   so the principle row no longer waits for the taller bio row (which clipped it). */
+.about { row-gap: 22px; grid-template-rows: auto 1fr; }
+.about__head { grid-column: 1; grid-row: 1; }
+.about__body { grid-column: 2; grid-row: 1 / span 2; }
+.about .howiwork { grid-column: 1; grid-row: 2; align-self: start; margin-top: 0; }
+.about__title { font-size: clamp(32px, 3.0vw, 52px); }
+
+/* Capabilities panel — 4-pillar capability map */
+.caps { width:100%; max-width:1480px; margin:0 auto; display:grid; grid-template-columns:320px 1fr; gap:4vw; align-items:start; }
+.caps__head { display:flex; flex-direction:column; gap:16px; }
+.caps__title { font-size:clamp(28px,2.6vw,44px); line-height:1.05; font-weight:500; }
+.caps__lede { font-size:14px; line-height:1.55; color:var(--text-2); max-width:34ch; }
+.caps__grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px 22px; }
+.cap { border-top:1px solid var(--line); padding-top:14px; transition:padding-left .35s var(--ease-out); }
+.cap:hover { padding-left:8px; }
+.cap__n { font-family:var(--mono); font-size:11px; color:var(--gold); }
+.cap h4 { font-family:var(--display); font-size:17px; font-weight:500; letter-spacing:-.015em; margin:6px 0 6px; }
+.cap p { font-size:12.5px; line-height:1.5; color:var(--text-2); }
+.cap__proof { margin-top:10px; font-family:var(--mono); font-size:11px; color:var(--mute); }
+.cap__proof a { color:var(--gold); }
+.cap__proof a:hover { text-decoration:underline; }
+.panel > .caps { align-self: flex-start; }
+@media (max-width:900px){ .caps { grid-template-columns:1fr; gap:24px; } .caps__grid { grid-template-columns:1fr; } }
+
+/* Capabilities proof bar + Featured discipline tags */
+.caps__proof-bar { grid-column:1 / -1; margin-top:6px; display:flex; flex-wrap:wrap; gap:10px 22px; padding-top:16px; border-top:1px solid var(--line); font-family:var(--mono); font-size:11px; letter-spacing:.03em; color:var(--mute); }
+.caps__proof-bar b { color:var(--gold); font-weight:500; }
+.featured-intro__row .cat { color:var(--gold); font-weight:500; letter-spacing:.04em; }
+
+/* Overview (featured-intro) — compact on short/laptop viewports so all 7 rows fit */
+@media (max-height: 940px) {
+  .featured-intro__title { font-size: clamp(26px, 3.2vw, 44px) !important; }
+  .featured-intro__sub { font-size: 13.5px; }
+  .featured-intro__row { padding: 11px 0 !important; }
+  .featured-intro__list { gap: 0; }
+}
+
+/* Overview — tighter still on very short viewports (≤800px, e.g. 1366×768 with browser chrome) */
+@media (max-height: 800px) {
+  .featured-intro__title { font-size: clamp(22px, 2.6vw, 34px) !important; }
+  .featured-intro__row { padding: 8px 0 !important; }
+  .featured-intro__sub { font-size: 12.5px; max-width: 46ch; }
+}
