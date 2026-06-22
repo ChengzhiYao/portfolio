@@ -8,7 +8,7 @@
 (function () {
   'use strict';
 
-  const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
+  const isMobile = () => window.matchMedia('(max-width: 1024px)').matches || window.matchMedia('(pointer: coarse)').matches;
   const isFinePointer = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

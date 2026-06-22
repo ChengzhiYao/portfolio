@@ -11,7 +11,7 @@
   'use strict';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine   = matchMedia('(hover:hover) and (pointer:fine)').matches;
-  const mobile = matchMedia('(max-width:900px)').matches;
+  const mobile = matchMedia('(max-width:1024px)').matches;
   if (reduce || !fine || mobile) return;
   document.body.classList.add('fx-on');
 
@@ -201,7 +201,7 @@
 (function intro() {
   'use strict';
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (matchMedia('(max-width:900px)').matches) return;
+  if (matchMedia('(max-width:1024px)').matches) return;
   const hero = document.querySelector('.panel--hero');
   if (!hero) return;
   document.body.classList.add('fx-intro');
@@ -250,7 +250,7 @@
 (function titleDecode() {
   'use strict';
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (matchMedia('(max-width:900px)').matches) return;
+  if (matchMedia('(max-width:1024px)').matches) return;
   const title = document.querySelector('.hero__title');
   if (!title) return;
   const inners = Array.prototype.slice.call(title.querySelectorAll('.reveal-inner'));
@@ -297,7 +297,7 @@
 (function panelReveal() {
   'use strict';
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (matchMedia('(max-width:900px)').matches) return;
+  if (matchMedia('(max-width:1024px)').matches) return;
   const track = document.querySelector('.h-scroll__track');
   const panels = track ? Array.prototype.slice.call(track.querySelectorAll('.panel')) : [];
   if (!panels.length) return;

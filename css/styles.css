@@ -1305,7 +1305,7 @@ body.project-page { overflow-y: auto; overflow-x: hidden; }
 /* ========================================
    MOBILE / TABLET — ≤ 900px
    ======================================== */
-@media (max-width: 900px) {
+@media (max-width: 1024px), (pointer: coarse) {
   html, body { cursor: auto !important; }
   .cursor { display: none; }
   body { overflow-y: auto; overflow-x: hidden; }
