@@ -70,6 +70,75 @@
   </div>
 </section>
 
+<section class="proj-section" id="design-system">
+  <span class="eyebrow">DESIGN · SYSTEM</span>
+  <h2 class="h-display">One <em>token-driven design system</em> — eight game modes, Figma to code.</h2>
+  <p class="lede">Every screen runs on the same system: a three-tier variable set (<strong>primitives → semantic → scale</strong>), a component &amp; pattern library, and a Tailwind preset that mirrors the Figma tokens <strong>1:1</strong> — change a colour in Figma and it's the same class in code. One cosmic-horror, serif, dark aesthetic across storytelling, Cthulhu investigation, D&amp;D, a murder mystery and an original card game.</p>
+
+  <div class="ds">
+    <div class="ds-top">
+      <figure class="ds-frame ds-found">
+        <img src="../site-media/mystnight/ds-foundations.png" alt="MystNight design tokens — brand colours, semantic tokens, and the serif type scale" loading="lazy" />
+        <figcaption>Foundations — colour variables (primitives → semantic) + the serif type scale.</figcaption>
+      </figure>
+      <div class="ds-side">
+        <div class="ds-tokens">
+          <span class="t"><i style="background:#0c0d10"></i>ink</span>
+          <span class="t"><i style="background:#1a1c22"></i>fog</span>
+          <span class="t"><i style="background:#d8c7a8"></i>parchment</span>
+          <span class="t"><i style="background:#7d1d1d"></i>blood</span>
+          <span class="t"><i style="background:#2f5d54"></i>eldritch</span>
+          <span class="t"><i style="background:#d9a441"></i>amber</span>
+          <span class="t"><i style="background:#4ca36a"></i>green</span>
+          <span class="t"><i style="background:#5aa0c4"></i>sky</span>
+        </div>
+        <div class="ds-stats">
+          <div><b>16</b><span>primitives</span></div>
+          <div><b>35</b><span>components</span></div>
+          <div><b>9</b><span>patterns</span></div>
+          <div><b>8</b><span>screens</span></div>
+        </div>
+        <p class="ds-note">Variables → semantic tokens → components → patterns → full screens, all wired to a Tailwind preset + a starter React library &amp; Figma Code Connect, so design and code never drift.</p>
+        <a class="featured__link" href="https://www.figma.com/design/eNuQzlYCFtHaGRx3aDDVjH/MystNight-Design-System" target="_blank" rel="noopener" data-magnet="0.12">Open the system in Figma →</a>
+      </div>
+    </div>
+
+    <div class="ds-grid">
+      <figure class="ds-frame"><img src="../site-media/mystnight/ds-home.png" alt="Homepage mode selector built from ModeCard components" loading="lazy" /><figcaption>Home · mode selector</figcaption></figure>
+      <figure class="ds-frame"><img src="../site-media/mystnight/ds-coc.png" alt="Cthulhu investigation dashboard — character, log, clue board" loading="lazy" /><figcaption>Cthulhu · investigation dashboard</figcaption></figure>
+      <figure class="ds-frame"><img src="../site-media/mystnight/ds-dnd.png" alt="D&amp;D adventure dashboard — hero, log, dice and combat" loading="lazy" /><figcaption>D&amp;D · adventure &amp; combat</figcaption></figure>
+      <figure class="ds-frame"><img src="../site-media/mystnight/ds-mcc.png" alt="Midnight Cat Curse card table — seats, deck, reaction window and hand" loading="lazy" /><figcaption>Midnight Cat Curse · card table</figcaption></figure>
+    </div>
+
+    <figure class="ds-frame ds-cards">
+      <img src="../site-media/mystnight/ds-cards.png" alt="Original black-and-white line-art card faces for the Midnight Cat Curse deck" loading="lazy" />
+      <figcaption>Original card art — each face hand-drawn as line vectors, on its own black-and-white token palette.</figcaption>
+    </figure>
+  </div>
+
+  <style>
+    #design-system .ds{margin-top:30px}
+    #design-system .ds-top{display:grid;grid-template-columns:.82fr 1fr;gap:24px;align-items:start;margin-bottom:18px}
+    #design-system .ds-side{display:flex;flex-direction:column;gap:18px}
+    #design-system .ds-tokens{display:flex;flex-wrap:wrap;gap:9px}
+    #design-system .ds-tokens .t{display:inline-flex;align-items:center;gap:8px;font:500 12px/1 var(--mono);color:var(--text-2);border:1px solid var(--line);border-radius:999px;padding:6px 11px 6px 7px}
+    #design-system .ds-tokens .t i{width:14px;height:14px;border-radius:4px;display:block;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+    #design-system .ds-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    #design-system .ds-stats div{border:1px solid var(--line);border-radius:12px;padding:13px 14px}
+    #design-system .ds-stats b{display:block;font:600 25px/1 var(--display);color:var(--gold)}
+    #design-system .ds-stats span{font:500 10px/1.4 var(--mono);color:var(--mute);text-transform:uppercase;letter-spacing:.07em}
+    #design-system .ds-note{font:400 14px/1.6 var(--sans);color:var(--text-2);margin:0}
+    #design-system .ds-frame{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0c0d10}
+    #design-system .ds-frame img{display:block;width:100%;height:auto}
+    #design-system .ds-frame figcaption{font:500 12px/1.4 var(--mono);color:var(--mute);padding:10px 14px;border-top:1px solid var(--line)}
+    #design-system .ds-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+    @media(max-width:760px){
+      #design-system .ds-top{grid-template-columns:1fr}
+      #design-system .ds-grid{grid-template-columns:1fr}
+    }
+  </style>
+</section>
+
 <section class="proj-section">
   <span class="eyebrow">01 / PROBLEM</span>
   <h2 class="h-display">A murder-mystery night needs a <em>group</em>, <em>prep</em>, and a <em>human host</em>.</h2>
