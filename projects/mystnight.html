@@ -110,10 +110,10 @@
       <figure class="ds-frame"><img src="../site-media/mystnight/ds-mcc.png" alt="Midnight Cat Curse card table — seats, deck, reaction window and hand" loading="lazy" /><figcaption>Midnight Cat Curse · card table</figcaption></figure>
     </div>
 
-    <figure class="ds-frame ds-cards">
-      <img src="../site-media/mystnight/ds-cards.png" alt="Original black-and-white line-art card faces for the Midnight Cat Curse deck" loading="lazy" />
-      <figcaption>Original card art — each face hand-drawn as line vectors, on its own black-and-white token palette.</figcaption>
-    </figure>
+    <div class="ds-deck-wrap">
+      <div class="ds-deck-head"><span>Original card art — live components, drawn as line vectors</span><span class="ds-hint">hover to inspect · drag to deal ✋</span></div>
+      <div class="mcc-deck" id="mcc-deck" aria-label="Midnight Cat Curse — interactive card art"></div>
+    </div>
   </div>
 
   <style>
@@ -132,11 +132,56 @@
     #design-system .ds-frame img{display:block;width:100%;height:auto}
     #design-system .ds-frame figcaption{font:500 12px/1.4 var(--mono);color:var(--mute);padding:10px 14px;border-top:1px solid var(--line)}
     #design-system .ds-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+    #design-system .ds-found img{max-height:560px;object-fit:cover;object-position:top center}
+    #design-system .ds-deck-wrap{border:1px solid var(--line);border-radius:14px;background:radial-gradient(130% 110% at 50% -10%,#16171f 0,#0b0b0e 72%);padding:22px 18px 40px;overflow:hidden}
+    #design-system .ds-deck-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+    #design-system .ds-deck-head span{font:500 12px/1.4 var(--mono);color:var(--mute);letter-spacing:.04em}
+    #design-system .ds-hint{color:var(--gold-2)!important}
+    #design-system .mcc-deck{position:relative;min-height:280px;display:flex;justify-content:center;align-items:flex-end;touch-action:none}
+    #design-system .mcc-card{position:relative;width:152px;margin:0 -20px;border-radius:14px;background:#070708;border:1px solid rgba(236,233,226,.22);box-shadow:0 18px 40px -22px rgba(0,0,0,.9);padding:8px 8px 11px;cursor:grab;transform:rotate(var(--rot)) translateY(var(--ty));transition:transform .42s cubic-bezier(.16,1,.3,1),box-shadow .42s,border-color .42s;will-change:transform;user-select:none}
+    #design-system .mcc-card:hover{transform:rotate(0) translateY(-32px) scale(1.07);z-index:20;border-color:rgba(236,233,226,.55);box-shadow:0 32px 64px -20px rgba(125,29,29,.6)}
+    #design-system .mcc-card.dragging{transition:none;cursor:grabbing;z-index:40;border-color:rgba(236,233,226,.75);box-shadow:0 40px 70px -18px rgba(0,0,0,.95)}
+    #design-system .mcc-art{border:1px solid rgba(236,233,226,.1);border-radius:8px;background:#070708;aspect-ratio:1.18/1;overflow:hidden}
+    #design-system .mcc-art svg{width:100%;height:100%;display:block}
+    #design-system .mcc-name{margin:10px 0 0;text-align:center;font-family:Georgia,'Noto Serif SC',serif;font-size:12px;letter-spacing:.2em;color:#ece9e2;padding-left:.2em}
+    #design-system .mcc-rule{height:1px;background:rgba(236,233,226,.14);margin:7px 10px 0}
+    #design-system .mcc-desc{margin-top:8px;text-align:center;font-family:Georgia,'Noto Serif SC',serif;font-size:10px;line-height:1.45;color:rgba(236,233,226,.45);transition:color .42s}
+    #design-system .mcc-card:hover .mcc-desc{color:rgba(236,233,226,.86)}
     @media(max-width:760px){
       #design-system .ds-top{grid-template-columns:1fr}
       #design-system .ds-grid{grid-template-columns:1fr}
+      #design-system .mcc-card{width:116px;margin:0 -28px}
+      #design-system .mcc-deck{min-height:240px}
     }
   </style>
+  <script>
+  (function(){
+    var deck=document.getElementById('mcc-deck'); if(!deck) return;
+    var ICON={
+      curse:'<g><g fill="none" stroke="#ece9e2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 19 L14 7 L25 16"/><path d="M46 19 L50 7 L39 16"/><path d="M14 21 q18 -9 36 0 q3 15 -18 21 q-21 -6 -18 -21 Z"/><path d="M7 27 H19 M45 27 H57" stroke-width="1.1" stroke-opacity=".65"/></g><g fill="#ece9e2"><path d="M24 24 l4 2 l-4 2 Z"/><path d="M40 24 l-4 2 l4 2 Z"/></g></g>',
+      ward:'<g fill="none" stroke="#ece9e2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8 v3"/><path d="M22 41 q-2 -23 10 -28 q12 5 10 28 Z"/><path d="M17 41 H47"/><path d="M28 45 a4.5 4.5 0 0 0 8 0"/><path d="M12 20 l-4 -2 M52 20 l4 -2 M14 30 l-5 0 M50 30 l5 0" stroke-width="1.2" stroke-opacity=".6"/></g>',
+      hiss:'<g fill="none" stroke="#ece9e2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 24 q12 -9 24 0"/><path d="M25 25 l2 7 l3 -6 l3 6 l3 -6 l3 6 l2 -7" stroke-width="1.6"/><path d="M48 16 l7 -3 l-5 7 l7 0 l-6 6" stroke-width="1.6" stroke-opacity=".85"/></g>',
+      mirror:'<g><g fill="#ece9e2"><circle cx="28" cy="20" r="4.5"/><circle cx="22.5" cy="14.5" r="1.89"/><circle cx="28" cy="13.5" r="1.89"/><circle cx="33.5" cy="14.5" r="1.89"/></g><g fill="#ece9e2" fill-opacity=".45"><circle cx="28" cy="41" r="4.5"/><circle cx="22.5" cy="35.5" r="1.89"/><circle cx="28" cy="34.5" r="1.89"/><circle cx="33.5" cy="35.5" r="1.89"/></g><line x1="12" y1="30" x2="52" y2="30" stroke="#ece9e2" stroke-width="1.4" stroke-dasharray="3 3"/></g>',
+      swap:'<g><g fill="#ece9e2"><circle cx="22" cy="34" r="5"/><circle cx="16" cy="28" r="2.1"/><circle cx="22" cy="27" r="2.1"/><circle cx="28" cy="28" r="2.1"/><circle cx="42" cy="34" r="5"/><circle cx="36" cy="28" r="2.1"/><circle cx="42" cy="27" r="2.1"/><circle cx="48" cy="28" r="2.1"/></g><g fill="none" stroke="#ece9e2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 15 q8 -5 15 0"/><path d="M39 15 l-1 -4 M39 15 l-4 0"/><path d="M40 21 q-8 5 -15 0"/><path d="M25 21 l1 4 M25 21 l4 0"/></g></g>',
+      peek:'<g fill="none" stroke="#ece9e2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17 q9 -8 18 0 q-9 8 -18 0 Z"/><circle cx="23" cy="17" r="2" fill="#ece9e2" stroke="none"/><rect x="27" y="28" width="10" height="16" rx="1.5"/><path d="M32 28 q4 -6 0 -11 q-4 5 0 11 Z" fill="#ece9e2" stroke="none"/></g>'
+    };
+    function svg(k){ return '<svg viewBox="0 0 64 60" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="28" r="24" fill="none" stroke="#ece9e2" stroke-opacity=".07"/><circle cx="32" cy="28" r="27" fill="none" stroke="#ece9e2" stroke-opacity=".04"/><g stroke="#ece9e2" stroke-opacity=".25" stroke-width="1"><path d="M6 6 h5 M6 6 v5 M58 6 h-5 M58 6 v5 M6 54 h5 M6 54 v-5 M58 54 h-5 M58 54 v-5"/></g>'+ICON[k]+'</svg>'; }
+    var CARDS=[['curse','CURSE CAT','Draw it and you are out — unless warded'],['ward','WARD BELL','Cancel a Curse Cat; hide it back'],['hiss','HISS','Cancel a just-played card (reaction)'],['mirror','MIRROR PAW','When targeted, redirect it elsewhere'],['swap','PAW SWAP','Swap one random card with a player'],['peek','CANDLE PEEK','Look at the top three cards']];
+    var n=CARDS.length;
+    CARDS.forEach(function(c,i){
+      var el=document.createElement('div'); el.className='mcc-card';
+      el.style.setProperty('--rot',((i-(n-1)/2)*5)+'deg');
+      el.style.setProperty('--ty',(Math.abs(i-(n-1)/2)*9)+'px');
+      el.innerHTML='<div class="mcc-art">'+svg(c[0])+'</div><div class="mcc-name">'+c[1]+'</div><div class="mcc-rule"></div><div class="mcc-desc">'+c[2]+'</div>';
+      var sx=0,sy=0,drag=false;
+      el.addEventListener('pointerdown',function(e){ drag=true; sx=e.clientX; sy=e.clientY; try{el.setPointerCapture(e.pointerId);}catch(_){ } el.classList.add('dragging'); });
+      el.addEventListener('pointermove',function(e){ if(!drag) return; el.style.transform='translate('+(e.clientX-sx)+'px,'+(e.clientY-sy)+'px) rotate(0deg) scale(1.06)'; });
+      function end(){ if(!drag) return; drag=false; el.classList.remove('dragging'); el.style.transform=''; }
+      el.addEventListener('pointerup',end); el.addEventListener('pointercancel',end);
+      deck.appendChild(el);
+    });
+  })();
+  </script>
 </section>
 
 <section class="proj-section">
