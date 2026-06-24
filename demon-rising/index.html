@@ -39,6 +39,32 @@
 
   *{ box-sizing:border-box; margin:0; padding:0; }
 
+  /* ===== Demon Rising — game-styled scrollbar (matches DS iframe) ===== */
+  *::-webkit-scrollbar { width:14px; height:14px; }
+  *::-webkit-scrollbar-track {
+    background:#0a0612;
+    border-left:1px solid #3a1d3e;
+    border-right:1px solid #3a1d3e;
+    box-shadow:inset 0 0 0 1px #150c24;
+  }
+  *::-webkit-scrollbar-thumb {
+    background:linear-gradient(180deg,#5a2a8a 0%,#3a1d3e 50%,#5a2a8a 100%);
+    border:1px solid var(--crimson);
+    box-shadow:inset 0 0 4px rgba(210,59,82,.5);
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background:linear-gradient(180deg,var(--gold-bright) 0%,#a6804d 50%,var(--gold-bright) 100%);
+    border-color:var(--gold);
+    box-shadow:inset 0 0 6px rgba(233,185,73,.7), 0 0 10px rgba(233,185,73,.4);
+  }
+  *::-webkit-scrollbar-thumb:active {
+    background:var(--gold-bright);
+    border-color:#fff;
+  }
+  *::-webkit-scrollbar-corner { background:#0a0612; }
+  *::-webkit-scrollbar-button { display:none; }
+  html { scrollbar-width:thin; scrollbar-color:var(--crimson) #0a0612; }
+
   html,body{ background:var(--bg); }
 
   body{
@@ -506,6 +532,114 @@
         <div class="fact"><span class="k">GENRE</span><span class="v">Roguelike Auto-Battler</span></div>
         <div class="fact"><span class="k">STATUS</span><span class="v"><a href="https://store.steampowered.com/app/4753210/Demon_Rising/" target="_blank" rel="noopener" style="color:#66c0f4;text-decoration:none">Released on Steam &middot; v1.5</a></span></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DESIGN SYSTEM ============ -->
+<section id="design-system">
+  <div class="wrap">
+    <div class="divider"><span>&#9670;</span></div>
+    <div class="kicker">DESIGN SYSTEM</div>
+    <h2>The Demon Rising Design System</h2>
+    <p class="section-sub">After shipping the demo I went back and wrote the rules down &mdash; reverse-engineered from <code style="color:var(--gold)">apply_theme.gd</code> and the equipment system, then published as a real, browsable design system. <strong style="color:var(--text)">Click around in the live viewer below</strong> &mdash; sidebar groups switch the canvas in place.</p>
+
+    <!-- One-line attribution + open-in-tab -->
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin:0 auto 22px; max-width:1120px;">
+      <div style="font-family:'PressStart',monospace; font-size:10px; color:var(--dim); letter-spacing:2px;">
+        BUILT IN&nbsp;
+        <span style="color:var(--gold);">CLAUDE&nbsp;DESIGN</span>
+        &nbsp;&middot;&nbsp;SOURCE: <span style="color:var(--text);">demon_castle/</span>
+        &nbsp;&middot;&nbsp;7 COMPONENTS &middot; 17 SPECIMENS &middot; 1 UI KIT
+      </div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="design-system.html" target="_blank" rel="noopener" style="font-family:'PressStart',monospace; font-size:10px; color:var(--gold-bright); border:1px solid var(--gold); padding:9px 14px; letter-spacing:1px; transition:background .15s ease;" onmouseover="this.style.background='rgba(233,185,73,0.12)'" onmouseout="this.style.background='transparent'">OPEN&nbsp;FULL&nbsp;DS&nbsp;&#8599;</a>
+        <a href="ui-kit.html" target="_blank" rel="noopener" style="font-family:'PressStart',monospace; font-size:10px; color:var(--crimson-bright); border:1px solid var(--crimson); padding:9px 14px; letter-spacing:1px; transition:background .15s ease;" onmouseover="this.style.background='rgba(210,59,82,0.12)'" onmouseout="this.style.background='transparent'">PLAY&nbsp;THE&nbsp;UI&nbsp;KIT&nbsp;&#8599;</a>
+      </div>
+    </div>
+
+    <!-- Live embedded design system -->
+    <div class="panel" style="padding:0; overflow:hidden; background:#0a050f; max-width:1120px; margin:0 auto;">
+      <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+      <iframe
+        src="design-system.html"
+        title="Demon Rising Design System &mdash; live viewer"
+        loading="lazy"
+        style="width:100%; height:820px; border:0; display:block; background:#0a050f;"></iframe>
+    </div>
+    <p style="text-align:center; color:var(--dim); font-size:12px; margin-top:14px;">
+      First load is ~15MB (fonts + portraits embedded). Sidebar = groups &middot; click any leaf to swap the canvas.
+    </p>
+
+    <!-- =========== WHAT'S INSIDE — narrated walkthrough =========== -->
+    <div style="margin-top:60px;">
+
+      <h3 style="font-family:'PressStart',monospace; font-size:13px; color:var(--gold-bright); letter-spacing:1px; margin:0 0 10px;">What's Inside &mdash; A Narrated Walkthrough</h3>
+      <p style="color:var(--dim); font-size:14px; max-width:780px; margin-bottom:28px;">
+        Eight groups in the sidebar, sixteen specimen cards, seven JSX components, and one playable UI kit. The narration below mirrors the sidebar &mdash; read it as a tour, or just click around in the viewer above.
+      </p>
+
+      <div class="features" style="grid-template-columns:repeat(2,1fr);">
+
+        <div class="panel feature">
+          <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+          <div style="font-family:'PressStart',monospace; font-size:10px; color:#C9A0FF; letter-spacing:2px; margin-bottom:10px;">01 &middot; COLORS</div>
+          <h3 style="font-size:12px;">Three honest roles, not a hue grid</h3>
+          <p style="font-size:13.5px;">Palette is split by <em>job</em>: <span class="hl">surface</span> (void / panel) builds the canvas, <span class="hl">signature</span> (magenta + gold) is the recognisable edge, <span class="hl">rarity</span> (5 tiers, common&rarr;set) carries meaning. Set pieces are <em>green</em>, not gold, so &quot;rare drop&quot; reads apart from &quot;completes my build.&quot; Both border weight <em>and</em> halo intensity ramp with rarity so colour-blind players can still tell tiers apart.</p>
+        </div>
+
+        <div class="panel feature">
+          <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+          <div style="font-family:'PressStart',monospace; font-size:10px; color:#C9A0FF; letter-spacing:2px; margin-bottom:10px;">02 &middot; TYPE</div>
+          <h3 style="font-size:12px;">One pixel face does the work</h3>
+          <p style="font-size:13.5px;">Press Start 2P for every label, button and stat, 14px default. <span class="hl">REEJI Taiko Magic</span> is the CJK fallback &mdash; x-height matched, so bilingual UI doesn't shimmer on font-swap. The three CC0 gothic faces (Necro Romance / Forbidden Denizens / Vampire Ire) are <em>locked</em> to chapter titles and cinematic beats; the rule is what gives them power.</p>
+        </div>
+
+        <div class="panel feature">
+          <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+          <div style="font-family:'PressStart',monospace; font-size:10px; color:#C9A0FF; letter-spacing:2px; margin-bottom:10px;">03 &middot; SPACING &amp; EDGES</div>
+          <h3 style="font-size:12px;">Sharp by default, glow as shadow</h3>
+          <p style="font-size:13.5px;">Everything on a <span class="hl">4px grid</span>. Radius 0 everywhere except 4px on buttons and 10px on the loot card (the one place softness earns its keep). No grey drop-shadows anywhere &mdash; depth is coloured: <span style="color:#D94DCC">magenta</span> for panels, <span style="color:#FFD966">gold</span> for CTAs, <span style="color:#FF804D">ember</span> for legendary loot. Pixel-honest, every time.</p>
+        </div>
+
+        <div class="panel feature">
+          <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+          <div style="font-family:'PressStart',monospace; font-size:10px; color:#C9A0FF; letter-spacing:2px; margin-bottom:10px;">04 &middot; BRAND</div>
+          <h3 style="font-size:12px;">Logo, frame, voice &mdash; all on one canon</h3>
+          <p style="font-size:13.5px;">The DEMON RISING banner, the four-corner gold-bracket motif, and the second-person dread voice (&quot;your castle&quot;, &quot;your generals&quot;) get specimen cards each. Flavor text examples are pulled straight from the hero roster &mdash; the writing is dry, menacing, and never apologises that the player is the villain.</p>
+        </div>
+
+        <div class="panel feature">
+          <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+          <div style="font-family:'PressStart',monospace; font-size:10px; color:#C9A0FF; letter-spacing:2px; margin-bottom:10px;">05 &middot; COMPONENTS</div>
+          <h3 style="font-size:12px;">Seven JSX primitives, three concerns</h3>
+          <p style="font-size:13.5px;"><span class="hl">Controls</span> &mdash; Button (4 variants), Tabs.&nbsp; <span class="hl">Layout</span> &mdash; Panel (the corner-bracket frame), PortraitFrame (rarity-bordered 512&times;512), ItemCard (every loot drop).&nbsp; <span class="hl">Feedback</span> &mdash; Badge (status/rarity pills), StatBar (HP / soul / XP / rage from one component). Each ships a sibling <code style="color:var(--gold)">.d.ts</code> + <code style="color:var(--gold)">.prompt.md</code> so the next agent can use it without reading source.</p>
+        </div>
+
+        <div class="panel feature">
+          <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+          <div style="font-family:'PressStart',monospace; font-size:10px; color:#C9A0FF; letter-spacing:2px; margin-bottom:10px;">06 &middot; UI KIT</div>
+          <h3 style="font-size:12px;">A playable Title &rarr; Council &rarr; Battle &rarr; Loot</h3>
+          <p style="font-size:13.5px;">Not a Storybook &mdash; an <em>interactive</em> recreation of the real game flow. Real backgrounds, real portraits, real fonts, composed entirely from the seven primitives above. If the loot screen doesn't feel like a loot screen, the ItemCard is wrong. The kit is the acid test.</p>
+        </div>
+
+      </div>
+
+      <!-- Closing argument: why this matters -->
+      <div class="panel" style="padding:26px 30px; margin-top:32px;">
+        <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br2"></span>
+        <div style="font-family:'PressStart',monospace; font-size:10px; color:var(--crimson-bright); letter-spacing:2px; margin-bottom:14px;">WHY THIS MATTERS FOR A SOLO DEV</div>
+        <p style="color:var(--text); font-size:15px; margin-bottom:14px;">
+          I'm one person. The cost of an undocumented system is paid every time I open a screen I haven't touched in three weeks and have to re-derive &quot;wait, is set-piece <em>green</em> or is set-piece <em>gold</em>?&quot; The DS is the answer once, written down, with the swatch beside it.
+        </p>
+        <p style="color:var(--text); font-size:15px; margin-bottom:14px;">
+          The acid test was the v1.6 popup canon pass (see <em>The Style System</em> below). Every popup got rewritten against the DS in an afternoon, because the rules were already explicit: <code style="color:var(--gold)">content_margin=0</code>, corner brackets, blood-red CTA, PressStart2P for the verb. Without the system that pass takes a week and three rounds of inconsistency.
+        </p>
+        <p style="color:var(--dim); font-size:14px; margin:0;">
+          Compiler-checked CSS tokens, a real published artefact, JSX primitives that ship a <code style="color:var(--gold)">.prompt.md</code> for the next agent &mdash; that's the difference between &quot;I have a visual style&quot; and &quot;I have a design system.&quot;
+        </p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1636,103 +1770,4 @@
       <p>For pivotal moments &mdash; an officer's farewell, the First Hero's dying line, a council closer &mdash; LLM-generated text was <em>good enough</em> but not <em>great</em>. So the closers got authored: <b>2&ndash;4 hand-written variants per topic per exit type</b>, indexed by stage cluster (early / mid / late) and register tier (cold / warm). The LLM still drives the body of the conversation. The endings come from JSON. Total scope: roughly 200 authored lines covering the First Hero's free-chat topics, demon farewell beats, and council outcomes. The system file: <code>data/first_hero_closers.json</code>.</p>
 
       <h3>Step 5 &mdash; Memory As Scenes (Not Summary)</h3>
-      <p>By v1.2 the game had a memory layer, but it was the wrong kind &mdash; <em>summaries</em>. "Player has been cold with this demon." Vague. Useless to the model. The rewrite stores <b>scenes</b> instead: literal `(player_msg, demon_reply, emotion_tag, weight)` tuples, persisted to disk per-character, capped at 20 per entity with weight-priority eviction. When the player chats with the demon again, the top 2 scenes by weight get injected into the system prompt as a "memorable moments" block. The LLM can now reference specific past exchanges, in their own words, and the references actually <em>match</em>. The compute_scene_weight heuristic boosts emotional moments + recent moments + scenes the player explicitly named (the "remember when" signal). Storage: about 8KB per character, JSON.</p>
-
-      <h3>Step 6 &mdash; Emotion-Gated Register</h3>
-      <p>Same character, different relationship: a Loyal officer at 90 loyalty should speak <em>differently</em> than one at 30, even with the same prompt. The emotion-gated register adds a paragraph to the system prompt that scales the tone &mdash; cold/neutral/warm tier &mdash; based on loyalty AND a per-turn <b>emotional spike</b> computed from the player's last message. The spike is a small float in [-1, +1] that boosts or drops the register temporarily. A warm officer who just got insulted gets a cold-leaning spike for one turn. The register block lives in VoiceLib too &mdash; <code>register_block_for(personality, loyalty_pct, en, spike)</code> &mdash; and the affinity-to-pct math has its own helper. This is the most underrated of the nine: it's invisible until the player notices that <em>their</em> Loyal officer sounds different from someone else's Loyal officer.</p>
-
-      <h3>Step 7 &mdash; Temperature Staging</h3>
-      <p>Phi was running at a fixed sampling temperature of 0.75 for every call site. Wrong. A Stoic knight in formal council should sample at 0.55 (clipped, deterministic). A Passionate Succubus mid-breakdown should sample at 1.00 (raw, jumpy). The temperature staging system computes the actual temperature per call from <em>four dimensions</em>: personality offset (-0.10 to +0.15), First Hero stage (-0.15 to +0.15), register pct (-0.05 to +0.10), and emotion spike magnitude (up to +0.20). The result is clamped per-scenario to a corridor: council debate caps at 0.78 (formal), fusion-eve floors at 0.65 (high anxiety), awakening floors at 0.80 (excited). And <b>top_p auto-couples</b> to temperature &mdash; 0.75 at cold, 0.95 at hot &mdash; so the sampling distribution actually tightens or opens in sync, not just the temperature. Both knobs threaded through one helper: <code>VoiceLib.compute_temperature()</code>. Telemetry prints every call's actual values to the console for tuning.</p>
-
-      <h3>Step 8 &mdash; Silence Is A Reply</h3>
-      <p>Some replies the model shouldn't make. When the player is cruel, an over-eager LLM gives an apology &mdash; "I will be strong for you, Lord." Wrong. A Stoic knight, slighted, should go silent. The system has three layers. <b>(1) Code pre-gate:</b> if the player input is dismissive or shouts "shut up" AND the personality is quiet AND register is cold, the LLM call is skipped entirely and a personality-keyed silence bubble shows ("…" / "*looks away*" / "*tears up*"). <b>(2) LLM-decided silence:</b> the prompt offers a <code>[SILENCE]</code> token; the sanitizer recognizes it and routes to the silence path. <b>(3) Three-stage escalation:</b> 1st crude input gets a verbal hurt reply, 2nd forces silence even on non-quiet personalities, 3rd triggers a walk-away &mdash; the demon delivers a personality-keyed farewell and the chat panel closes after two seconds. The portrait does a personality-differentiated micro-tween (Stoic barely moves, Passionate's portrait dims and dips visibly). And the silenced moments are recorded as memory scenes with elevated weight, so the LLM in the <em>next</em> session can remember it: "I remember when you said X and I couldn't answer."</p>
-
-      <h3>Step 9 &mdash; Specific Weird Character</h3>
-      <p>Personalities make characters sound different from <em>each other</em>. Quirks make characters sound like <em>themselves</em>. Each demon, at creation, draws one quirk from a 25-entry catalog &mdash; counter ("Three guards. Three."), weapon-touch ("*hand on hilt* Yes, Lord"), micro-laugh ("Heh."), object-fixation ("The window again"), and twenty-two more. The quirk is filtered by personality (a Stoic doesn't get "*purrs*"), persisted to the demon dict, and injected as a paragraph in the system prompt: <em>"Quirk: you count things &mdash; slip a number into about 1 in 4 replies, no more."</em> The model doesn't always obey; that's fine. About one in three or four replies, the quirk surfaces. Over a play session the player notices: <em>"Wait &mdash; she always counts. That's her thing."</em> Identity from a one-line prompt addition. The First Hero gets her own unique quirk (not from the catalog) that ties to her memory arc: she counts the days since the player last visited her.</p>
-
-      <h3>The Three-Layer Leak Defense &mdash; Why Small Models Need A Bouncer</h3>
-      <p>The other half of the work was defensive. Phi-3.5-mini under heavy quantization <em>escapes role</em>. It outputs self-justification appendices: "(This reply conveys a sense of loyalty and desire for continued unity without being overly verbose, adhering to the rules.)" It writes prompt scaffolding into the reply: "## Your task: For the next part of your instruction&hellip;" It even <b>reverse-roleplays the player:</b> "Lord: 'I need your&hellip; assistance.'" Each leak got a <em>three-layer fix</em>:</p>
-      <ul style="margin:0 0 16px 22px; color:var(--text-dim, #b8a994);">
-        <li><b>Layer 1 &mdash; Stop sequences.</b> Tell the model to stop generating the moment a known-bad token appears. About 80 sequences covering self-justification parens, markdown headers, scaffold echoes, and reverse-roleplay openings.</li>
-        <li><b>Layer 2 &mdash; Sanitizer markers.</b> Substring scan on the lowercased reply; if a known-bad phrase appears anywhere, reject the entire reply and route to fallback. About 40 markers, scenario-specific extra markers passed per call site.</li>
-        <li><b>Layer 3 &mdash; Line-level truncation.</b> Split the reply by newline and walk it. If a line starts with <code>Lord:</code> / <code>Demon Lord:</code> / <code>Your task:</code> / <code>For the next part&hellip;</code>, the model has entered prompt-replay state &mdash; truncate everything from that line down. Only the in-character lines <em>before</em> the escape survive.</li>
-      </ul>
-      <p>And critically: <b>the fallback path never echoes raw LLM output.</b> Every call site has a hardcoded personality-keyed fallback for the case where all three defenses reject. The model gets to fail; the player never sees it.</p>
-
-      <h3>The Self-Documenting Skill</h3>
-      <p>Every leak pattern, every defense, every wiring decision, every call site, every corridor &mdash; all of it lives in an <b>agent skill</b> in the repo (<code>skills/llm-leak-defense/SKILL.md</code>). The skill has a META RULE: every new LLM-related fix, every new call site, every new VoiceLib helper, every prompt modification &mdash; <em>must</em> update the skill in the same commit. The catalog has eight named leak patterns at the moment, each with the exact phrase that leaked, the file/line of the fix, and the three-layer defense applied. The site list has all ten LLM call sites with their corridor, spike strategy, and scenario tag in a table. A new LLM site can be wired correctly on the first try by following the checklist.</p>
-
-      <h3>What All Of This Adds Up To</h3>
-      <p>Pick any officer. The voice card tells the model what kind of person she is. The three tics make her sound like <em>her</em>. The A/V layer makes you feel her emotion before you read it. The authored anchors give pivotal moments dignity. The memory scenes mean she can reference specific past exchanges in her own words. The register adjusts her tone based on how she feels about you right now. The temperature corridor keeps her in the right vocal range for the scene. The silence path lets her refuse to speak when words would cheapen it. The quirk gives her one weird specific thing that's hers alone. And the three-layer defense keeps the underlying model's failures off the screen.</p>
-      <p>None of these is a model upgrade. <em>All of them</em> are engineering choices above the model. The model itself, on this machine, in this game, is the same Phi-3.5-mini it was at v1.2. Everything that makes it feel like ten different people lives in 1,200 lines of GDScript and a self-documenting skill.</p>
-
-      <div class="outcome"><b>OUTCOME:</b> nine systems, three defense layers, ten LLM call sites, twenty-five quirks, one self-documenting skill &mdash; and a 3GB local model now ships ten characters who feel local-trained on themselves.</div>
-
-    </div>
-  </div>
-</section>
-
-
-
-<!-- ============ FOOTER ============ -->
-<footer>
-  <div class="wrap">
-    <div class="divider"><span>&#9670;</span></div>
-    <h2 style="font-size:clamp(18px,3vw,26px)">Thanks For Reading</h2>
-    <div class="footer-actions">
-      <a class="btn primary" href="https://store.steampowered.com/app/4753210/Demon_Rising/" target="_blank" rel="noopener" style="background:#1b2838;border-color:#66c0f4;color:#66c0f4">&#9654; PLAY ON STEAM</a>
-      <a class="btn" href="#trailer">&#9660; WATCH TRAILER</a>
-      <a class="btn" href="https://orhpius.itch.io/demon-rising" target="_blank" rel="noopener">PLAY ON ITCH.IO</a>
-    </div>
-    <p class="copyright pixel">DEMON RISING &mdash; A GAME BY JESTAZ YAO &middot; BUILT IN GODOT 4</p>
-  </div>
-</footer>
-
-<!-- lightbox -->
-<div class="lightbox" id="lightbox"><img id="lightbox-img" src="" alt=""></div>
-
-<script>
-  // --- Screenshot gallery ---------------------------------------------------
-  // Files expected in: portfolio_site/screenshots/
-  // Default names follow Steam's export pattern. Edit this list if yours differ.
-  var SHOTS = [
-    "steam_1920x1080_1.png",  "steam_1920x1080_2.png",
-    "steam_1920x1080_3.png",  "steam_1920x1080_4.png",
-    "steam_1920x1080_5.png",  "steam_1920x1080_6.png",
-    "steam_1920x1080_7.png",  "steam_1920x1080_8.png",
-    "steam_1920x1080_9.png",  "steam_1920x1080_10.png",
-    "steam_1920x1080_11.png", "steam_1920x1080_12.png"
-  ];
-
-  var gallery = document.getElementById('gallery');
-  var lightbox = document.getElementById('lightbox');
-  var lightboxImg = document.getElementById('lightbox-img');
-
-  SHOTS.forEach(function(name){
-    var fig = document.createElement('div');
-    fig.className = 'shot';
-    var img = document.createElement('img');
-    img.loading = 'lazy';
-    img.alt = 'Demon Rising screenshot';
-    img.src = 'screenshots/' + name;
-    // a missing file simply removes its tile — no broken images
-    img.onerror = function(){ fig.remove(); };
-    img.onclick = function(){
-      lightboxImg.src = img.src;
-      lightbox.classList.add('on');
-    };
-    fig.appendChild(img);
-    gallery.appendChild(fig);
-  });
-
-  lightbox.addEventListener('click', function(){
-    lightbox.classList.remove('on');
-    lightboxImg.src = '';
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape'){ lightbox.classList.remove('on'); lightboxImg.src=''; }
-  });
-</script>
-
-</body>
-</html>
+      <p>By v1.2 the game had a memory layer, but it was the wrong kind &mdash; <em>summaries</em>. "Player h
