@@ -781,11 +781,152 @@
   <p class="lede" style="margin-top: 14px;">The design question that made this section worth writing: <strong>when should a product give the user a context switch vs a filter?</strong> A filter says "here's the same data, sliced differently." A context says "here's a different question, asked differently, answered differently." The threshold I held: if the WINNING signals change shape — not just weights, but which signals enter the math at all — then it's a context, not a filter. Dinner picks weight dish keywords; cafe picks weight dwell-time signals. Different shape. Two modes earned the split.</p>
 </section>
 
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+  .ds-flow { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:26px; }
+  @media (max-width:900px){ .ds-flow{ grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:540px){ .ds-flow{ grid-template-columns:1fr;} }
+  .ds-layer { border:1px solid var(--line); background:var(--bg-2); border-radius:6px; padding:18px; }
+  .ds-layer .lbl { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); }
+  .ds-layer h4 { font-family:var(--display); font-size:16px; font-weight:500; margin:8px 0 6px; color:var(--text); letter-spacing:-.01em; }
+  .ds-layer p { font-size:12.5px; line-height:1.5; color:var(--text-2); margin:0; }
+  .ds-layer .ct { font-family:var(--mono); font-size:11px; color:var(--mute); margin-top:8px; display:block; }
+  .ds-block { margin-top:30px; }
+  .ds-block > .cap { font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); margin-bottom:14px; }
+  .ds-block > .cap b { color:var(--gold); font-weight:500; }
+  .ds-swgrid { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; }
+  @media (max-width:760px){ .ds-swgrid{ grid-template-columns:repeat(3,1fr);} }
+  .ds-sw { border:1px solid var(--line); border-radius:8px; overflow:hidden; background:var(--bg-2); }
+  .ds-sw .chip { height:62px; }
+  .ds-sw .meta { padding:8px 10px; }
+  .ds-sw .nm { font-family:var(--mono); font-size:10.5px; color:var(--text); letter-spacing:.02em; }
+  .ds-sw .hx { font-family:var(--mono); font-size:9.5px; color:var(--mute); margin-top:2px; }
+  .ds-surfaces { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  @media (max-width:640px){ .ds-surfaces{ grid-template-columns:1fr;} }
+  .ds-mode { border:1px solid var(--line); border-radius:10px; padding:16px; }
+  .ds-mode .mlbl { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:12px; display:block; }
+  .ds-mode .srow { display:flex; gap:8px; }
+  .ds-mode .scol { flex:1; text-align:center; }
+  .ds-mode .sbox { height:40px; border-radius:6px; border:1px solid rgba(128,128,128,.25); }
+  .ds-mode .stxt { font-family:var(--mono); font-size:8.5px; margin-top:5px; display:block; }
+  .ds-type { margin-top:6px; display:grid; gap:2px; }
+  .ds-type .trow { display:grid; grid-template-columns:140px 1fr; align-items:baseline; gap:18px; padding:9px 0; border-top:1px solid var(--line); }
+  .ds-type .trow:first-child { border-top:0; }
+  .ds-type .tk { font-family:var(--mono); font-size:10.5px; color:var(--gold); letter-spacing:.04em; }
+  .ds-type .tv { font-family:'Inter',sans-serif; color:var(--text); line-height:1.05; }
+  .ds-scale { display:grid; gap:7px; margin-top:4px; }
+  .ds-scale .row { display:flex; align-items:center; gap:14px; }
+  .ds-scale .row .k { font-family:var(--mono); font-size:10.5px; color:var(--text-2); width:120px; }
+  .ds-scale .row .bar { height:14px; border-radius:3px; background:linear-gradient(90deg,#FF3B30,#FF9500); }
+  .ds-radius { display:flex; flex-wrap:wrap; gap:14px; margin-top:4px; }
+  .ds-radius .ri { text-align:center; }
+  .ds-radius .rb { width:58px; height:58px; background:linear-gradient(135deg,#FF3B30,#FF7A18); }
+  .ds-radius .rk { font-family:var(--mono); font-size:9.5px; color:var(--mute); margin-top:6px; display:block; }
+  .ds-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
+  .ds-tags span { font-family:var(--mono); font-size:11px; color:var(--text-2); border:1px solid var(--line); background:var(--bg-2); border-radius:999px; padding:6px 12px; }
+  .ds-tags span b { color:var(--gold); font-weight:500; }
+</style>
+<section class="proj-section">
+  <span class="eyebrow">06 / DESIGN SYSTEM</span>
+  <h2 class="h-display">A design system <em>lifted from the code</em> — not drawn beside it.</h2>
+  <p class="lede">Bitez ships with its own design system, and every value in it was extracted straight from the shipped SwiftUI — so the source of truth is the app, and the design file can't drift away from what users actually see. It's structured the way a production library should be: raw <strong>primitives</strong> feed <strong>semantic</strong> tokens (with real Light/Dark modes), which feed a <strong>component set</strong>, which assemble into <strong>screen patterns</strong>. Screens are built only by composing component instances &mdash; never hand-drawn &mdash; so a token change ripples everywhere at once.</p>
+  <div class="proj-stats" style="grid-template-columns: repeat(4, 1fr); margin-top:6px;">
+    <div class="proj-stat"><div class="v">35</div><div class="k">raw color primitives</div></div>
+    <div class="proj-stat"><div class="v">23&times;2</div><div class="k">semantic tokens &middot; Light + Dark modes</div></div>
+    <div class="proj-stat"><div class="v">~30</div><div class="k">components &middot; 46 icons &middot; variants + slots</div></div>
+    <div class="proj-stat"><div class="v">9</div><div class="k">screen patterns &middot; 100% instance-built</div></div>
+  </div>
+  <div class="ds-flow">
+    <div class="ds-layer"><span class="lbl">&rarr; LAYER 1 &middot; PRIMITIVES</span><h4>Raw values</h4><p>The literal palette from <code>BBColor</code> &mdash; brand reds, warm accents, ink darks, neutrals, alphas. No semantics yet.</p><span class="ct">35 colors</span></div>
+    <div class="ds-layer"><span class="lbl">&rarr; LAYER 2 &middot; SEMANTIC</span><h4>Meaning + modes</h4><p>surface / text / border / brand / status. Each aliases a primitive per mode, so Light and Dark are one switch.</p><span class="ct">23 tokens &times; 2 modes</span></div>
+    <div class="ds-layer"><span class="lbl">&rarr; LAYER 3 &middot; TYPE + NUMBER</span><h4>Rhythm</h4><p>A 30-style Inter ramp grounded in real iOS sizes, plus a half-step spacing scale, radius, sizing and stroke tokens.</p><span class="ct">30 text styles &middot; 42 number tokens</span></div>
+    <div class="ds-layer"><span class="lbl">&rarr; LAYER 4 &middot; COMPONENTS &rarr; PATTERNS</span><h4>Assembly</h4><p>Buttons, chips, inputs, list rows, pills, the pick-screen blocks, the driving suite &mdash; composed into 9 full screens.</p><span class="ct">~30 components &rarr; 9 patterns</span></div>
+  </div>
+  <div class="ds-block">
+    <div class="cap">Color &middot; <b>brand + accent + status</b> (the values the app actually paints with)</div>
+    <div class="ds-swgrid">
+      <div class="ds-sw"><div class="chip" style="background:#FF3B30"></div><div class="meta"><div class="nm">brand/tint</div><div class="hx">#FF3B30</div></div></div>
+      <div class="ds-sw"><div class="chip" style="background:#E0271C"></div><div class="meta"><div class="nm">brand/tint-press</div><div class="hx">#E0271C</div></div></div>
+      <div class="ds-sw"><div class="chip" style="background:#FF9500"></div><div class="meta"><div class="nm">brand/accent</div><div class="hx">#FF9500</div></div></div>
+      <div class="ds-sw"><div class="chip" style="background:#FFD5A8"></div><div class="meta"><div class="nm">accent/peach</div><div class="hx">#FFD5A8</div></div></div>
+      <div class="ds-sw"><div class="chip" style="background:#F5E6D3"></div><div class="meta"><div class="nm">accent/sand</div><div class="hx">#F5E6D3</div></div></div>
+      <div class="ds-sw"><div class="chip" style="background:#D4A574"></div><div class="meta"><div class="nm">accent/tan</div><div class="hx">#D4A574</div></div></div>
+      <div class="ds-sw"><div class="chip" style="background:#34C759"></div><div class="meta"><div class="nm">status/success</div><div class="hx">#34C759</div></div></div>
+      <div class="ds-sw"><div class="chip" style="background:#FFCC00"></div><div class="meta"><div class="nm">status/warning</div><div class="hx">#FFCC00</div></div></div>
+      <div class="ds-sw"><div class="chip" style="background:#FF9500"></div><div class="meta"><div class="nm">status/severe</div><div class="hx">#FF9500</div></div></div>
+      <div class="ds-sw"><div class="chip" style="background:#0E0E12"></div><div class="meta"><div class="nm">ink-950</div><div class="hx">#0E0E12</div></div></div>
+      <div class="ds-sw"><div class="chip" style="background:#1F1F26"></div><div class="meta"><div class="nm">ink-800</div><div class="hx">#1F1F26</div></div></div>
+      <div class="ds-sw"><div class="chip" style="background:#F2F2F7"></div><div class="meta"><div class="nm">gray-50</div><div class="hx">#F2F2F7</div></div></div>
+    </div>
+    <div class="ds-surfaces">
+      <div class="ds-mode" style="background:#F2F2F7;">
+        <span class="mlbl" style="color:#1C1C1E;">&#9680; Light mode &middot; semantic surfaces</span>
+        <div class="srow">
+          <div class="scol"><div class="sbox" style="background:#F2F2F7;"></div><span class="stxt" style="color:#48484A;">surface/bg</span></div>
+          <div class="scol"><div class="sbox" style="background:#FFFFFF;"></div><span class="stxt" style="color:#48484A;">surface/card</span></div>
+          <div class="scol"><div class="sbox" style="background:#1C1C1E;"></div><span class="stxt" style="color:#48484A;">text/primary</span></div>
+          <div class="scol"><div class="sbox" style="background:#FF3B30;"></div><span class="stxt" style="color:#48484A;">brand/tint</span></div>
+        </div>
+      </div>
+      <div class="ds-mode" style="background:#0E0E12;">
+        <span class="mlbl" style="color:#FFFFFF;">&#9681; Dark mode &middot; same tokens, re-aliased</span>
+        <div class="srow">
+          <div class="scol"><div class="sbox" style="background:#0E0E12;"></div><span class="stxt" style="color:#9A9AA0;">surface/bg</span></div>
+          <div class="scol"><div class="sbox" style="background:#1F1F26;"></div><span class="stxt" style="color:#9A9AA0;">surface/card</span></div>
+          <div class="scol"><div class="sbox" style="background:#FFFFFF;"></div><span class="stxt" style="color:#9A9AA0;">text/primary</span></div>
+          <div class="scol"><div class="sbox" style="background:#FF3B30;"></div><span class="stxt" style="color:#9A9AA0;">brand/tint</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ds-block">
+    <div class="cap">Type &middot; <b>Inter ramp</b>, real iOS sizes (display &rarr; label)</div>
+    <div class="ds-type">
+      <div class="trow"><span class="tk">display/lg &middot; 40</span><span class="tv" style="font-weight:900; font-size:40px; letter-spacing:-.5px;">I'll pick. You eat.</span></div>
+      <div class="trow"><span class="tk">heading/sm &middot; 22</span><span class="tv" style="font-weight:700; font-size:22px;">Good evening, Jestaz</span></div>
+      <div class="trow"><span class="tk">friend-line &middot; 22</span><span class="tv" style="font-weight:600; font-size:22px;">Lucia's pours pizza by the slice.</span></div>
+      <div class="trow"><span class="tk">body/md &middot; 14</span><span class="tv" style="font-weight:400; font-size:14px;">Hand-stretched dough, tomato, fresh basil.</span></div>
+      <div class="trow"><span class="tk">label/sm &middot; 10</span><span class="tv" style="font-weight:700; font-size:10px; letter-spacing:.8px; text-transform:uppercase;">Order this &middot; why I picked it</span></div>
+    </div>
+  </div>
+  <div class="ds-block" style="display:grid; grid-template-columns:1fr 1fr; gap:36px;">
+    <div>
+      <div class="cap">Spacing &middot; <b>half-step scale</b></div>
+      <div class="ds-scale">
+        <div class="row"><span class="k">space/1 &middot; 4</span><span class="bar" style="width:4px;"></span></div>
+        <div class="row"><span class="k">space/2 &middot; 8</span><span class="bar" style="width:8px;"></span></div>
+        <div class="row"><span class="k">space/3 &middot; 12</span><span class="bar" style="width:12px;"></span></div>
+        <div class="row"><span class="k">space/4 &middot; 16</span><span class="bar" style="width:16px;"></span></div>
+        <div class="row"><span class="k">space/6 &middot; 24</span><span class="bar" style="width:24px;"></span></div>
+        <div class="row"><span class="k">space/8 &middot; 32</span><span class="bar" style="width:32px;"></span></div>
+        <div class="row"><span class="k">space/10 &middot; 40</span><span class="bar" style="width:40px;"></span></div>
+      </div>
+    </div>
+    <div>
+      <div class="cap">Radius &middot; <b>sm &rarr; full</b></div>
+      <div class="ds-radius">
+        <div class="ri"><div class="rb" style="border-radius:8px;"></div><span class="rk">sm&middot;8</span></div>
+        <div class="ri"><div class="rb" style="border-radius:12px;"></div><span class="rk">xl&middot;12</span></div>
+        <div class="ri"><div class="rb" style="border-radius:16px;"></div><span class="rk">3xl&middot;16</span></div>
+        <div class="ri"><div class="rb" style="border-radius:18px;"></div><span class="rk">4xl&middot;18</span></div>
+        <div class="ri"><div class="rb" style="border-radius:999px;"></div><span class="rk">full</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="ds-block">
+    <div class="cap">Component library &middot; <b>every reusable surface, as a real variant component</b></div>
+    <div class="ds-tags"><span>Button <b>&times;6</b></span><span>IconButton <b>&times;4</b></span><span>Chip <b>&times;5</b></span><span>Tile <b>&times;4</b></span><span>Input <b>&times;5</b></span><span>Toggle <b>&times;3</b></span><span>ToggleRow</span><span>StatusPill <b>&times;5</b></span><span>Banner <b>&times;3</b></span><span>ProgressBar</span><span>ContextToggle</span><span>ListRow <b>&times;3</b></span><span>PickTopBar</span><span>ActionsBar</span><span>FriendLine</span><span>RestaurantIdentity</span><span>FirstPickBadge</span><span>DishCard</span><span>ViewFoodCTA</span><span>ReasoningBlock</span><span>ReviewCard</span><span>MoodTile</span><span>DrivingTopBar</span><span>DrivingStatsRow</span><span>DrivingMicButton <b>&times;3</b></span><span>CalibrationStep <b>&times;3</b></span><span>Icons <b>&times;46</b></span></div>
+  </div>
+  <p class="lede" style="margin-top:30px;">The point isn't the swatch grid &mdash; it's the <strong>discipline</strong>. Because the system was reverse-built from shipped code and screens are assembled only from instances, the design file is a faithful mirror of the product, not a hopeful sketch of it. One token edit re-themes every screen; one component fix propagates to every place it appears.</p>
+</section>
+
+
+
 <!-- ─────────────────────────────────────────────────────────────
      SECTION 06 — The transparency problem.
      ───────────────────────────────────────────────────────────── -->
 <section class="proj-section">
-  <span class="eyebrow">06 / THE TRANSPARENCY PROBLEM</span>
+  <span class="eyebrow">07 / THE TRANSPARENCY PROBLEM</span>
   <h2 class="h-display">When the user moves but the recommendation <em>doesn't</em>.</h2>
   <p class="lede">A user opens Settings, drags budget from <strong>$$</strong> to <strong>$$$$</strong>, taps Save &amp; refresh. The recommender re-ranks. The same restaurant wins. Mathematically the algorithm is right: a 4.5★ place 12 minutes away beats every $$$$ option in the user's radius on signal weight. <strong>Perceptually the app is broken.</strong> The user changed the input. They expect the output to change. When it doesn't, the algorithm has three seconds to defend itself out loud — or it loses the user.</p>
 
@@ -841,7 +982,7 @@
 </section>
 
 <section class="proj-section">
-  <span class="eyebrow">07 / FEEDING THE AI WITHOUT PAYING TWICE</span>
+  <span class="eyebrow">08 / FEEDING THE AI WITHOUT PAYING TWICE</span>
   <h2 class="h-display">On-device AI is free. The <em>ground truth</em> it anchors to isn't.</h2>
   <p class="lede">Apple's Foundation Models run free on the user's phone. Google Places (New) — the data the recommender grounds every reasoning fact against — does not. A naive build hits the API on every screen open and burns the unit economics inside a week. Three small caching choices, each protecting the AI's accuracy without paying for it more than once a day.</p>
 
@@ -872,7 +1013,7 @@
      This is the part most "shipped product" case studies skip.
      ───────────────────────────────────────────────────────────── -->
 <section class="proj-section">
-  <span class="eyebrow">08 / TESTER-DRIVEN ITERATION</span>
+  <span class="eyebrow">09 / TESTER-DRIVEN ITERATION</span>
   <h2 class="h-display">Every beta build was paired to a specific <em>tester observation</em>.</h2>
   <p class="lede">Iteration is the proof that the product is being validated by real people, not assumed from the inside. Each release below pairs an actual quote from a beta tester with the design / engineering response that shipped in answer. The point isn't speed — it's that the loop is closed: feedback in, fix out, ship, repeat. Nothing reverse-engineered for the case study.</p>
 
@@ -1153,7 +1294,7 @@
      a real screenshot from the TestFlight build on Jun 3.
      ───────────────────────────────────────────────────────────── -->
 <section class="proj-section">
-  <span class="eyebrow">08·5 / ADAPTIVE LAYERS</span>
+  <span class="eyebrow">09·5 / ADAPTIVE LAYERS</span>
   <h2 class="h-display">The product <em>reshapes around you</em> — never the reverse.</h2>
   <p class="lede">Most "smart" food apps make the user adapt to the product: pick a filter, scroll a list, calibrate to what the UI offers. Bitez does the opposite — the app watches what's around the user (CarPlay connected, Bluetooth audio paired, motion classifier says automotive) and reshapes the entire surface in response. The same discipline extends to travel mode and environment preferences. Three examples of one belief: <strong>the product owes the user flexibility, not the other way around.</strong></p>
 
@@ -1198,8 +1339,9 @@
 <!-- ─────────────────────────────────────────────────────────────
      SECTION 06 / WALKTHROUGH — password-gated, sessionStorage.
      ───────────────────────────────────────────────────────────── -->
+
 <section class="proj-section" id="walkthrough">
-  <span class="eyebrow">09 / APP WALKTHROUGH</span>
+  <span class="eyebrow">10 / APP WALKTHROUGH</span>
   <h2 class="h-display">The actual product, the screens, the <em>live App Store build</em>.</h2>
   <p class="lede">Everything above explains <em>why</em> Bitez is built the way it is. What follows is <em>what it actually looks like</em> — the real screens, the interaction patterns, and how to try it yourself. The app is live on the App Store — download it and try the real thing.</p>
 
@@ -1249,7 +1391,7 @@
 </section>
 
 <section class="proj-section">
-  <span class="eyebrow">10 / WHAT I LEARNED</span>
+  <span class="eyebrow">11 / WHAT I LEARNED</span>
   <h2 class="h-display">Product AI isn't about <em>adding more model</em>. It's about deciding what the model isn't allowed to do.</h2>
   <p class="lede">Product AI isn't about adding more model. It's about <strong>deciding precisely where the model adds value the rest of the system can't</strong>. In Bitez the model parses messy human input into typed data and rewrites deterministic facts in human voice — both irreducibly language tasks. Everything else (which restaurant, which budget, which hours, which signals matter most tonight) is plain Swift the user can audit. That separation is what made the AI feel <em>present</em> without ever being <em>in charge</em>.</p>
 
