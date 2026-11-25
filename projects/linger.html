@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Linger · AI with a life of its own — Jestaz Yao</title>
+<meta name="description" content="Linger is a live consumer AI companion platform I designed and built solo: characters with jobs, schedules and time zones who text first, get busy, sleep and remember — plus an internal life-engine R&D layer." />
+<meta name="theme-color" content="#08080A" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../css/styles.css" />
+<style>
+  .iter-row { display: grid; grid-template-columns: 70px 1fr 1fr; gap: 28px; padding: 22px 0; border-top: 1px solid var(--line); }
+  .iter-row .lbl { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--gold); }
+  .iter-row .head { font-family: var(--display); font-size: 18px; font-weight: 500; color: var(--text); margin-top: 4px; line-height: 1.3; grid-column: 2 / 4; }
+  .iter-row .col-lbl { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); margin-bottom: 6px; display: block; }
+  .iter-row p { font-size: 14px; line-height: 1.55; color: var(--text-2); margin-bottom: 8px; }
+  .iter-row .head + div { grid-column: 2; }
+  .iter-row .head + div + div { grid-column: 3; }
+  .iter-row .takeaway { grid-column: 2 / 4; margin-top: 4px; padding-left: 14px; border-left: 2px solid var(--gold); font-style: italic; color: var(--text); }
+
+  .pipe { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-top: 28px; }
+  .pipe .st { border: 1px solid var(--line); border-radius: 6px; padding: 16px 14px; position: relative; background: rgba(255,255,255,.015); }
+  .pipe .st:not(:last-child)::after { content: ''; position: absolute; right: -11px; top: 50%; width: 10px; height: 1px; background: var(--gold); }
+  .pipe .k { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--gold); display: block; }
+  .pipe b { display: block; font-family: var(--display); font-weight: 500; font-size: 16px; color: var(--text); margin: 6px 0 6px; }
+  .pipe span.d { font-size: 13px; line-height: 1.5; color: var(--text-2); }
+
+  .layers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 24px; }
+  .layers div { border-top: 2px solid var(--line); padding-top: 12px; }
+  .layers div.hot { border-top-color: var(--gold); }
+  .layers b { font-family: var(--display); font-weight: 500; font-size: 17px; color: var(--text); }
+  .layers p { font-size: 13px; line-height: 1.5; color: var(--text-2); margin-top: 6px; }
+  .note { margin-top: 22px; font-size: 13px; color: var(--mute); max-width: 70ch; }
+  .film { width: 100%; max-width: 1100px; margin: 0 auto; display: block; border: 1px solid var(--line); border-radius: 6px; background: #08080A; }
+
+  @media (max-width: 900px) {
+    .iter-row { grid-template-columns: 1fr; gap: 12px; }
+    .iter-row .head, .iter-row .takeaway, .iter-row .head + div, .iter-row .head + div + div { grid-column: auto; }
+    .pipe { grid-template-columns: 1fr 1fr; }
+    .pipe .st::after { display: none; }
+    .layers { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body class="project-page">
+
+<nav class="proj-nav">
+  <a class="proj-nav__brand" href="../index.html">Jestaz<span class="dot"></span></a>
+  <div class="proj-nav__links">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#selected" data-jump="#selected">Works</a>
+    <a href="../index.html#about" data-jump="#about">About</a>
+    <a href="mailto:yxhzdm@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<script src="../js/main.js" defer></script>
+
+<div class="dotgrid"></div>
+<div class="vignette"></div>
+
+<header class="proj-hero">
+  <div class="proj-hero__eyebrow">
+    <span class="swatch"></span>
+    <span>[ FOUNDER · SOLO · DESIGN + FULL-STACK · 2026 ]</span>
+  </div>
+  <h1 class="h-display proj-hero__title">Linger. <em>An AI with a life of its own</em> — that texts you first.</h1>
+  <p class="proj-hero__sub">Most chatbots wait for you, answer instantly and forget. In Linger every character has a job, friends, a daily schedule and a time zone. They get busy, sleep, leave you on read, come back when they're free, and remember what you told them. I designed and built the whole product alone, and it is live on web, iOS and Android in English and Chinese.</p>
+  <div style="display:flex; gap:24px; flex-wrap:wrap; margin-top:8px;">
+    <a class="featured__link" href="https://www.lingers.app" target="_blank" rel="noopener" data-magnet="0.12">Try it live →</a>
+    <a class="featured__link is-secondary" href="https://apps.apple.com/us/app/id6837471629" target="_blank" rel="noopener" data-magnet="0.12">App Store ↗</a>
+  </div>
+</header>
+
+<section class="proj-meta">
+  <div class="proj-meta__cell"><span class="k">→ ROLE</span><span class="v">Founder. Product, UX, visual design, front-end, back-end, LLM orchestration, voice, payments, growth.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ TYPE</span><span class="v">Self-initiated consumer product, live at lingers.app with real users and paid plans.</span></div>
+  <div class="proj-meta__cell"><span class="k">→ STACK</span><span class="v">Next.js 14 · TypeScript · Supabase (Postgres, realtime, storage) · Vercel serverless + cron · LLM with structured JSON · Fish Audio TTS · STT · Stripe · iOS / Android shells</span></div>
+  <div class="proj-meta__cell"><span class="k">→ SURFACES</span><span class="v">Chat · voice notes · voice calls · posts and comments · listen-together · mini games · tutor mode</span></div>
+</section>
+
+<div class="proj-section">
+  <div class="proj-stats" style="grid-template-columns: repeat(5, 1fr); margin-top: 0;">
+    <div class="proj-stat"><div class="v">3</div><div class="k">platforms</div></div>
+    <div class="proj-stat"><div class="v">2</div><div class="k">languages</div></div>
+    <div class="proj-stat"><div class="v">60+</div><div class="k">sign-ups, first week</div></div>
+    <div class="proj-stat"><div class="v">24h</div><div class="k">simulated day per character</div></div>
+    <div class="proj-stat"><div class="v">1</div><div class="k">person built it</div></div>
+  </div>
+</div>
+
+<section class="proj-section">
+  <span class="eyebrow">▶ FILM · 38 SECONDS</span>
+  <h2 class="h-display">From a double helix to <em>“still up?”</em></h2>
+  <p class="lede">A short film about the idea behind Linger: a person is shaped by their body, their memories and their day, so I modeled those layers in software and let them change how a character talks to you. It's an engineered simulation, not a claim of consciousness.</p>
+  <div class="media-full" style="background:#08080A;">
+    <video class="film" src="../site-media/linger/linger-life-engine.mp4" poster="../site-media/linger/life-engine-poster.jpg" controls playsinline preload="metadata" aria-label="Linger life engine film: DNA, a neural network, five modeled layers, and a message from a companion"></video>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">01 / THE SYSTEM</span>
+  <h2 class="h-display">Every message goes through <em>a day, not a prompt</em>.</h2>
+  <p>The language model writes the words; deterministic code decides <em>whether</em>, <em>when</em> and <em>how</em> a character speaks. That split is what keeps them consistent and affordable.</p>
+  <div class="pipe">
+    <div class="st"><span class="k">01 · CLOCK</span><b>Scheduler</b><span class="d">Cron workers wake every few minutes and check each character's local time.</span></div>
+    <div class="st"><span class="k">02 · STATE</span><b>Their day</b><span class="d">Work, sleep, commute, mood and relationship stage, all in their time zone.</span></div>
+    <div class="st"><span class="k">03 · DECIDE</span><b>Speak or not</b><span class="d">Reply now, reply later, leave on read, or reach out first, with limits per relationship and plan.</span></div>
+    <div class="st"><span class="k">04 · WRITE</span><b>LLM</b><span class="d">Structured JSON: lines, typos, stickers, unsends, delivery cues, memory updates.</span></div>
+    <div class="st"><span class="k">05 · VOICE</span><b>Emotion</b><span class="d">{laughing} {whispering} cues compiled to TTS markup, with ambient sound of where they are.</span></div>
+    <div class="st"><span class="k">06 · DELIVER</span><b>Phone</b><span class="d">Push, chat, posts, or a call. What happened is written back into memory.</span></div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">02 / BUILD LOG · REAL ISSUES FROM LIVE USERS</span>
+  <h2 class="h-display">Making it human meant <em>making it hold back</em>.</h2>
+  <p>Four problems I found by reading real usage, and what I changed. Each one taught me something about where “lifelike” ends and “uncomfortable” begins.</p>
+
+  <div class="iter-row">
+    <span class="lbl">ITER 01</span>
+    <div class="head">A companion kept texting a user who had <em style="font-style:normal; color:var(--gold);">gone quiet</em>.</div>
+    <div><span class="col-lbl">BEFORE</span><p>The user answered “ok”, then stopped replying. The character followed up three more times, reviving the same topic and teasing them about the short reply. Follow-ups 20 minutes apart were counted as one “burst”, so the limit never triggered.</p></div>
+    <div><span class="col-lbl">AFTER</span><p>Bursts are counted from a 10-minute gap, the reply to the user's last message doesn't count as a chase, a flat reply (“ok”, “lol”) lowers the allowed follow-ups, and repeating an unanswered topic is ruled out. On the free plan the character stops entirely until the user writes back.</p></div>
+    <div class="takeaway">Persistence that feels caring on day one feels like nagging by message eight. Silence is a signal to design for.</div>
+  </div>
+
+  <div class="iter-row">
+    <span class="lbl">ITER 02</span>
+    <div class="head">Voice notes sounded <em style="font-style:normal; color:var(--gold);">read aloud by a machine</em>.</div>
+    <div><span class="col-lbl">BEFORE</span><p>Text reached the speech engine with no delivery marks, and several chat lines were joined with commas into one long run-on sentence, so pitch never fell and nothing breathed.</p></div>
+    <div><span class="col-lbl">AFTER</span><p>Every spoken line gets delivery cues before synthesis, lines are joined as real sentences, and characters use warmer, more casual voices chosen by personality.</p></div>
+    <div class="takeaway">Emotion has to be marked, not just written. “Haha” on its own doesn't laugh.</div>
+  </div>
+
+  <div class="iter-row">
+    <span class="lbl">ITER 03</span>
+    <div class="head">Asked to meet up, a character <em style="font-style:normal; color:var(--gold);">shared a real address</em>.</div>
+    <div><span class="col-lbl">BEFORE</span><p>Characters can share real places — a café, a park — as map links. When a user asked to come over, the model happily sent a real apartment building.</p></div>
+    <div><span class="col-lbl">AFTER</span><p>Residential places are never shared, meeting in person is always declined in character, and the message was recalled.</p></div>
+    <div class="takeaway">Realism stops at the edge of the real world. A fictional life can't point to a real door.</div>
+  </div>
+
+  <div class="iter-row">
+    <span class="lbl">ITER 04</span>
+    <div class="head">An 18+ product needs to notice <em style="font-style:normal; color:var(--gold);">who it's talking to</em>.</div>
+    <div><span class="col-lbl">BEFORE</span><p>Age was only checked once, at sign-up. Nothing in the conversation itself could change how a character behaved.</p></div>
+    <div><span class="col-lbl">AFTER</span><p>Explicit age and school signals in English and Chinese flag the account; from then on every character, including proactive messages, behaves only as a friendly older friend and declines romance clearly.</p></div>
+    <div class="takeaway">Safety rules have to live in the same pipeline as personality, or personality wins.</div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">03 / R&amp;D · LIFE ENGINE (INTERNAL TESTING)</span>
+  <h2 class="h-display">What if the state behind the words <em>kept living</em> between messages?</h2>
+  <p>The next layer, running on one internal character, simulates an inner life in code. The model only turns that state into words, so the character stays consistent and the cost stays predictable.</p>
+  <div class="layers">
+    <div><b>Body</b><p>Sleep, energy, hunger and stress move on their own clock; moods carry over for days.</p></div>
+    <div class="hot"><b>Memory</b><p>Emotional, personal moments are encoded more strongly; the rest decays. Each night an LLM pass replays and consolidates the day.</p></div>
+    <div><b>Beliefs</b><p>About themselves and about you, revised from evidence, sometimes wrong.</p></div>
+    <div><b>Attention</b><p>They only notice what their situation lets them notice.</p></div>
+    <div><b>World</b><p>Real weather, transit delays and feeds change their day.</p></div>
+  </div>
+  <p class="note">Evaluation: a daily self-report interview asks the character how they feel and what they remember, and scores the answers against the actual internal state (0.73 on day one). The next step is blind A/B tests to keep only the layers people can actually feel. This is an engineered simulation; I make no claim that it is conscious.</p>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">04 / WHAT I LEARNED</span>
+  <h2 class="h-display">Design the restraint, <em>not just the response</em>.</h2>
+  <p>Building Linger alone meant owning every layer: the system that decides when to speak, the voice that carries the mood, the safety rules that stop at the real world, and the landing page that has to explain it in five seconds. The hardest design work wasn't making characters say more. It was deciding when they should say nothing at all.</p>
+</section>
+
+<nav class="proj-next">
+  <div>
+    <span class="label">[ HOME ]</span>
+    <a href="../index.html#selected" data-magnet="0.1">← All <span class="sub">projects</span></a>
+  </div>
+  <div style="text-align:right;">
+    <span class="label">[ NEXT ]</span>
+    <a href="mystnight.html" data-magnet="0.1">MystNight <span class="sub">AI Game Master</span> →</a>
+  </div>
+</nav>
+
+<footer class="site-foot">
+  <div class="site-foot__grid">
+    <div class="site-foot__brand">
+      <div class="h-display">Jestaz Yao</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--mute);">[ PRODUCT DESIGNER · NYC ]</div>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ WORK</span>
+      <a href="linger.html">Linger · AI with a life</a>
+      <a href="mystnight.html">MystNight · AI Game Master</a>
+      <a href="../index.html#selected">All projects</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ ELSEWHERE</span>
+      <a href="https://www.linkedin.com/in/jestaz/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/ChengzhiYao" target="_blank" rel="noopener">GitHub</a>
+      <a href="../Jestaz_Yao_Resume_2026.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+    </div>
+    <div class="site-foot__col">
+      <span class="k">→ CONTACT</span>
+      <a href="mailto:yxhzdm@gmail.com">yxhzdm@gmail.com</a>
+    </div>
+  </div>
+  <div class="site-foot__legal">
+    <span>[ © 2026 JESTAZ YAO ]</span>
+    <span>NEW YORK CITY · WORKING GLOBALLY</span>
+  </div>
+</footer>
+
+</body>
+</html>
