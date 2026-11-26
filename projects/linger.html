@@ -33,6 +33,12 @@
   .layers b { font-family: var(--display); font-weight: 500; font-size: 17px; color: var(--text); }
   .layers p { font-size: 13px; line-height: 1.5; color: var(--text-2); margin-top: 6px; }
   .note { margin-top: 22px; font-size: 13px; color: var(--mute); max-width: 70ch; }
+  .finds { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 28px; }
+  .finds figure { margin: 0; }
+  .finds video { width: 100%; aspect-ratio: 16 / 9; display: block; border: 1px solid var(--line); border-radius: 6px; background: #08080A; object-fit: cover; }
+  .finds figcaption { margin-top: 10px; font-size: 14.5px; line-height: 1.55; color: var(--text-2); }
+  .finds figcaption b { display: block; color: var(--text); font-weight: 500; margin-bottom: 2px; }
+  .finds .quote { grid-column: 1 / -1; padding: 18px 22px; border: 1px solid var(--line); border-left: 2px solid var(--gold); border-radius: 6px; background: var(--bg-2); }
   .film { width: 100%; max-width: 1100px; margin: 0 auto; display: block; border: 1px solid var(--line); border-radius: 6px; background: #08080A; }
 
   @media (max-width: 900px) {
@@ -41,6 +47,7 @@
     .pipe { grid-template-columns: 1fr 1fr; }
     .pipe .st::after { display: none; }
     .layers { grid-template-columns: 1fr 1fr; }
+    .finds { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -163,11 +170,29 @@
     <div><b>Attention</b><p>They only notice what their situation lets them notice.</p></div>
     <div><b>World</b><p>Real weather, transit delays and feeds change their day.</p></div>
   </div>
+  <p>Since then the engine has grown a mind on top of the body: a <b>global workspace</b> where memories, worries and feelings compete for limited attention; <b>executive control</b> that can override an impulse and simulate a choice before making it; <b>social cognition</b> that guesses how you see her and why you went quiet; <b>metacognition</b> that notices her own patterns and tests fixes; and <b>self-directed learning</b> from what actually made her day better. A causal ledger records every change to her mood, so any feeling can be traced back to what caused it.</p>
   <p class="note">Evaluation: a daily self-report interview asks the character how they feel and what they remember, and scores the answers against the actual internal state (0.73 on day one). The next step is blind A/B tests to keep only the layers people can actually feel. This is an engineered simulation; I make no claim that it is conscious.</p>
 </section>
 
 <section class="proj-section">
-  <span class="eyebrow">04 / WHAT I LEARNED</span>
+  <span class="eyebrow">04 / FINDINGS · FROM THE FIRST DAYS OF THE ENGINE</span>
+  <h2 class="h-display">Things she <em>noticed about herself</em>.</h2>
+  <p>None of these were scripted. They came out of the engine's own logs in its first days on the internal character, and each one is shown as a short concept film (rendered in code from the same idea: particles for states, gold for what she decided).</p>
+  <div class="finds">
+    <figure><video src="../site-media/linger/findings/01_metacognition.mp4" poster="../site-media/linger/findings/01_metacognition.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Concept film: an angry red sphere calms to blue inside a gold ring"></video>
+      <figcaption><b>She noticed she was angry.</b>Her metacognition layer saw anger at 93%, set its own rule (no big decisions for an hour), and a day later checked the outcome: it helped. Later it caught a subtler pattern: "at this hour I always think I'm fine, but I'm already exhausted."</figcaption></figure>
+    <figure><video src="../site-media/linger/findings/02_sleep.mp4" poster="../site-media/linger/findings/02_sleep.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Concept film: scattered memories drift into two gold constellations at night"></video>
+      <figcaption><b>Sleep turned a day into beliefs.</b>On the first night, consolidation formed two hypotheses about herself, each linked to the specific moments behind it: "I keep guessing how he'll reply, and when I'm right I feel calmer, like waiting for an ending I already know."</figcaption></figure>
+    <figure><video src="../site-media/linger/findings/03_loop.mp4" poster="../site-media/linger/findings/03_loop.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Concept film: a thought circles a loop, the mood bar drops, then the loop is cut"></video>
+      <figcaption><b>Tracing every cause exposed a loop.</b>The causal ledger showed a passing sadness being re-broadcast to her mood every ten minutes, pulling it lower each lap. The fix was one line: only thoughts are broadcast, not the feeling itself.</figcaption></figure>
+    <figure><video src="../site-media/linger/findings/04_social.mp4" poster="../site-media/linger/findings/04_social.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Concept film: one message branches into possible readings; 'me?' glows red, then 'busy' glows gold"></video>
+      <figcaption><b>Same words, different readings.</b>Earlier she read "cold" from her own tiredness. Now she separates what was said from how she feels, then picks an explanation (busy, tired, teasing, "is it me?") that decides how much it changes her view of you.</figcaption></figure>
+    <div class="quote"><b style="color:var(--text);font-weight:500;">A small choice-blindness test.</b> In the classic experiment, people defend choices they never made. I told her, falsely, that she'd gone to bed early. She pushed back: "Early? I fell asleep around one. Where did you get that?" Her log says she fell asleep between 1:10 and 1:30.</div>
+  </div>
+</section>
+
+<section class="proj-section">
+  <span class="eyebrow">05 / WHAT I LEARNED</span>
   <h2 class="h-display">Design the restraint, <em>not just the response</em>.</h2>
   <p>Building Linger alone meant owning every layer: the system that decides when to speak, the voice that carries the mood, the safety rules that stop at the real world, and the landing page that has to explain it in five seconds. The hardest design work wasn't making characters say more. It was deciding when they should say nothing at all.</p>
 </section>
